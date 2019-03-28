@@ -1,0 +1,178 @@
+<!DOCTYPE html> <html lang="fr">
+<head> <meta charset=utf-8>
+    <title>My first Three.js app</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+ <body>
+<script src="js/three.min.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/WebGL.js"></script>
+<script src="js/GLTFLoader.js"></script>
+<link href="main.css" rel="stylesheet">
+<script> // Our Javascript will go here.
+
+if (!WEBGL.isWebGLAvailable()) {
+    document.body.appendChild( WEBGL.getWebGLErrorMessage() );
+}
+
+var scene = new THREE.Scene();
+
+var fov = 30;
+var aspect = window.innerWidth / window.innerHeight;
+var near = 0.1;
+var far = 100;
+
+
+var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+var renderer = new THREE.WebGLRenderer({alpha:true });
+
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+var geometryCube = new THREE.BoxGeometry(1, 1, 1);
+var geometrySphere = new THREE.SphereGeometry(1, 32, 32);
+var materialCube = new THREE.MeshLambertMaterial( { color: 0x2233ee } );
+
+var materialGlobe = new THREE.MeshPhongMaterial({
+  wireframe : true
+});
+
+
+var cube = new THREE.Mesh( geometryCube, materialCube );
+var scale = 0.5;
+cube.scale.set(scale, scale, scale);
+cube.position.x = 0.7;
+
+var sphere = new THREE.Mesh( geometrySphere, materialGlobe );
+sphere.position.x = 0;
+
+//scene.add( cube1 );
+//scene.add( cube2 );
+camera.position.z = 6;
+
+//cube.position.x = Math.cos(time)/1;
+
+//mesh.rotation.y = THREE.Math.degToRad(45);
+
+
+/////// LIGHTS
+var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+var light = new THREE.DirectionalLight(0xffffff, 0.9);
+light.castShadow = true;
+scene.add(light);
+scene.add(ambientLight);
+
+
+/////// CONTROLS
+
+controls = new THREE.OrbitControls( camera );
+
+controls.enablePan = false;
+controls.enableZoom = false;
+//controls.enableRotate = true;
+
+/*
+controls.minDistance = 1
+controls.maxDistance = 100
+
+controls.minPolarAngle
+controls.maxPolarAngle
+*/
+
+
+/////// INTERACTIONS
+
+var mouse = new THREE.Vector2(), INTERSECTED;
+document.addEventListener( 'mousemove', function () {
+    event.preventDefault();
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+}, false );
+
+var raycaster = new THREE.Raycaster();
+
+/////// GROUP
+var group = new THREE.Group();
+scene.add( group );
+
+cube.name = 'cube';
+group.add( cube );
+group.add( sphere );
+
+/*
+mesh2.visible = false;
+group.remove( mesh2 );
+
+group.children // mesh1
+group.parent // scene
+*/
+
+// ASSETS LOADING
+
+var loader = new THREE.GLTFLoader().setPath('assets/');
+
+loader.load('Duck.glb',
+    function (gltf) {
+        gltf.scene.scale.set(0.5, 0.5, 0.5);
+        gltf.scene.position.x = -0.8;
+        scene.add(gltf.scene);
+    },
+    function (xhr) {
+        console.log('loading', xhr.loaded * 100 / xhr.total);
+    },
+    function (error) {
+        console.error(error);
+    }
+);
+
+
+window.onresize = function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+};
+
+document.addEventListener('click', function (event) {
+    if (INTERSECTED) {
+        alert('you clicked on the cube !')
+    }
+});
+
+function render() {
+    requestAnimationFrame(render);
+
+    raycaster.setFromCamera( mouse, camera );
+    var intersects = raycaster.intersectObject( cube );
+
+    if( intersects.length > 0 ) {
+        if ( INTERSECTED !== intersects[ 0 ].object ) {
+            if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+            INTERSECTED = intersects[ 0 ].object;
+            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+            INTERSECTED.material.emissive.setHex( 0x006600 );
+        }
+    } else {
+        if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+        INTERSECTED = null;
+    }
+
+    controls.update();
+    renderer.render( scene, camera );
+}
+render();
+
+window.scene = scene;
+
+
+</script>
+
+</body> </html>
