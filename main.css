@@ -1,4 +1,155 @@
-canvas {
-  background-image: url('psyche.jpg');
+/*canvas {
+  background-image: url('psyche_2.jpg');
   background-size:cover;
 }
+*/
+
+* {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: rumeur;
+    src: url("fonts/rumeur.otf") format("opentype");
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    height:100%;
+    flex-direction:column;
+    align-items: stretch;
+}
+
+.line_box {
+    width:100%;
+    flex-grow: 9;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-bottom: solid white 2px;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.line_box h2 {
+    border-left: solid white 2px;
+    border-right: solid white 2px;
+    width: 70px;
+    writing-mode: vertical-rl;
+    transform: rotatez(180deg);
+    text-align: center;
+    line-height: 70px;
+    font-family: rumeur, sans-serif;
+    font-size: 24px;
+}
+
+
+
+body {
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+}
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    display: none;
+}
+
+.content.active {
+    display: inline-block;
+    width: 100%;
+}
+
+#content-container {
+    transition-property: width;
+    transition-duration: 0.5s;
+    background-color: rgba(0, 0 ,0, 0.2);
+    border-left: solid white 2px;
+    z-index: 20;
+    width: 0px;
+    padding: 0;
+}
+
+#content-container.active {
+    width: 60%;
+    padding: 0px 30px;
+}
+
+#content-container.active #close-button {
+    display: inline-block;
+}
+
+#close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: none;
+    width: 50px;
+    height: 50px;
+}
+
+html:lang(fr) .en {
+    display: none !important;
+}
+
+.accordion {
+    margin: 20px auto 20px auto;
+    border: solid 3px white;
+    max-width: 750px;
+    padding: 30px 20px 20px 20px;
+}
+
+.accordion div {
+    text-align: left;
+}
+
+.accordion-item-content {
+    height: 0;
+    margin: 0 20px;
+    overflow: hidden;
+}
+
+.accordion-item h4::before {
+    content: '+';
+    margin-right: 10px;
+}
+
+.accordion-item:hover h4::before {
+    content: '-';
+    margin-right: 10px;
+}
+
+.accordion-item ul {
+    display: none;
+}
+
+.accordion-item:hover ul {
+    display: initial;
+}
+
+h4, .accordion ul {
+    margin: 10px 0;
+}
+
+.accordion ul {
+    padding: 0 10px;
+}
+
+.accordion li {
+    list-style-type: none; /* TODO: ⇀ should be transformed in a picture and used as a list style */
+    margin: 10px 0;
+}
+
+.accordion li::before {
+    content:"⇀";
+    margin-right: 12px;
+}
+
