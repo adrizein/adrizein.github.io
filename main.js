@@ -180,7 +180,7 @@ loader.load( 'rainbow_flubber.obj', function ( obj ) {
     scene.add( flubber );
 }, onProgress, onError );
 
-loader.load( 'torus_01.obj', function ( obj ) {
+loader.load('torus.obj', function ( obj ) {
     torus = obj;
     torus.scale.set(0.002, 0.002, 0.002);
     torus.position.x = - 0.8;
@@ -191,7 +191,7 @@ loader.load( 'torus_01.obj', function ( obj ) {
 
 var loader_gltf = new THREE.GLTFLoader().setPath('assets/');
 
-loader_gltf.load('Duck.glb',
+loader_gltf.load('duck.glb',
     function (gltf) {
         gltf.scene.scale.set(0.5, 0.5, 0.5);
         gltf.scene.position.z = -0.8;
