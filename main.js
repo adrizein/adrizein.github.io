@@ -1,15 +1,16 @@
 var OBJECT_TO_CHAPTERS = {
     'RAINBOW_BLOB': 'ethos',
     'Torus.2': 'infos',
-    'cube': 'contributions'
-}
+    'cube': 'contributions',
+    'LOD3spShape': 'ethos',
+};
 
 
 if ( WEBGL.isWebGLAvailable() === false ) {
     document.body.appendChild( WEBGL.getWebGLErrorMessage() );
 }
 
-var scene = new THREE.Scene();
+window.scene = new THREE.Scene();
 
 var fov = 30;
 var aspect = window.innerWidth / window.innerHeight;
@@ -175,6 +176,7 @@ loader.load( 'rainbow_flubber.obj', function ( obj ) {
     } );
     flubber.position.y = - 0.8;
     flubber.scale.set(0.01, 0.01, 0.01);
+    flubber.name = 'flubber';
     scene.add( flubber );
 }, onProgress, onError );
 
@@ -182,17 +184,18 @@ loader.load( 'torus_01.obj', function ( obj ) {
     torus = obj;
     torus.scale.set(0.002, 0.002, 0.002);
     torus.position.x = - 0.8;
+    torus.name = 'torus';
     scene.add( torus );
 }, onProgress, onError );
 
 
-/*
 var loader_gltf = new THREE.GLTFLoader().setPath('assets/');
 
 loader_gltf.load('Duck.glb',
     function (gltf) {
         gltf.scene.scale.set(0.5, 0.5, 0.5);
-        gltf.scene.position.x = -0.8;
+        gltf.scene.position.z = -0.8;
+        gltf.scene.name = 'duckScene';
         scene.add(gltf.scene);
     },
     function (xhr) {
@@ -203,35 +206,6 @@ loader_gltf.load('Duck.glb',
     }
 );
 
-
-var loader = new THREE.OBJLoader().setPath('assets/');
-
-
-// load a resource
-loader.load(
-    // resource URL
-    'rainbow_flubber.obj',
-    // called when resource is loaded
-    function ( object ) {
-        //flubber.scene.scale.set(0.1, 0.1, 0.1);
-        //object.scene.position.x = -0.8;
-        object.scale.set(0.01, 0.01, 0.01);
-        object.position.y = -0.8;
-        flubber = object;
-    },
-    // called when loading is in progresses
-    function ( xhr ) {
-        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-    },
-    // called when loading has errors
-    function ( error ) {
-
-        console.log( 'An error happened' );
-
-    }
-);
-*/
 
 window.onresize = function() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -251,12 +225,10 @@ function render() {
     requestAnimationFrame(render);
 
     raycaster.setFromCamera( mouse, camera );
-    intersects = raycaster.intersectObjects([flubber, cube, torus], true);
+    intersects = raycaster.intersectObjects([flubber, cube, torus, scene.getObjectByName('LOD3spShape')], true);
 
     if( intersects.length > 0 && contentHidden) {
         if ( INTERSECTED !== intersects[ 0 ].object ) {
-            //alert('you intersected ' + intersects)
-            //if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
             INTERSECTED = intersects[ 0 ].object;
             INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
             INTERSECTED.material.emissive.setHex( 0x006600 );
