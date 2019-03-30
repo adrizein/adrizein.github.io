@@ -113,6 +113,12 @@ document.addEventListener( 'mousemove', function () {
     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 }, false );
 
+document.addEventListener( 'touchstart', function () {
+    event.preventDefault();
+    mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
+    mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+}, false);
+
 var raycaster = new THREE.Raycaster();
 var intersects;
 var contentHidden = true;
