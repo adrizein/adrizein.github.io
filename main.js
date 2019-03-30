@@ -132,6 +132,7 @@ document.addEventListener('click', function (event) {
 });
 
 document.addEventListener('touchEnd', function (event) {
+    alert('touch ' + INTERSECTED);
     if (INTERSECTED) {
         //alert('you clicked on the cube !')
         console.log(INTERSECTED.name);
