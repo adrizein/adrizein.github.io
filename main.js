@@ -123,6 +123,21 @@ var raycaster = new THREE.Raycaster();
 var intersects;
 var contentHidden = true;
 
+document.addEventListener('click', function (event) {
+    if (INTERSECTED) {
+        //alert('you clicked on the cube !')
+        console.log(INTERSECTED.name);
+        showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
+    }
+});
+
+document.addEventListener('touchEnd', function (event) {
+    if (INTERSECTED) {
+        //alert('you clicked on the cube !')
+        console.log(INTERSECTED.name);
+        showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
+    }
+});
 
 /////// GROUP
 /*
@@ -219,13 +234,7 @@ window.onresize = function() {
     renderer.setSize( window.innerWidth, window.innerHeight );
 };
 
-document.addEventListener('click', function (event) {
-    if (INTERSECTED) {
-        //alert('you clicked on the cube !')
-        console.log(INTERSECTED.name);
-        showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
-    }
-});
+
 
 function render() {
     requestAnimationFrame(render);
