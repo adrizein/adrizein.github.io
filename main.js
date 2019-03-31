@@ -132,7 +132,7 @@ document.addEventListener('click', function (event) {
 });
 
 jQuery(document).ready(function($){
-    $("#canvas").bind( "tap", tapHandler );
+    $("canvas").bind( "tap", tapHandler );
      
       function tapHandler( event ){
         if (INTERSECTED) {
