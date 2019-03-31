@@ -131,17 +131,19 @@ document.addEventListener('click', function (event) {
     }
 });
 
-$(function(){
-  $("#canvas").bind( "tap", tapHandler );
- 
-  function tapHandler( event ){
-    if (INTERSECTED) {
-        //alert('you clicked on the cube !')
-        console.log(INTERSECTED.name);
-        showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
+$(document).ready(function () {
+    $("#canvas").bind( "tap", tapHandler );
+     
+      function tapHandler( event ){
+        if (INTERSECTED) {
+            //alert('you clicked on the cube !')
+            console.log(INTERSECTED.name);
+            showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
+        }
     }
-  }
 });
+
+
 
 /////// GROUP
 /*
