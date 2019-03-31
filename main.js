@@ -106,7 +106,7 @@ controls.maxPolarAngle
 
 /////// INTERACTIONS
 
-var mouse = new THREE.Vector2(), INTERSECTED,  touchScreen;
+var mouse = new THREE.Vector2(), INTERSECTED;
 document.addEventListener( 'mousemove', function () {
     event.preventDefault();
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
@@ -117,7 +117,6 @@ document.addEventListener( 'touchstart', function () {
     event.preventDefault();
     mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
     mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
-    touchScreen = true;
 }, false);
 
 var raycaster = new THREE.Raycaster();
@@ -132,6 +131,17 @@ document.addEventListener('click', function (event) {
     }
 });
 
+$(function(){
+  $("#canvas").bind( "tap", tapHandler );
+ 
+  function tapHandler( event ){
+    if (INTERSECTED) {
+        //alert('you clicked on the cube !')
+        console.log(INTERSECTED.name);
+        showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
+    }
+  }
+});
 
 /////// GROUP
 /*
@@ -242,7 +252,6 @@ function render() {
             INTERSECTED = intersects[ 0 ].object;
             INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
             INTERSECTED.material.emissive.setHex( 0x006600 );
-            if (touchScreen) showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
         }
     } else {
         if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
