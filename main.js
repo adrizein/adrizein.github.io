@@ -27,7 +27,7 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 
 document.body.appendChild( renderer.domElement );
 
-
+//document.getElementById("all").prepend( renderer.domElement );
 
 ///// OBJECTS
 
