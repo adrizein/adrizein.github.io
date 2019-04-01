@@ -131,7 +131,6 @@ document.addEventListener('click', function (event) {
     }
 });
 
-pouet
 jQuery(document).ready(function($){
     $("canvas").bind( "tap", tapHandler );
      
