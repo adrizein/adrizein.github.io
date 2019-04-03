@@ -93,6 +93,7 @@ controls = new THREE.OrbitControls( camera );
 controls.enablePan = false;
 controls.enableZoom = false;
 controls.enableRotate = true;
+controls.rotateSpeed = 0.5;
 
 /*
 controls.minDistance = 1
