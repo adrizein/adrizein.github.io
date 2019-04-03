@@ -131,10 +131,13 @@ document.addEventListener('click', function (event) {
     }
 });
 
+$.mobile.loading().hide();
 jQuery(document).ready(function($){
     $("canvas").bind( "tap", tapHandler );
      
       function tapHandler( event ){
+        console.log('IN TAP');
+        console.log(INTERSECTED);
         if (INTERSECTED) {
             //alert('you clicked on the cube !')
             console.log(INTERSECTED.name);
@@ -194,6 +197,7 @@ function onError(err) {
     console.error(err)
 }
 
+
 var loader = new THREE.OBJLoader( manager ).setPath('assets/');
 
 loader.load( 'rainbow_flubber.obj', function ( obj ) {
@@ -216,6 +220,7 @@ loader.load('torus.obj', function ( obj ) {
 }, onProgress, onError );
 
 
+/*
 var loader_gltf = new THREE.GLTFLoader().setPath('assets/');
 
 loader_gltf.load('duck.glb',
@@ -233,6 +238,8 @@ loader_gltf.load('duck.glb',
     }
 );
 
+*/
+
 
 window.onresize = function() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -246,19 +253,26 @@ function render() {
     requestAnimationFrame(render);
 
     raycaster.setFromCamera( mouse, camera );
-    intersects = raycaster.intersectObjects([flubber, cube, torus, scene.getObjectByName('LOD3spShape')], true);
-
-    if( intersects.length > 0 && contentHidden) {
-        if ( INTERSECTED !== intersects[ 0 ].object ) {
-            if (INTERSECTED) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-            INTERSECTED = intersects[ 0 ].object;
-            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-            INTERSECTED.material.emissive.setHex( 0x006600 );
+    if (typeof flubber !== 'undefined' &&
+        typeof cube !== 'undefined' &&
+        typeof torus !== 'undefined'
+        //typeof scene.getObjectByName('LOD3spShape') != null
+        ) {
+        //intersects = raycaster.intersectObjects([flubber, cube, torus, scene.getObjectByName('LOD3spShape')], true);
+        intersects = raycaster.intersectObjects([flubber, cube, torus], true);
+        if( intersects.length > 0 && contentHidden) {
+            if ( INTERSECTED !== intersects[ 0 ].object ) {
+                if (INTERSECTED) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+                INTERSECTED = intersects[ 0 ].object;
+                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                INTERSECTED.material.emissive.setHex( 0x006600 );
+            }
+        } else {
+            if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+            INTERSECTED = null;
         }
-    } else {
-        if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-        INTERSECTED = null;
     }
+    
 
     controls.update();
     renderer.render( scene, camera );
