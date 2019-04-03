@@ -159,11 +159,33 @@ h4, .accordion ul {
 }
 
 .accordion li {
-    list-style-type: none; /* TODO: ⇀ should be transformed in a picture and used as a list style */
+    list-style-type: none;
     margin: 10px 0;
 }
 
 .accordion li::before {
     content:"⇀";
     margin-right: 12px;
+}
+
+@media (max-width: 740px) {
+
+    #content-container {
+        font-size: 12px;
+    }
+
+    .accordion {
+        padding: 10px;
+        border-width: 2px;
+    }
+
+    .accordion-item-content {
+        margin: 0 10px;
+    }
+
+    .choix {
+        font-size: 15px!important;
+        height: 100px;
+        width: 100px;
+    }
 }

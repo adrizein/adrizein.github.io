@@ -27,7 +27,6 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 
 document.body.appendChild( renderer.domElement );
 
-//document.getElementById("all").prepend( renderer.domElement );
 
 ///// OBJECTS
 
@@ -120,13 +119,11 @@ function clickHandler( event ) {
 }
 
 document.addEventListener( 'mousemove', function () {
-    event.preventDefault();
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 }, false );
 
 document.addEventListener( 'touchstart', function () {
-    event.preventDefault();
     mouse.x = + (event.targetTouches[0].pageX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
 }, false);
