@@ -9,6 +9,10 @@
     overflow: hidden;
 }
 
+div.ui-page {
+    height: 100%;
+}
+
 @font-face {
     font-family: rumeur;
     src: url("fonts/rumeur.otf") format("opentype");
