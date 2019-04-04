@@ -27,7 +27,6 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 
 document.body.appendChild( renderer.domElement );
 
-//document.getElementById("all").prepend( renderer.domElement );
 
 ///// OBJECTS
 
@@ -94,6 +93,7 @@ controls = new THREE.OrbitControls( camera );
 controls.enablePan = false;
 controls.enableZoom = false;
 controls.enableRotate = true;
+controls.rotateSpeed = 0.5;
 
 /*
 controls.minDistance = 1
@@ -107,43 +107,33 @@ controls.maxPolarAngle
 /////// INTERACTIONS
 
 var mouse = new THREE.Vector2(), INTERSECTED;
-document.addEventListener( 'mousemove', function () {
-    event.preventDefault();
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-}, false );
-
-document.addEventListener( 'touchstart', function () {
-    event.preventDefault();
-    mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
-    mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
-}, false);
 
 var raycaster = new THREE.Raycaster();
 var intersects;
 var contentHidden = true;
 
-document.addEventListener('click', function (event) {
+function clickHandler( event ) {
     if (INTERSECTED) {
-        //alert('you clicked on the cube !')
         console.log(INTERSECTED.name);
         showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
     }
-});
+}
+
+document.addEventListener( 'mousemove', function () {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+}, false );
+
+document.addEventListener( 'touchstart', function () {
+    mouse.x = + (event.targetTouches[0].pageX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+}, false);
+
+document.addEventListener('click', clickHandler);
 
 $.mobile.loading().hide();
 jQuery(document).ready(function($){
-    $("canvas").bind( "tap", tapHandler );
-     
-      function tapHandler( event ){
-        console.log('IN TAP');
-        console.log(INTERSECTED);
-        if (INTERSECTED) {
-            //alert('you clicked on the cube !')
-            console.log(INTERSECTED.name);
-            showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
-        }
-    }
+    $('canvas').bind('tap', clickHandler);
 });
 
 
@@ -281,6 +271,7 @@ render();
 
 window.scene = scene;
 
+
 function showContent(chapter){
     console.log(chapter);
     var container = document.getElementById('content-container');
@@ -292,6 +283,7 @@ function showContent(chapter){
     chapter_div.classList.add("active");
     container.classList.add('active');
     contentHidden = false;
+    controls.enableRotate = false;
 }
 
 function closeContent() {
@@ -302,6 +294,7 @@ function closeContent() {
     }
     container.classList.remove('active');
     contentHidden = true;
+    controls.enableRotate = true;
 }
 
 document.body.addEventListener('touchmove', function(event) {

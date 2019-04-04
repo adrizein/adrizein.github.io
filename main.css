@@ -14,38 +14,29 @@
     src: url("fonts/rumeur.otf") format("opentype");
 }
 
-.box {
-    display: flex;
-    justify-content: space-between;
-    width:100%;
-    height:100%;
-    flex-direction:column;
-    align-items: stretch;
+#date, #credits {
+    position: absolute;
+    right: 20px;
 }
 
-.line_box {
-    width:100%;
-    flex-grow: 9;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-between;
+h2, footer {
     height: 70px;
-}
-
-.line_box h2 {
-    border-left: solid white 2px;
-    width: 70px;
-    writing-mode: vertical-rl;
-    transform: rotatez(180deg);
-    text-align: center;
-    line-height: 70px;
     font-family: rumeur, sans-serif;
-    font-size: 24px;
     margin: 0;
-
+    width: 100%;
 }
 
+h2 {
+    font-size: 24px;
+    border-bottom: solid white 2px;
+    padding: 23px;
+}
+
+footer {
+    border-bottom: none;
+    border-top: solid white 2px;
+    padding: 28px 23px;
+}
 
 html {
   height: 100%;
@@ -53,16 +44,17 @@ html {
   overflow: hidden;
 }
 
-
 body {
     height: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-  padding: 0;
-  margin: 0;
-    font-family: 'Ubuntu', sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: rumeur, sans-serif;
     color: white;
+    border: solid white 2px;
 }
+
 canvas {
     position: fixed;
     bottom: 0;
@@ -81,20 +73,29 @@ canvas {
     width: 100%;
 }
 
+#all {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 #content-container {
-    transition-property: width;
-    transition-duration: 0.5s;
-    background-color: rgba(0, 0 ,0, 0.2);
+    transition-property: width, padding;
+    transition-duration: 1s;
+    background-color: rgba(0, 0 ,0, 0.3);
     z-index: 20;
-    width: 0px;
+    width: 0;
+    flex-grow: 1;
     padding: 0;
-    overflow:scroll;
+    margin-right: -2px;
+    overflow: scroll;
+    align-self: flex-end;
+    border-left: solid white 2px;
 }
 
 #content-container.active {
     width: 60%;
-    padding: 0px 30px;
-    border-left: solid white 2px;
+    padding: 0 30px;
 }
 
 #content-container.active #close-button {
@@ -103,12 +104,10 @@ canvas {
 
 #close-button {
     position: absolute;
-    top: 10px;
+    top: 70px;
     right: 10px;
     cursor: pointer;
     display: none;
-    width: 50px;
-    height: 50px;
 }
 
 html:lang(fr) .en {
@@ -159,7 +158,7 @@ h4, .accordion ul {
 }
 
 .accordion li {
-    list-style-type: none; /* TODO: ⇀ should be transformed in a picture and used as a list style */
+    list-style-type: none;
     margin: 10px 0;
 }
 
@@ -168,3 +167,28 @@ h4, .accordion ul {
     margin-right: 12px;
 }
 
+@media (max-width: 740px) {
+
+    footer {
+        display: none;
+    }
+
+    #content-container {
+        font-size: 12px;
+    }
+
+    .accordion {
+        padding: 10px;
+        border-width: 2px;
+    }
+
+    .accordion-item-content {
+        margin: 0 10px;
+    }
+
+    .choix {
+        font-size: 15px!important;
+        height: 100px;
+        width: 100px;
+    }
+}
