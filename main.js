@@ -35,7 +35,7 @@ var materialCube = new THREE.MeshLambertMaterial( { color: 0x2233ee } );
 
 var geometrySphere = new THREE.SphereGeometry(1, 32, 32);
 var materialGlobe = new THREE.MeshPhongMaterial({
-  wireframe : true
+    wireframe : true
 });
 var cube = new THREE.Mesh( geometryCube, materialCube );
 var sphere = new THREE.Mesh( geometrySphere, materialGlobe );
@@ -81,15 +81,15 @@ geometry.scale( - 1, 1, 1 );
 var material = new THREE.MeshBasicMaterial( {
     map: new THREE.TextureLoader().load( 'textures/background_2.jpg' )
 } );
-var mesh = new THREE.Mesh( geometry, material );
-scene.add( mesh );
+var mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
 
 
 
 
 /////// CONTROLS
 
-controls = new THREE.OrbitControls( camera );
+controls = new THREE.OrbitControls(camera);
 controls.enablePan = false;
 controls.enableZoom = false;
 controls.enableRotate = true;
@@ -120,7 +120,7 @@ function clickHandler( event ) {
 }
 
 document.addEventListener( 'mousemove', function () {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.x = + (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 }, false );
 
@@ -208,7 +208,6 @@ loader.load('torus.obj', function ( obj ) {
 }, onProgress, onError );
 
 
-/*
 var loader_gltf = new THREE.GLTFLoader().setPath('assets/');
 
 loader_gltf.load('duck.glb',
@@ -226,8 +225,6 @@ loader_gltf.load('duck.glb',
     }
 );
 
-*/
-
 
 window.onresize = function() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -238,39 +235,39 @@ window.onresize = function() {
 
 
 function render() {
-    requestAnimationFrame(render);
+    raycaster.setFromCamera(mouse, camera);
 
-    raycaster.setFromCamera( mouse, camera );
-    if (typeof flubber !== 'undefined' &&
-        typeof cube !== 'undefined' &&
-        typeof torus !== 'undefined'
-        //typeof scene.getObjectByName('LOD3spShape') != null
-        ) {
-        //intersects = raycaster.intersectObjects([flubber, cube, torus, scene.getObjectByName('LOD3spShape')], true);
-        intersects = raycaster.intersectObjects([flubber, cube, torus], true);
+    var duck = scene.getObjectByName('LOD3spShape');
+    if (flubber &&
+        cube &&
+        torus &&
+        duck) {
+        intersects = raycaster.intersectObjects([flubber, cube, torus, duck], true);
         if( intersects.length > 0 && contentHidden) {
-            if ( INTERSECTED !== intersects[ 0 ].object ) {
-                if (INTERSECTED) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-                INTERSECTED = intersects[ 0 ].object;
+            if (INTERSECTED !== intersects[0].object) {
+                if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+                INTERSECTED = intersects[0].object;
                 INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                INTERSECTED.material.emissive.setHex( 0x006600 );
+                INTERSECTED.material.emissive.setHex(0x006600);
             }
         } else {
-            if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
             INTERSECTED = null;
         }
     }
-    
 
     controls.update();
     renderer.render( scene, camera );
+
+    requestAnimationFrame(render);
 }
+
 render();
 
 window.scene = scene;
 
 
-function showContent(chapter){
+function showContent(chapter) {
     console.log(chapter);
     var container = document.getElementById('content-container');
     var chapter_div = document.getElementById(chapter);
@@ -296,16 +293,15 @@ function closeContent() {
 }
 
 document.body.addEventListener('touchmove', function(event) {
-      console.log(event.source);
-      //if (event.source == document.body)
-        event.preventDefault();
-    }, false);
+    console.log(event.source);
+    //if (event.source == document.body)
+    event.preventDefault();
+}, false);
 
-    window.onresize = function() {
-      $(document.body).width(window.innerWidth).height(window.innerHeight);
-    }
+window.onresize = function() {
+    $(document.body).width(window.innerWidth).height(window.innerHeight);
+};
 
-    $(function() {
-      window.onresize();
-    });
-
+$(function() {
+    window.onresize();
+});
