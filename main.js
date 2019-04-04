@@ -131,12 +131,10 @@ document.addEventListener( 'touchstart', function () {
 
 document.addEventListener('click', clickHandler);
 
-jQuery(document).ready(function($){
+window.onload = function () {
     $('canvas').bind('tap', clickHandler);
     $.mobile.loading().hide();
-});
-
-
+}
 
 /////// GROUP
 /*
