@@ -131,9 +131,9 @@ document.addEventListener( 'touchstart', function () {
 
 document.addEventListener('click', clickHandler);
 
-$.mobile.loading().hide();
 jQuery(document).ready(function($){
     $('canvas').bind('tap', clickHandler);
+    $.mobile.loading().hide();
 });
 
 
