@@ -1,9 +1,11 @@
-var OBJECT_TO_CHAPTERS = {
-    'RAINBOW_BLOB': 'ethos',
-    'Torus.2': 'infos',
-    'cube': 'contributions',
-    'LOD3spShape': 'ethos',
-};
+var objects = {
+    torus: {src:"TORUS.obj", position:{x:0.6,y:0,z:0}, scale:0.008, chapter:'infos'},
+    bubble: {src:"BUBBLE.obj", position:{x:0,y:0.6,z:0}, scale:0.008, chapter:'ethos'},
+    cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:0}, scale:0.008, chapter:'ethos'},
+    //dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:0,z:0}, scale:0.008, chapter:'contributions'},
+    //eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0,z:-0.6}, scale:0.008, chapter:'infos'},
+    ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0.6}, scale:0.008, chapter:'contributions'}
+}
 
 
 if ( WEBGL.isWebGLAvailable() === false ) {
@@ -37,23 +39,27 @@ var geometrySphere = new THREE.SphereGeometry(1, 32, 32);
 var materialGlobe = new THREE.MeshPhongMaterial({
     wireframe : true
 });
-var cube = new THREE.Mesh( geometryCube, materialCube );
+
 var sphere = new THREE.Mesh( geometrySphere, materialGlobe );
-var flubber;
-var torus;
 
 
 
+
+
+/*
+var cube = new THREE.Mesh( geometryCube, materialCube );
 var scale = 0.5;
 cube.scale.set(scale, scale, scale);
 cube.position.x = 0.7;
 cube.name = 'cube';
+scene.add( cube );
+*/
 
 
 sphere.position.x = 0;
 sphere.name = 'sphere';
 
-scene.add( cube );
+
 scene.add( sphere );
 
 //scene.add( cube1 );
@@ -114,8 +120,10 @@ var contentHidden = true;
 
 function clickHandler( event ) {
     if (INTERSECTED) {
+        console.log(INTERSECTED);
+        console.log(INTERSECTED.parent.name);
         console.log(INTERSECTED.name);
-        showContent(OBJECT_TO_CHAPTERS[INTERSECTED.name]);
+        showContent(objects[INTERSECTED.parent.name].chapter);
     }
 }
 
@@ -174,6 +182,8 @@ texture.wrapT = THREE.RepeatWrapping;
 texture.repeat.set( 1, 1 );
 
 // model
+var loader = new THREE.OBJLoader( manager ).setPath('assets/');
+
 function onProgress( xhr ) {
     if ( xhr.lengthComputable ) {
         var percentComplete = xhr.loaded / xhr.total * 100;
@@ -185,21 +195,38 @@ function onError(err) {
     console.error(err)
 }
 
+var objects_in_scene = [];
 
-var loader = new THREE.OBJLoader( manager ).setPath('assets/');
+function load_objects() {
+    for (const key in objects) { 
+        loader.load(objects[key].src, function ( obj) {
+            console.log(obj);
+            objects[key].obj = obj;
+            objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
+            objects[key].obj.position.x = objects[key].position.x;
+            objects[key].obj.position.y = objects[key].position.y;
+            objects[key].obj.position.z = objects[key].position.z;
+            objects[key].obj.name = key;
+            console.log(objects[key].obj);
+            scene.add( objects[key].obj );
+            objects_in_scene.push(objects[key].obj)
+        }, onProgress, onError );
+    }
+}
 
-loader.load( 'rainbow_flubber.obj', function ( obj ) {
-    flubber = obj;
-    flubber.traverse( function ( child ) {
-        if ( child.isMesh ) child.material.map = texture;
-    } );
-    flubber.position.y = - 0.8;
-    flubber.scale.set(0.01, 0.01, 0.01);
-    flubber.name = 'flubber';
-    scene.add( flubber );
-}, onProgress, onError );
 
-loader.load('torus.obj', function ( obj ) {
+load_objects();
+
+var torus, ruby_cube, eyecat_ball, bubble, cloud, dragon_froot;
+
+
+
+
+
+
+
+/*
+loader.load('TORUS.obj', function ( obj ) {
     torus = obj;
     torus.scale.set(0.002, 0.002, 0.002);
     torus.position.x = - 0.8;
@@ -207,6 +234,33 @@ loader.load('torus.obj', function ( obj ) {
     scene.add( torus );
 }, onProgress, onError );
 
+
+loader.load('RUBY_CUBE.obj', function ( obj ) {
+    ruby_cube = obj;
+    ruby_cube.scale.set(0.002, 0.002, 0.002);
+    ruby_cube.position.y = 0.8;
+    ruby_cube.name = 'ruby_cube';
+    scene.add( ruby_cube );
+}, onProgress, onError );
+
+loader.load('EYECAT_BALL.obj', function ( obj ) {
+    eyecat_ball = obj;
+    ruby_cube.scale.set(0.002, 0.002, 0.002);
+    ruby_cube.position.x = 0.8;
+    ruby_cube.name = 'ruby_cube';
+    scene.add( ruby_cube );
+}, onProgress, onError );
+
+loader.load( 'BUBBLE.obj', function ( obj ) {
+    bubble = obj;
+    bubble.traverse( function ( child ) {
+        if ( child.isMesh ) child.material.map = texture;
+    } );
+    bubble.position.y = - 0.8;
+    bubble.scale.set(0.01, 0.01, 0.01);
+    bubble.name = 'bubble';
+    scene.add( bubble );
+}, onProgress, onError );
 
 var loader_gltf = new THREE.GLTFLoader().setPath('assets/');
 
@@ -224,6 +278,7 @@ loader_gltf.load('duck.glb',
         console.error(error);
     }
 );
+*/
 
 
 window.onresize = function() {
@@ -237,14 +292,13 @@ window.onresize = function() {
 function render() {
     raycaster.setFromCamera(mouse, camera);
 
-    var duck = scene.getObjectByName('LOD3spShape');
-    if (flubber &&
-        cube &&
-        torus &&
-        duck) {
-        intersects = raycaster.intersectObjects([flubber, cube, torus, duck], true);
+    //var duck = scene.getObjectByName('LOD3spShape');
+
+    if (objects_in_scene.length == Object.keys(objects).length) {
+        intersects = raycaster.intersectObjects(objects_in_scene, true);
         if( intersects.length > 0 && contentHidden) {
             if (INTERSECTED !== intersects[0].object) {
+                console.log(intersects[0].object.name);
                 if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
                 INTERSECTED = intersects[0].object;
                 INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
