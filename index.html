@@ -23,8 +23,39 @@
 
 
 <div id="all">
-    <h2>COUCOOL <span id="date">28/07/19</span></h2>
+    <header><div class="square"></div><h2>COUCOOL<span id="date">28/07/19</span></h2></header>
+    <div class="square" id="help"><div>?</div></div>
+    <div class="square" id="fb"><div>Fb</div></div>
+    <table class="top squares">
+        <tbody>
+        <tr>
+            <td class="square"></td>
+            <td class="square"></td>
+        </tr>
+        <tr>
+            <td class="square" style="visibility: hidden;"></td>
+            <td class="square"></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="bottom right squares">
+        <tbody>
+        <tr>
+            <td class="square"></td>
+            <td class="square" style="visibility: hidden;"></td>
+        </tr>
+        <tr>
+            <td class="square" style="visibility: hidden;"></td>
+            <td class="square"></td>
+        </tr>
+        </tbody>
+    </table>
     <div id="content-container">
+        <svg width="72" height="72" id="close-button" onclick="closeContent()">
+            <circle cx="36" cy="36" r="35" stroke="white" stroke-width="1" fill="none"></circle>
+            <line x1="29" y1="36" x2="43" y2="36" style="stroke:white; stroke-width: 2"></line>
+            <line x1="36" y1="29" x2="36" y2="43" style="stroke:white; stroke-width: 2"></line>
+        </svg>
         <!--CONTENT-->
         <div id="ethos" class="content">
             <h3>Ethos</h3>
@@ -306,8 +337,6 @@
                 </div>
             </div>
         </div>
-        <p id="close-button" onclick="closeContent()"> Close </p>
-
     </div>
     <footer>Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <span>Lui Écrire</span> <span id="credits">Visuels – Élise Rigollet</span></footer>
 </div>
