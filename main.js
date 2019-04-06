@@ -362,12 +362,6 @@ function closeContent() {
     controls.enableRotate = true;
 }
 
-document.body.addEventListener('touchmove', function(event) {
-    console.log(event.source);
-    //if (event.source == document.body)
-    event.preventDefault();
-}, false);
-
 window.onresize = function() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
