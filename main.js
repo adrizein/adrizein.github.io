@@ -10,8 +10,6 @@ var envCube = new THREE.CubeTextureLoader()
         'nz.png'
     ] );
 
-
-var reflectionCube = new THREE.TextureLoader().load( 'textures/background_2.jpg' )
 var grey_metal_material = new THREE.MeshStandardMaterial( {
         color: 0x222222,
         roughness: 0,
@@ -317,11 +315,13 @@ function render() {
             console.log(intersects[0].object.name);
             if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
             INTERSECTED = intersects[0].object;
-            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-            INTERSECTED.material.emissive.setHex(0x006600);
+            if(INTERSECTED.material.emissive){
+                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+                INTERSECTED.material.emissive.setHex(0x006600);
+            }
         }
     } else {
-        if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+        if (INTERSECTED && INTERSECTED.material && INTERSECTED.material.emissive) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
         INTERSECTED = null;
     }
 
