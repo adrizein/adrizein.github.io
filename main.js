@@ -313,7 +313,7 @@ function render() {
     if( intersects.length > 0 && contentHidden) {
         if (INTERSECTED !== intersects[0].object) {
             console.log(intersects[0].object.name);
-            if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+            if (INTERSECTED && INTERSECTED.material.emissive) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
             INTERSECTED = intersects[0].object;
             if(INTERSECTED.material.emissive){
                 INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
