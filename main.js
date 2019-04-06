@@ -37,7 +37,7 @@ var bubble_material = new THREE.ShaderMaterial( parameters );
 
 
 var objects = {
-    torus: {src:"TORUS.obj", position:{x:0.6,y:0,z:-0.6}, scale:0.008, chapter:'infos', material:grey_metal_material},
+    torus: {src:"TORUS2.obj", position:{x:0.6,y:0,z:-0.6}, scale:0.008, chapter:'infos', material:grey_metal_material},
     bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'ethos', material:bubble_material},
     cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'ethos', material:blue_metal_material},
     dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', material:blue_metal_material},
