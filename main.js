@@ -1,10 +1,50 @@
+
+var envCube = new THREE.CubeTextureLoader()
+    .setPath( 'textures/env/' )
+    .load( [
+        'px.png',
+        'nx.png',
+        'py.png',
+        'ny.png',
+        'pz.png',
+        'nz.png'
+    ] );
+
+
+var reflectionCube = new THREE.TextureLoader().load( 'textures/background_2.jpg' )
+var grey_metal_material = new THREE.MeshStandardMaterial( {
+        color: 0x222222,
+        roughness: 0,
+        metalness: 0.5,
+        envMap: envCube
+    } );
+var blue_metal_material = new THREE.MeshStandardMaterial( {
+        color: 0x0000FF,
+        roughness: 0,
+        metalness: 0.5,
+        envMap: envCube
+    } );
+var red_metal_material = new THREE.MeshStandardMaterial( {
+        color: 0xFF0000,
+        roughness: 0,
+        metalness: 0.5,
+        envMap: envCube
+    } );
+
+var shader = THREE.FresnelShader;
+var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+uniforms[ "tCube" ].value = envCube;
+var parameters = { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShader, uniforms: uniforms };
+var bubble_material = new THREE.ShaderMaterial( parameters );
+
+
 var objects = {
-    torus: {src:"TORUS.obj", position:{x:0.6,y:0,z:0}, scale:0.008, chapter:'infos'},
-    bubble: {src:"BUBBLE.obj", position:{x:0,y:0.6,z:0}, scale:0.008, chapter:'ethos'},
-    cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:0}, scale:0.008, chapter:'ethos'},
-    //dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:0,z:0}, scale:0.008, chapter:'contributions'},
-    //eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0,z:-0.6}, scale:0.008, chapter:'infos'},
-    ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0.6}, scale:0.008, chapter:'contributions'}
+    torus: {src:"TORUS.obj", position:{x:0.6,y:0,z:-0.6}, scale:0.008, chapter:'infos', material:grey_metal_material},
+    bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'ethos', material:bubble_material},
+    cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'ethos', material:blue_metal_material},
+    dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', material:blue_metal_material},
+    eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'infos', material:blue_metal_material},
+    ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'contributions', material:red_metal_material}
 }
 
 
@@ -13,6 +53,19 @@ if ( WEBGL.isWebGLAvailable() === false ) {
 }
 
 window.scene = new THREE.Scene();
+window.scene.background = envCube;
+/*
+window.scene.background = new THREE.CubeTextureLoader()
+    .setPath( 'textures/SwedishRoyalCastle/' )
+    .load( [
+        'px.jpg',
+        'nx.jpg',
+        'py.jpg',
+        'ny.jpg',
+        'pz.jpg',
+        'nz.jpg'
+    ] );
+*/
 
 var fov = 30;
 var aspect = window.innerWidth / window.innerHeight;
@@ -21,6 +74,11 @@ var far = 100;
 
 
 var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+camera.position.z = 4;
+camera.position.y = 0.5;
+camera.position.x = -1;
+
+
 var renderer = new THREE.WebGLRenderer({alpha:true });
 
 
@@ -35,8 +93,9 @@ document.body.appendChild( renderer.domElement );
 var geometryCube = new THREE.BoxGeometry(1, 1, 1);
 var materialCube = new THREE.MeshLambertMaterial( { color: 0x2233ee } );
 
-var geometrySphere = new THREE.SphereGeometry(1, 32, 32);
+var geometrySphere = new THREE.SphereGeometry(4, 6, 6);
 var materialGlobe = new THREE.MeshPhongMaterial({
+    color: 0xFFFFFF,
     wireframe : true
 });
 
@@ -64,7 +123,7 @@ scene.add( sphere );
 
 //scene.add( cube1 );
 //scene.add( cube2 );
-camera.position.z = 6;
+
 
 //cube.position.x = Math.cos(time)/1;
 
@@ -80,24 +139,11 @@ scene.add(ambientLight);
 
 
 
-///// BACKGROUND
-var geometry = new THREE.BoxBufferGeometry(50, 50, 50);
-// invert the geometry on the x-axis so that all of the faces point inward
-geometry.scale( - 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( {
-    map: new THREE.TextureLoader().load( 'textures/background_2.jpg' )
-} );
-var mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
-
-
-
-
 /////// CONTROLS
 
 controls = new THREE.OrbitControls(camera);
-controls.enablePan = false;
-controls.enableZoom = false;
+controls.enablePan = true;
+controls.enableZoom = true;
 controls.enableRotate = true;
 controls.rotateSpeed = 0.5;
 
@@ -182,7 +228,6 @@ texture.wrapT = THREE.RepeatWrapping;
 texture.repeat.set( 1, 1 );
 
 // model
-var loader = new THREE.OBJLoader( manager ).setPath('assets/');
 
 function onProgress( xhr ) {
     if ( xhr.lengthComputable ) {
@@ -197,7 +242,11 @@ function onError(err) {
 
 var objects_in_scene = [];
 
+
+
 function load_objects() {
+    var loader = new THREE.OBJLoader( manager ).setPath('assets/');
+
     for (const key in objects) { 
         loader.load(objects[key].src, function ( obj) {
             console.log(obj);
@@ -207,6 +256,13 @@ function load_objects() {
             objects[key].obj.position.y = objects[key].position.y;
             objects[key].obj.position.z = objects[key].position.z;
             objects[key].obj.name = key;
+            if (objects[key].material) {
+                objects[key].obj.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        child.material = objects[key].material;
+                    }
+                } );
+            }
             console.log(objects[key].obj);
             scene.add( objects[key].obj );
             objects_in_scene.push(objects[key].obj)
@@ -215,52 +271,13 @@ function load_objects() {
 }
 
 
+
+
 load_objects();
-
-var torus, ruby_cube, eyecat_ball, bubble, cloud, dragon_froot;
-
-
-
-
 
 
 
 /*
-loader.load('TORUS.obj', function ( obj ) {
-    torus = obj;
-    torus.scale.set(0.002, 0.002, 0.002);
-    torus.position.x = - 0.8;
-    torus.name = 'torus';
-    scene.add( torus );
-}, onProgress, onError );
-
-
-loader.load('RUBY_CUBE.obj', function ( obj ) {
-    ruby_cube = obj;
-    ruby_cube.scale.set(0.002, 0.002, 0.002);
-    ruby_cube.position.y = 0.8;
-    ruby_cube.name = 'ruby_cube';
-    scene.add( ruby_cube );
-}, onProgress, onError );
-
-loader.load('EYECAT_BALL.obj', function ( obj ) {
-    eyecat_ball = obj;
-    ruby_cube.scale.set(0.002, 0.002, 0.002);
-    ruby_cube.position.x = 0.8;
-    ruby_cube.name = 'ruby_cube';
-    scene.add( ruby_cube );
-}, onProgress, onError );
-
-loader.load( 'BUBBLE.obj', function ( obj ) {
-    bubble = obj;
-    bubble.traverse( function ( child ) {
-        if ( child.isMesh ) child.material.map = texture;
-    } );
-    bubble.position.y = - 0.8;
-    bubble.scale.set(0.01, 0.01, 0.01);
-    bubble.name = 'bubble';
-    scene.add( bubble );
-}, onProgress, onError );
 
 var loader_gltf = new THREE.GLTFLoader().setPath('assets/');
 
@@ -307,6 +324,7 @@ function render() {
         if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
         INTERSECTED = null;
     }
+
 
     controls.update();
     renderer.render( scene, camera );
