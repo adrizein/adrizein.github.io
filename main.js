@@ -294,20 +294,18 @@ function render() {
 
     //var duck = scene.getObjectByName('LOD3spShape');
 
-    if (objects_in_scene.length == Object.keys(objects).length) {
-        intersects = raycaster.intersectObjects(objects_in_scene, true);
-        if( intersects.length > 0 && contentHidden) {
-            if (INTERSECTED !== intersects[0].object) {
-                console.log(intersects[0].object.name);
-                if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
-                INTERSECTED = intersects[0].object;
-                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                INTERSECTED.material.emissive.setHex(0x006600);
-            }
-        } else {
+    intersects = raycaster.intersectObjects(objects_in_scene, true);
+    if( intersects.length > 0 && contentHidden) {
+        if (INTERSECTED !== intersects[0].object) {
+            console.log(intersects[0].object.name);
             if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
-            INTERSECTED = null;
+            INTERSECTED = intersects[0].object;
+            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+            INTERSECTED.material.emissive.setHex(0x006600);
         }
+    } else {
+        if (INTERSECTED) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
+        INTERSECTED = null;
     }
 
     controls.update();
