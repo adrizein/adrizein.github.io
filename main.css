@@ -18,7 +18,7 @@ div.ui-page {
     src: url("fonts/rumeur.otf") format("opentype");
 }
 
-#date, #credits {
+#date {
     position: absolute;
     right: 20px;
 }
@@ -91,13 +91,33 @@ h2 {
     flex-grow: 1;
 }
 
-
 footer {
+    display: flex;
     border-bottom: none;
     border-top: solid white 1px;
-    padding: 28px 23px;
     width: 100%;
     height: 70px;
+}
+
+#credits {
+    position: absolute;
+    right: 20px;
+}
+
+footer h3 {
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+footer .square {
+    border-right: solid white 1px;
+    width: 69px;
+}
+
+#footer {
+
 }
 
 html {
@@ -207,7 +227,7 @@ html:lang(fr) .en {
     margin-right: 10px;
 }
 
-.accordion-item:hover h4::before {
+.accordion-item.active h4::before {
     content: '-';
     margin-right: 10px;
 }
@@ -216,7 +236,7 @@ html:lang(fr) .en {
     display: none;
 }
 
-.accordion-item:hover ul {
+.accordion-item.active ul {
     display: block;
 }
 
@@ -254,5 +274,37 @@ h4 {
         font-size: 15px!important;
         height: 100px;
         width: 100px;
+    }
+
+    #fb {
+        bottom: 0;
+        border-top: solid white 1px;
+        border-right: solid white 1px;
+    }
+
+    table.bottom.right.squares {
+        bottom: 0;
+    }
+
+    .square {
+        width: 50px;
+        height: 50px;
+    }
+
+    table.top.squares {
+        top: 50px;
+    }
+
+    header {
+        height: 50px;
+    }
+
+    #help {
+        top: 50px;
+    }
+
+    h2 {
+        font-size: 24px;
+        padding: 15px;
     }
 }

@@ -1,33 +1,42 @@
+if (WEBGL.isWebGLAvailable() === false) {
+    document.body.appendChild( WEBGL.getWebGLErrorMessage() );
+}
 
 var envCube = new THREE.CubeTextureLoader()
-    .setPath( 'textures/env/' )
-    .load( [
+    .setPath('textures/env/')
+    .load([
         'px.png',
         'nx.png',
         'py.png',
         'ny.png',
         'pz.png',
         'nz.png'
-    ] );
+    ]);
+
+var geometryCube = new THREE.BoxGeometry(50, 50, 50);
+geometryCube.scale(-1, 1, 1);
+var background = new THREE.Mesh(geometryCube, new THREE.MeshStandardMaterial({
+    envMap: envCube
+}));
 
 var grey_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0x222222,
-        roughness: 0,
-        metalness: 0.5,
-        envMap: envCube
-    } );
+    color: 0x222222,
+    roughness: 0,
+    metalness: 0.5,
+    envMap: envCube
+});
 var blue_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0x0000FF,
-        roughness: 0,
-        metalness: 0.5,
-        envMap: envCube
-    } );
+    color: 0x0000FF,
+    roughness: 0,
+    metalness: 0.5,
+    envMap: envCube
+});
 var red_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xFF0000,
-        roughness: 0,
-        metalness: 0.5,
-        envMap: envCube
-    } );
+    color: 0xFF0000,
+    roughness: 0,
+    metalness: 0.5,
+    envMap: envCube
+});
 
 var shader = THREE.FresnelShader;
 var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
@@ -43,27 +52,11 @@ var objects = {
     dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', material:blue_metal_material},
     eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'infos', material:blue_metal_material},
     ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'contributions', material:red_metal_material}
-}
+};
 
-
-if ( WEBGL.isWebGLAvailable() === false ) {
-    document.body.appendChild( WEBGL.getWebGLErrorMessage() );
-}
 
 window.scene = new THREE.Scene();
 window.scene.background = envCube;
-/*
-window.scene.background = new THREE.CubeTextureLoader()
-    .setPath( 'textures/SwedishRoyalCastle/' )
-    .load( [
-        'px.jpg',
-        'nx.jpg',
-        'py.jpg',
-        'ny.jpg',
-        'pz.jpg',
-        'nz.jpg'
-    ] );
-*/
 
 var fov = 30;
 var aspect = window.innerWidth / window.innerHeight;
@@ -78,8 +71,6 @@ camera.position.x = -1;
 
 
 var renderer = new THREE.WebGLRenderer({alpha:true });
-
-
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -87,10 +78,6 @@ document.body.appendChild( renderer.domElement );
 
 
 ///// OBJECTS
-
-var geometryCube = new THREE.BoxGeometry(1, 1, 1);
-var materialCube = new THREE.MeshLambertMaterial( { color: 0x2233ee } );
-
 var geometrySphere = new THREE.SphereGeometry(4, 6, 6);
 var materialGlobe = new THREE.MeshPhongMaterial({
     color: 0xFFFFFF,
@@ -99,34 +86,9 @@ var materialGlobe = new THREE.MeshPhongMaterial({
 
 var sphere = new THREE.Mesh( geometrySphere, materialGlobe );
 
-
-
-
-
-/*
-var cube = new THREE.Mesh( geometryCube, materialCube );
-var scale = 0.5;
-cube.scale.set(scale, scale, scale);
-cube.position.x = 0.7;
-cube.name = 'cube';
-scene.add( cube );
-*/
-
-
 sphere.position.x = 0;
 sphere.name = 'sphere';
-
-
-scene.add( sphere );
-
-//scene.add( cube1 );
-//scene.add( cube2 );
-
-
-//cube.position.x = Math.cos(time)/1;
-
-//mesh.rotation.y = THREE.Math.degToRad(45);
-
+scene.add(sphere);
 
 /////// LIGHTS
 var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -162,7 +124,7 @@ var raycaster = new THREE.Raycaster();
 var intersects;
 var contentHidden = true;
 
-function clickHandler( event ) {
+function clickHandler(event) {
     if (INTERSECTED) {
         console.log(INTERSECTED);
         console.log(INTERSECTED.parent.name);
@@ -171,43 +133,25 @@ function clickHandler( event ) {
     }
 }
 
-document.addEventListener( 'mousemove', function () {
+document.addEventListener('mousemove', function () {
     mouse.x = + (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-}, false );
+}, false);
 
-document.addEventListener( 'touchstart', function () {
+document.addEventListener('touchstart', function () {
     mouse.x = + (event.targetTouches[0].pageX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
 }, false);
 
-document.addEventListener('click', clickHandler);
+document.addEventListener('mousedown', clickHandler);
 
 window.onload = function () {
     $('canvas').bind('tap', clickHandler);
     $.mobile.loading().hide();
-}
-
-/////// GROUP
-/*
-var group = new THREE.Group();
-scene.add( group );
-
-cube.name = 'cube';
-group.add( cube );
-group.add( sphere );
+};
 
 
-mesh2.visible = false;
-group.remove( mesh2 );
-
-group.children // mesh1
-group.parent // scene
-*/
-
-// ASSETS LOADING
-
-
+/// ASSETS LOADING
 function loadModel() {
 
 }
@@ -240,12 +184,10 @@ function onError(err) {
 
 var objects_in_scene = [];
 
-
-
 function load_objects() {
     var loader = new THREE.OBJLoader( manager ).setPath('assets/');
 
-    for (const key in objects) { 
+    for (const key in objects) {
         loader.load(objects[key].src, function ( obj) {
             console.log(obj);
             objects[key].obj = obj;
@@ -268,66 +210,24 @@ function load_objects() {
     }
 }
 
-
-
-
 load_objects();
-
-
-
-/*
-
-var loader_gltf = new THREE.GLTFLoader().setPath('assets/');
-
-loader_gltf.load('duck.glb',
-    function (gltf) {
-        gltf.scene.scale.set(0.5, 0.5, 0.5);
-        gltf.scene.position.z = -0.8;
-        gltf.scene.name = 'duckScene';
-        scene.add(gltf.scene);
-    },
-    function (xhr) {
-        console.log('loading', xhr.loaded * 100 / xhr.total);
-    },
-    function (error) {
-        console.error(error);
-    }
-);
-*/
-
-
-window.onresize = function() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-};
-
 
 
 function render() {
     raycaster.setFromCamera(mouse, camera);
 
-    //var duck = scene.getObjectByName('LOD3spShape');
-
     intersects = raycaster.intersectObjects(objects_in_scene, true);
-    if( intersects.length > 0 && contentHidden) {
+    if(intersects.length > 0 && contentHidden) {
         if (INTERSECTED !== intersects[0].object) {
             console.log(intersects[0].object.name);
-            if (INTERSECTED && INTERSECTED.material.emissive) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
             INTERSECTED = intersects[0].object;
-            if(INTERSECTED.material.emissive){
-                INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                INTERSECTED.material.emissive.setHex(0x006600);
-            }
         }
     } else {
-        if (INTERSECTED && INTERSECTED.material && INTERSECTED.material.emissive) INTERSECTED.material.emissive.setHex(INTERSECTED.currentHex);
         INTERSECTED = null;
     }
 
-
     controls.update();
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
 
     requestAnimationFrame(render);
 }
@@ -342,13 +242,14 @@ function showContent(chapter) {
     var container = document.getElementById('content-container');
     var chapter_div = document.getElementById(chapter);
     var active_div = container.getElementsByClassName('active');
-    for (i = 0; i < active_div.length; i++) {
+    for (var i = 0; i < active_div.length; i++) {
         active_div[i].classList.remove('active');
     }
     chapter_div.classList.add("active");
     container.classList.add('active');
     contentHidden = false;
     controls.enableRotate = false;
+    controls.enableZoom = false;
 }
 
 function closeContent() {
@@ -360,6 +261,7 @@ function closeContent() {
     container.classList.remove('active');
     contentHidden = true;
     controls.enableRotate = true;
+    controls.enableZoom = true;
 }
 
 window.onresize = function() {
@@ -371,4 +273,13 @@ window.onresize = function() {
 
 $(function() {
     window.onresize();
+    $('.accordion-item').on('click', function (event) {
+        var target = $(event.currentTarget);
+        if (target.hasClass('active')) {
+            target.removeClass('active');
+        }
+        else {
+            target.addClass('active');
+        }
+    })
 });
