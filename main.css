@@ -42,6 +42,7 @@ table.bottom.right.squares {
     border-bottom: solid white 1px;
     border-right: solid white 1px;
     display: table;
+    z-index: 10;
 }
 
 #fb {
@@ -51,6 +52,7 @@ table.bottom.right.squares {
     left: 0;
     border-top: solid white 1px;
     border-right: solid white 1px;
+    z-index: 10;
 }
 
 #help div, #fb div {
@@ -154,18 +156,36 @@ canvas.blur {
     width: 100%;
 }
 
+.menu {
+    cursor: auto !important;
+}
+
 #all {
+    cursor: url('textures/circle.svg') 52 52, auto;
     display: flex;
     flex-direction: column;
     height: 100%;
     border: solid white 1px;
 }
 
+#all.cursor-click {
+    cursor: url('textures/click.svg') 52 52, auto;
+}
+
+#all.cursor-drag {
+    cursor: url('textures/drag.svg') 62 62, auto;
+}
+
+#all.cursor-close {
+    cursor: url('textures/close.svg') 62 62, auto;
+}
+
 #content-container {
+    cursor: auto;
     transition-property: width, padding;
     transition-duration: 1s;
     background-color: rgba(0, 0 ,0, 0.3);
-    z-index: 20;
+    z-index: 5;
     width: 0;
     flex-grow: 1;
     padding: 0;
@@ -186,7 +206,6 @@ canvas.blur {
 #content-container.active {
     width: 60%;
     padding: 0 90px;
-    border solid white 1px;
 }
 
 #content-container.active #close-button {
@@ -194,11 +213,14 @@ canvas.blur {
 }
 
 #close-button {
-    position: fixed;
-    top: 90px;
-    left: calc(60% - 84px);
+    position: sticky;
+    left: 100%;
+    top: 15px;
+    margin-right: -72px;
     cursor: pointer;
     display: none;
+    transform: scale(0.8);
+    transform-origin: 50% 50%;
 }
 
 #close-button line {
@@ -220,6 +242,7 @@ html:lang(fr) .en {
 }
 
 .accordion-item {
+    cursor: pointer;
     border: solid 1px white;
     margin: 20px 0;
     padding: 0 0 0 20px;
@@ -237,6 +260,7 @@ html:lang(fr) .en {
 
 .accordion-item ul {
     display: none;
+    padding-left: 10px;
 }
 
 .accordion-item.active ul {
@@ -307,8 +331,8 @@ h4 {
     }
 
     h2 {
-        font-size: 24px;
-        padding: 15px;
+        font-size: 18px;
+        padding: 17px;
     }
 
     #content-container {
@@ -319,14 +343,14 @@ h4 {
         width: 100%;
         margin: 0;
         border-right: none;
-        padding: 0 30px;
+        padding: 0 55px;
     }
 
     #close-button {
-        top: 40px;
-        right: -10px;
-        left: unset;
+        top: -12px;
+        left: 100%;
+        margin-top: -12px;
+        margin-right: -68px;
         transform: scale(0.5);
-        transform-origin: 50% 50%;
     }
 }
