@@ -245,6 +245,10 @@ function showContent(chapter) {
     for (var i = 0; i < active_div.length; i++) {
         active_div[i].classList.remove('active');
     }
+
+    $('canvas').addClass('blur');
+    $('.menu').addClass('blur');
+
     chapter_div.classList.add("active");
     container.classList.add('active');
     contentHidden = false;
@@ -258,6 +262,9 @@ function closeContent() {
     for (i = 0; i < active_div.length; i++) {
         active_div[i].classList.remove('active');
     }
+
+    $('canvas').removeClass('blur');
+    $('.menu').removeClass('blur');
     container.classList.remove('active');
     contentHidden = true;
     controls.enableRotate = true;
