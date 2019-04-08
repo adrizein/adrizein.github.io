@@ -214,7 +214,7 @@ $(function() {
 
     function render() {
         if (contentHidden) {
-            window.coords = [mouse];
+            var coords = [mouse];
             var r = 104/innerWidth;
             for (var dx = -10; dx <= 10; dx += 5) {
                 for (var dy = -10; dy <= 10; dy += 5) {
