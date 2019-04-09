@@ -81,7 +81,7 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    font-family: Helvetica, sans-serif;
+    font:14px "Helvetica";
     color: white;
 }
 
@@ -97,7 +97,7 @@ canvas {
 
 canvas.blur {
     filter: blur(50px);
-    transition: 2s ease-in-out;
+    transition: 1s ease-in-out;
 }
 
 .menu.blur {
@@ -184,7 +184,7 @@ footer .square {
 
 
 content p{
-    font:16px "Helvetica";
+    font:14px "Helvetica";
 }
 
 .menu {
@@ -225,7 +225,6 @@ content p{
     padding-bottom: 0px;
     padding-left: 125px;
     margin-left: -1px;
-    border-right: solid white 1px;
     height: calc(100% - 120px);
     -webkit-overflow-scrolling: touch;
     overflow: -moz-scrollbars-none;
@@ -244,32 +243,83 @@ content p{
     transition: 2s ease-in-out;
 }
 
-#content-container.active #close-button {
-    display: block;
-    opacity:1;
-    transition: 2s ease-in-out;
-}
-
 #close-button {
     position: fixed;
-    top: 120px;
+    top: 118px;
     left: calc(66% - 38px);
+    margin-right: -72px;
     z-index: 21;
     cursor: pointer;
-    display: none;
-    opacity:0;
     transition: 2s ease-in-out;
-    margin-right: -72px;
     cursor: pointer;
-    display: none;
-    transform: scale(0.8);
     transform-origin: 50% 50%;
+    transform: scale(0.8);
 }
 
-#close-button line {
+#stroke	{
+    position:fixed;
+    left: calc(66% - 2px);
+    height:calc(100% - 122px);
+}
+
+#top-stroke{   
+    stroke-dasharray:90px;
+    stroke-dashoffset:90px;
+    transition: 1s 1.5s;
+}
+
+#round-stroke {
+    transform-origin: 50% 50%;
+    transform: rotateZ(90deg);    
+    stroke-dasharray:0 110;
+    stroke-dashoffset:-110;
+    transition: 1s 1s;
+}
+
+#bottom-stroke{   
+    position:fixed;
+    bottom:58px;
+    stroke-dasharray:120%;
+    stroke-dashoffset:120%;
+    transition: 1s;
+}
+
+#cross {
     transform-origin: 50% 50%;
     transform: rotateZ(45deg);
+    stroke-dasharray:20;
+    stroke-dashoffset:20; 
+    transition: 1s 1s;
 }
+
+#content-container.active #top-stroke {
+    stroke-dashoffset:0;    
+    transition: 0.5s ease-in;
+}
+
+#content-container.active #round-stroke {
+    stroke-dasharray:220;
+    stroke-dashoffset:0;
+    transition: 1s 0.5s;
+}
+
+#content-container.active #bottom-stroke {
+    stroke-dashoffset:0;
+    transition: 1s ease-out 1.5s;
+}
+
+#content-container.active #cross {
+    stroke-dashoffset:0;
+    stroke-dasharray:20;
+    transition: 1s ease-in-out 0.5s;
+}
+
+/*
+#content-container.active #close-button {
+    display: block;
+}
+*/
+
 
 html:lang(fr) .en {
     display: none !important;
@@ -288,7 +338,7 @@ html:lang(fr) .en {
     cursor: pointer;
     border: solid 1px white;
     margin: 20px 0;
-    padding: 0 0 0 20px;
+    padding: 20px 20px 20px 20px;
 }
 
 .accordion-item h4::before {
@@ -313,7 +363,7 @@ html:lang(fr) .en {
 
 
 .accordion li {
-    font-family: Ubuntu, sans-serif;
+    font:14px "Helvetica";
     font-weight: normal;
     margin-bottom: 10px;
     list-style-position: inside;
