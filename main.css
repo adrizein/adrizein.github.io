@@ -1,5 +1,3 @@
-//GENERAL
-
 * {
     box-sizing: border-box;
     overflow: hidden;
@@ -97,8 +95,6 @@ canvas {
 }
 
 
-//BLUR
-
 canvas.blur {
     filter: blur(50px);
     transition: 2s ease-in-out;
@@ -110,7 +106,7 @@ canvas.blur {
 
 
 
-//TYPES
+
 
 h2, footer {
     font-family: rumeur, sans-serif;
@@ -189,14 +185,12 @@ footer .square {
 
 content p{
     font:16px "Helvetica";
-
-.menu {
-    cursor: auto !important;
-
 }
 
+.menu {
+    cursor: auto !important;}
 
-//CURSOR
+
 
 #all {
     cursor: url('textures/circle.svg') 52 52, auto;
@@ -219,19 +213,12 @@ content p{
 }
 
 
-//CONTAINER
-
 #content-container {
     opacity:0;
-    background-color: rgba(0, 0 ,0, 0.3);
+    background-color: rgba(0, 0 ,0, 0.1);
     z-index: 20;
     width: 66%;
     cursor: auto;
-    transition-property: width, padding;
-    transition-duration: 1s;
-    background-color: rgba(0, 0 ,0, 0.3);
-    z-index: 5;
-    width: 0;
     flex-grow: 1;
     padding-top: 0px;
     padding-right: 16.5%; 
@@ -255,12 +242,10 @@ content p{
     border solid white 1px;
     opacity:1;
     transition: 2s ease-in-out;
-    width: 66%;
-    padding: 0 90px;
 }
 
 #content-container.active #close-button {
-//    display: block;
+    display: block;
     opacity:1;
     transition: 2s ease-in-out;
 }
@@ -271,12 +256,9 @@ content p{
     left: calc(66% - 38px);
     z-index: 21;
     cursor: pointer;
-//    display: none;
+    display: none;
     opacity:0;
     transition: 2s ease-in-out;
-    position: sticky;
-    left: 100%;
-    top: 15px;
     margin-right: -72px;
     cursor: pointer;
     display: none;
@@ -337,7 +319,7 @@ html:lang(fr) .en {
     list-style-position: inside;
 }
 
-//MOBILE
+
 
 @media (max-width: 740px) {
 
