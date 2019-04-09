@@ -1,3 +1,5 @@
+//**GENERAL**//
+
 * {
     box-sizing: border-box;
     overflow: hidden;
@@ -10,11 +12,6 @@ div.ui-page {
 @font-face {
     font-family: rumeur;
     src: url("fonts/rumeur.otf") format("opentype");
-}
-
-#date {
-    position: absolute;
-    right: 30px;
 }
 
 table.squares {
@@ -42,6 +39,7 @@ table.bottom.right.squares {
     border-bottom: solid white 1px;
     border-right: solid white 1px;
     display: table;
+    z-index: 10;
 }
 
 #fb {
@@ -51,6 +49,7 @@ table.bottom.right.squares {
     left: 0;
     border-top: solid white 1px;
     border-right: solid white 1px;
+    z-index: 10;
 }
 
 #help div, #fb div {
@@ -74,6 +73,45 @@ header .square {
     border-right: solid white 1px;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    color: white;
+}
+
+canvas {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+
+/**BLUR**/
+
+canvas.blur {
+    filter: blur(50px);
+    transition: 2s ease-in-out;
+}
+
+.menu.blur {
+    /*filter: blur(3px);*/
+}
+
+
+
+/**TYPES**/
+
 h2, footer {
     font-family: rumeur, sans-serif;
     margin: 0;
@@ -94,6 +132,7 @@ h3 {
 }
 h4 {
     font-family: rumeur, sans-serif;
+    margin: 10px 0;
 }
 
 header h3 {
@@ -101,6 +140,10 @@ header h3 {
     margin:0px 0 35px 0;
 }
 
+#date {
+    position: absolute;
+    right: 30px;
+}
 
 footer {
     display: flex;
@@ -132,37 +175,6 @@ footer .square {
 
 }
 
-html {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
-body {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    font-family: Helvetica, sans-serif;
-    color: white;
-}
-
-canvas {
-    position: fixed;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-}
-
-canvas.blur {
-    filter: blur(50px);
-    transition: 2s ease-in-out;
-}
-
-.menu.blur {
-    /*filter: blur(3px);*/
-}
 
 .content {
     display: none;
@@ -174,22 +186,52 @@ canvas.blur {
     width: 100%;
 }
 
+
 content p{
     font:16px "Helvetica";
+
+.menu {
+    cursor: auto !important;
+
 }
 
+
+/**CURSOR**/
+
 #all {
+    cursor: url('textures/circle.svg') 52 52, auto;
     display: flex;
     flex-direction: column;
     height: 100%;
     border: solid white 1px;
 }
 
+#all.cursor-click {
+    cursor: url('textures/click.svg') 52 52, auto;
+}
+
+#all.cursor-drag {
+    cursor: url('textures/drag.svg') 62 62, auto;
+}
+
+#all.cursor-close {
+    cursor: url('textures/close.svg') 62 62, auto;
+}
+
+
+/**CONTAINER**/
+
 #content-container {
     opacity:0;
     background-color: rgba(0, 0 ,0, 0.3);
     z-index: 20;
     width: 66%;
+    cursor: auto;
+    transition-property: width, padding;
+    transition-duration: 1s;
+    background-color: rgba(0, 0 ,0, 0.3);
+    z-index: 5;
+    width: 0;
     flex-grow: 1;
     padding-top: 0px;
     padding-right: 16.5%; 
@@ -213,6 +255,8 @@ content p{
     border solid white 1px;
     opacity:1;
     transition: 2s ease-in-out;
+    width: 60%;
+    padding: 0 90px;
 }
 
 #content-container.active #close-button {
@@ -230,7 +274,14 @@ content p{
 //    display: none;
     opacity:0;
     transition: 2s ease-in-out;
-
+    position: sticky;
+    left: 100%;
+    top: 15px;
+    margin-right: -72px;
+    cursor: pointer;
+    display: none;
+    transform: scale(0.8);
+    transform-origin: 50% 50%;
 }
 
 #close-button line {
@@ -252,6 +303,7 @@ html:lang(fr) .en {
 }
 
 .accordion-item {
+    cursor: pointer;
     border: solid 1px white;
     margin: 20px 0;
     padding: 0 0 0 20px;
@@ -269,15 +321,14 @@ html:lang(fr) .en {
 
 .accordion-item ul {
     display: none;
+    padding-left: 10px;
 }
 
 .accordion-item.active ul {
     display: block;
 }
 
-h4 {
-    margin: 10px 0;
-}
+
 
 .accordion li {
     font-family: Ubuntu, sans-serif;
@@ -285,6 +336,8 @@ h4 {
     margin-bottom: 10px;
     list-style-position: inside;
 }
+
+/**MOBILE**/
 
 @media (max-width: 740px) {
 
@@ -342,6 +395,8 @@ h4 {
         font-family: rumeur, sans-serif;
         font-size: 24px;
         padding: 15px;
+        font-size: 18px;
+        padding: 17px;
     }
 
     #content-container {
@@ -352,14 +407,14 @@ h4 {
         width: 100%;
         margin: 0;
         border-right: none;
-        padding: 0 30px;
+        padding: 0 55px;
     }
 
     #close-button {
-        top: 40px;
-        right: -10px;
-        left: unset;
+        top: -12px;
+        left: 100%;
+        margin-top: -12px;
+        margin-right: -68px;
         transform: scale(0.5);
-        transform-origin: 50% 50%;
     }
 }
