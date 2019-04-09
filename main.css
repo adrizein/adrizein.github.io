@@ -1,4 +1,4 @@
-//**GENERAL**//
+//GENERAL
 
 * {
     box-sizing: border-box;
@@ -97,7 +97,7 @@ canvas {
 }
 
 
-/**BLUR**/
+//BLUR
 
 canvas.blur {
     filter: blur(50px);
@@ -110,7 +110,7 @@ canvas.blur {
 
 
 
-/**TYPES**/
+//TYPES
 
 h2, footer {
     font-family: rumeur, sans-serif;
@@ -196,7 +196,7 @@ content p{
 }
 
 
-/**CURSOR**/
+//CURSOR
 
 #all {
     cursor: url('textures/circle.svg') 52 52, auto;
@@ -219,7 +219,7 @@ content p{
 }
 
 
-/**CONTAINER**/
+//CONTAINER
 
 #content-container {
     opacity:0;
@@ -255,7 +255,7 @@ content p{
     border solid white 1px;
     opacity:1;
     transition: 2s ease-in-out;
-    width: 60%;
+    width: 66%;
     padding: 0 90px;
 }
 
@@ -337,7 +337,7 @@ html:lang(fr) .en {
     list-style-position: inside;
 }
 
-/**MOBILE**/
+//MOBILE
 
 @media (max-width: 740px) {
 
