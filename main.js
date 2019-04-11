@@ -215,7 +215,7 @@ $(function() {
     function render() {
         if (contentHidden) {
             var coords = [mouse];
-            var r = 104/innerWidth;
+            var r = 104 / innerWidth;
             for (var dx = -10; dx <= 10; dx += 5) {
                 for (var dy = -10; dy <= 10; dy += 5) {
                     var x = 2*dx/innerWidth;
@@ -293,9 +293,7 @@ $(function() {
         if (!contentHidden) {
             contentHidden = true;
             var container = $('#content-container');
-            var active_div = container.find('.active');
 
-            active_div.removeClass('active');
             container.removeClass('active');
             $('canvas').removeClass('blur');
             $('.menu').removeClass('blur');
