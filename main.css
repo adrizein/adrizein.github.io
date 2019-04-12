@@ -7,7 +7,7 @@ div.ui-page {
     height: 100%;
     background: url("noise.png") repeat 0 0;
 //    mix-blend-mode: overlay;
-  -webkit-animation: slide 0.25s linear infinite;
+//  -webkit-animation: slide 0.25s linear infinite;
 }
 
 @-webkit-keyframes slide {
@@ -140,7 +140,7 @@ h2 {
     font-family: rumeur, sans-serif;
     font-size: 20px;
 //    letter-spacing:-0.5px;
-    padding: 18px 30px 20px 30px;
+    padding: 14px 30px 14px 30px;
     flex-grow: 1;
 }
 h3 {
