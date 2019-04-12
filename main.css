@@ -323,18 +323,18 @@ footer .square {
 
 #content-container.active #top-stroke {
     stroke-dashoffset:0;
-    transition: 0.5s ease-in;
+    transition: 0.5s ease-out;
 }
 
 #content-container.active #round-stroke {
     stroke-dashoffset: 0;
     transform: rotateZ(-270deg);
-    transition: 1.5s 0.5s;
+    transition: 1s 0.5s;
 }
 
 #content-container.active #bottom-stroke {
     stroke-dashoffset:0;
-    transition: 3s ease-out 2s;
+    transition: 1.5s ease-in 1.5s;
 }
 
 #content-container.active .cross {
