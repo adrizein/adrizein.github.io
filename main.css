@@ -5,11 +5,27 @@
 
 div.ui-page {
     height: 100%;
+    background: url("noise.png") repeat 0 0;
+//    mix-blend-mode: overlay;
+//  -webkit-animation: slide 0.25s linear infinite;
 }
+
+@-webkit-keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
+}
+
+
+
 
 @font-face {
     font-family: rumeur;
     src: url("fonts/rumeur.otf") format("opentype");
+}
+
+@font-face {
+    font-family: suisse;
+    src: url("fonts/suisseintl-medium.otf") format("opentype");
 }
 
 table.squares {
@@ -81,8 +97,15 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    font:14px "Helvetica";
+    font:14px "suisse";
+    line-height: 1.6;
     color: white;
+    background: linear-gradient(217deg, rgba(120,20,20,.8), rgba(120,20,20,0) 70.71%),
+                
+linear-gradient(127deg, rgba(120,120,0,.8), rgba(0,120,0,0) 70.71%),
+            
+                
+linear-gradient(336deg, rgba(70,70,180,.8), rgba(80,80,200,0) 70.71%)
 }
 
 canvas {
@@ -92,7 +115,7 @@ canvas {
     left: 0;
     right: 0;
     z-index: -1;
-    transition: filter 1.5s ease-in-out;
+    transition: filter 1s ease-in-out;
 }
 
 
@@ -115,19 +138,22 @@ h2, footer {
 
 h2 {
     font-family: rumeur, sans-serif;
-    font-size: 18px;
-    letter-spacing:2px;
-    padding: 20px 30px 20px 30px;
+    font-size: 20px;
+//    letter-spacing:-0.5px;
+    padding: 14px 30px 14px 30px;
     flex-grow: 1;
 }
 h3 {
     font-family: rumeur, sans-serif;
-    font-size: 60px;
-    margin: 0 0 35px 0;
+    font-size: 80px;
+    letter-spacing:-6px;
+    margin: -30px 0 -10px 0;
     flex-grow: 1;
 }
 h4 {
     font-family: rumeur, sans-serif;
+    font-size:16px;
+    letter-spacing:-0.5px;
     margin: 10px 0;
 }
 
@@ -156,6 +182,7 @@ footer {
 
 footer h3 {
     font-size:12px !important;
+    letter-spacing:0.4px !important;
     margin:24px 30px 24px 30px;
     display: flex;
     align-items: center;
@@ -183,7 +210,8 @@ footer .square {
 
 
 .content p {
-    font: 14px "Helvetica";
+    font: 14px "suisse";
+    line-height: 1.6;
 }
 
 .menu {
@@ -242,7 +270,7 @@ footer .square {
     opacity: 1;
     pointer-events: auto;
     cursor: auto;
-    background-color: rgba(0, 0 ,0, 0.2);
+//    background-color: rgba(0, 0 ,0, 0.2);
 }
 
 #close-button {
@@ -267,7 +295,7 @@ footer .square {
 #top-stroke{
     stroke-dasharray: 90px;
     stroke-dashoffset: 90px;
-    transition: 1s 1.5s;
+    transition: 0.5s 1s;
 }
 
 #round-stroke {
@@ -275,14 +303,14 @@ footer .square {
     transform: rotateZ(-90deg);
     stroke-dasharray: 220;
     stroke-dashoffset: 220;
-    transition: 1s 1s;
+    transition: 1s 0.5s;
     background-color: rgba(0, 0 ,0, 0.2);
 }
 
 #bottom-stroke {
-    stroke-dasharray: calc(100% + 130px);
-    stroke-dashoffset: calc(100% + 130px);
-    transition: 2s;
+    stroke-dasharray: calc(130px + 100%);
+    stroke-dashoffset: calc(130px + 100%);
+    transition: 1s;
 }
 
 .cross {
@@ -295,18 +323,18 @@ footer .square {
 
 #content-container.active #top-stroke {
     stroke-dashoffset:0;
-    transition: 0.5s ease-in;
+    transition: 0.5s ease-out;
 }
 
 #content-container.active #round-stroke {
     stroke-dashoffset: 0;
     transform: rotateZ(-270deg);
-    transition: 1.5s 0.5s;
+    transition: 1s 0.5s;
 }
 
 #content-container.active #bottom-stroke {
     stroke-dashoffset:0;
-    transition: 3s ease-out 2s;
+    transition: 1.5s ease-in 1.5s;
 }
 
 #content-container.active .cross {
@@ -336,7 +364,7 @@ html:lang(fr) #fr {
 }
 
 .accordion {
-    margin: 20px auto 20px auto;
+    margin: 2px auto 2px auto;
     max-width: 750px;
 }
 
@@ -347,8 +375,8 @@ html:lang(fr) #fr {
 .accordion-item {
     cursor: pointer;
     border: solid 1px white;
-    margin: 20px 0;
-    padding: 20px 20px 20px 20px;
+    margin: 12px 0;
+    padding: 14px 20px 14px 20px;
 }
 
 .accordion-item h4::before {
@@ -373,9 +401,10 @@ html:lang(fr) #fr {
 
 
 .accordion li {
-    font:14px "Helvetica";
+    font:14px "suisse";
     font-weight: normal;
     margin-bottom: 10px;
+    line-height: 1.6;
     list-style-position: inside;
 }
 
