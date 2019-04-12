@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset=utf-8>
@@ -32,14 +32,14 @@
         </h2>
     </header>
     <div class="square" id="help"><div>?</div></div>
-    <div class="square" id="fb"><div>Fb</div></div>
+    <div class="square" id="fb" onClick="goTo('https://www.facebook.com/coucoolcoucool')"><div>Fb</div></div>
     <table class="top squares">
         <tbody>
         <tr>
             <td class="square" id="language" style="text-align:center">
-                    <span id="fr" onclick="setLanguage('fr')">Fr</span>
+                    <span id="fr" onClick="setLanguage('fr')">Fr</span>
                     /
-                    <span id="en" onclick="setLanguage('en')">En</span>
+                    <span id="en" onClick="setLanguage('en')">En</span>
             </td>
             <td class="square"></td>
         </tr>
@@ -241,14 +241,6 @@
         </div>
         <div id="infos" class="content">
             <h3>Infos</h3>
-            <p class="fr">
-                La 6ème édition de <span class="definition link">Coucool</span> change de format. Prends le temps de lire attentivement ces informations.
-            </p>
-
-            <p class="en">
-                <span class="definition link">Coucool</span>'s
-                6th edition changes shape, please take time to read carefully the following information.
-            </p>
 
             <div class="accordion fr">
                 <div class="accordion-item">
@@ -315,51 +307,70 @@
 
             <div class="accordion en">
                 <div class="accordion-item">
-                    <h4>Coucool lasts 2 days.</h4>
+                    <h4>Only one edition will be coucooled in 2019.</h4>
                     <ul class="accordion-item-content">
-                        <li>From Friday September 21 at 4PM until Sunday September 23 at 12AM.</li>
-                        <li>From Friday 8PM and on, access to the festival will be closed and there will be no more shuttle services.</li>
+                        <li>The 7th and only edition of 2019 will take place from Friday, July 26 at 4 PM to Sunday, July 28 at noon.</li>
+                        <li> No entry will be allowed after 8 PM on Friday nor on Saturday.</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>Every participant gets involved as a volunteer.</h4>
+                    <h4>Everyone shall patiently coucool before the location is revealed.</h4>
                     <ul class="accordion-item-content">
-                        <li>Either by proposing doing an artistic project, an activity or any coucool initiative : a pimped ride, a ring and pin lesson, a gift crafting workshop, a hobby horsing championship, a mobile tequila shots stand, a conference, an air carwash, etc.</li>
-                        <li>Either by giving at least 2 hours of your time for a volunteer mission by day or by night : welcoming and guiding the participants, distributing meals or drinks, ensuring their well-being, but also managing the toilets by night, etc.</li>
+                        <li>In 2019, Coucool flies away from its native forest to invest a new one.</li>
+                        <li>The new location is 2h away from Paris by car, 3h by train.</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>The program is revealed on site.</h4>
+                    <h4>Everyone commits to respect Coucool’s ethos and community.</h4>
                     <ul class="accordion-item-content">
-                        <li>Coming with no expectations is the best way to not be disappointed. Coucool is a place of discovery.</li>
+                        <li>Core principles are listed in Éros Sélavy’s Ethos : <a onclick="showContent('ethos')">this way</a>.</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>The location is 40 minutes from Paris.</h4>
+                    <h4>Coucool is built by many : everyone commits to humanely contribute.</h4>
                     <ul class="accordion-item-content">
-                        Its precise location is given to the participants a few days before the event. How to get there ?
-                        <li>Direct buses from & to central Paris (with fee).</li>
-                        <li>40 minutes drive from downtown Paris.</li>
-                        <li>40 minutes train ride from downtown Paris + 5 minutes of free shuttle bus.</li>
-                        The free shuttles will be running from 4PM to 8PM on Friday 21 and from noon to 2PM on Sunday 23.
+                        You can choose amongst two options :
+                        <li>you can either dedicate 2h of your time during the event to a volunteering mission, day or night (restauration, bar, well-being, toilets, etc.)</li>
+                        <li>or suggest an artistic project, an activity or any other type of coucool initiative (gift-making workshop, hobby-horse tournament, conference, bilboquet class, etc.).</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>Food and drinks are included.</h4>
+                    <h4>In order to be as numerous as possible, a Solidarity fee is available.</h4>
                     <ul class="accordion-item-content">
-                        <li>From Friday night to Sunday morning :  there will be plenty for all tastes, religions, and dietary requirements.</li>
+                        <li>A reduced-price fee is available for persons who don’t have the physical (handicap) or financial (precarity) ability to smoothly attend the event. Eligibility to this fee is determined on an individual basis and in light of the supporting documents which are listed in this application form.</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>A camping space is available.</h4>
+                    <h4>Coucool yourself with little : programming is revealed on site.</h4>
                     <ul class="accordion-item-content">
-                        <li>You can sleep on a sea of sand, under the stars, surrounded by trees.</li>
+                        <li>To come with no expectations is the best way not to end up disappointed. Coucool is a discovery zone.</li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    <h4>In order to coucool lightly, meals and drinks are included in the price.</h4>
+                    <ul class="accordion-item-content">
+                        <li>From Friday night to Sunday morning : abundantly, for all tastes, religions and diets.</li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    <h4>Coucool people can rest : a free camping is available.</h4>
+                    <ul class="accordion-item-content">
+                        <li>Everyone is invited to set up his.her tent to lie down and relax away from the festivities.</li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    <h4>In case you sell your contribution to someone else, coucool your responsibilities.</h4>
+                    <ul class="accordion-item-content">
+                        <li>You should resell it to its original price.</li>
+                        <li>Buyers should make sure that the ticket is not a fraud.</li>
+                        <li>It is highly recommended to write to eros@cou.cool in order to update the ticket holder’s information and thus receive all the necessary communication regarding the event (location, volunteering shift, and other practical details).</li>
                     </ul>
                 </div>
             </div>
-
         </div>
+
         <div id="contributions" class="content">
+            <h3>Contributions</h3>
             <div id="page1" class="contribution-page">
                 <div class="contribution-page-container">
                     <div class="contribution-page-content">
@@ -374,6 +385,133 @@
                 </div>
             </div>
         </div>
+
+        <div id="definitions" class="content">
+            <h3>Definitions</h3>
+            <div class="fr">
+                        <p>
+                            Étymologie : Mot-valise composé de coucou et cool (ou de comète et roucoule selon d’autres sources) <br/>
+                            coucool \ kukɔɔl \ masculin et féminin identiques
+                        </p>
+                        <p>
+                            1. Adjectif : Désigne un objet, une personne, une situation au caractère particulièrement spontané, bienveillant et réjouissant.</br>
+                            • « Jack et son panda sautèrent ensemble dans la piscine à boules. Décidément, leur journée avait été coucool… » (Éros Sélavy, 1927)
+                        </p>
+                        <p>
+                            Par extension : Interjection, mot pour saluer ses camarades dans un contexte coucool.</br>
+                            • « Ah Coucool ! »
+                        </p>
+                        <p>
+                            2. Nom commun : Oiseau curieux qui ne danse qu’en groupe au coucher du soleil sur des rythmes percussifs, nommé ainsi en référence au son qu’il produit lorsqu’il est satisfait.</br>
+                            • « Coucoooooool…Coucoooooool »
+                        </p>
+                        <p>
+                            3. Verbe : Allumer une partie ou la totalité de son être, en ayant une influence positive sur son environnement immédiat ou lointain.
+                            Par extension : Désigne toute action effectuée dans un état d’esprit coucool.
+                            • « Les ami.e.s, coucoolez-vous dans mes bras »
+                        </p>
+                        <p>
+                            Coucool<br/>
+                            C’est le premier mot de l’étranger curieux, qui surprend puis rassure. En même temps que ce salut, tout ce qui nous entoure devient soudainement coucool à son tour. Tout ce qui vibre et qui scintille, tout ce qui est fait pour me plaire et m’amuser, toutes les personnes qui m’entraînent par la main pour me montrer ce qu’elles ont trouvé par là-bas.
+                        </p>
+                        <p>
+                            C’est le spectre particulier des couleurs de l’arc-en-ciel à ce moment de l’année, la musique qui prend le rythme de plusieurs cœurs à la fois, la lueur de la boule à facettes sur nos plumages volages, et l’amour qui coule à flots.
+                        </p>
+                    </div>
+                    <div class="en">
+                        <p>
+                            Etymology: Portmanteau word composed of Coucou (French for ‘Hello’, also the onomatopoetia ‘Cuckoo’) & Cool</br>
+                            coucool \ kukɔɔl \ male and female identical
+                        </p>
+                        <p>
+                            1. Adjective: Indicates an object, person or situation particularly spontaneous, caring and joyful.</br>
+                            • "Jack and his panda jumped together in the ball pool. Their day was turning out to be coucool for sure..." (Éros Sélavy, 1927)
+                        </p>
+                        <p>
+                            Other use: as a greeting in a coucool context.</br>
+                            • "Coucool my brother / sister!"
+                        </p>
+                        <p>
+                            2. Common noun: Curious bird known for dancing in group at sunset to percussive rhythms, named after the call that it makes when satisfied.</br>
+                            • "Coucoooooool…Coucoooooool"
+                        </p>
+                        <p>
+                            Not to be confused with: those (many) English speakers not yet fully accustomed to the French tongue must avoid the word “coucouilles” \ kukɔi ; a pejorative term for testicles.
+                        </p>
+                        <p>
+                            Coucool<br/>
+                            It is the greeting of the curious stranger, that surprises then reassures.
+                            Simultaneously with this greeting, everything around us becomes suddenly coucool itself.
+                            Any vibration and sparkle, anything made to please and entertain me, all the people taking me by the hand, to show me what they found here and there.
+                        </p>
+                        <p>
+                            It is the particular spectrum of rainbow colours at this time of year, music taking the rhythm of multiple hearts at once, glow of the disco ball on our flighty feathers, and love flowing strongly and freely.
+                        </p>
+                    </div>
+        </div>
+
+        <div id="eros" class="content">
+            <h3>Éros</h3>
+            <div style="margin:auto;max-width: 400px;">
+                <p>Au pays de Éros Sélavy on aime les fous et les loups sans foi ni loi,</p>
+                <p>La suivrez-vous au pays des nombres décimaux où il n’y a décombres ni maux ?</p>
+                <p>Croyez-vous qu’il connaisse ces jeux de fous qui mettent le feu aux joues ?</p>
+                <p>Rrose Sélavy connaît bien le marchand du sel.</p>
+                <p>Je vous aime, ô beaux hommes vêtus d’opossum.</p>
+            </div>
+            <p class="stars">* * *</p>
+            <div style="margin:auto;max-width: 290px;">
+                <div class="strophe">
+                    <p>Je te flore, tu me faune,</p>
+                    <p>Je te peau, tu m’océan,</p>
+                    <p>Je te clé d’or, tu me paroxysme,</p>
+                </div>
+                <div class="strophe">
+                    <p>Tu me mirage, je te lune,</p>
+                    <p>Tu me château vide, je te labyrinthe,</p>
+                    <p>Tu me danse, je te poète,</p>
+                </div>
+                <div class="strophe">
+                    <p>Nous nous scandaleusement,</p>
+                    <p>Nous nous pulvérisable, jour et nuit,</p>
+                    <p>Nous nous aujourd’hui même,</p>
+                </div>
+                <div class="strophe">
+                    <p>Tu m’odeur, je te vertige,</p>
+                    <p>Tu me glisses, je te cuisse,</p>
+                    <p>Tu m’enjambes, je te nage,</p>
+                </div>
+                <div class="strophe">
+                    <p>Je te chair cuir peau et morsure,</p>
+                    <p>Tu me vulve sueur langue et nuque,</p>
+                    <p>Je te fluide, tu m’étoile filante,</p>
+                    <p>Je t’écris, tu me navigues.</p>
+                </div>
+            </div>
+            <p class="stars">* * *</p>
+            <p style="text-align:center;" >Cherche moi où je ne suis pas et tu me trouveras.</p>
+
+            <p style="text-align:right; margin-top:30px;"> Ghérasim Luca feat. Robert Desnos (Éros Sélavy Edit)</p>
+        </div>
+
+        <div id="curiosities" class="content">
+            <!--TO DO REPLACE WITH SVG-->
+            <div class="fr">
+                <div onClick="goTo('/comptes/2018')" class="white_button">
+                    <h4>Bilan 2018</h4>
+                </div>
+                <div onClick="goTo('/2018')" class="white_button">
+                    <h4>Site 2018</h4>
+                </div>
+                <div onClick="goTo('/2017')" class="white_button">
+                    <h4>Site 2017</h4>
+                </div>
+                <div onClick="goTo('/2016')" class="white_button">
+                    <h4>Site 2016</h4>
+                </div>
+            </div>
+        </div>
+
     </div>
     <footer class="menu">
         <div class="square"></div>
@@ -384,7 +522,7 @@
                 <div id="footer" class="en">
                     Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a href="mailto:eros@cou.cool"> Write to him </a>
                 </div>
-                <div id="credits">Visuels – Élise Rigollet</div>
+                <div id="credits">Visuels – <a onClick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
             </h3>
     </footer>
 </div>

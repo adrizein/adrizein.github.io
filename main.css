@@ -147,7 +147,7 @@ h3 {
     font-family: rumeur, sans-serif;
     font-size: 80px;
     letter-spacing:-6px;
-    margin: -30px 0 -10px 0;
+    margin: 0px 0 -10px 0;
     flex-grow: 1;
 }
 h4 {
@@ -204,7 +204,7 @@ footer .square {
 
 #content-container.active .content.active {
     width: 100%;
-    margin: 60px 0 60px 0;
+    margin: 0px 0 60px 0;
     display: inline-block;
 }
 
@@ -408,6 +408,31 @@ html:lang(fr) #fr {
     list-style-position: inside;
 }
 
+.stars {
+    text-align:center;
+}
+
+.white_button {
+    cursor: pointer;
+    border: none;
+    text-align:center;
+    margin: 12px 0;
+    padding: 14px 20px 14px 20px;
+    background: white;
+}
+
+.white_button h4 {
+    color:black;
+}
+
+.white_button:hover {
+    border: solid 1px white;
+    background-color: transparent;
+}
+
+.white_button:hover h4 {
+    color:white;
+}
 
 
 @media (max-width: 740px) {
@@ -470,7 +495,7 @@ html:lang(fr) #fr {
 
     #content-container {
         width: 100%;
-        padding: 0 55px;
+        padding: 50px 55px 0px 55px;;
         height: calc(100% - 100px);
     }
 

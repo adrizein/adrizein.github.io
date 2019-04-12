@@ -44,12 +44,12 @@ $(function() {
 
 
     var objects = {
-        torus: {src:"TORUS2.obj", position:{x:0.6,y:0,z:-0.6}, scale:0.008, chapter:'infos', material:grey_metal_material},
+        torus: {src:"TORUS2.obj", position:{x:0.6,y:0,z:-0.6}, scale:0.008, chapter:'definitions', material:grey_metal_material},
         bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'ethos', material:bubble_material},
-        cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'ethos', material:blue_metal_material},
+        cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'curiosities', material:blue_metal_material},
         dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', material:blue_metal_material},
-        eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'infos', material:blue_metal_material},
-        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'contributions', material:red_metal_material}
+        eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:blue_metal_material},
+        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'infos', material:red_metal_material}
     };
 
 
@@ -280,12 +280,6 @@ $(function() {
             if (event.target.id === 'all') {
                 closeContent()
             }
-            if (event.target.id === 'fr') {
-                setLanguage('fr')
-            }
-            if (event.target.id === 'en') {
-                setLanguage('en')
-            }
             else {
                 all.one('mousedown', clickOutside);
             }
@@ -357,7 +351,12 @@ $(function() {
     }
 
     function setLanguage(lang) {
+        console.log(lang);
         $("html").attr("lang", lang); 
     }
 
 });
+
+function goTo(url) {
+    window.open(url, '_blank');
+}
