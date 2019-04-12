@@ -280,6 +280,12 @@ $(function() {
             if (event.target.id === 'all') {
                 closeContent()
             }
+            if (event.target.id === 'fr') {
+                setLanguage('fr')
+            }
+            if (event.target.id === 'en') {
+                setLanguage('en')
+            }
             else {
                 all.one('mousedown', clickOutside);
             }
@@ -287,6 +293,7 @@ $(function() {
 
         controls.enableRotate = false;
         controls.enableZoom = false;
+        window.location.hash = chapter;
     }
 
     function closeContent() {
@@ -301,6 +308,7 @@ $(function() {
 
             controls.enableRotate = true;
             controls.enableZoom = true;
+            window.location.hash = '';
         }
     }
 
@@ -323,6 +331,33 @@ $(function() {
         $(document.body).width(window.innerWidth).height(window.innerHeight);
     };
 
+
     window.onresize();
     render();
+
+    const chapter = getChapter();
+    if (chapter) showContent(chapter);
+
+
+    //TO DO
+    window.onhashchange = onHash;
+
+
+    async function onHash() {
+        const chapter = getChapter();
+        if (chapter) showContent(chapter);
+    }
+
+    function getChapter() {
+        console.log(window.location.hash);
+        if (window.location.hash.length > 1) {
+            console.log(window.location.hash)
+            return window.location.hash.substr(1).toLowerCase();
+        }
+    }
+
+    function setLanguage(lang) {
+        $("html").attr("lang", lang); 
+    }
+
 });

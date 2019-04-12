@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset=utf-8>
@@ -24,13 +24,23 @@
 
 <div id="all">
     <div class="menu">
-    <header><div class="square"></div><h2>COUCOOL<span id="date">28/07/19</span></h2></header>
+    <header>
+        <div class="square"></div>
+        <h2>COUCOOL
+        <span id="date" class="fr">26, 27 & 28 juillet 2019</span>
+        <span id="date" class="en">26, 27 & 28th of July, 2019</span>
+        </h2>
+    </header>
     <div class="square" id="help"><div>?</div></div>
     <div class="square" id="fb"><div>Fb</div></div>
     <table class="top squares">
         <tbody>
         <tr>
-            <td class="square"></td>
+            <td class="square" id="language" style="text-align:center">
+                    <span id="fr" onclick="setLanguage('fr')">Fr</span>
+                    /
+                    <span id="en" onclick="setLanguage('en')">En</span>
+            </td>
             <td class="square"></td>
         </tr>
         <tr>
@@ -68,6 +78,7 @@
 <!--CONTENT-->
         <div id="ethos" class="content">
             <h3>Ethos</h3>
+            <p class="fr">Cher.e.s coucools,</p>
             <p class="fr">
                 J’espère que vous allez bien depuis la prochaine fois. J’aimerais vous écrire quelques mots à propos de ce qui me semble être le coeur battant de Coucool, le désir profond que l’autre soit heureux.se : la bienveillance.
                 Une bien belle idée me direz-vous, mais comment la mettre en oeuvre ? Voici quelques suggestions, mais je vous invite aussi à imaginer et coucooler les vôtres.
@@ -241,46 +252,63 @@
 
             <div class="accordion fr">
                 <div class="accordion-item">
-                    <h4>Coucool dure 2 jours.</h4>
+                    <h4>Nous coucoolons une seule édition en 2019.</h4>
                     <ul class="accordion-item-content">
-                        <li>Du vendredi 21 septembre 16h au dimanche 23 septembre 12h.</li>
-                        <li>Toute entrée sera refusée et il n'y aura plus de navette après 20h le vendredi 21 septembre.</li>
-                        <li>Aucune entrée ne sera possible le samedi.</li>
+                        <li>La 7ème et unique édition en 2019 est organisée du vendredi 26 juillet 16h au dimanche 28 juillet 12h.</li>
+                        <li>Aucune entrée admise à partir de 20h le vendredi, ni le samedi.</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>Chaque participant.e s’engage à contribuer humainement.</h4>
+                    <h4>Chacun.e coucoole patiemment avant de connaître le lieu.</h4>
                     <ul class="accordion-item-content">
-                        <li>Soit en proposant de réaliser un projet artistique, une activité ou toute initiative coucool : un véhicule mutant, un cours de bilboquet, un atelier de confection de cadeaux, une compétition de cheval bâton, un stand ambulant de teq paf, une conférence, un air carwash, etc.</li>
-                        <li>Soit en accordant au moins 2h de son temps pour une mission bénévole de jour ou de nuit : accueillir et guider les participant.e.s, leur distribuer à manger, à boire, s’assurer de leur bien-être mais aussi gérer les toilettes de nuit, etc.</li>
+                        <li>En 2019 Coucool quitte sa forêt natale pour s’installer aux abords d’une nouvelle, pas si lointaine.</li>
+                        <li>Le lieu est à 2h de Paris en voiture / 3h en train. </li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>La programmation est dévoilée sur place.</h4>
+                    <h4>Chacun.e s’engage à respecter l’ethos de la communauté Coucool.</h4>
+                    <ul class="accordion-item-content">
+                        <li>Ces grands principes sont listés dans l’Éthos d’Éros Sélavy : <a onclick="showContent('ethos')">par ici</a>.</li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    <h4>Coucool se construit à plusieurs : chacun.e s’engage à contribuer humainement.</h4>
+                    <ul class="accordion-item-content">
+                        Deux chemins possibles :
+                        <li>soit accorder 2h de son temps durant l’événement pour une mission bénévole de jour ou de nuit (accueil, restauration, bar, bien-être, toilettes, etc.),</li>
+                        <li>soit proposer un projet artistique, une activité ou toute initiative coucool (atelier de confection de cadeaux, compétition de cheval bâton, conférence, stand ambulant de teq paf, cours de bilboquet, etc.).</li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    <h4>Un tarif Solidaire est proposé pour coucooler au plus grand nombre.</h4>
+                    <ul class="accordion-item-content">
+                        <li>Une contribution à tarif réduit est accessible aux personnes n’ayant pas la capacité physique (handicap) ou financière (précarité) de venir facilement. L’accès à ce tarif se fait au cas par cas, à partir de justificatifs, sur demande via le formulaire suivant : par ici.</li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    <h4>Coucoolons-nous de peu de choses : la programmation est dévoilée sur place.</h4>
                     <ul class="accordion-item-content">
                         <li>Venir sans attente, c'est ne pas être déçu.e. Coucool est un lieu de découverte.</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>Le lieu est à 40 minutes de Paris.</h4>
-                    <ul class="accordion-item-content">
-                        Sa localisation exacte est précisée aux participant.e.s quelques jours avant l’événement. Comment venir ?
-                        <li>Cars payants directs depuis et vers Paris.</li>
-                        <li>40 minutes en voiture depuis Paris.</li>
-                        <li>40 minutes en transilien depuis Paris + 5 minutes de navette gratuite.</li>
-                        Horaires des navettes gratuites : de 16h à 20h le vendredi 21 et de midi à 14h le dimanche 23.
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Nourritures et boissons sont incluses.</h4>
+                    <h4>Autant coucooler léger : nourritures et boissons sont incluses.</h4>
                     <ul class="accordion-item-content">
                         <li>Du vendredi soir au dimanche matin : en quantité, pour tous les goûts, toutes les religions et toutes les ascendances alimentaires.</li>
                     </ul>
                 </div>
                 <div class="accordion-item">
-                    <h4>Un espace de camping est à disposition.</h4>
+                    <h4>Chaque coucool peut se reposer : un espace de camping est à disposition.</h4>
                     <ul class="accordion-item-content">
-                        <li>Tu pourras te reposer sur une mer de sable, sous les étoiles, entouré.e par les arbres.</li>
+                        <li>Chacun.e est invité.e à poser sa tente pour un temps de détente à l’écart des festivités.</li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    <h4>En cas de revente à/par un tiers, chacun.e coucoole ses responsabilités.</h4>
+                    <ul class="accordion-item-content">
+                        <li>Toute revente doit se faire au prix d’achat.</li>
+                        <li>Les racheteurs doivent être vigilants à la véracité du billet.</li>
+                        <li>Il est recommandé d’envoyer un mail à eros@cou.cool pour la mise à jour des informations du détenteur du billet, afin de bien recevoir tous les communiqués pour l’événement (lieu, mission bénévole et autres informations pratiques).</li>
                     </ul>
                 </div>
             </div>
@@ -350,8 +378,11 @@
     <footer class="menu">
         <div class="square"></div>
             <h3>
-                <div id="footer">
-                    Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <span>Lui Écrire</span>
+                <div id="footer" class="fr">
+                    Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <a href="mailto:eros@cou.cool"> Lui Écrire</a>
+                </div>
+                <div id="footer" class="en">
+                    Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a href="mailto:eros@cou.cool"> Write to him </a>
                 </div>
                 <div id="credits">Visuels – Élise Rigollet</div>
             </h3>
