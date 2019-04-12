@@ -126,7 +126,7 @@ $(function() {
             if (INTERSECTED) {
                 showContent(objects[INTERSECTED.parent.name].chapter);
             }
-            else {
+            else if(!$(event.target).parentsUntil('.menu').length) {
                 all.addClass('cursor-drag');
             }
         }
@@ -352,8 +352,10 @@ $(function() {
 
     function setLanguage(lang) {
         console.log(lang);
-        $("html").attr("lang", lang); 
+        $("html").attr("lang", lang);
     }
+
+    window.setLanguage = setLanguage;
 
 });
 

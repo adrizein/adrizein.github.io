@@ -27,19 +27,17 @@
     <header>
         <div class="square"></div>
         <h2>COUCOOL
-        <span id="date" class="fr">26, 27 & 28 juillet 2019</span>
-        <span id="date" class="en">26, 27 & 28th of July, 2019</span>
+        <span class="date fr">26, 27 & 28 juillet 2019</span>
+        <span class="date en">26, 27 & 28th of July, 2019</span>
         </h2>
     </header>
     <div class="square" id="help"><div>?</div></div>
-    <div class="square" id="fb" onClick="goTo('https://www.facebook.com/coucoolcoucool')"><div>Fb</div></div>
+    <div class="square ui-link" id="fb" onclick="goTo('https://www.facebook.com/coucoolcoucool')"><div>Fb</div></div>
     <table class="top squares">
         <tbody>
         <tr>
-            <td class="square" id="language" style="text-align:center">
-                    <span id="fr" onClick="setLanguage('fr')">Fr</span>
-                    /
-                    <span id="en" onClick="setLanguage('en')">En</span>
+            <td class="square ui-link" id="language" style="text-align:center">
+                    <span id="fr" onclick="setLanguage('fr')">Fr</span> / <span id="en" onclick="setLanguage('en')">En</span>
             </td>
             <td class="square"></td>
         </tr>
@@ -497,16 +495,16 @@
         <div id="curiosities" class="content">
             <!--TO DO REPLACE WITH SVG-->
             <div class="fr">
-                <div onClick="goTo('/comptes/2018')" class="white_button">
+                <div onclick="goTo('/comptes/2018')" class="white_button">
                     <h4>Bilan 2018</h4>
                 </div>
-                <div onClick="goTo('/2018')" class="white_button">
+                <div onclick="goTo('/2018')" class="white_button">
                     <h4>Site 2018</h4>
                 </div>
-                <div onClick="goTo('/2017')" class="white_button">
+                <div onclick="goTo('/2017')" class="white_button">
                     <h4>Site 2017</h4>
                 </div>
-                <div onClick="goTo('/2016')" class="white_button">
+                <div onclick="goTo('/2016')" class="white_button">
                     <h4>Site 2016</h4>
                 </div>
             </div>
@@ -516,13 +514,13 @@
     <footer class="menu">
         <div class="square"></div>
             <h3>
-                <div id="footer" class="fr">
+                <div class="fr">
                     Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <a href="mailto:eros@cou.cool"> Lui Écrire</a>
                 </div>
-                <div id="footer" class="en">
+                <div class="en">
                     Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a href="mailto:eros@cou.cool"> Write to him </a>
                 </div>
-                <div id="credits">Visuels – <a onClick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
+                <div id="credits">Visuels – <a onclick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
             </h3>
     </footer>
 </div>
