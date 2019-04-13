@@ -409,28 +409,37 @@ html:lang(fr) #fr {
     text-align:center;
 }
 
-.white_button {
+
+text {
+  font-size: 30px;
+  text-anchor:middle;
+  dominant-baseline:central;
+}
+
+.masked {
+  fill:rgba(255,255,255,0.8);
+}
+
+#myText {
+  fill: #000;
+}
+
+.appearing{
+  fill:transparent;
+  cursor: pointer;
+}
+
+svg:hover .masked{
     cursor: pointer;
-    border: none;
-    text-align:center;
-    margin: 12px 0;
-    padding: 14px 20px 14px 20px;
-    background: white;
+  stroke-width:3;stroke:rgb(255,255,255);
+  fill:transparent;
 }
 
-.white_button h4 {
-    color:black;
+svg:hover .appearing{
+    cursor: pointer;
+  font-size: 30px;
+  fill: white;
 }
-
-.white_button:hover {
-    border: solid 1px white;
-    background-color: transparent;
-}
-
-.white_button:hover h4 {
-    color:white;
-}
-
 
 @media (max-width: 740px) {
 
