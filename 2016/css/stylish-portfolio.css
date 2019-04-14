@@ -1,0 +1,330 @@
+/*!
+ * Start Bootstrap - Stylish Portfolio Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+@font-face { font-family: 'Avenir';       src:url('../fonts/AvenirLTStd-Light.otf'); }
+@font-face { font-family: 'Josefin';       src:url('../fonts/JosefinSans-Regular.ttf'); }
+
+/* Global Styles */
+
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -moz-scrollbars-none;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    font-family: "Josefin", "Avenir", "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color:white;
+}
+
+.controlButton { 
+    /*text-shadow: black 0.1em 0.1em 0.2em;*/
+    font-size:24px;line-height: 24px;
+    /*
+    -webkit-animation-name: example; 
+    -webkit-animation-duration: 4s; 
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 2; */
+}
+
+.vertical{ 
+    width:20%;
+    display: table-cell;
+}
+
+.horizontal{ 
+    height:20%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes example {
+    0% {font-size: 24px;}
+    50% {font-size: 30px;}
+    100% {font-size: 24px;}
+}
+
+/* Standard syntax */
+@keyframes example {
+    0% {font-size: 24px;}
+    50% {font-size: 30px;}
+    100% {font-size: 24px;}
+}
+
+.controlButton:hover { 
+    color:white;
+}
+
+
+.greyHover:hover { 
+    color:grey;
+    font-style: normal;
+}
+
+
+input:focus {
+    outline:none;
+}
+
+.align-right {
+   text-align: right;
+   position: absolute;
+   right: 0px;
+   top: 49%;
+}
+
+.content {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color:white;
+    /*text-shadow: black 0.1em 0.1em 0.2em;*/
+    font-size: 18px;
+    width:70%;
+    background-color: rgba(0,0,0,0.1);
+}
+
+#pageContainer {
+    position:fixed;
+    top:0px;
+    bottom:0px;
+    right:0px;
+    left: 0px;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+#pageContainer.inactive {
+    right:250px;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+
+
+.frame {
+    z-index:35;
+    /*text-shadow: black 0.1em 0.1em 0.2em;*/
+}
+
+.contentBox {
+    margin:auto;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-repeat:no-repeat;
+    padding:10%;
+    background-position:center;
+    font-family: Josefin;
+    overflow:scroll;
+}
+
+.contentBox.regular {
+    background-image:url(../assets/background-optim.jpg);
+}
+
+.contentBox.home {
+    background-image:url(../assets/HomeSmall-optim.jpg);
+}
+
+@media (max-width: 768px) {
+}
+
+
+/* INPUT */
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:transparent; }
+
+::-webkit-input-placeholder {
+   color: white;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: white;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;  
+}
+
+:-ms-input-placeholder {  
+   color: white;  
+}
+
+
+h1 {
+    font-size: 24px;
+}
+
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-vertical-center h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    font-weight: 700;
+}
+
+
+
+
+
+
+/* Custom Button Styles */
+
+.btn-dark {
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.btn-light {
+    border-radius: 0;
+    color: #333;
+    background-color: rgb(255,255,255);
+}
+
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+    color: #333;
+    background-color: rgba(255,255,255);
+}
+
+/* Custom Horizontal Rule */
+
+hr.small {
+    max-width: 100px;
+}
+
+/* Side Menu */
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    margin-right: -250px;
+    overflow-y: auto;
+    /*background: #222;*/
+    background-color:rgba(0,0,0,1);
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 55px;
+    font-size: 18px;
+    line-height: 55px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+#menu-toggle {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#sidebar-wrapper.active {
+    right: 250px;
+    width: 250px;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.toggle {
+    margin: 0;
+}
+
+/* Header */
+
+.header {
+display: table-cell; 
+vertical-align: top;
+text-align: 
+left;
+padding-left:20px; 
+width=40%;
+font-size:22px;
+}
+
+@media (max-width: 763px) {
+  .header {      
+  font-size:2.8vw;
+  }

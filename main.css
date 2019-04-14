@@ -181,8 +181,8 @@ footer {
 }
 
 footer h3 {
-    font-size:12px !important;
-    letter-spacing:0.4px !important;
+    font-size:13px !important;
+    letter-spacing:-0.5px !important;
     margin:24px 30px 24px 30px;
     display: flex;
     align-items: center;
@@ -414,28 +414,37 @@ html:lang(fr) #fr {
     text-align:center;
 }
 
-.white_button {
+
+text {
+  font-size: 30px;
+  text-anchor:middle;
+  dominant-baseline:central;
+}
+
+.masked {
+  fill:rgba(255,255,255,0.8);
+}
+
+#myText {
+  fill: #000;
+}
+
+.appearing{
+  fill:transparent;
+  cursor: pointer;
+}
+
+svg:hover .masked{
     cursor: pointer;
-    border: none;
-    text-align:center;
-    margin: 12px 0;
-    padding: 14px 20px 14px 20px;
-    background: white;
+    stroke-width:3;stroke:rgb(255,255,255);
+    fill:transparent;
 }
 
-.white_button h4 {
-    color:black;
+svg:hover .appearing{
+    cursor: pointer;
+    font-size: 30px;
+    fill: white;
 }
-
-.white_button:hover {
-    border: solid 1px white;
-    background-color: transparent;
-}
-
-.white_button:hover h4 {
-    color:white;
-}
-
 
 @media (max-width: 740px) {
 
@@ -448,7 +457,6 @@ html:lang(fr) #fr {
     }
 
     .accordion {
-        padding: 10px;
         border-width: 2px;
     }
 
@@ -477,8 +485,18 @@ html:lang(fr) #fr {
     }
 
     #help {
-        top: 50px;
+        top: calc(100% - 99px) !important;
+        border-top:solid white 1px;
+        left: 0px;
     }
+
+    #language {
+        position:fixed;
+        top: calc(100% - 148px) !important;
+        left:0px;
+        display:block !important;
+        padding:14px 0 14px 0;
+}
 
     h2 {
         font-size: 16px;
@@ -491,7 +509,7 @@ html:lang(fr) #fr {
 
     #content-container {
         width: 100%;
-        padding: 50px 55px 0px 55px;;
+        padding: 20px 55px 0px 55px;;
         height: calc(100% - 100px);
     }
 
@@ -516,8 +534,9 @@ html:lang(fr) #fr {
     }
 
     h3 {
-        font-size: 30px;
-        letter-spacing: normal;
+        font-size: 48px;
+        letter-spacing:-1px;
+        margin: 0px 0 -10px 0;
     }
 
     #stroke,
