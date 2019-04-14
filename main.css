@@ -452,6 +452,16 @@ svg:hover .appearing{
     fill: white;
 }
 
+#close_png {
+    position: fixed;
+    top: 70px;
+    margin: 0;
+    right: 0;
+    transform: scale(0.5);
+    cursor: pointer;
+    display: none;
+}
+
 @media (max-width: 740px) {
 
     footer {
@@ -530,6 +540,11 @@ svg:hover .appearing{
         margin: 0;
         right: 0;
         transform: scale(0.5);
+        display:none;
+    }
+
+    .cursor-close #close_png {
+        display: block;
     }
 
     #round-stroke {
