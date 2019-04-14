@@ -138,8 +138,8 @@ h2 {
 
 h3 {
     font-family: rumeur, sans-serif;
-    font-size: 70px;
-    letter-spacing:-5px;
+    font-size: 60px;
+    letter-spacing:-3px;
     margin: 10px 0 -10px 0;
     flex-grow: 1;
 }
@@ -196,14 +196,19 @@ footer .square {
 
 .content {
     display: none;
+    opacity: 0;
+    transition: opacity 1s;
 }
 
-#content-container.active .content.active {
-    width: 100%;
+.content.visible {
+   opacity: 1;
+}
+
+#content-container .content.active {
+    display: block;
     margin: 0px 0 60px 0;
-    display: inline-block;
+    width: 100%;
 }
-
 
 .content p {
     font: 14px "suisse";
@@ -216,7 +221,7 @@ footer .square {
 }
 
 #all {
-    cursor: url('textures/circle.svg') 37 37, auto;
+    cursor: url('textures/circle.png') 37 37, auto;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -224,15 +229,15 @@ footer .square {
 }
 
 #all.cursor-click {
-    cursor: url('textures/click.svg') 37 37, auto;
+    cursor: url('textures/click.png') 31 31, auto;
 }
 
 #all.cursor-drag {
-    cursor: url('textures/drag.svg') 62 62, auto;
+    cursor: url('textures/drag.png') 41 41, auto;
 }
 
 #all.cursor-close {
-    cursor: url('textures/close.svg') 37 37, auto;
+    cursor: url('textures/close.png') 31 31, auto;
 }
 
 #all.cursor-drag * {
@@ -463,17 +468,8 @@ html:lang(fr) #fr {
         border-right: solid white 1px;
     }
 
-    table.bottom.right.squares {
-        bottom: 0;
-    }
-
     .square {
-        width: 50px;
-        height: 50px;
-    }
-
-    table.top.squares {
-        top: 50px;
+        display: none !important;
     }
 
     header {
@@ -500,11 +496,11 @@ html:lang(fr) #fr {
     }
 
     #close-button {
-        position: sticky;
-        top: -12px;
-        left: 100%;
-        margin-top: -12px;
-        margin-right: -68px;
+        position: fixed;
+        top: 80px;
+        left: unset;
+        margin: 0;
+        right: 0;
         transform: scale(0.5);
     }
 

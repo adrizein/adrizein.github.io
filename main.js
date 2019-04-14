@@ -36,6 +36,13 @@ $(function() {
         envMap: envCube
     });
 
+    var white_material = new THREE.MeshStandardMaterial( {
+        color: 0xffffff,
+        roughness: 0,
+        metalness: 0,
+        envMap: envCube
+    });
+
     var shader = THREE.FresnelShader;
     var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
     uniforms[ "tCube" ].value = envCube;
@@ -49,7 +56,8 @@ $(function() {
         cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'curiosities', material:blue_metal_material},
         dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', material:blue_metal_material},
         eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:blue_metal_material},
-        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'infos', material:red_metal_material}
+        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'infos', material:red_metal_material},
+        sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.008, material: white_material},
     };
 
 
@@ -74,19 +82,6 @@ $(function() {
 
     document.body.appendChild( renderer.domElement );
 
-
-    ///// OBJECTS
-    var geometrySphere = new THREE.SphereGeometry(4, 6, 6);
-    var materialGlobe = new THREE.MeshPhongMaterial({
-        color: 0xFFFFFF,
-        wireframe : true
-    });
-
-    var sphere = new THREE.Mesh( geometrySphere, materialGlobe );
-
-    sphere.position.x = 0;
-    sphere.name = 'sphere';
-    scene.add(sphere);
 
     /////// LIGHTS
     var ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -119,15 +114,18 @@ $(function() {
 
     var raycaster = new THREE.Raycaster();
     var intersects;
+    var dragging = 0;
     var contentHidden = true;
 
     function clickHandler(event) {
         if (contentHidden) {
-            if (INTERSECTED) {
-                showContent(objects[INTERSECTED.parent.name].chapter);
-            }
-            else if(!$(event.target).parentsUntil('.menu').length) {
+            var menuParents = $(event.target).parents().filter(function (_, e) {
+                return e.classList.contains('menu')
+            });
+
+            if (!menuParents.length) {
                 all.addClass('cursor-drag');
+                dragging = 1;
             }
         }
     }
@@ -135,6 +133,9 @@ $(function() {
     document.addEventListener('mousemove', function (event) {
         mouse.x = + (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+        if (dragging === 1) {
+            dragging = 2;
+        }
     }, {passive: true});
 
     document.addEventListener('touchstart', function () {
@@ -145,6 +146,9 @@ $(function() {
     document.addEventListener('mousedown', clickHandler, {passive: true});
     document.addEventListener('mouseup', function() {
         if (contentHidden) {
+            if (INTERSECTED && dragging < 2) {
+                showContent(objects[INTERSECTED.parent.name].chapter);
+            }
             all.removeClass('cursor-drag');
         }
     }, {passive: true});
@@ -189,6 +193,7 @@ $(function() {
         var loader = new THREE.OBJLoader( manager ).setPath('assets/');
 
         for (const key in objects) {
+
             loader.load(objects[key].src, function ( obj) {
                 objects[key].obj = obj;
                 objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
@@ -203,8 +208,10 @@ $(function() {
                         }
                     } );
                 }
-                scene.add( objects[key].obj );
-                objects_in_scene.push(objects[key].obj)
+                scene.add(objects[key].obj);
+                if (objects[key].chapter) {
+                    objects_in_scene.push(objects[key].obj)
+                }
             }, onProgress, onError );
         }
     }
@@ -257,18 +264,28 @@ $(function() {
 
     window.scene = scene;
 
-
-    function showContent(chapter) {
-        contentHidden = false;
-        INTERSECTED = null;
-        console.log(chapter);
+    function changeChapter(chapter) {
         var container = $('#content-container');
         var chapter_div = $(`#${chapter}`);
         var active_div = container.find('.active');
 
-        active_div.removeClass('active');
-        chapter_div.addClass("active");
-        container.addClass('active');
+        active_div.removeClass('visible');
+        setTimeout(function () {
+            active_div.removeClass('active');
+            chapter_div.addClass("active");
+            setTimeout(function () {
+                chapter_div.addClass('visible');
+            }, 100);
+            container.addClass('active');
+        }, 1000);
+    }
+
+    function showContent(chapter) {
+        contentHidden = false;
+        INTERSECTED = null;
+
+        changeChapter(chapter);
+
         $('canvas').addClass('blur');
         $('.menu').addClass('blur');
 
@@ -328,35 +345,41 @@ $(function() {
 
     window.onresize();
     render();
+    onHash();
 
-    const chapter = getChapter();
-    if (chapter) showContent(chapter);
-
-
-    //TO DO
+    //TODO
     window.onhashchange = onHash;
 
-
-    async function onHash() {
-        const chapter = getChapter();
-        if (chapter) showContent(chapter);
+    function onHash() {
+        var chapter = getChapter();
+        if (contentHidden) {
+            if (chapter) {
+              showContent(chapter);
+            }
+        }
+        else {
+            if (chapter) {
+                changeChapter(chapter);
+            }
+            else {
+                closeContent();
+            }
+        }
     }
 
     function getChapter() {
         console.log(window.location.hash);
         if (window.location.hash.length > 1) {
-            console.log(window.location.hash)
+            console.log(window.location.hash);
             return window.location.hash.substr(1).toLowerCase();
         }
     }
 
     function setLanguage(lang) {
-        console.log(lang);
         $("html").attr("lang", lang);
     }
 
     window.setLanguage = setLanguage;
-
 });
 
 function goTo(url) {
