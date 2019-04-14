@@ -459,6 +459,7 @@ svg:hover .appearing{
     right: 0;
     transform: scale(0.5);
     cursor: pointer;
+    z-index: 100;
     display: none;
 }
 
