@@ -163,7 +163,7 @@ $(function() {
 
     window.onload = function () {
         $('canvas').bind('tap', clickHandler);
-        //$.mobile.loading().hide();
+        $.mobile.loading().hide();
     };
 
 
