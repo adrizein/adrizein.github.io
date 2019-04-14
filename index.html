@@ -22,595 +22,597 @@
 <script src="js/inobounce.js"></script>
 <script src="main.js" defer></script>
 
-<div id="all">
-    <div class="menu">
-    <header>
-        <div class="square"></div>
-        <h2>COUCOOL
-        <span class="date fr">26, 27 & 28 juillet 2019</span>
-        <span class="date en">26, 27 & 28th of July, 2019</span>
-        </h2>
-    </header>
-    <div class="square" id="help"><div>?</div></div>
-    <div class="square ui-link" id="fb" onclick="goTo('https://www.facebook.com/coucoolcoucool')"><div>Fb</div></div>
-    <table class="top squares">
-        <tbody>
-        <tr>
-            <td class="square ui-link" id="language" style="text-align:center">
-                    <span id="fr" onclick="setLanguage('fr')">Fr</span> / <span id="en" onclick="setLanguage('en')">En</span>
-            </td>
-            <td class="square"></td>
-        </tr>
-        <tr>
-            <td class="square" style="visibility: hidden;"></td>
-            <td class="square"></td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="bottom right squares">
-        <tbody>
-        <tr>
-            <td class="square"></td>
-            <td class="square" style="visibility: hidden;"></td>
-        </tr>
-        <tr>
-            <td class="square" style="visibility: hidden;"></td>
-            <td class="square"></td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-    <div id="content-container">
-
-        <svg id="stroke" onclick="closeContent()">
-            <line id="top-stroke" style="stroke:white; stroke-width: 2" x1="0" y1="0" x2="0" y2="65"></line>
-            <line id="bottom-stroke" style="stroke:white; stroke-width: 2" x1="0" y1="120" x2="0" y2="100%"></line>
-        </svg>
-
-        <svg width="72" height="72" id="close-button" onclick="closeContent()">
-            <line class="cross" x1="26" y1="36" x2="46" y2="36" style="stroke:white; stroke-width: 2"></line>
-            <line class="cross" x1="36" y1="26" x2="36" y2="46" style="stroke:white; stroke-width: 2"></line>
-            <circle id=round-stroke cx="36" cy="36" r="35" stroke="white" stroke-width="2" fill="none"></circle>
-        </svg>
-
-<!--CONTENT-->
-        <div id="ethos" class="content">
-            <h3>Ethos</h3>
-            <p class="fr">Cher.e.s coucools,</p>
-            <p class="fr">
-                J’espère que vous allez bien depuis la prochaine fois. J’aimerais vous écrire quelques mots à propos de ce qui me semble être le coeur battant de Coucool, le désir profond que l’autre soit heureux.se : la bienveillance.
-                Une bien belle idée me direz-vous, mais comment la mettre en oeuvre ? Voici quelques suggestions, mais je vous invite aussi à imaginer et coucooler les vôtres.
-            </p>
-            <p class="en">Dear coucool friends,</p>
-            <p class="en">
-                I hope all is well for you since next time. I would like to write you a few words about what seems to me the beating heart of Coucool, the profound desire to make everyone happy : benevolence.</br>
-                A beautiful idea indeed, you would say, but how to apply it? Here are a few suggestions, but I also encourage you to imagine and coucool yours.
-            </p>
-            <div class="accordion fr">
-                <div class="accordion-item">
-                    <h4>Coucooler l'autre, c'est l’inviter et le découvrir.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Tout être bienveillant est bienvenu.</li>
-                        <li>Les coucools n’ont pas d’âge.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucoolons les barrières qui nous éloignent des autres et de nous-mêmes.</h4>
-                    <ul class="accordion-item-content">
-                        <li> Coucool souhaite être un espace inclusif, LGBT & Queer friendly.</li>
-                        <li> Spontanéité et oubli de l’égo.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Chacun.e coucoole de ses propres ailes.</h4>
-                    <ul class="accordion-item-content">
-                        <li>L'expression de chacun.e est libre et encouragée.</li>
-                        <li>Être autonome.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Créons un espace solidaire pour coucooler sereinement.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Respecter la communauté et ses valeurs.</li>
-                        <li>Aider toute personne en difficulté.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool se construit à plusieurs.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Proposer un camp, une performance artistique, à manger, une exposition, un atelier, etc.</li>
-                        <li>Être bénévole ou rejoindre l’équipe organisatrice à mes côtés.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucoole toi de peu de chose.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Venir sans attente, c'est ne pas être déçu.e.</li>
-                        <li>Préserver la surprise de chacun.e en gardant précieusement pour soi ou ses proches les images que l’on prend de l’événement.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucoolons sans compter.</h4>
-                    <ul class="accordion-item-content">
-                        <li> Venir avec de petits présents à offrir à la volée, à son âme sœur ou à un.e inconnu.e.</li>
-                        <li> Proposer son aide à un.e bénévole ou membre de l’équipe qui semble en avoir besoin.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Préservons la nature, écosystème des coucools.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Rien d’autre que nos corps ne doit toucher le sol ; aucun mégot, confetti, paillette, etc.</li>
-                        <li>Ramasser tout ce qui est par terre, même si nous n’en sommes pas la source.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucoole les autres sans leur marcher dessus.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Être responsable de soi, de ses paroles et de ses actes.</li>
-                        <li>Le respect du consentement est incontestable. Peu importe son état, ou celui de l’autre.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>La malveillance n'est pas coucool.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Comportements à caractère sexiste, raciste ou LGBTphobe, moquerie, vol, harcèlement, agression, etc. n’ont pas leur place à Coucool.</li>
-                        <li>Signaler à un membre de l'équipe toute attitude malveillante, que vous en soyez victime ou témoin. Les personnes à leur origine seront exclues.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="accordion en">
-                <div class="accordion-item">
-                    <h4>Coucooling the other, it’s inviting him/her and discovering him/her.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Any benevolence is welcome.</li>
-                        <li>Coucool people have no age.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Let’s coucool barriers that separate us from others and from ourselves.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Coucool wants to be an inclusive space, LGBTQ+ friendly.</li>
-                        <li>Spontaneity and letting go of the ego.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Each and everyone coucools their own way.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Everyone’s self expression is free and encouraged.</li>
-                        <li>Be autonomous.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Let’s create a solidarity space to coucool in harmony and serenity.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Respect the community and its values.</li>
-                        <li>Help anyone in difficulty.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool is built by many.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Suggest a camp, a performance, a meal, an exhibition, a workshop, etc.</li>
-                        <li>Be a volunteer or join the organizing team by my side.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool yourself with little.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Come with no expectations, it is the best way to not be disappointed.</li>
-                        <li>Keep the surprise unspoilt for everyone else by keeping preciously to yourself or your close friends any image taken during the event.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Let’s coucool without counting.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Come with small presents to offer, on the fly, to a soulmate or a stranger.</li>
-                        <li>Offer your help to a volunteer or a member of the team who seems to be in need.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Let’s protect the nature, coucool people’s ecosystem.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Nothing else apart from our own bodies must touch the ground ;  no cigarette end, confetti, glitter, etc.</li>
-                        <li>Pick up anything on the ground, even though it is not yours.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool others without getting in their way.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Be responsible for yourself, for your acts and words.</li>
-                        <li>Respecting consent is undeniable. Whatever may be your state or anyone else’s.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Ill-will is not coucool.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Coucool does not accept behaviours known as sexist, racist, anti-LGBTQ, mocking, stealing, stalking, assault, etc.</li>
-                        <li>Notify a member of the team of any ill-will behaviour you may witness or endure.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <p class="fr">Dans le respect de ces idées et en tant que projet à but non lucratif, nos bénéfices sont reversés à des organisations caritatives.</p>
-            <p class="fr">Coucool ton coeur,</p>
-            <p class="en">In accordance with these ideas, and as a non-profit project, our profits go to charity organizations.</p>
-            <p class="en">Coucool your heart,</p>
-            <p class="eros link" style="text-align:right">Éros Sélavy</p>
+<div style="position: fixed; top:0; bottom: 0;left: 0; right: 0;">
+    <div id="all">
+        <div class="menu">
+        <header>
+            <div class="square"></div>
+            <h2>COUCOOL
+            <span class="date fr">26, 27 & 28 juillet 2019</span>
+            <span class="date en">26, 27 & 28th of July, 2019</span>
+            </h2>
+        </header>
+        <div class="square" id="help"><div>?</div></div>
+        <div class="square ui-link" id="fb" onclick="goTo('https://www.facebook.com/coucoolcoucool')"><div>Fb</div></div>
+        <table class="top squares">
+            <tbody>
+            <tr>
+                <td class="square ui-link" id="language" style="text-align:center">
+                        <span id="fr" onclick="setLanguage('fr')">Fr</span> / <span id="en" onclick="setLanguage('en')">En</span>
+                </td>
+                <td class="square"></td>
+            </tr>
+            <tr>
+                <td class="square" style="visibility: hidden;"></td>
+                <td class="square"></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="bottom right squares">
+            <tbody>
+            <tr>
+                <td class="square"></td>
+                <td class="square" style="visibility: hidden;"></td>
+            </tr>
+            <tr>
+                <td class="square" style="visibility: hidden;"></td>
+                <td class="square"></td>
+            </tr>
+            </tbody>
+        </table>
         </div>
-        <div id="infos" class="content">
-            <h3>Infos</h3>
+        <div id="content-container">
 
-            <div class="accordion fr">
-                <div class="accordion-item">
-                    <h4>Nous coucoolons une seule édition en 2019.</h4>
-                    <ul class="accordion-item-content">
-                        <li>La 7ème et unique édition en 2019 est organisée du vendredi 26 juillet 16h au dimanche 28 juillet 12h.</li>
-                        <li>Aucune entrée admise à partir de 20h le vendredi, ni le samedi.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Chacun.e coucoole patiemment avant de connaître le lieu.</h4>
-                    <ul class="accordion-item-content">
-                        <li>En 2019 Coucool quitte sa forêt natale pour s’installer aux abords d’une nouvelle, pas si lointaine.</li>
-                        <li>Le lieu est à 2h de Paris en voiture / 3h en train. </li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Chacun.e s’engage à respecter l’ethos de la communauté Coucool.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Ces grands principes sont listés dans l’Éthos d’Éros Sélavy : <a onclick="showContent('ethos')">par ici</a>.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool se construit à plusieurs : chacun.e s’engage à contribuer humainement.</h4>
-                    <ul class="accordion-item-content">
-                        Deux chemins possibles :
-                        <li>soit accorder 2h de son temps durant l’événement pour une mission bénévole de jour ou de nuit (accueil, restauration, bar, bien-être, toilettes, etc.),</li>
-                        <li>soit proposer un projet artistique, une activité ou toute initiative coucool (atelier de confection de cadeaux, compétition de cheval bâton, conférence, stand ambulant de teq paf, cours de bilboquet, etc.).</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Un tarif Solidaire est proposé pour coucooler au plus grand nombre.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Une contribution à tarif réduit est accessible aux personnes n’ayant pas la capacité physique (handicap) ou financière (précarité) de venir facilement. L’accès à ce tarif se fait au cas par cas, à partir de justificatifs, sur demande via le formulaire suivant : par ici.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucoolons-nous de peu de choses : la programmation est dévoilée sur place.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Venir sans attente, c'est ne pas être déçu.e. Coucool est un lieu de découverte.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Autant coucooler léger : nourritures et boissons sont incluses.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Du vendredi soir au dimanche matin : en quantité, pour tous les goûts, toutes les religions et toutes les ascendances alimentaires.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Chaque coucool peut se reposer : un espace de camping est à disposition.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Chacun.e est invité.e à poser sa tente pour un temps de détente à l’écart des festivités.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>En cas de revente à/par un tiers, chacun.e coucoole ses responsabilités.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Toute revente doit se faire au prix d’achat.</li>
-                        <li>Les racheteurs doivent être vigilants à la véracité du billet.</li>
-                        <li>Il est recommandé d’envoyer un mail à eros@cou.cool pour la mise à jour des informations du détenteur du billet, afin de bien recevoir tous les communiqués pour l’événement (lieu, mission bénévole et autres informations pratiques).</li>
-                    </ul>
-                </div>
-            </div>
+            <svg id="stroke" onclick="closeContent()">
+                <line id="top-stroke" style="stroke:white; stroke-width: 2" x1="0" y1="0" x2="0" y2="65"></line>
+                <line id="bottom-stroke" style="stroke:white; stroke-width: 2" x1="0" y1="120" x2="0" y2="100%"></line>
+            </svg>
 
-            <div class="accordion en">
-                <div class="accordion-item">
-                    <h4>Only one edition will be coucooled in 2019.</h4>
-                    <ul class="accordion-item-content">
-                        <li>The 7th and only edition of 2019 will take place from Friday, July 26 at 4 PM to Sunday, July 28 at noon.</li>
-                        <li> No entry will be allowed after 8 PM on Friday nor on Saturday.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Everyone shall patiently coucool before the location is revealed.</h4>
-                    <ul class="accordion-item-content">
-                        <li>In 2019, Coucool flies away from its native forest to invest a new one.</li>
-                        <li>The new location is 2h away from Paris by car, 3h by train.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Everyone commits to respect Coucool’s ethos and community.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Core principles are listed in Éros Sélavy’s Ethos : <a onclick="showContent('ethos')">this way</a>.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool is built by many : everyone commits to humanely contribute.</h4>
-                    <ul class="accordion-item-content">
-                        You can choose amongst two options :
-                        <li>you can either dedicate 2h of your time during the event to a volunteering mission, day or night (restauration, bar, well-being, toilets, etc.)</li>
-                        <li>or suggest an artistic project, an activity or any other type of coucool initiative (gift-making workshop, hobby-horse tournament, conference, bilboquet class, etc.).</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>In order to be as numerous as possible, a Solidarity fee is available.</h4>
-                    <ul class="accordion-item-content">
-                        <li>A reduced-price fee is available for persons who don’t have the physical (handicap) or financial (precarity) ability to smoothly attend the event. Eligibility to this fee is determined on an individual basis and in light of the supporting documents which are listed in this application form.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool yourself with little : programming is revealed on site.</h4>
-                    <ul class="accordion-item-content">
-                        <li>To come with no expectations is the best way not to end up disappointed. Coucool is a discovery zone.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>In order to coucool lightly, meals and drinks are included in the price.</h4>
-                    <ul class="accordion-item-content">
-                        <li>From Friday night to Sunday morning : abundantly, for all tastes, religions and diets.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>Coucool people can rest : a free camping is available.</h4>
-                    <ul class="accordion-item-content">
-                        <li>Everyone is invited to set up his.her tent to lie down and relax away from the festivities.</li>
-                    </ul>
-                </div>
-                <div class="accordion-item">
-                    <h4>In case you sell your contribution to someone else, coucool your responsibilities.</h4>
-                    <ul class="accordion-item-content">
-                        <li>You should resell it to its original price.</li>
-                        <li>Buyers should make sure that the ticket is not a fraud.</li>
-                        <li>It is highly recommended to write to eros@cou.cool in order to update the ticket holder’s information and thus receive all the necessary communication regarding the event (location, volunteering shift, and other practical details).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+            <svg width="72" height="72" id="close-button" onclick="closeContent()">
+                <line class="cross" x1="26" y1="36" x2="46" y2="36" style="stroke:white; stroke-width: 2"></line>
+                <line class="cross" x1="36" y1="26" x2="36" y2="46" style="stroke:white; stroke-width: 2"></line>
+                <circle id=round-stroke cx="36" cy="36" r="35"></circle>
+            </svg>
 
-        <div id="contributions" class="content">
-            <h3>Contributions</h3>
-            <div id="page1" class="contribution-page">
-                <div class="contribution-page-container">
-                    <div class="contribution-page-content">
-                        <p>Coucool,</p>
-                        <p>Nous préférons parler de contributions plutôt que de billets, tickets ou de places : la contribution financière en étant une parmi d’autres.</p>
-                        <p>Avant de payer ta contribution afin de participer à Coucool, j’ai quelques questions. Sauras-tu y répondre avec sincérité ?</p>
+        <!--CONTENT-->
+            <div id="ethos" class="content">
+                <h3>Ethos</h3>
+                <p class="fr">Cher.e.s coucools,</p>
+                <p class="fr">
+                    J’espère que vous allez bien depuis la prochaine fois. J’aimerais vous écrire quelques mots à propos de ce qui me semble être le coeur battant de Coucool, le désir profond que l’autre soit heureux.se : la bienveillance.
+                    Une bien belle idée me direz-vous, mais comment la mettre en oeuvre ? Voici quelques suggestions, mais je vous invite aussi à imaginer et coucooler les vôtres.
+                </p>
+                <p class="en">Dear coucool friends,</p>
+                <p class="en">
+                    I hope all is well for you since next time. I would like to write you a few words about what seems to me the beating heart of Coucool, the profound desire to make everyone happy : benevolence.</br>
+                    A beautiful idea indeed, you would say, but how to apply it? Here are a few suggestions, but I also encourage you to imagine and coucool yours.
+                </p>
+                <div class="accordion fr">
+                    <div class="accordion-item">
+                        <h4>Coucooler l'autre, c'est l’inviter et le découvrir.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Tout être bienveillant est bienvenu.</li>
+                            <li>Les coucools n’ont pas d’âge.</li>
+                        </ul>
                     </div>
-                    <div class="qcm">
-                        <div class="choix yes"> <div>Coucoolons</div>
+                    <div class="accordion-item">
+                        <h4>Coucoolons les barrières qui nous éloignent des autres et de nous-mêmes.</h4>
+                        <ul class="accordion-item-content">
+                            <li> Coucool souhaite être un espace inclusif, LGBT & Queer friendly.</li>
+                            <li> Spontanéité et oubli de l’égo.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Chacun.e coucoole de ses propres ailes.</h4>
+                        <ul class="accordion-item-content">
+                            <li>L'expression de chacun.e est libre et encouragée.</li>
+                            <li>Être autonome.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Créons un espace solidaire pour coucooler sereinement.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Respecter la communauté et ses valeurs.</li>
+                            <li>Aider toute personne en difficulté.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool se construit à plusieurs.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Proposer un camp, une performance artistique, à manger, une exposition, un atelier, etc.</li>
+                            <li>Être bénévole ou rejoindre l’équipe organisatrice à mes côtés.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucoole toi de peu de chose.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Venir sans attente, c'est ne pas être déçu.e.</li>
+                            <li>Préserver la surprise de chacun.e en gardant précieusement pour soi ou ses proches les images que l’on prend de l’événement.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucoolons sans compter.</h4>
+                        <ul class="accordion-item-content">
+                            <li> Venir avec de petits présents à offrir à la volée, à son âme sœur ou à un.e inconnu.e.</li>
+                            <li> Proposer son aide à un.e bénévole ou membre de l’équipe qui semble en avoir besoin.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Préservons la nature, écosystème des coucools.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Rien d’autre que nos corps ne doit toucher le sol ; aucun mégot, confetti, paillette, etc.</li>
+                            <li>Ramasser tout ce qui est par terre, même si nous n’en sommes pas la source.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucoole les autres sans leur marcher dessus.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Être responsable de soi, de ses paroles et de ses actes.</li>
+                            <li>Le respect du consentement est incontestable. Peu importe son état, ou celui de l’autre.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>La malveillance n'est pas coucool.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Comportements à caractère sexiste, raciste ou LGBTphobe, moquerie, vol, harcèlement, agression, etc. n’ont pas leur place à Coucool.</li>
+                            <li>Signaler à un membre de l'équipe toute attitude malveillante, que vous en soyez victime ou témoin. Les personnes à leur origine seront exclues.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion en">
+                    <div class="accordion-item">
+                        <h4>Coucooling the other, it’s inviting him/her and discovering him/her.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Any benevolence is welcome.</li>
+                            <li>Coucool people have no age.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Let’s coucool barriers that separate us from others and from ourselves.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Coucool wants to be an inclusive space, LGBTQ+ friendly.</li>
+                            <li>Spontaneity and letting go of the ego.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Each and everyone coucools their own way.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Everyone’s self expression is free and encouraged.</li>
+                            <li>Be autonomous.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Let’s create a solidarity space to coucool in harmony and serenity.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Respect the community and its values.</li>
+                            <li>Help anyone in difficulty.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool is built by many.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Suggest a camp, a performance, a meal, an exhibition, a workshop, etc.</li>
+                            <li>Be a volunteer or join the organizing team by my side.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool yourself with little.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Come with no expectations, it is the best way to not be disappointed.</li>
+                            <li>Keep the surprise unspoilt for everyone else by keeping preciously to yourself or your close friends any image taken during the event.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Let’s coucool without counting.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Come with small presents to offer, on the fly, to a soulmate or a stranger.</li>
+                            <li>Offer your help to a volunteer or a member of the team who seems to be in need.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Let’s protect the nature, coucool people’s ecosystem.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Nothing else apart from our own bodies must touch the ground ;  no cigarette end, confetti, glitter, etc.</li>
+                            <li>Pick up anything on the ground, even though it is not yours.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool others without getting in their way.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Be responsible for yourself, for your acts and words.</li>
+                            <li>Respecting consent is undeniable. Whatever may be your state or anyone else’s.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Ill-will is not coucool.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Coucool does not accept behaviours known as sexist, racist, anti-LGBTQ, mocking, stealing, stalking, assault, etc.</li>
+                            <li>Notify a member of the team of any ill-will behaviour you may witness or endure.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="fr">Dans le respect de ces idées et en tant que projet à but non lucratif, nos bénéfices sont reversés à des organisations caritatives.</p>
+                <p class="fr">Coucool ton coeur,</p>
+                <p class="en">In accordance with these ideas, and as a non-profit project, our profits go to charity organizations.</p>
+                <p class="en">Coucool your heart,</p>
+                <p class="eros link" style="text-align:right">Éros Sélavy</p>
+            </div>
+
+            <div id="infos" class="content">
+                <h3>Infos</h3>
+
+                <div class="accordion fr">
+                    <div class="accordion-item">
+                        <h4>Nous coucoolons une seule édition en 2019.</h4>
+                        <ul class="accordion-item-content">
+                            <li>La 7ème et unique édition en 2019 est organisée du vendredi 26 juillet 16h au dimanche 28 juillet 12h.</li>
+                            <li>Aucune entrée admise à partir de 20h le vendredi, ni le samedi.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Chacun.e coucoole patiemment avant de connaître le lieu.</h4>
+                        <ul class="accordion-item-content">
+                            <li>En 2019 Coucool quitte sa forêt natale pour s’installer aux abords d’une nouvelle, pas si lointaine.</li>
+                            <li>Le lieu est à 2h de Paris en voiture / 3h en train. </li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Chacun.e s’engage à respecter l’ethos de la communauté Coucool.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Ces grands principes sont listés dans l’Éthos d’Éros Sélavy : <a onclick="showContent('ethos')">par ici</a>.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool se construit à plusieurs : chacun.e s’engage à contribuer humainement.</h4>
+                        <ul class="accordion-item-content">
+                            Deux chemins possibles :
+                            <li>soit accorder 2h de son temps durant l’événement pour une mission bénévole de jour ou de nuit (accueil, restauration, bar, bien-être, toilettes, etc.),</li>
+                            <li>soit proposer un projet artistique, une activité ou toute initiative coucool (atelier de confection de cadeaux, compétition de cheval bâton, conférence, stand ambulant de teq paf, cours de bilboquet, etc.).</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Un tarif Solidaire est proposé pour coucooler au plus grand nombre.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Une contribution à tarif réduit est accessible aux personnes n’ayant pas la capacité physique (handicap) ou financière (précarité) de venir facilement. L’accès à ce tarif se fait au cas par cas, à partir de justificatifs, sur demande via le formulaire suivant : par ici.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucoolons-nous de peu de choses : la programmation est dévoilée sur place.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Venir sans attente, c'est ne pas être déçu.e. Coucool est un lieu de découverte.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Autant coucooler léger : nourritures et boissons sont incluses.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Du vendredi soir au dimanche matin : en quantité, pour tous les goûts, toutes les religions et toutes les ascendances alimentaires.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Chaque coucool peut se reposer : un espace de camping est à disposition.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Chacun.e est invité.e à poser sa tente pour un temps de détente à l’écart des festivités.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>En cas de revente à/par un tiers, chacun.e coucoole ses responsabilités.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Toute revente doit se faire au prix d’achat.</li>
+                            <li>Les racheteurs doivent être vigilants à la véracité du billet.</li>
+                            <li>Il est recommandé d’envoyer un mail à eros@cou.cool pour la mise à jour des informations du détenteur du billet, afin de bien recevoir tous les communiqués pour l’événement (lieu, mission bénévole et autres informations pratiques).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="accordion en">
+                    <div class="accordion-item">
+                        <h4>Only one edition will be coucooled in 2019.</h4>
+                        <ul class="accordion-item-content">
+                            <li>The 7th and only edition of 2019 will take place from Friday, July 26 at 4 PM to Sunday, July 28 at noon.</li>
+                            <li> No entry will be allowed after 8 PM on Friday nor on Saturday.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Everyone shall patiently coucool before the location is revealed.</h4>
+                        <ul class="accordion-item-content">
+                            <li>In 2019, Coucool flies away from its native forest to invest a new one.</li>
+                            <li>The new location is 2h away from Paris by car, 3h by train.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Everyone commits to respect Coucool’s ethos and community.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Core principles are listed in Éros Sélavy’s Ethos : <a onclick="showContent('ethos')">this way</a>.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool is built by many : everyone commits to humanely contribute.</h4>
+                        <ul class="accordion-item-content">
+                            You can choose amongst two options :
+                            <li>you can either dedicate 2h of your time during the event to a volunteering mission, day or night (restauration, bar, well-being, toilets, etc.)</li>
+                            <li>or suggest an artistic project, an activity or any other type of coucool initiative (gift-making workshop, hobby-horse tournament, conference, bilboquet class, etc.).</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>In order to be as numerous as possible, a Solidarity fee is available.</h4>
+                        <ul class="accordion-item-content">
+                            <li>A reduced-price fee is available for persons who don’t have the physical (handicap) or financial (precarity) ability to smoothly attend the event. Eligibility to this fee is determined on an individual basis and in light of the supporting documents which are listed in this application form.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool yourself with little : programming is revealed on site.</h4>
+                        <ul class="accordion-item-content">
+                            <li>To come with no expectations is the best way not to end up disappointed. Coucool is a discovery zone.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>In order to coucool lightly, meals and drinks are included in the price.</h4>
+                        <ul class="accordion-item-content">
+                            <li>From Friday night to Sunday morning : abundantly, for all tastes, religions and diets.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>Coucool people can rest : a free camping is available.</h4>
+                        <ul class="accordion-item-content">
+                            <li>Everyone is invited to set up his.her tent to lie down and relax away from the festivities.</li>
+                        </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h4>In case you sell your contribution to someone else, coucool your responsibilities.</h4>
+                        <ul class="accordion-item-content">
+                            <li>You should resell it to its original price.</li>
+                            <li>Buyers should make sure that the ticket is not a fraud.</li>
+                            <li>It is highly recommended to write to eros@cou.cool in order to update the ticket holder’s information and thus receive all the necessary communication regarding the event (location, volunteering shift, and other practical details).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contributions" class="content">
+                <h3>Contributions</h3>
+                <div id="page1" class="contribution-page">
+                    <div class="contribution-page-container">
+                        <div class="contribution-page-content">
+                            <p>Coucool,</p>
+                            <p>Nous préférons parler de contributions plutôt que de billets, tickets ou de places : la contribution financière en étant une parmi d’autres.</p>
+                            <p>Avant de payer ta contribution afin de participer à Coucool, j’ai quelques questions. Sauras-tu y répondre avec sincérité ?</p>
+                        </div>
+                        <div class="qcm">
+                            <div class="choix yes"> <div>Coucoolons</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="definitions" class="content">
-            <h3>Definitions</h3>
-            <div class="fr">
-                        <p>
-                            Étymologie : Mot-valise composé de coucou et cool (ou de comète et roucoule selon d’autres sources) <br/>
-                            coucool \ kukɔɔl \ masculin et féminin identiques
-                        </p>
-                        <p>
-                            1. Adjectif : Désigne un objet, une personne, une situation au caractère particulièrement spontané, bienveillant et réjouissant.</br>
-                            • « Jack et son panda sautèrent ensemble dans la piscine à boules. Décidément, leur journée avait été coucool… » (Éros Sélavy, 1927)
-                        </p>
-                        <p>
-                            Par extension : Interjection, mot pour saluer ses camarades dans un contexte coucool.</br>
-                            • « Ah Coucool ! »
-                        </p>
-                        <p>
-                            2. Nom commun : Oiseau curieux qui ne danse qu’en groupe au coucher du soleil sur des rythmes percussifs, nommé ainsi en référence au son qu’il produit lorsqu’il est satisfait.</br>
-                            • « Coucoooooool…Coucoooooool »
-                        </p>
-                        <p>
-                            3. Verbe : Allumer une partie ou la totalité de son être, en ayant une influence positive sur son environnement immédiat ou lointain.
-                            Par extension : Désigne toute action effectuée dans un état d’esprit coucool.
-                            • « Les ami.e.s, coucoolez-vous dans mes bras »
-                        </p>
-                        <p>
-                            Coucool<br/>
-                            C’est le premier mot de l’étranger curieux, qui surprend puis rassure. En même temps que ce salut, tout ce qui nous entoure devient soudainement coucool à son tour. Tout ce qui vibre et qui scintille, tout ce qui est fait pour me plaire et m’amuser, toutes les personnes qui m’entraînent par la main pour me montrer ce qu’elles ont trouvé par là-bas.
-                        </p>
-                        <p>
-                            C’est le spectre particulier des couleurs de l’arc-en-ciel à ce moment de l’année, la musique qui prend le rythme de plusieurs cœurs à la fois, la lueur de la boule à facettes sur nos plumages volages, et l’amour qui coule à flots.
-                        </p>
+            <div id="definitions" class="content">
+                <h3>Definitions</h3>
+                <div class="fr">
+                            <p>
+                                Étymologie : Mot-valise composé de coucou et cool (ou de comète et roucoule selon d’autres sources) <br/>
+                                coucool \ kukɔɔl \ masculin et féminin identiques
+                            </p>
+                            <p>
+                                1. Adjectif : Désigne un objet, une personne, une situation au caractère particulièrement spontané, bienveillant et réjouissant.</br>
+                                • « Jack et son panda sautèrent ensemble dans la piscine à boules. Décidément, leur journée avait été coucool… » (Éros Sélavy, 1927)
+                            </p>
+                            <p>
+                                Par extension : Interjection, mot pour saluer ses camarades dans un contexte coucool.</br>
+                                • « Ah Coucool ! »
+                            </p>
+                            <p>
+                                2. Nom commun : Oiseau curieux qui ne danse qu’en groupe au coucher du soleil sur des rythmes percussifs, nommé ainsi en référence au son qu’il produit lorsqu’il est satisfait.</br>
+                                • « Coucoooooool…Coucoooooool »
+                            </p>
+                            <p>
+                                3. Verbe : Allumer une partie ou la totalité de son être, en ayant une influence positive sur son environnement immédiat ou lointain.
+                                Par extension : Désigne toute action effectuée dans un état d’esprit coucool.
+                                • « Les ami.e.s, coucoolez-vous dans mes bras »
+                            </p>
+                            <p>
+                                Coucool<br/>
+                                C’est le premier mot de l’étranger curieux, qui surprend puis rassure. En même temps que ce salut, tout ce qui nous entoure devient soudainement coucool à son tour. Tout ce qui vibre et qui scintille, tout ce qui est fait pour me plaire et m’amuser, toutes les personnes qui m’entraînent par la main pour me montrer ce qu’elles ont trouvé par là-bas.
+                            </p>
+                            <p>
+                                C’est le spectre particulier des couleurs de l’arc-en-ciel à ce moment de l’année, la musique qui prend le rythme de plusieurs cœurs à la fois, la lueur de la boule à facettes sur nos plumages volages, et l’amour qui coule à flots.
+                            </p>
+                        </div>
+                        <div class="en">
+                            <p>
+                                Etymology: Portmanteau word composed of Coucou (French for ‘Hello’, also the onomatopoetia ‘Cuckoo’) & Cool</br>
+                                coucool \ kukɔɔl \ male and female identical
+                            </p>
+                            <p>
+                                1. Adjective: Indicates an object, person or situation particularly spontaneous, caring and joyful.</br>
+                                • "Jack and his panda jumped together in the ball pool. Their day was turning out to be coucool for sure..." (Éros Sélavy, 1927)
+                            </p>
+                            <p>
+                                Other use: as a greeting in a coucool context.</br>
+                                • "Coucool my brother / sister!"
+                            </p>
+                            <p>
+                                2. Common noun: Curious bird known for dancing in group at sunset to percussive rhythms, named after the call that it makes when satisfied.</br>
+                                • "Coucoooooool…Coucoooooool"
+                            </p>
+                            <p>
+                                Not to be confused with: those (many) English speakers not yet fully accustomed to the French tongue must avoid the word “coucouilles” \ kukɔi ; a pejorative term for testicles.
+                            </p>
+                            <p>
+                                Coucool<br/>
+                                It is the greeting of the curious stranger, that surprises then reassures.
+                                Simultaneously with this greeting, everything around us becomes suddenly coucool itself.
+                                Any vibration and sparkle, anything made to please and entertain me, all the people taking me by the hand, to show me what they found here and there.
+                            </p>
+                            <p>
+                                It is the particular spectrum of rainbow colours at this time of year, music taking the rhythm of multiple hearts at once, glow of the disco ball on our flighty feathers, and love flowing strongly and freely.
+                            </p>
+                        </div>
+            </div>
+
+            <div id="eros" class="content">
+                <h3>Éros</h3>
+                <div style="margin:auto;max-width: 400px;">
+                    <p>Au pays de Éros Sélavy on aime les fous et les loups sans foi ni loi,</p>
+                    <p>La suivrez-vous au pays des nombres décimaux où il n’y a décombres ni maux ?</p>
+                    <p>Croyez-vous qu’il connaisse ces jeux de fous qui mettent le feu aux joues ?</p>
+                    <p>Rrose Sélavy connaît bien le marchand du sel.</p>
+                    <p>Je vous aime, ô beaux hommes vêtus d’opossum.</p>
+                </div>
+                <p class="stars">* * *</p>
+                <div style="margin:auto;max-width: 290px;">
+                    <div class="strophe">
+                        <p>Je te flore, tu me faune,</p>
+                        <p>Je te peau, tu m’océan,</p>
+                        <p>Je te clé d’or, tu me paroxysme,</p>
+                    </div>
+                    <div class="strophe">
+                        <p>Tu me mirage, je te lune,</p>
+                        <p>Tu me château vide, je te labyrinthe,</p>
+                        <p>Tu me danse, je te poète,</p>
+                    </div>
+                    <div class="strophe">
+                        <p>Nous nous scandaleusement,</p>
+                        <p>Nous nous pulvérisable, jour et nuit,</p>
+                        <p>Nous nous aujourd’hui même,</p>
+                    </div>
+                    <div class="strophe">
+                        <p>Tu m’odeur, je te vertige,</p>
+                        <p>Tu me glisses, je te cuisse,</p>
+                        <p>Tu m’enjambes, je te nage,</p>
+                    </div>
+                    <div class="strophe">
+                        <p>Je te chair cuir peau et morsure,</p>
+                        <p>Tu me vulve sueur langue et nuque,</p>
+                        <p>Je te fluide, tu m’étoile filante,</p>
+                        <p>Je t’écris, tu me navigues.</p>
+                    </div>
+                </div>
+                <p class="stars">* * *</p>
+                <p style="text-align:center;" >Cherche moi où je ne suis pas et tu me trouveras.</p>
+
+                <p style="text-align:right; margin-top:30px;"> Ghérasim Luca feat. Robert Desnos (Éros Sélavy Edit)</p>
+            </div>
+
+            <div id="curiosities" class="content">
+                <div class="fr" style="text-align: center">
+                    <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="bilan2018">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">Bilan 2018</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#bilan2018');"/>
+                          <text x="150" y="30" class="appearing">Bilan 2018</text>
+                        </svg>
+                    </div>
+                    <div onclick="goTo('/2018')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="site2018">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">Site 2018</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#site2018');"/>
+                          <text x="150" y="30" class="appearing">Site 2018</text>
+                        </svg>
+                    </div>
+                    <div onclick="goTo('/2017')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="site2017">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">Site 2017</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#site2017');"/>
+                          <text x="150" y="30" class="appearing">Site 2017</text>
+                        </svg>
+                    </div>
+                    <div onclick="goTo('/2016')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="site2016">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">Site 2016</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#site2016');"/>
+                          <text x="150" y="30" class="appearing">Site 2016</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="en" style="text-align: center">
+                    <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="review2018">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">2018 review</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#review2018');"/>
+                          <text x="150" y="30" class="appearing">2018 review</text>
+                        </svg>
+                    </div>
+                    <div onclick="goTo('/2018')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="2018website">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">2018 website</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#2018website');"/>
+                          <text x="150" y="30" class="appearing">2018 website</text>
+                        </svg>
+                    </div>
+                    <div onclick="goTo('/2017')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="2017website">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">2017 website</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#2017website');"/>
+                          <text x="150" y="30" class="appearing">2017 website</text>
+                        </svg>
+                    </div>
+                    <div onclick="goTo('/2016')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                          <defs>
+                            <mask id="2016website">
+                              <rect width="100%" height="100%" fill="#fff" />
+                              <text x="150" y="30" id="myText">2016 website</text>
+                            </mask>
+                          </defs>
+                          <rect class="masked" width="300" height="60" style="mask:url('#2016website');"/>
+                          <text x="150" y="30" class="appearing">2016 website</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer class="menu">
+            <div class="square"></div>
+                <h3>
+                    <div class="fr">
+                        Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <a href="mailto:eros@cou.cool"> Lui Écrire</a>
                     </div>
                     <div class="en">
-                        <p>
-                            Etymology: Portmanteau word composed of Coucou (French for ‘Hello’, also the onomatopoetia ‘Cuckoo’) & Cool</br>
-                            coucool \ kukɔɔl \ male and female identical
-                        </p>
-                        <p>
-                            1. Adjective: Indicates an object, person or situation particularly spontaneous, caring and joyful.</br>
-                            • "Jack and his panda jumped together in the ball pool. Their day was turning out to be coucool for sure..." (Éros Sélavy, 1927)
-                        </p>
-                        <p>
-                            Other use: as a greeting in a coucool context.</br>
-                            • "Coucool my brother / sister!"
-                        </p>
-                        <p>
-                            2. Common noun: Curious bird known for dancing in group at sunset to percussive rhythms, named after the call that it makes when satisfied.</br>
-                            • "Coucoooooool…Coucoooooool"
-                        </p>
-                        <p>
-                            Not to be confused with: those (many) English speakers not yet fully accustomed to the French tongue must avoid the word “coucouilles” \ kukɔi ; a pejorative term for testicles.
-                        </p>
-                        <p>
-                            Coucool<br/>
-                            It is the greeting of the curious stranger, that surprises then reassures.
-                            Simultaneously with this greeting, everything around us becomes suddenly coucool itself.
-                            Any vibration and sparkle, anything made to please and entertain me, all the people taking me by the hand, to show me what they found here and there.
-                        </p>
-                        <p>
-                            It is the particular spectrum of rainbow colours at this time of year, music taking the rhythm of multiple hearts at once, glow of the disco ball on our flighty feathers, and love flowing strongly and freely.
-                        </p>
+                        Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a href="mailto:eros@cou.cool"> Write to him </a>
                     </div>
-        </div>
-
-        <div id="eros" class="content">
-            <h3>Éros</h3>
-            <div style="margin:auto;max-width: 400px;">
-                <p>Au pays de Éros Sélavy on aime les fous et les loups sans foi ni loi,</p>
-                <p>La suivrez-vous au pays des nombres décimaux où il n’y a décombres ni maux ?</p>
-                <p>Croyez-vous qu’il connaisse ces jeux de fous qui mettent le feu aux joues ?</p>
-                <p>Rrose Sélavy connaît bien le marchand du sel.</p>
-                <p>Je vous aime, ô beaux hommes vêtus d’opossum.</p>
-            </div>
-            <p class="stars">* * *</p>
-            <div style="margin:auto;max-width: 290px;">
-                <div class="strophe">
-                    <p>Je te flore, tu me faune,</p>
-                    <p>Je te peau, tu m’océan,</p>
-                    <p>Je te clé d’or, tu me paroxysme,</p>
-                </div>
-                <div class="strophe">
-                    <p>Tu me mirage, je te lune,</p>
-                    <p>Tu me château vide, je te labyrinthe,</p>
-                    <p>Tu me danse, je te poète,</p>
-                </div>
-                <div class="strophe">
-                    <p>Nous nous scandaleusement,</p>
-                    <p>Nous nous pulvérisable, jour et nuit,</p>
-                    <p>Nous nous aujourd’hui même,</p>
-                </div>
-                <div class="strophe">
-                    <p>Tu m’odeur, je te vertige,</p>
-                    <p>Tu me glisses, je te cuisse,</p>
-                    <p>Tu m’enjambes, je te nage,</p>
-                </div>
-                <div class="strophe">
-                    <p>Je te chair cuir peau et morsure,</p>
-                    <p>Tu me vulve sueur langue et nuque,</p>
-                    <p>Je te fluide, tu m’étoile filante,</p>
-                    <p>Je t’écris, tu me navigues.</p>
-                </div>
-            </div>
-            <p class="stars">* * *</p>
-            <p style="text-align:center;" >Cherche moi où je ne suis pas et tu me trouveras.</p>
-
-            <p style="text-align:right; margin-top:30px;"> Ghérasim Luca feat. Robert Desnos (Éros Sélavy Edit)</p>
-        </div>
-
-        <div id="curiosities" class="content">
-            <div class="fr" style="text-align: center">
-                <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="bilan2018">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">Bilan 2018</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#bilan2018');"/>
-                      <text x="150" y="30" class="appearing">Bilan 2018</text>
-                    </svg>
-                </div>
-                <div onclick="goTo('/2018')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="site2018">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">Site 2018</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#site2018');"/>
-                      <text x="150" y="30" class="appearing">Site 2018</text>
-                    </svg>
-                </div>
-                <div onclick="goTo('/2017')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="site2017">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">Site 2017</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#site2017');"/>
-                      <text x="150" y="30" class="appearing">Site 2017</text>
-                    </svg>
-                </div>
-                <div onclick="goTo('/2016')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="site2016">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">Site 2016</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#site2016');"/>
-                      <text x="150" y="30" class="appearing">Site 2016</text>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="en" style="text-align: center">
-                <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="review2018">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">2018 review</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#review2018');"/>
-                      <text x="150" y="30" class="appearing">2018 review</text>
-                    </svg>
-                </div>
-                <div onclick="goTo('/2018')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="2018website">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">2018 website</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#2018website');"/>
-                      <text x="150" y="30" class="appearing">2018 website</text>
-                    </svg>
-                </div>
-                <div onclick="goTo('/2017')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="2017website">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">2017 website</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#2017website');"/>
-                      <text x="150" y="30" class="appearing">2017 website</text>
-                    </svg>
-                </div>
-                <div onclick="goTo('/2016')" style="margin:30px 0;">
-                    <svg viewBox="0 0 300 60" width="300" height="60">
-                      <defs>
-                        <mask id="2016website">
-                          <rect width="100%" height="100%" fill="#fff" />
-                          <text x="150" y="30" id="myText">2016 website</text>
-                        </mask>
-                      </defs>
-                      <rect class="masked" width="300" height="60" style="mask:url('#2016website');"/>
-                      <text x="150" y="30" class="appearing">2016 website</text>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
+                    <div id="credits">Visuels – <a onclick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
+                </h3>
+        </footer>
     </div>
-    <footer class="menu">
-        <div class="square"></div>
-            <h3>
-                <div class="fr">
-                    Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <a href="mailto:eros@cou.cool"> Lui Écrire</a>
-                </div>
-                <div class="en">
-                    Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a href="mailto:eros@cou.cool"> Write to him </a>
-                </div>
-                <div id="credits">Visuels – <a onclick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
-            </h3>
-    </footer>
 </div>
-
 </body>
 
 </html>

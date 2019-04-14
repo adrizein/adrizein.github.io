@@ -43,6 +43,14 @@ $(function() {
         envMap: envCube
     });
 
+    var transparent_material = new THREE.MeshStandardMaterial( {
+        alphaMap: 0xef0000,
+        color: 0xff0000,
+        roughness: 0,
+        metalness: 0,
+        envMap: envCube
+    });
+
     var shader = THREE.FresnelShader;
     var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
     uniforms[ "tCube" ].value = envCube;
@@ -55,7 +63,7 @@ $(function() {
         bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'ethos', material:bubble_material},
         cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'curiosities', material:blue_metal_material},
         dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', material:blue_metal_material},
-        eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:blue_metal_material},
+        eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:white_material},
         ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'infos', material:red_metal_material},
         sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.008, material: white_material},
     };
