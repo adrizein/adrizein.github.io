@@ -18,11 +18,12 @@
 <script src="js/WebGL.js"></script>
 <script src="js/GLTFLoader.js"></script>
 <script src="js/OBJLoader.js"></script>
+<script src="js/ColladaLoader.js"></script>
 <script src="js/FresnelShader.js"></script>
 <script src="js/inobounce.js"></script>
 <script src="main.js" defer></script>
 
-<div style="position: fixed; top:0; bottom: 0;left: 0; right: 0;">
+<div id="all_container" style="position: fixed; top:0; bottom: 0;left: 0; right: 0;">
     <div id="all">
         <div class="menu">
         <header>
@@ -274,7 +275,7 @@
                     <div class="accordion-item">
                         <h4>Un tarif Solidaire est proposé pour coucooler au plus grand nombre.</h4>
                         <ul class="accordion-item-content">
-                            <li>Une contribution à tarif réduit est accessible aux personnes n’ayant pas la capacité physique (handicap) ou financière (précarité) de venir facilement. L’accès à ce tarif se fait au cas par cas, à partir de justificatifs, sur demande via le formulaire suivant : par ici.</li>
+                            <li>Une contribution à tarif réduit est accessible aux personnes n’ayant pas la capacité physique (handicap) ou financière (précarité) de venir facilement. L’accès à ce tarif se fait au cas par cas, à partir de justificatifs, sur demande via le formulaire suivant : <a onclick="goTo('https://coucool.typeform.com/to/e98MvP')"> par ici</a>.</li>
                         </ul>
                     </div>
                     <div class="accordion-item">
@@ -611,6 +612,9 @@
                     <div id="credits">Visuels – <a onclick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
                 </h3>
         </footer>
+    </div>
+    <!--<div id="loader" style="background-color: red; 
+    position:fixed; top: 0; left: 0; right: 0; bottom: 0; display: none;">-->
     </div>
 </div>
 </body>

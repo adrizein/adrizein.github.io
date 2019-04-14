@@ -62,7 +62,7 @@ $(function() {
         torus: {src:"TORUS2.obj", position:{x:0.6,y:0,z:-0.6}, scale:0.008, chapter:'definitions', material:grey_metal_material},
         bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'ethos', material:bubble_material},
         cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'curiosities', material:blue_metal_material},
-        dragon_froot: {src:"DRAGON_FROOT.obj", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', material:blue_metal_material},
+        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'contributions', dae:true},
         eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:white_material},
         ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'infos', material:red_metal_material},
         sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.008, material: white_material},
@@ -163,7 +163,7 @@ $(function() {
 
     window.onload = function () {
         $('canvas').bind('tap', clickHandler);
-        $.mobile.loading().hide();
+        //$.mobile.loading().hide();
     };
 
 
@@ -199,9 +199,23 @@ $(function() {
 
     function load_objects() {
         var loader = new THREE.OBJLoader( manager ).setPath('assets/');
+        var DAEloader = new THREE.ColladaLoader( manager ).setPath('assets/');
 
         for (const key in objects) {
-
+            if (objects[key].dae) {
+               DAEloader.load(objects[key].src, function ( obj) {
+                objects[key].obj = obj.scene;
+                objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
+                objects[key].obj.position.x = objects[key].position.x;
+                objects[key].obj.position.y = objects[key].position.y;
+                objects[key].obj.position.z = objects[key].position.z;
+                objects[key].obj.name = key;
+                scene.add(objects[key].obj);
+                if (objects[key].chapter) {
+                    objects_in_scene.push(objects[key].obj)
+                }
+                }, onProgress, onError ); 
+            }
             loader.load(objects[key].src, function ( obj) {
                 objects[key].obj = obj;
                 objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
@@ -225,7 +239,6 @@ $(function() {
     }
 
     load_objects();
-
 
     function render() {
         if (contentHidden) {
