@@ -73,6 +73,7 @@ div.ui-page {
     position:fixed;
     bottom: 119px;
     right: 59px;
+    padding:14px !important;
 
 }
 
@@ -80,7 +81,7 @@ div.ui-page {
     position:fixed;
     bottom: 60px;
     right: 00px;
-
+    padding-top:14px !important;
 }
 
 footer .square{
@@ -305,6 +306,7 @@ footer h3 {
     z-index: 21;
     cursor: pointer;
     transition: 1s ease-in-out;
+    border-radius:35px;
     transform-origin: 50% 50%;
     transform: scale(0.8);
 }
@@ -315,11 +317,29 @@ footer h3 {
     fill:none;
 }
 
+#close-button:hover {
+    background-color:#ffffff;
+}
+
+.cross{
+    stroke:#ffffff;
+    stroke-width:2px;
+}
+
+#close-button:hover .cross{
+    stroke:#000000;
+    transition:1s;
+}
+
 #stroke	{
     position:fixed;
     left: 72%;
     height:calc(100% - 122px);
     width: 2px;
+}
+
+#close-button_mobile{
+    display:none;
 }
 
 .choix {
@@ -617,7 +637,7 @@ svg:hover .appearing{
     #content-container {
         font-size: 12px;
         width: 100%;
-        padding: 20px 35px 0px 35px;;
+        padding: 20px 30px 0px 30px;;
         height: calc(100% - 100px);
     }
 
@@ -631,9 +651,22 @@ svg:hover .appearing{
         display: none;
     }
 
-    .cursor-close #close_png {
-        display: block;
-    }
+#close-button_mobile{
+    display:block;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 31;
+    stroke-dasharray:20;
+    stroke-dashoffset:20;
+    transition: 1s ease-in-out;
+}
+
+#content-container.active #close-button_mobile{
+    stroke-dashoffset:0;
+    cursor: pointer;
+    transition: 1s ease-in-out;
+}
 
     #round-stroke {
         transform: none;

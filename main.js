@@ -18,9 +18,9 @@ $(function() {
     geometryCube.scale(-1, 1, 1);
 
     var grey_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0x444444,
-        roughness: 0,
-        metalness: 0.5,
+        color: 0xdddddd,
+        roughness: 0.5,
+        metalness: 1,
         envMap: envCube
     });
     var blue_metal_material = new THREE.MeshStandardMaterial( {
