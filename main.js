@@ -51,6 +51,14 @@ $(function() {
         envMap: envCube
     });
 
+        // texture
+    var textureLoader = new THREE.TextureLoader( manager );
+    var texture = textureLoader.load( 'textures/gradient.jpeg' );
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set( 1, 1 );
+    var gradient_material = new THREE.MeshPhongMaterial({map: texture});
+
     var shader = THREE.FresnelShader;
     var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
     uniforms[ "tCube" ].value = envCube;
@@ -63,7 +71,7 @@ $(function() {
         bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'contributions', material:bubble_material},
         cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'curiosities', material:blue_metal_material},
         dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'infos', dae:true},
-        eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:white_material},
+        eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:gradient_material},
         ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'ethos', material:red_metal_material},
         sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.008, material: white_material},
     };
@@ -177,12 +185,7 @@ $(function() {
     manager.onProgress = function ( item, loaded, total ) {
     };
 
-    // texture
-    var textureLoader = new THREE.TextureLoader( manager );
-    var texture = textureLoader.load( 'textures/gradient.jpeg' );
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set( 1, 1 );
+
 
     // model
     function onProgress( xhr ) {
@@ -199,42 +202,44 @@ $(function() {
 
     function load_objects() {
         var loader = new THREE.OBJLoader( manager ).setPath('assets/');
-        var DAEloader = new THREE.ColladaLoader( manager ).setPath('assets/');
+        var DAEloader = new THREE.ColladaLoader( manager ).setPath('assets/DAE/');
 
         for (const key in objects) {
             if (objects[key].dae) {
-               DAEloader.load(objects[key].src, function ( obj) {
-                objects[key].obj = obj.scene;
-                objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
-                objects[key].obj.position.x = objects[key].position.x;
-                objects[key].obj.position.y = objects[key].position.y;
-                objects[key].obj.position.z = objects[key].position.z;
-                objects[key].obj.name = key;
-                scene.add(objects[key].obj);
-                if (objects[key].chapter) {
-                    objects_in_scene.push(objects[key].obj)
-                }
+                DAEloader.load(objects[key].src, function ( obj) {
+                    objects[key].obj = obj.scene;
+                    objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
+                    objects[key].obj.position.x = objects[key].position.x;
+                    objects[key].obj.position.y = objects[key].position.y;
+                    objects[key].obj.position.z = objects[key].position.z;
+                    objects[key].obj.name = key;
+                    scene.add(objects[key].obj);
+                    if (objects[key].chapter) {
+                        objects_in_scene.push(objects[key].obj)
+                    }
                 }, onProgress, onError );
             }
-            loader.load(objects[key].src, function ( obj) {
-                objects[key].obj = obj;
-                objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
-                objects[key].obj.position.x = objects[key].position.x;
-                objects[key].obj.position.y = objects[key].position.y;
-                objects[key].obj.position.z = objects[key].position.z;
-                objects[key].obj.name = key;
-                if (objects[key].material) {
-                    objects[key].obj.traverse( function ( child ) {
-                        if ( child instanceof THREE.Mesh ) {
-                            child.material = objects[key].material;
-                        }
-                    } );
-                }
-                scene.add(objects[key].obj);
-                if (objects[key].chapter) {
-                    objects_in_scene.push(objects[key].obj)
-                }
-            }, onProgress, onError );
+            else {
+                loader.load(objects[key].src, function (obj) {
+                    objects[key].obj = obj;
+                    objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
+                    objects[key].obj.position.x = objects[key].position.x;
+                    objects[key].obj.position.y = objects[key].position.y;
+                    objects[key].obj.position.z = objects[key].position.z;
+                    objects[key].obj.name = key;
+                    if (objects[key].material) {
+                        objects[key].obj.traverse( function ( child ) {
+                            if ( child instanceof THREE.Mesh ) {
+                                child.material = objects[key].material;
+                            }
+                        } );
+                    }
+                    scene.add(objects[key].obj);
+                    if (objects[key].chapter) {
+                        objects_in_scene.push(objects[key].obj)
+                    }
+                }, onProgress, onError );
+            }
         }
     }
 
