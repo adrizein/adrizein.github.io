@@ -362,6 +362,8 @@ a.choix {
     padding: 20px 0 0 20px;
     margin-left: 5px;
     margin-right: 5px;
+    background-color: rgba(255, 255, 255, 0);
+    transition:1s;
 }
 
 a {
@@ -370,14 +372,9 @@ a {
 }
 
 #page3 .choix:hover, #en_page3 .choix:hover {
-    box-shadow: white 0 0 4px 0;
-}
-
-#page3 .choix *, #en_page3 .choix * {
-}
-
-#page3 .choix:hover *, #en_page3 .choix:hover * {
-    text-shadow: white 0 0 3px;
+    background-color: rgba(255, 255, 255, 1);
+    color:#555555;
+    transition:1s;
 }
 
 .contribution-page {
