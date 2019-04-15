@@ -295,7 +295,11 @@ $(function() {
             }
 
             if (INTERSECTED) {
-                rotate_object(INTERSECTED);
+                if(objects[INTERSECTED.name]) {
+                    rotate_object(INTERSECTED);
+                } else {
+                    rotate_object(INTERSECTED.parent);
+                }
             }
 
             controls.update();
