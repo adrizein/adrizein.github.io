@@ -71,7 +71,7 @@ $(function() {
         bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'contributions', material:bubble_material},
         cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'curiosities', material:blue_metal_material},
         dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'infos', dae:true},
-        eyecat_ball: {src:"EYECAT_BALL.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:gradient_material},
+        eyecat_ball: {src:"CAT_EYEBALL_interior.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:gradient_material},
         ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'ethos', material:red_metal_material},
         sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.008, material: white_material},
     };
@@ -163,7 +163,11 @@ $(function() {
     document.addEventListener('mouseup', function() {
         if (contentHidden) {
             if (INTERSECTED && dragging < 2) {
-                showContent(objects[INTERSECTED.parent.name].chapter);
+                if(objects[INTERSECTED.parent.name]) {
+                    showContent(objects[INTERSECTED.parent.name].chapter);
+                } else {
+                    showContent(objects[INTERSECTED.parent.parent.name].chapter);
+                }
             }
             all.removeClass('cursor-drag');
         }
@@ -212,7 +216,9 @@ $(function() {
                 objects[key].obj.position.x = objects[key].position.x;
                 objects[key].obj.position.y = objects[key].position.y;
                 objects[key].obj.position.z = objects[key].position.z;
+                console.log(key);
                 objects[key].obj.name = key;
+                console.log(objects[key].obj);
                 scene.add(objects[key].obj);
                 if (objects[key].chapter) {
                     objects_in_scene.push(objects[key].obj)
@@ -244,7 +250,15 @@ $(function() {
 
     load_objects();
 
+    function rotate_object(object) {
+        var SPEED = 0.01;
+        object.rotation.x -= SPEED * 2;
+        object.rotation.y -= SPEED;
+        object.rotation.z -= SPEED * 3;
+    }
+
     function render() {
+        var objectRotation = (3.14/100);
         if (contentHidden) {
             var coords = [mouse];
             var r = 104 / innerWidth;
@@ -276,8 +290,13 @@ $(function() {
             if (intersects.length === 0) {
                 if (INTERSECTED) {
                     all.removeClass('cursor-click');
+                    rotate_object(INTERSECTED);
                 }
                 INTERSECTED = null;
+            }
+
+            if (INTERSECTED) {
+                rotate_object(INTERSECTED);
             }
 
             controls.update();
