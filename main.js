@@ -210,39 +210,38 @@ $(function() {
 
         for (const key in objects) {
             if (objects[key].dae) {
-               DAEloader.load(objects[key].src, function ( obj) {
-                objects[key].obj = obj.scene;
-                objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
-                objects[key].obj.position.x = objects[key].position.x;
-                objects[key].obj.position.y = objects[key].position.y;
-                objects[key].obj.position.z = objects[key].position.z;
-                console.log(key);
-                objects[key].obj.name = key;
-                console.log(objects[key].obj);
-                scene.add(objects[key].obj);
-                if (objects[key].chapter) {
-                    objects_in_scene.push(objects[key].obj)
-                }
-                }, onProgress, onError ); 
-            } else {
-                loader.load(objects[key].src, function ( obj) {
-                objects[key].obj = obj;
-                objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
-                objects[key].obj.position.x = objects[key].position.x;
-                objects[key].obj.position.y = objects[key].position.y;
-                objects[key].obj.position.z = objects[key].position.z;
-                objects[key].obj.name = key;
-                if (objects[key].material) {
-                    objects[key].obj.traverse( function ( child ) {
-                        if ( child instanceof THREE.Mesh ) {
-                            child.material = objects[key].material;
-                        }
-                    } );
-                }
-                scene.add(objects[key].obj);
-                if (objects[key].chapter) {
-                    objects_in_scene.push(objects[key].obj)
-                }
+                DAEloader.load(objects[key].src, function ( obj) {
+                    objects[key].obj = obj.scene;
+                    objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
+                    objects[key].obj.position.x = objects[key].position.x;
+                    objects[key].obj.position.y = objects[key].position.y;
+                    objects[key].obj.position.z = objects[key].position.z;
+                    objects[key].obj.name = key;
+                    scene.add(objects[key].obj);
+                    if (objects[key].chapter) {
+                        objects_in_scene.push(objects[key].obj)
+                    }
+                }, onProgress, onError );
+            }
+            else {
+                loader.load(objects[key].src, function (obj) {
+                    objects[key].obj = obj;
+                    objects[key].obj.scale.set(objects[key].scale, objects[key].scale, objects[key].scale);
+                    objects[key].obj.position.x = objects[key].position.x;
+                    objects[key].obj.position.y = objects[key].position.y;
+                    objects[key].obj.position.z = objects[key].position.z;
+                    objects[key].obj.name = key;
+                    if (objects[key].material) {
+                        objects[key].obj.traverse( function ( child ) {
+                            if ( child instanceof THREE.Mesh ) {
+                                child.material = objects[key].material;
+                            }
+                        } );
+                    }
+                    scene.add(objects[key].obj);
+                    if (objects[key].chapter) {
+                        objects_in_scene.push(objects[key].obj)
+                    }
                 }, onProgress, onError );
             }
         }
@@ -311,7 +310,7 @@ $(function() {
     function changeChapter(chapter) {
         var container = $('#content-container');
         var chapter_div = $(`#${chapter}`);
-        var active_div = container.find('.active');
+        var active_div = container.find('.content.active');
 
         active_div.removeClass('visible');
         setTimeout(function () {
@@ -353,7 +352,6 @@ $(function() {
 
     function closeContent() {
         if (!contentHidden) {
-            contentHidden = true;
             var container = $('#content-container');
 
             container.removeClass('active');
@@ -364,6 +362,10 @@ $(function() {
             controls.enableRotate = true;
             controls.enableZoom = true;
             window.location.hash = '';
+
+            setTimeout(function () {
+                contentHidden = true;
+            }, 100);
         }
     }
 
@@ -424,6 +426,49 @@ $(function() {
     }
 
     window.setLanguage = setLanguage;
+
+    var contributions = $('#contributions');
+    contributions.find('.choix.yes').on('click', function (event) {
+        var page = $(event.target).parents('.contribution-page')[0], pageNum, nextPage, pageFr, pageEn;
+        if (page) {
+            if (page.id.match(/en_page\d/)) {
+                pageNum = parseInt(page.id.slice(7));
+                pageEn = $(page);
+                pageFr = $('#page' + pageNum);
+            } else {
+                pageNum = parseInt(page.id.slice(4));
+                pageFr = $(page);
+                pageEn = $('#en_page' + pageNum);
+            }
+        }
+
+        if (pageNum) {
+            if (pageNum === 7) {
+                changeChapter('weezevent');
+            } else {
+                nextPage = $('#en_page' + (pageNum + 1));
+                changeContributionPage(pageEn, nextPage);
+
+                nextPage = $('#page' + (pageNum + 1));
+                changeContributionPage(pageFr, nextPage);
+            }
+        }
+    });
+
+    contributions.find('.choix.link.ethos').on('click', function() {
+        window.location.hash ='#ethos';
+    });
+
+    function changeContributionPage(page, nextPage) {
+        page.removeClass('visible');
+        setTimeout(function () {
+            page.removeClass('active');
+            nextPage.addClass('active');
+            setTimeout(function () {
+                nextPage.addClass('visible');
+            }, 100);
+        }, 1000);
+    }
 });
 
 function goTo(url) {

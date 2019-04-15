@@ -16,8 +16,6 @@ div.ui-page {
 }
 
 
-
-
 @font-face {
     font-family: rumeur;
     src: url("fonts/rumeur.otf") format("opentype");
@@ -51,7 +49,7 @@ table.bottom.right.squares {
     cursor: pointer;
 }
 
-#help {
+#language {
     position: absolute;
     top: 60px;
     border-bottom: solid white 1px;
@@ -70,7 +68,17 @@ table.bottom.right.squares {
     z-index: 10;
 }
 
-#help div, #fb div {
+#emptysquare {
+    display: table;
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+    border-top: solid white 1px;
+    border-right: solid white 1px;
+    z-index: 10;
+}
+
+#language div, #fb div {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -95,6 +103,10 @@ html {
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+#contributions .content-container p {
+    font-size: 16px;
 }
 
 body {
@@ -140,15 +152,19 @@ h3 {
     font-family: rumeur, sans-serif;
     font-size: 60px;
     letter-spacing:-3px;
-    margin: 10px 0 -10px 0;
+    margin: 40px 0 -10px 0;
     flex-grow: 1;
 }
 
 h4 {
     font-family: rumeur, sans-serif;
     font-size:16px;
-    letter-spacing:-0.5px;
+    letter-spacing:-0.2px;
     margin: 10px 0;
+}
+
+ul li {
+    list-style-position: inside;
 }
 
 header h3 {
@@ -183,7 +199,7 @@ footer {
 footer h3 {
     font-size:13px !important;
     letter-spacing:-0.5px !important;
-    margin:24px 30px 24px 30px;
+    margin:22px 30px;
     display: flex;
     align-items: center;
     flex-grow: 1;
@@ -248,7 +264,7 @@ footer .square {
     pointer-events: none;
     opacity:0;
     z-index: 20;
-    width: 66%;
+    width: calc(100% - 200px);
     flex-grow: 1;
     padding-top: 0px;
     padding-right: 16.5%;
@@ -278,7 +294,7 @@ footer .square {
 #close-button {
     position: fixed;
     top: 118px;
-    left: calc(66% - 38px);
+    left: calc(100% - 238px);
     margin-right: -72px;
     z-index: 21;
     cursor: pointer;
@@ -295,9 +311,70 @@ footer .square {
 
 #stroke	{
     position:fixed;
-    left: calc(66% - 2px);
+    left: calc(100% - 202px);
     height:calc(100% - 122px);
     width: 2px;
+}
+
+.choix {
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.choix svg {
+    margin-left: 20px;
+}
+
+.choix > * {
+    display: inline-block;
+}
+
+a.choix {
+    display: flex;
+}
+
+.choix .answer {
+    height: 64px;
+    font: 20px rumeur, sans-serif;
+    padding: 22px 0;
+}
+
+#page3 .choix, #en_page3 .choix {
+    border: white solid 2px;
+    padding: 20px 0 0 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+#page3 .choix:hover, #en_page3 .choix:hover {
+    box-shadow: white 0 0 4px 0;
+}
+
+#page3 .choix *, #en_page3 .choix * {
+}
+
+#page3 .choix:hover *, #en_page3 .choix:hover * {
+    text-shadow: white 0 0 3px;
+}
+
+.contribution-page {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+
+.contribution-page.active {
+    display: block;
+}
+
+.contribution-page.visible {
+    opacity: 1;
 }
 
 #top-stroke{
@@ -312,7 +389,6 @@ footer .square {
     stroke-dasharray: 220;
     stroke-dashoffset: 220;
     transition: 1s 0.5s;
-    background-color: rgba(0, 0 ,0, 0.2);
 }
 
 #bottom-stroke {
@@ -413,7 +489,6 @@ html:lang(fr) #fr {
     font-weight: normal;
     margin-bottom: 10px;
     line-height: 1.6;
-    list-style-position: inside;
 }
 
 .stars {
@@ -454,7 +529,7 @@ svg:hover .appearing{
 
 #close_png {
     position: fixed;
-    top: 70px;
+    top: 60px;
     margin: 0;
     right: 0;
     transform: scale(0.5);
@@ -469,10 +544,6 @@ svg:hover .appearing{
         display: none;
     }
 
-    #content-container {
-        font-size: 12px;
-    }
-
     .accordion {
         border-width: 2px;
     }
@@ -485,7 +556,6 @@ svg:hover .appearing{
         font-size: 15px!important;
         height: 100px;
         width: 100px;
-    }
 
     #fb {
         bottom: 0;
@@ -497,31 +567,40 @@ svg:hover .appearing{
         display: none !important;
     }
 
-    header {
-        height: 50px;
-    }
-
-    #help {
-        top: calc(100% - 99px) !important;
-        border-top:solid white 1px;
-        left: 0px;
+    #fb {
+        display:block !important;
+        bottom: 0px;
+        border-top: solid white 1px;
+        border-right: solid white 1px;
+        border-bottom: solid white 1px;
+        padding:18px 0 14px 21px;
+        transition:1s;
     }
 
     #language {
         position:fixed;
-        top: calc(100% - 148px) !important;
-        left:0px;
+        top:calc(100% - 60px) !important;
+        left:60px;
         display:block !important;
-        padding:18px 0 14px 0;
+        border-top: solid white 1px;
+        vertical-align: middle;
+        text-align: center;
+        padding:20px 0 14px 8px;
+        transition:1s;
     }
 
     .cursor-close #language {
-        display:none !important;
+        opacity:0;
+        transition:1s;
+    }
+    .cursor-close #fb {
+        opacity:0;
+        transition:1s;
     }
 
     h2 {
         font-size: 16px;
-        padding: 14px;
+        padding: 18px;
     }
 
     .date {
@@ -529,8 +608,9 @@ svg:hover .appearing{
     }
 
     #content-container {
+        font-size: 12px;
         width: 100%;
-        padding: 20px 15px 0px 15px;;
+        padding: 20px 35px 0px 35px;;
         height: calc(100% - 100px);
     }
 
@@ -560,7 +640,7 @@ svg:hover .appearing{
     }
 
     h3 {
-        font-size: 48px;
+        font-size: 40px;
         letter-spacing:-1px;
         margin: 0px 0 -10px 0;
     }
@@ -571,5 +651,3 @@ svg:hover .appearing{
     #content-container.active #top-stroke,
     #content-container.active #bottom-stroke {
         display: none;
-    }
-}

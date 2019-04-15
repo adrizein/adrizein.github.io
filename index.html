@@ -5,23 +5,23 @@
     <meta charset=utf-8>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1.0, user-scalable=no">
     <title>Coucool 2019</title>
-    <style>
-    </style>
+    <link href="main.css" rel="stylesheet">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/101/three.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/WebGL.js"></script>
+    <script src="js/GLTFLoader.js"></script>
+    <script src="js/OBJLoader.js"></script>
+    <script src="js/ColladaLoader.js"></script>
+    <script src="js/FresnelShader.js"></script>
+    <script src="js/inobounce.js"></script>
+    <script src="main.js" defer></script>
 </head>
 
 <body>
-<link href="main.css" rel="stylesheet">
-<script src="js/OrbitControls.js"></script>
-<script src="js/WebGL.js"></script>
-<script src="js/GLTFLoader.js"></script>
-<script src="js/OBJLoader.js"></script>
-<script src="js/ColladaLoader.js"></script>
-<script src="js/FresnelShader.js"></script>
-<script src="js/inobounce.js"></script>
-<script src="main.js" defer></script>
 
 <div id="all_container" style="position: fixed; top:0; bottom: 0;left: 0; right: 0;">
     <div id="all">
@@ -33,13 +33,14 @@
             <span class="date en">26, 27 & 28th of July, 2019</span>
             </h2>
         </header>
-        <div class="square" id="help"><div>?</div></div>
+        <div class="square" id="language"><div><span id="fr" onclick="setLanguage('fr')">Fr</span> / <span id="en" onclick="setLanguage('en')">En</span></div></div>
         <div class="square ui-link" id="fb" onclick="goTo('https://www.facebook.com/coucoolcoucool')"><div>Fb</div></div>
-        <table class="top squares">
+        <div class="square ui-link" id="emptysquare"><div></div></div>
+            <table class="top squares">
             <tbody>
             <tr>
-                <td class="square ui-link" id="language" style="text-align:center">
-                        <span id="fr" onclick="setLanguage('fr')">Fr</span> / <span id="en" onclick="setLanguage('en')">En</span>
+                <td class="square ui-link" id="help" style="text-align:center">
+                        
                 </td>
                 <td class="square"></td>
             </tr>
@@ -61,6 +62,7 @@
             </tr>
             </tbody>
         </table>
+
         </div>
 
         <div id="content-container">
@@ -73,7 +75,7 @@
             <svg width="72" height="72" id="close-button" onclick="closeContent()">
                 <line class="cross" x1="26" y1="36" x2="46" y2="36" style="stroke:white; stroke-width: 2"></line>
                 <line class="cross" x1="36" y1="26" x2="36" y2="46" style="stroke:white; stroke-width: 2"></line>
-                <circle id=round-stroke cx="36" cy="36" r="35"></circle>
+                <circle id="round-stroke" cx="36" cy="36" r="35"></circle>
             </svg>
             <!--CONTENT-->
             <div id="ethos" class="content">
@@ -372,83 +374,533 @@
 
             <div id="contributions" class="content">
                 <h3>Contributions</h3>
-                <div id="page1" class="contribution-page">
-                    <div class="contribution-page-container">
-                        <div class="contribution-page-content">
-                            <p>Coucool,</p>
-                            <p>Nous préférons parler de contributions plutôt que de billets, tickets ou de places : la contribution financière en étant une parmi d’autres.</p>
-                            <p>Avant de payer ta contribution afin de participer à Coucool, j’ai quelques questions. Sauras-tu y répondre avec sincérité ?</p>
-                        </div>
-                        <div class="qcm">
-                            <div class="choix yes"> <div>Coucoolons</div>
+                <div class="content-container fr">
+                    <div id="page1" class="contribution-page active visible">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>Coucool,</p>
+                                <p>Nous préférons parler de contributions plutôt que de billets, tickets ou de places : la contribution financière en étant une parmi d’autres.</p>
+                                <p>Avant de payer ta contribution afin de participer à Coucool, j’ai quelques questions. Sauras-tu y répondre avec sincérité ?</p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes">
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Coucoolons</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div id="page2" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>Coucool se déroulera du vendredi 26 juillet au dimanche 28 juillet. Toute entrée sera refusée et il n'y aura plus de navette après 20h le vendredi 26 juillet. Aucune entrée ne sera possible le samedi.</p>
+                                <p>Coucool est une association à but non lucratif. Elle a pour objet la production de manifestations artistiques, festives et bienveillantes.</p>
+                                <p>Coucool repose sur un sens du dévouement collectif et sur des valeurs humaines fortes telles que la bienveillance, la collaboration et la générosité.</p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix no ethos link" >
+                                    <svg width="120" height="64">
+                                        <polygon points="32,2 62,32 32,62 2,32"
+                                                 fill="none"
+                                                 stroke="white"
+                                                 stroke-width="2"
+                                                 stroke-dasharray="130"
+                                                 stroke-dashoffset="-20"
+                                                 transform="rotate(90, 32, 32)"
+                                        ></polygon>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Dis m'en plus</div>
+                                </div>
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <polyline points="56,18 56,8 8,8 8,56 56,56 56,46"
+                                                  fill="none"
+                                                  stroke="white"
+                                                  stroke-width="2"
+                                        ></polyline>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Bienveillons</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page3" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Connais-tu bien l’ethos de la communauté Coucool : lequel de ces principes n’en fait PAS partie ?
+                                </p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix ethos link" >
+                                    <div>Coucooler l'autre, c'est l’inviter et le découvrir.
+                                        <ul>
+                                            <li>Tout être bienveillant est bienvenu.</li>
+                                            <li>Les coucools n’ont pas d’âge.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="choix ethos link" >
+                                    <div>Coucoolons les barrières qui nous éloignent des autres et de nous-mêmes.
+                                        <ul>
+                                            <li>Coucool souhaite être un espace inclusif, LGBT & Queer friendly.</li>
+                                            <li>Spontanéité et oubli de l’égo.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="choix ethos link" >
+                                    <div>Coucool se construit à plusieurs.
+                                        <ul>
+                                            <li>Proposer un camp, une performance artistique, à manger, une exposition, un atelier, etc.</li>
+                                            <li>Être bénévole ou rejoindre l’équipe organisatrice à mes côtés.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="choix yes" >
+                                    <div>Coucooler c’est profiter de chaque instant et ne se préoccuper de rien.
+                                        <ul>
+                                            <li>Retombons en enfance et laissons-nous dorloter.</li>
+                                            <li>Le spectateur est roi et ses désirs deviennent réalité.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page4" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Chaque participant.e s’engage à contribuer humainement à cette oeuvre collective :
+                                </p>
+                                <ul>
+                                    <li>Soit en proposant bénévolement de réaliser un projet artistique, une activité ou toute initiative Coucool.</li>
+                                    <li>Soit en accordant au moins 2h de son temps pour une mission bénévole de jour ou de nuit.</li>
+                                </ul>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Je contribue humainement</div>
+                                </div>
+                                <a class="choix no" href='https://youtu.be/4mNDYWhRSaw' target="_blank">
+                                    <svg width="120" height="64">
+                                        <polygon points="32,2 62,32 32,62 2,32"
+                                                 fill="none"
+                                                 stroke="white"
+                                                 stroke-width="2"
+                                                 stroke-dasharray="130"
+                                                 stroke-dashoffset="-20"
+                                                 transform="rotate(90, 32, 32)"
+                                        ></polygon>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Je paie une contribution VIP pour coucooler tranquille</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page5" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>Dans le respect de ses principes Coucool reverse 50% de ses bénéfices à des organisations caritatives, l’autre moitié étant réinvestie dans le projet lui-même.</p>
+                                <p>Chaque participant.e contribue individuellement au principe de don en venant avec des petits présents à offrir, à la volée, à une âme sœur ou à un.e inconnu.e.</p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <polyline points="56,18 56,8 8,8 8,56 56,56 56,46"
+                                                  fill="none"
+                                                  stroke="white"
+                                                  stroke-width="2"
+                                        ></polyline>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Je donne</div>
+                                </div>
+                                <a class="choix no" href='https://youtu.be/cMAr1flCdQ8' target='_blank'>
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">C’est pas sérieux</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page6" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Quelle que soit la forme de ton implication, tu t’engages à préserver la nature, un principe fondamental de Coucool :
+                                <ul>
+                                    <li>Tout au long de l’événement en ne jetant rien au sol et en ramassant ce que tu vois.</li>
+                                    <li>Ponctuellement lors des 2 sessions de nettoyage collectif organisées (samedi et dimanche).</li>
+                                </ul>
+                                </p>
+                            </div>
+                            <div class="qcm">
+                                <a class="choix no" href='https://youtu.be/4xstc5o2wRM' target='_blank'>
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Le plastique c’est fantastique</div>
+                                </a>
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <polygon points="32,2 62,32 32,62 2,32"
+                                                 fill="none"
+                                                 stroke="white"
+                                                 stroke-width="2"
+                                                 stroke-dasharray="130"
+                                                 stroke-dashoffset="-20"
+                                                 transform="rotate(90, 32, 32)"
+                                        ></polygon>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Je participerai aux nettoyages</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="page7" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Les événements de l’association Coucool sont strictement réservés à ses adhérent.e.s. C'est pour cela qu’est demandé à chacun.e d’en respecter les principes et d’y adhérer en son nom propre lors du paiement de sa contribution. </br></br>
+                                    Une contribution comprend les cinq repas du vendredi soir au dimanche matin, les boissons ainsi que les trajets en navette depuis et vers la gare la plus proche le vendredi soir et le dimanche matin.
+                                </p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes">
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Je contribue financièrement</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-container en">
+                    <div id="en_page1" class="contribution-page active visible">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>Coucool,</p>
+                                <p>We’d rather name it a financial contribution than a ticket or a pass : this financial contribution is one among many others.</p>
+                                <p>Before paying your financial contribution to participate in Coucool, I have a few questions for you. Will you answer them sincerely ?</p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes">
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Let’s coucool</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="en_page2" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>Coucool will take place from Friday 26th July until Sunday 28th July. From Friday 8PM and on, access to the festival will be closed and there will be no more shuttle services.</p>
+                                <p>Coucool is a non-profit organization. Its purpose is to produce artistic, festive, and benevolent events.</p>
+                                <p>Coucool is based on a collective sense of dedication and on strong humanist values such as benevolence, collaboration and generosity.</p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix no ethos link" >
+                                    <svg width="120" height="64">
+                                        <polygon points="32,2 62,32 32,62 2,32"
+                                                 fill="none"
+                                                 stroke="white"
+                                                 stroke-width="2"
+                                                 stroke-dasharray="130"
+                                                 stroke-dashoffset="-20"
+                                                 transform="rotate(90, 32, 32)"
+                                        ></polygon>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Tell me more</div>
+                                </div>
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <polyline points="56,18 56,8 8,8 8,56 56,56 56,46"
+                                                  fill="none"
+                                                  stroke="white"
+                                                  stroke-width="2"
+                                        ></polyline>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Let’s do good</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="en_page3" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Do you know well Coucool community principles : which one doesn’t belong to them ?
+                                </p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix ethos link" >
+                                    <div>Coucooling the other, it’s inviting him/her and discovering him/her.
+                                        <ul>
+                                            <li>Any benevolence is welcome.</li>
+                                            <li>The people of Coucool have no age.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="choix ethos link" >
+                                    <div>Let’s coucool the barriers that separate us from others and from ourselves.
+                                        <ul>
+                                            <li>Coucool wants to be an inclusive space, LGBTQ+ friendly.</li>
+                                            <li>Spontaneity and letting go of the ego.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="choix ethos link" >
+                                    <div>Coucool is built by many.
+                                        <ul>
+                                            <li>Propose a camp, a performance, a meal, an exhibition, a workshop, etc.</li>
+                                            <li>Be a volunteer or join the organizing team by my side.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="choix yes" >
+                                    <div>To coucool is to seize on every moment without caring about anything.
+                                        <ul>
+                                            <li>Let's fall back to childhood and let ourselves be pampered.</li>
+                                            <li>The audience is king and its desires become reality.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="en_page4" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Every participant gets involved as a volunteer :
+                                </p>
+                                <ul>
+                                    <li>Either by proposing a volunteer artistic project, an activity, or any Coucool initiative.</li>
+                                    <li>Either by giving at least 2 hours of your time for a volunteer mission by day or by night.</li>
+                                </ul>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <polyline points="56,18 56,8 8,8 8,56 56,56 56,46"
+                                                  fill="none"
+                                                  stroke="white"
+                                                  stroke-width="2"
+                                        ></polyline>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">I contribute humanly</div>
+                                </div>
+                                <a class="choix no" style="font-size: 18px" href='https://youtu.be/4mNDYWhRSaw' target='_blank'>
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">I pay a VIP pass to chill at Coucool</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="en_page5" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>In accordance with its principles, Coucool donates 50% of its benefits to charities, the other half is invested in the project itself.</p>
+                                <p>Every participant contributes individually to gifting by coming with small presents to offer, on the fly, to a soulmate or a stranger.</p>
+                            </div>
+                            <div class="qcm">
+                                <a href='https://youtu.be/cMAr1flCdQ8' target='_blank' class="choix no" >
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">U kidding m8 ?</div>
+                                </a>
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <polygon points="32,2 62,32 32,62 2,32"
+                                                 fill="none"
+                                                 stroke="white"
+                                                 stroke-width="2"
+                                                 stroke-dasharray="130"
+                                                 stroke-dashoffset="-20"
+                                                 transform="rotate(90, 32, 32)"
+                                        ></polygon>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Of course</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="en_page6" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Whatever you are contributing to Coucool, you commit to preserve nature. It’s a founding principle of Coucool :
+                                <ul>
+                                    <li>Throughout the whole event without throwing anything on the ground and by picking up anything you see on it. </li>
+                                    <li>Punctually during the 2 collective cleaning session organized on saturday and sunday</li>
+                                </ul>
+                                </p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes" >
+                                    <svg width="120" height="64">
+                                        <polygon points="32,2 62,32 32,62 2,32"
+                                                 fill="none"
+                                                 stroke="white"
+                                                 stroke-width="2"
+                                                 stroke-dasharray="130"
+                                                 stroke-dashoffset="-20"
+                                                 transform="rotate(90, 32, 32)"
+                                        ></polygon>
+                                        <line x1="40" y1="32" x2="90" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="90,24 100,32 90,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">I’ll help with the cleaning</div>
+                                </div>
+                                <a class="choix no" href='https://youtu.be/ZyhrYis509A' target='_blank'>
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">Life in plastic, it's fantastic</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="en_page7" class="contribution-page">
+                        <div class="contribution-page-container">
+                            <div class="contribution-page-content">
+                                <p>
+                                    Coucool’s events are strictly reserved to members of Coucool association. That’s why it’s asked for anyone who wants to participate to respect its principles and to join the association on his/her behalf when paying its contribution. </br></br>
+                                    Contributions include the meals from Friday night until Sunday morning, drinks, and free shuttle from and to the closest train station on Friday night and Sunday morning.
+                                </p>
+                            </div>
+                            <div class="qcm">
+                                <div class="choix yes">
+                                    <svg width="120" height="64">
+                                        <circle r="30" cx="32" cy="32" fill="none" stroke="white" stroke-width="2" stroke-dasharray="165" transform="rotate(20, 32, 32)"></circle>
+                                        <line x1="45" y1="32" x2="100" y2="32" stroke="white" stroke-width="2"></line>
+                                        <polyline points="100,24 110,32 100,40" stroke="white" stroke-width="2" fill="none"></polyline>
+                                    </svg>
+                                    <div class="answer">I contribute financially</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="weezevent" class="content">
+                <div>
+                    <a title="Logiciel billetterie en ligne" href="https://weezevent.com/?c=sys_widget" class="weezevent-widget-integration" target="_blank" data-src="https://www.weezevent.com/widget_billeterie.php?id_evenement=449831&lg_billetterie=1&code=64393&width_auto=1&color_primary=00AEEF" data-width="650" data-height="600" data-id="449831" data-resize="1" data-width_auto="1" data-noscroll="0" data-nopb="0">Billetterie Weezevent</a>
+                    <script async defer type="text/javascript" src="https://www.weezevent.com/js/widget/min/widget.min.js"></script>
                 </div>
             </div>
 
             <div id="definitions" class="content">
                 <h3>Definitions</h3>
                 <div class="fr">
-                            <p>
-                                Étymologie : Mot-valise composé de coucou et cool (ou de comète et roucoule selon d’autres sources) <br/>
-                                coucool \ kukɔɔl \ masculin et féminin identiques
-                            </p>
-                            <p>
-                                1. Adjectif : Désigne un objet, une personne, une situation au caractère particulièrement spontané, bienveillant et réjouissant.</br>
-                                • « Jack et son panda sautèrent ensemble dans la piscine à boules. Décidément, leur journée avait été coucool… » (Éros Sélavy, 1927)
-                            </p>
-                            <p>
-                                Par extension : Interjection, mot pour saluer ses camarades dans un contexte coucool.</br>
-                                • « Ah Coucool ! »
-                            </p>
-                            <p>
-                                2. Nom commun : Oiseau curieux qui ne danse qu’en groupe au coucher du soleil sur des rythmes percussifs, nommé ainsi en référence au son qu’il produit lorsqu’il est satisfait.</br>
-                                • « Coucoooooool…Coucoooooool »
-                            </p>
-                            <p>
-                                3. Verbe : Allumer une partie ou la totalité de son être, en ayant une influence positive sur son environnement immédiat ou lointain.
-                                Par extension : Désigne toute action effectuée dans un état d’esprit coucool.
-                                • « Les ami.e.s, coucoolez-vous dans mes bras »
-                            </p>
-                            <p>
-                                Coucool<br/>
-                                C’est le premier mot de l’étranger curieux, qui surprend puis rassure. En même temps que ce salut, tout ce qui nous entoure devient soudainement coucool à son tour. Tout ce qui vibre et qui scintille, tout ce qui est fait pour me plaire et m’amuser, toutes les personnes qui m’entraînent par la main pour me montrer ce qu’elles ont trouvé par là-bas.
-                            </p>
-                            <p>
-                                C’est le spectre particulier des couleurs de l’arc-en-ciel à ce moment de l’année, la musique qui prend le rythme de plusieurs cœurs à la fois, la lueur de la boule à facettes sur nos plumages volages, et l’amour qui coule à flots.
-                            </p>
-                        </div>
-                        <div class="en">
-                            <p>
-                                Etymology: Portmanteau word composed of Coucou (French for ‘Hello’, also the onomatopoetia ‘Cuckoo’) & Cool</br>
-                                coucool \ kukɔɔl \ male and female identical
-                            </p>
-                            <p>
-                                1. Adjective: Indicates an object, person or situation particularly spontaneous, caring and joyful.</br>
-                                • "Jack and his panda jumped together in the ball pool. Their day was turning out to be coucool for sure..." (Éros Sélavy, 1927)
-                            </p>
-                            <p>
-                                Other use: as a greeting in a coucool context.</br>
-                                • "Coucool my brother / sister!"
-                            </p>
-                            <p>
-                                2. Common noun: Curious bird known for dancing in group at sunset to percussive rhythms, named after the call that it makes when satisfied.</br>
-                                • "Coucoooooool…Coucoooooool"
-                            </p>
-                            <p>
-                                Not to be confused with: those (many) English speakers not yet fully accustomed to the French tongue must avoid the word “coucouilles” \ kukɔi ; a pejorative term for testicles.
-                            </p>
-                            <p>
-                                Coucool<br/>
-                                It is the greeting of the curious stranger, that surprises then reassures.
-                                Simultaneously with this greeting, everything around us becomes suddenly coucool itself.
-                                Any vibration and sparkle, anything made to please and entertain me, all the people taking me by the hand, to show me what they found here and there.
-                            </p>
-                            <p>
-                                It is the particular spectrum of rainbow colours at this time of year, music taking the rhythm of multiple hearts at once, glow of the disco ball on our flighty feathers, and love flowing strongly and freely.
-                            </p>
-                        </div>
+                    <p>
+                        Étymologie : Mot-valise composé de coucou et cool (ou de comète et roucoule selon d’autres sources) <br/>
+                        coucool \ kukɔɔl \ masculin et féminin identiques
+                    </p>
+                    <p>
+                        1. Adjectif : Désigne un objet, une personne, une situation au caractère particulièrement spontané, bienveillant et réjouissant.</br>
+                        • « Jack et son panda sautèrent ensemble dans la piscine à boules. Décidément, leur journée avait été coucool… » (Éros Sélavy, 1927)
+                    </p>
+                    <p>
+                        Par extension : Interjection, mot pour saluer ses camarades dans un contexte coucool.</br>
+                        • « Ah Coucool ! »
+                    </p>
+                    <p>
+                        2. Nom commun : Oiseau curieux qui ne danse qu’en groupe au coucher du soleil sur des rythmes percussifs, nommé ainsi en référence au son qu’il produit lorsqu’il est satisfait.</br>
+                        • « Coucoooooool…Coucoooooool »
+                    </p>
+                    <p>
+                        3. Verbe : Allumer une partie ou la totalité de son être, en ayant une influence positive sur son environnement immédiat ou lointain.
+                        Par extension : Désigne toute action effectuée dans un état d’esprit coucool.
+                        • « Les ami.e.s, coucoolez-vous dans mes bras »
+                    </p>
+                    <p>
+                        Coucool<br/>
+                        C’est le premier mot de l’étranger curieux, qui surprend puis rassure. En même temps que ce salut, tout ce qui nous entoure devient soudainement coucool à son tour. Tout ce qui vibre et qui scintille, tout ce qui est fait pour me plaire et m’amuser, toutes les personnes qui m’entraînent par la main pour me montrer ce qu’elles ont trouvé par là-bas.
+                    </p>
+                    <p>
+                        C’est le spectre particulier des couleurs de l’arc-en-ciel à ce moment de l’année, la musique qui prend le rythme de plusieurs cœurs à la fois, la lueur de la boule à facettes sur nos plumages volages, et l’amour qui coule à flots.
+                    </p>
+                </div>
+                <div class="en">
+                    <p>
+                        Etymology: Portmanteau word composed of Coucou (French for ‘Hello’, also the onomatopoetia ‘Cuckoo’) & Cool</br>
+                        coucool \ kukɔɔl \ male and female identical
+                    </p>
+                    <p>
+                        1. Adjective: Indicates an object, person or situation particularly spontaneous, caring and joyful.</br>
+                        • "Jack and his panda jumped together in the ball pool. Their day was turning out to be coucool for sure..." (Éros Sélavy, 1927)
+                    </p>
+                    <p>
+                        Other use: as a greeting in a coucool context.</br>
+                        • "Coucool my brother / sister!"
+                    </p>
+                    <p>
+                        2. Common noun: Curious bird known for dancing in group at sunset to percussive rhythms, named after the call that it makes when satisfied.</br>
+                        • "Coucoooooool…Coucoooooool"
+                    </p>
+                    <p>
+                        Not to be confused with: those (many) English speakers not yet fully accustomed to the French tongue must avoid the word “coucouilles” \ kukɔi ; a pejorative term for testicles.
+                    </p>
+                    <p>
+                        Coucool<br/>
+                        It is the greeting of the curious stranger, that surprises then reassures.
+                        Simultaneously with this greeting, everything around us becomes suddenly coucool itself.
+                        Any vibration and sparkle, anything made to please and entertain me, all the people taking me by the hand, to show me what they found here and there.
+                    </p>
+                    <p>
+                        It is the particular spectrum of rainbow colours at this time of year, music taking the rhythm of multiple hearts at once, glow of the disco ball on our flighty feathers, and love flowing strongly and freely.
+                    </p>
+                </div>
             </div>
 
             <div id="eros" class="content">
@@ -499,50 +951,50 @@
                 <div class="fr" style="text-align: center">
                     <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="bilan2018">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">Bilan 2018</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#bilan2018');"/>
-                          <text x="150" y="30" class="appearing">Bilan 2018</text>
+                            <defs>
+                                <mask id="bilan2018">
+                                    <rect fill="#fff" height="100%" width="100%"></rect>
+                                    <text x="150" y="30" id="myText">Bilan 2018</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#bilan2018');"></rect>
+                            <text x="150" y="30" class="appearing">Bilan 2018</text>
                         </svg>
                     </div>
                     <div onclick="goTo('/2018')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="site2018">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">Site 2018</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#site2018');"/>
-                          <text x="150" y="30" class="appearing">Site 2018</text>
+                            <defs>
+                                <mask id="site2018">
+                                    <rect width="100%" height="100%" fill="#fff"></rect>
+                                    <text x="150" y="30" id="myText">Site 2018</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#site2018');"></rect>
+                            <text x="150" y="30" class="appearing">Site 2018</text>
                         </svg>
                     </div>
                     <div onclick="goTo('/2017')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="site2017">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">Site 2017</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#site2017');"/>
-                          <text x="150" y="30" class="appearing">Site 2017</text>
+                            <defs>
+                                <mask id="site2017">
+                                    <rect width="100%" height="100%" fill="#fff"></rect>
+                                    <text x="150" y="30" id="myText">Site 2017</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#site2017');"/>
+                            <text x="150" y="30" class="appearing">Site 2017</text>
                         </svg>
                     </div>
                     <div onclick="goTo('/2016')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="site2016">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">Site 2016</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#site2016');"/>
-                          <text x="150" y="30" class="appearing">Site 2016</text>
+                            <defs>
+                                <mask id="site2016">
+                                    <rect width="100%" height="100%" fill="#fff" />
+                                    <text x="150" y="30" id="myText">Site 2016</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#site2016');"/>
+                            <text x="150" y="30" class="appearing">Site 2016</text>
                         </svg>
                     </div>
                 </div>
@@ -550,74 +1002,73 @@
                 <div class="en" style="text-align: center">
                     <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="review2018">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">2018 review</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#review2018');"/>
-                          <text x="150" y="30" class="appearing">2018 review</text>
+                            <defs>
+                                <mask id="review2018">
+                                    <rect width="100%" height="100%" fill="#fff" />
+                                    <text x="150" y="30" id="myText">2018 review</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#review2018');"/>
+                            <text x="150" y="30" class="appearing">2018 review</text>
                         </svg>
                     </div>
                     <div onclick="goTo('/2018')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="2018website">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">2018 website</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#2018website');"/>
-                          <text x="150" y="30" class="appearing">2018 website</text>
+                            <defs>
+                                <mask id="2018website">
+                                    <rect width="100%" height="100%" fill="#fff" />
+                                    <text x="150" y="30" id="myText">2018 website</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#2018website');"/>
+                            <text x="150" y="30" class="appearing">2018 website</text>
                         </svg>
                     </div>
                     <div onclick="goTo('/2017')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="2017website">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">2017 website</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#2017website');"/>
-                          <text x="150" y="30" class="appearing">2017 website</text>
+                            <defs>
+                                <mask id="2017website">
+                                    <rect width="100%" height="100%" fill="#fff" />
+                                    <text x="150" y="30" id="myText">2017 website</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#2017website');"/>
+                            <text x="150" y="30" class="appearing">2017 website</text>
                         </svg>
                     </div>
                     <div onclick="goTo('/2016')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
-                          <defs>
-                            <mask id="2016website">
-                              <rect width="100%" height="100%" fill="#fff" />
-                              <text x="150" y="30" id="myText">2016 website</text>
-                            </mask>
-                          </defs>
-                          <rect class="masked" width="300" height="60" style="mask:url('#2016website');"/>
-                          <text x="150" y="30" class="appearing">2016 website</text>
+                            <defs>
+                                <mask id="2016website">
+                                    <rect width="100%" height="100%" fill="#fff" />
+                                    <text x="150" y="30" id="myText">2016 website</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#2016website');"/>
+                            <text x="150" y="30" class="appearing">2016 website</text>
                         </svg>
                     </div>
                 </div>
             </div>
         </div>
 
-        <img onclick="closeContent()" id="close_png" src="assets/close.png" width="60px" height="60px">
+        <img onclick="closeContent()" id="close_png" src="assets/close.png" width="90px" height="90px">
+        <img alt="close" onclick="closeContent()" id="close_png" src="assets/close.png" width="60px" height="60px"/>
         <footer class="menu">
             <div class="square"></div>
-                <h3>
-                    <div class="fr">
-                        Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <a href="mailto:eros@cou.cool"> Lui Écrire</a>
-                    </div>
-                    <div class="en">
-                        Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a href="mailto:eros@cou.cool"> Write to him </a>
-                    </div>
-                    <div id="credits">Visuels – <a onclick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
-                </h3>
-        </footer>
-    </div>
-    <!--<div id="loader" style="background-color: red; 
-    position:fixed; top: 0; left: 0; right: 0; bottom: 0; display: none;">-->
-    </div>
+            <h3>
+                <div class="fr">
+                    Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <a href="mailto:eros@cou.cool"> Lui Écrire</a>
+                </div>
+                <div class="en">
+                    Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a href="mailto:eros@cou.cool"> Write to him </a>
+                </div>
+                <div id="credits">Visuels – <a onclick="goTo('https://eliserigollet.com/')">Élise Rigollet</a></div>
+            </h3>
+        </footer></div>
+    <!--<div id="loader" style="background-color: red; position:fixed; top: 0; left: 0; right: 0; bottom: 0; display: none;">-->
 </div>
+
 </body>
 
 </html>
