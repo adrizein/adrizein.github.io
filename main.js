@@ -178,6 +178,13 @@ $(function() {
     window.onload = function () {
         $('canvas').bind('tap', clickHandler);
         $.mobile.loading().hide();
+
+        $( "#zoomIn" ).click(function() {
+            zoom(0.8);
+        });
+        $( "#zoomOut" ).click(function() {
+            zoom(1.2);
+        });
     };
 
 
@@ -256,6 +263,15 @@ $(function() {
         object.rotation.x -= SPEED * 2;
         object.rotation.y -= SPEED;
         object.rotation.z -= SPEED * 3;
+    }
+
+    function zoom(factor) {
+        //currDistance = camera.position.length()
+        //console.log(currDistance);
+        //factor = zoomDistance/currDistance;
+        camera.position.x *= factor;
+        camera.position.y *= factor;
+        camera.position.z *= factor;
     }
 
     function render() {

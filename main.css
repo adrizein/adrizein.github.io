@@ -109,6 +109,11 @@ html {
     font-size: 16px;
 }
 
+#zoomIn, #zoomOut {
+    font-size: 24px;
+    text-align: center;
+}
+
 body {
     height: 100%;
     padding: 0;
