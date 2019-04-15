@@ -324,14 +324,12 @@ footer .square {
 .choix {
     cursor: pointer;
     margin: 20px 0;
+    display: flex;
 }
 
 .choix svg {
     margin-left: 20px;
-}
-
-.choix > * {
-    display: inline-block;
+    margin-right: 10px;
 }
 
 .choix:hover .hover_choix {
@@ -354,7 +352,9 @@ a.choix {
 .choix .answer {
     height: 64px;
     font: 16px rumeur, sans-serif;
-    padding: 22px 0;
+    display: flex;
+    align-items: center;
+    flex-basis: calc(100% - 140px);
 }
 
 #page3 .choix, #en_page3 .choix {
@@ -375,6 +375,15 @@ a {
     background-color: rgba(255, 255, 255, 1);
     color:#555555;
     transition:1s;
+}
+
+#weezevent {
+    position: fixed;
+    top: 200px;
+    left: 0;
+    width: 72% !important;
+    bottom: 59px;
+    overflow: auto;
 }
 
 .contribution-page {
@@ -568,9 +577,8 @@ svg:hover .appearing{
     }
 
     .choix {
-        font-size: 15px!important;
-        height: 100px;
-}
+        font-size: 15px !important;
+    }
 
     #fb {
         bottom: 0;
@@ -583,34 +591,35 @@ svg:hover .appearing{
     }
 
     #fb {
-        display:block !important;
+        display: block !important;
         bottom: 0px;
         border-top: solid white 1px;
         border-right: solid white 1px;
         border-bottom: solid white 1px;
-        padding:18px 0 14px 21px;
-        transition:1s;
+        padding: 18px 0 14px 21px;
+        transition: 1s;
     }
 
     #language {
-        position:fixed;
-        top:calc(100% - 60px) !important;
-        left:60px;
-        display:block !important;
+        position: fixed;
+        top: calc(100% - 60px) !important;
+        left: 60px;
+        display: block !important;
         border-top: solid white 1px;
         vertical-align: middle;
         text-align: center;
-        padding:20px 0 14px 8px;
-        transition:1s;
+        padding: 20px 0 14px 8px;
+        transition: 1s;
     }
 
     .cursor-close #language {
-        opacity:0;
-        transition:1s;
+        opacity: 0;
+        transition: 1s;
     }
+
     .cursor-close #fb {
-        opacity:0;
-        transition:1s;
+        opacity: 0;
+        transition: 1s;
     }
 
     h2 {
@@ -636,7 +645,7 @@ svg:hover .appearing{
         margin: 0;
         right: 0;
         transform: scale(0.5);
-        display:none;
+        display: none;
     }
 
     .cursor-close #close_png {
@@ -656,7 +665,7 @@ svg:hover .appearing{
 
     h3 {
         font-size: 40px;
-        letter-spacing:-1px;
+        letter-spacing: -1px;
         margin: 0px 0 -10px 0;
     }
 
@@ -666,3 +675,26 @@ svg:hover .appearing{
     #content-container.active #top-stroke,
     #content-container.active #bottom-stroke {
         display: none;
+    }
+
+    #page3 .choix, #en_page3 .choix {
+        font-size: 13px !important;
+        padding: 10px;
+        height: auto;
+    }
+
+    .choix ul {
+        padding-left: 20px;
+        margin: 0;
+    }
+
+    #weezevent {
+        position: fixed;
+        top: 150px;
+        left: 0;
+        width: 100% !important;
+        bottom: 0;
+        margin: 0 !important;
+        overflow: auto;
+    }
+}
