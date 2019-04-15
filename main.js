@@ -214,7 +214,7 @@ $(function() {
                 if (objects[key].chapter) {
                     objects_in_scene.push(objects[key].obj)
                 }
-                }, onProgress, onError ); 
+                }, onProgress, onError );
             }
             loader.load(objects[key].src, function ( obj) {
                 objects[key].obj = obj;
@@ -330,7 +330,6 @@ $(function() {
 
     function closeContent() {
         if (!contentHidden) {
-            contentHidden = true;
             var container = $('#content-container');
 
             container.removeClass('active');
@@ -341,6 +340,10 @@ $(function() {
             controls.enableRotate = true;
             controls.enableZoom = true;
             window.location.hash = '';
+
+            setTimeout(function () {
+                contentHidden = true;
+            }, 100);
         }
     }
 
@@ -402,37 +405,36 @@ $(function() {
 
     window.setLanguage = setLanguage;
 
-    $('#contributions').find('.choix.yes').on('click', function (event) {
-        var page = $(event.target).parents('.contribution-page')[0], pageNum, nextPage;
+    var contributions = $('#contributions');
+    contributions.find('.choix.yes').on('click', function (event) {
+        var page = $(event.target).parents('.contribution-page')[0], pageNum, nextPage, pageFr, pageEn;
         if (page) {
             if (page.id.match(/en_page\d/)) {
                 pageNum = parseInt(page.id.slice(7));
-                page = $(page);
-                if (pageNum) {
-                    if (pageNum === 7) {
-                        changeChapter('weezevent');
-                    }
-                    else {
-                        nextPage = $('#en_page' + (pageNum + 1));
-                        changeContributionPage(page, nextPage);
-                    }
-                }
-            }
-            else {
+                pageEn = $(page);
+                pageFr = $('#page' + pageNum);
+            } else {
                 pageNum = parseInt(page.id.slice(4));
-                page = $(page);
-                if (pageNum) {
-                    if (pageNum === 7) {
-                        changeChapter('weezevent');
-                    }
-                    else {
-                        nextPage = $('#page' + (pageNum + 1));
-                        changeContributionPage(page, nextPage);
-                    }
-                }
+                pageFr = $(page);
+                pageEn = $('#en_page' + pageNum);
             }
         }
 
+        if (pageNum) {
+            if (pageNum === 7) {
+                changeChapter('weezevent');
+            } else {
+                nextPage = $('#en_page' + (pageNum + 1));
+                changeContributionPage(pageEn, nextPage);
+
+                nextPage = $('#page' + (pageNum + 1));
+                changeContributionPage(pageFr, nextPage);
+            }
+        }
+    });
+
+    contributions.find('.choix.link.ethos').on('click', function() {
+        window.location.hash ='#ethos';
     });
 
     function changeContributionPage(page, nextPage) {
