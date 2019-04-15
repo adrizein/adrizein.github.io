@@ -65,15 +65,17 @@ $(function() {
     var parameters = { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShader, uniforms: uniforms };
     var bubble_material = new THREE.ShaderMaterial( parameters );
 
+    var l=1.5;
+    var s=0.02;
 
     var objects = {
-        torus: {src:"TORUS2.obj", position:{x:0.6,y:0,z:-0.6}, scale:0.008, chapter:'definitions', material:grey_metal_material},
-        bubble: {src:"BUBBLE.obj", position:{x:0.3,y:0.3,z:0}, scale:0.008, chapter:'contributions', material:bubble_material},
-        cloud: {src:"CLOUD.obj", position:{x:-0.6,y:0,z:-0.6}, scale:0.008, chapter:'curiosities', material:blue_metal_material},
-        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-0.6,y:-0.6,z:0}, scale:0.008, chapter:'infos', dae:true},
-        eyecat_ball: {src:"CAT_EYEBALL_interior.obj", position:{x:0,y:0.6,z:-0.6}, scale:0.006, chapter:'eros', material:gradient_material},
-        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:0.008, chapter:'ethos', material:red_metal_material},
-        sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.008, material: white_material},
+        torus: {src:"TORUS2.obj", position:{x:2*l,y:0,z:-2*l}, scale:s, chapter:'definitions', material:grey_metal_material},
+        bubble: {src:"BUBBLE.obj", position:{x:(l),y:(l/2),z:0}, scale:s, chapter:'contributions', material:bubble_material},
+        cloud: {src:"CLOUD.obj", position:{x:-2*l,y:0,z:-2*l}, scale:s, chapter:'curiosities', material:blue_metal_material},
+        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-l,y:-l,z:0}, scale:s, chapter:'infos', dae:true},
+        eyecat_ball: {src:"CAT_EYEBALL_interior.obj", position:{x:0,y:l,z:-l}, scale:3/4*s, chapter:'eros', material:gradient_material},
+        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:s, chapter:'ethos', material:red_metal_material},
+        sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.006, material: white_material},
     };
 
 
@@ -87,7 +89,7 @@ $(function() {
 
 
     var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-    camera.position.z = 4;
+    camera.position.z = 10;
     camera.position.y = 0.5;
     camera.position.x = -1;
 
@@ -176,6 +178,13 @@ $(function() {
     window.onload = function () {
         $('canvas').bind('tap', clickHandler);
         $.mobile.loading().hide();
+
+        $( "#zoomIn" ).click(function() {
+            zoom(0.8);
+        });
+        $( "#zoomOut" ).click(function() {
+            zoom(1.2);
+        });
     };
 
 
@@ -250,10 +259,19 @@ $(function() {
     load_objects();
 
     function rotate_object(object) {
-        var SPEED = 0.01;
+        var SPEED = 0.005;
         object.rotation.x -= SPEED * 2;
         object.rotation.y -= SPEED;
         object.rotation.z -= SPEED * 3;
+    }
+
+    function zoom(factor) {
+        //currDistance = camera.position.length()
+        //console.log(currDistance);
+        //factor = zoomDistance/currDistance;
+        camera.position.x *= factor;
+        camera.position.y *= factor;
+        camera.position.z *= factor;
     }
 
     function render() {
