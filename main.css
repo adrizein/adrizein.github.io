@@ -16,8 +16,6 @@ div.ui-page {
 }
 
 
-
-
 @font-face {
     font-family: rumeur;
     src: url("fonts/rumeur.otf") format("opentype");
@@ -107,6 +105,10 @@ html {
   overflow: hidden;
 }
 
+#contributions .content-container p {
+    font-size: 16px;
+}
+
 body {
     height: 100%;
     padding: 0;
@@ -161,6 +163,10 @@ h4 {
     margin: 10px 0;
 }
 
+ul li {
+    list-style-position: inside;
+}
+
 header h3 {
     font-size: 60px;
     margin:0px 0 35px 0;
@@ -193,7 +199,7 @@ footer {
 footer h3 {
     font-size:13px !important;
     letter-spacing:-0.5px !important;
-    margin:24px 30px 24px 30px;
+    margin:22px 30px;
     display: flex;
     align-items: center;
     flex-grow: 1;
@@ -258,7 +264,7 @@ footer .square {
     pointer-events: none;
     opacity:0;
     z-index: 20;
-    width: 66%;
+    width: calc(100% - 200px);
     flex-grow: 1;
     padding-top: 0px;
     padding-right: 16.5%;
@@ -288,7 +294,7 @@ footer .square {
 #close-button {
     position: fixed;
     top: 118px;
-    left: calc(66% - 38px);
+    left: calc(100% - 238px);
     margin-right: -72px;
     z-index: 21;
     cursor: pointer;
@@ -305,9 +311,70 @@ footer .square {
 
 #stroke	{
     position:fixed;
-    left: calc(66% - 2px);
+    left: calc(100% - 202px);
     height:calc(100% - 122px);
     width: 2px;
+}
+
+.choix {
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.choix svg {
+    margin-left: 20px;
+}
+
+.choix > * {
+    display: inline-block;
+}
+
+a.choix {
+    display: flex;
+}
+
+.choix .answer {
+    height: 64px;
+    font: 20px rumeur, sans-serif;
+    padding: 22px 0;
+}
+
+#page3 .choix, #en_page3 .choix {
+    border: white solid 2px;
+    padding: 20px 0 0 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+#page3 .choix:hover, #en_page3 .choix:hover {
+    box-shadow: white 0 0 4px 0;
+}
+
+#page3 .choix *, #en_page3 .choix * {
+}
+
+#page3 .choix:hover *, #en_page3 .choix:hover * {
+    text-shadow: white 0 0 3px;
+}
+
+.contribution-page {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+
+.contribution-page.active {
+    display: block;
+}
+
+.contribution-page.visible {
+    opacity: 1;
 }
 
 #top-stroke{
@@ -422,7 +489,6 @@ html:lang(fr) #fr {
     font-weight: normal;
     margin-bottom: 10px;
     line-height: 1.6;
-    list-style-position: inside;
 }
 
 .stars {
@@ -490,6 +556,11 @@ svg:hover .appearing{
         font-size: 15px!important;
         height: 100px;
         width: 100px;
+
+    #fb {
+        bottom: 0;
+        border-top: solid white 1px;
+        border-right: solid white 1px;
     }
 
     .square {
