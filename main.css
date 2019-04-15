@@ -24,56 +24,80 @@ div.ui-page {
     src: url("fonts/suisseintl-medium.otf") format("opentype");
 }
 
-table.squares {
-    position: absolute;
-    border-collapse: collapse;
+.square {
+    border:solid white 1px;
+    width: 60px;
+    height: 60px;
+    padding:20px 0 0 0;
+    text-align:center;
 }
 
-table.top.squares {
-    top: 60px;
-    right: 0;
-}
-
-table.squares .square {
-    border: solid white 1px;
-}
-
-table.bottom.right.squares {
-    bottom: 60px;
-    right: 0;
-}
-
-#help, #fb, #language span {
+#help, #fb, #languageEn, #languageFr, #zoomOut, #zoomIn{
+    background-color:rgba(255,255,255,0);
+    color:#ffffff;
+    transition:1s;
     cursor: pointer;
 }
 
-#language {
-    position: absolute;
+#help:hover, #fb:hover, #languageEn:hover, #languageFr:hover, #zoomOut:hover, #zoomIn:hover{
+    background-color:rgba(255,255,255,1);
+    color:#777777;
+    transition:1s;
+}
+
+#languageFr {
+    position:fixed;
     top: 60px;
-    border-bottom: solid white 1px;
-    border-right: solid white 1px;
-    display: table;
-    z-index: 10;
+    right:59px;
+}
+
+#languageEn {
+    position:fixed;
+    top: 119px;
+    right:0;
 }
 
 #fb {
-    display: table;
-    position: absolute;
+    position:fixed;
     bottom: 60px;
-    left: 0;
-    border-top: solid white 1px;
-    border-right: solid white 1px;
-    z-index: 10;
+    left: 0px;
 }
 
 #emptysquare {
-    display: table;
-    position: absolute;
+    position:fixed;
     bottom: 60px;
-    left: 60px;
-    border-top: solid white 1px;
-    border-right: solid white 1px;
-    z-index: 10;
+    left: 59px;
+}
+
+#zoomIn {
+    position:fixed;
+    bottom: 119px;
+    right: 59px;
+
+}
+
+#zoomOut {
+    position:fixed;
+    bottom: 60px;
+    right: 00px;
+
+}
+
+footer .square{
+    width:59px;
+    border-top:solid white 0px !important;
+    border-left:solid white 0px !important;
+}
+
+header .square{
+    border-top:solid white 0px !important;
+    border-left:solid white 0px !important;
+//    background-color:#ffffff !important;
+}
+
+#zoomIn, #zoomOut {
+    font-size: 20px;
+    text-align: center;
 }
 
 #language div, #fb div {
@@ -88,31 +112,13 @@ header {
     border-bottom: solid white 1px;
 }
 
-.square {
-    width: 60px;
-    height: 60px;
-}
-
-header .square {
-    border-right: solid white 1px;
-}
-
 html {
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
 
-/*
-#contributions .content-container p {
-    font-size: 16px;
-}
-*/
 
-#zoomIn, #zoomOut {
-    font-size: 24px;
-    text-align: center;
-}
 
 body {
     height: 100%;
@@ -210,10 +216,6 @@ footer h3 {
     flex-grow: 1;
 }
 
-footer .square {
-    border-right: solid white 1px;
-    width: 59px;
-}
 
 .content {
     display: none;
@@ -277,7 +279,6 @@ footer .square {
     padding-left: 125px;
     margin-left: -1px;
     transition: 1s ease-in-out;
-
     height: calc(100% - 120px);
     -webkit-overflow-scrolling: touch;
     overflow: -moz-scrollbars-none;
@@ -373,7 +374,7 @@ a {
 
 #page3 .choix:hover, #en_page3 .choix:hover {
     background-color: rgba(255, 255, 255, 1);
-    color:#555555;
+    color:#777777;
     transition:1s;
 }
 
@@ -572,43 +573,27 @@ svg:hover .appearing{
         height: 100px;
 }
 
-    #fb {
-        bottom: 0;
-        border-top: solid white 1px;
-        border-right: solid white 1px;
-    }
+#fb {
+    bottom: 0px;
+    left: calc(100% - 60px);
+}
 
-    .square {
-        display: none !important;
-    }
+#emptysquare {
+    display:none;
+}
 
-    #fb {
-        display:block !important;
-        bottom: 0px;
-        border-top: solid white 1px;
-        border-right: solid white 1px;
-        border-bottom: solid white 1px;
-        padding:18px 0 14px 21px;
-        transition:1s;
-    }
+#zoomIn {
+    bottom: 118px;
+    right: 0px;
+}
 
-    #language {
-        position:fixed;
-        top:calc(100% - 60px) !important;
-        left:60px;
-        display:block !important;
-        border-top: solid white 1px;
-        vertical-align: middle;
-        text-align: center;
-        padding:20px 0 14px 8px;
-        transition:1s;
-    }
+#zoomOut {
+    bottom: 59px;
+    right: 0px;
 
-    .cursor-close #language {
-        opacity:0;
-        transition:1s;
-    }
-    .cursor-close #fb {
+}
+
+    .cursor-close #help,.cursor-close #fb,.cursor-close #languageEn,.cursor-close #languageFr,.cursor-close #zoomOut,.cursor-close #zoomIn  {
         opacity:0;
         transition:1s;
     }
