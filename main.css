@@ -6,8 +6,6 @@
 div.ui-page {
     height: 100%;
     background: url("noise.png") repeat 0 0;
-//    mix-blend-mode: overlay;
-//  -webkit-animation: slide 0.25s linear infinite;
 }
 
 @-webkit-keyframes slide {
@@ -105,9 +103,11 @@ html {
   overflow: hidden;
 }
 
+/*
 #contributions .content-container p {
     font-size: 16px;
 }
+*/
 
 body {
     height: 100%;
@@ -264,10 +264,10 @@ footer .square {
     pointer-events: none;
     opacity:0;
     z-index: 20;
-    width: calc(100% - 200px);
+    width: 72%;
     flex-grow: 1;
     padding-top: 0px;
-    padding-right: 16.5%;
+    padding-right:160px;
     padding-bottom: 0px;
     padding-left: 125px;
     margin-left: -1px;
@@ -294,7 +294,7 @@ footer .square {
 #close-button {
     position: fixed;
     top: 118px;
-    left: calc(100% - 238px);
+    left: calc(72% - 36px);
     margin-right: -72px;
     z-index: 21;
     cursor: pointer;
@@ -311,7 +311,7 @@ footer .square {
 
 #stroke	{
     position:fixed;
-    left: calc(100% - 202px);
+    left: 72%;
     height:calc(100% - 122px);
     width: 2px;
 }
@@ -329,13 +329,26 @@ footer .square {
     display: inline-block;
 }
 
+.choix:hover .hover_choix {
+    transform-origin: 30% 50% 0px;
+    transform: rotateZ(20deg) translate(30px, -10px);
+    transition: 1s;
+}
+
+.hover_choix {
+    transform-origin: 30% 50% 0px;
+    transform: rotateZ(20deg) translate(0px, 0px);
+    transition: 1s;
+}
+
+
 a.choix {
     display: flex;
 }
 
 .choix .answer {
     height: 64px;
-    font: 20px rumeur, sans-serif;
+    font: 16px rumeur, sans-serif;
     padding: 22px 0;
 }
 
@@ -555,7 +568,6 @@ svg:hover .appearing{
     .choix {
         font-size: 15px!important;
         height: 100px;
-        width: 100px;
 }
 
     #fb {
