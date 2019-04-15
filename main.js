@@ -288,7 +288,7 @@ $(function() {
     function changeChapter(chapter) {
         var container = $('#content-container');
         var chapter_div = $(`#${chapter}`);
-        var active_div = container.find('.active');
+        var active_div = container.find('.content.active');
 
         active_div.removeClass('visible');
         setTimeout(function () {
@@ -401,6 +401,50 @@ $(function() {
     }
 
     window.setLanguage = setLanguage;
+
+    $('#contributions').find('.choix.yes').on('click', function (event) {
+        var page = $(event.target).parents('.contribution-page')[0], pageNum, nextPage;
+        if (page) {
+            if (page.id.match(/en_page\d/)) {
+                pageNum = parseInt(page.id.slice(7));
+                page = $(page);
+                if (pageNum) {
+                    if (pageNum === 7) {
+                        changeChapter('weezevent');
+                    }
+                    else {
+                        nextPage = $('#en_page' + (pageNum + 1));
+                        changeContributionPage(page, nextPage);
+                    }
+                }
+            }
+            else {
+                pageNum = parseInt(page.id.slice(4));
+                page = $(page);
+                if (pageNum) {
+                    if (pageNum === 7) {
+                        changeChapter('weezevent');
+                    }
+                    else {
+                        nextPage = $('#page' + (pageNum + 1));
+                        changeContributionPage(page, nextPage);
+                    }
+                }
+            }
+        }
+
+    });
+
+    function changeContributionPage(page, nextPage) {
+        page.removeClass('visible');
+        setTimeout(function () {
+            page.removeClass('active');
+            nextPage.addClass('active');
+            setTimeout(function () {
+                nextPage.addClass('visible');
+            }, 100);
+        }, 1000);
+    }
 });
 
 function goTo(url) {

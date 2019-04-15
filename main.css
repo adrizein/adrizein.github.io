@@ -16,8 +16,6 @@ div.ui-page {
 }
 
 
-
-
 @font-face {
     font-family: rumeur;
     src: url("fonts/rumeur.otf") format("opentype");
@@ -95,6 +93,10 @@ html {
   height: 100%;
   width: 100%;
   overflow: hidden;
+}
+
+#contributions .content-container p {
+    font-size: 16px;
 }
 
 body {
@@ -248,7 +250,7 @@ footer .square {
     pointer-events: none;
     opacity:0;
     z-index: 20;
-    width: 66%;
+    width: calc(100% - 200px);
     flex-grow: 1;
     padding-top: 0px;
     padding-right: 16.5%;
@@ -278,7 +280,7 @@ footer .square {
 #close-button {
     position: fixed;
     top: 118px;
-    left: calc(66% - 38px);
+    left: calc(100% - 238px);
     margin-right: -72px;
     z-index: 21;
     cursor: pointer;
@@ -295,9 +297,43 @@ footer .square {
 
 #stroke	{
     position:fixed;
-    left: calc(66% - 2px);
+    left: calc(100% - 202px);
     height:calc(100% - 122px);
     width: 2px;
+}
+
+.choix {
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.choix svg {
+    margin-left: 20px;
+}
+
+.choix * {
+    display: inline-block;
+}
+
+.choix .answer {
+    height: 64px;
+    font: 20px rumeur, sans-serif;
+    padding: 22px 0;
+}
+
+.contribution-page {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+
+.contribution-page.active {
+    display: block;
+}
+
+.contribution-page.visible {
+    opacity: 1;
 }
 
 #top-stroke{
@@ -481,12 +517,6 @@ svg:hover .appearing{
         margin: 0 10px;
     }
 
-    .choix {
-        font-size: 15px!important;
-        height: 100px;
-        width: 100px;
-    }
-
     #fb {
         bottom: 0;
         border-top: solid white 1px;
@@ -560,7 +590,7 @@ svg:hover .appearing{
     }
 
     h3 {
-        font-size: 48px;
+        font-size: 40px;
         letter-spacing:-1px;
         margin: 0px 0 -10px 0;
     }
