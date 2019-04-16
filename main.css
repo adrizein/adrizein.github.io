@@ -321,10 +321,17 @@ footer .square {
     width: 2px;
 }
 
+.qcm {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .choix {
     cursor: pointer;
     margin: 20px 0;
     display: flex;
+    flex-grow: 1;
+    flex-basis: 400px;
 }
 
 .choix svg {
@@ -357,24 +364,13 @@ a.choix {
     flex-basis: calc(100% - 140px);
 }
 
-#page3 .choix, #en_page3 .choix {
-    border: white solid 2px;
-    padding: 20px 0 0 20px;
-    margin-left: 5px;
-    margin-right: 5px;
-    background-color: rgba(255, 255, 255, 0);
-    transition:1s;
-}
-
 a {
     color: white;
     text-decoration: none;
 }
 
-#page3 .choix:hover, #en_page3 .choix:hover {
-    background-color: rgba(255, 255, 255, 1);
-    color:#555555;
-    transition:1s;
+.accordion-item-content a, p a {
+    text-decoration: white underline;
 }
 
 #weezevent {
@@ -500,13 +496,12 @@ html:lang(fr) #fr {
 .accordion-item ul {
     display: none;
     padding-left: 10px;
+    margin-bottom: 0;
 }
 
 .accordion-item.active ul {
     display: block;
 }
-
-
 
 .accordion li {
     font:14px "suisse";
@@ -632,7 +627,6 @@ svg:hover .appearing{
     }
 
     #content-container {
-        font-size: 12px;
         width: 100%;
         padding: 20px 35px 0px 35px;;
         height: calc(100% - 100px);
@@ -675,12 +669,6 @@ svg:hover .appearing{
     #content-container.active #top-stroke,
     #content-container.active #bottom-stroke {
         display: none;
-    }
-
-    #page3 .choix, #en_page3 .choix {
-        font-size: 13px !important;
-        padding: 10px;
-        height: auto;
     }
 
     .choix ul {
