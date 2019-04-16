@@ -18,19 +18,22 @@ $(function() {
     geometryCube.scale(-1, 1, 1);
 
     var grey_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xc7b39b,
+        color: 0xffeedd,
+        emissive: 0x221D11,
         roughness: 0.5,
-        metalness: 1,
+        metalness: 0.9,
         envMap: envCube
     });
     var blue_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xffaf30,
-        roughness: 0.3,
+        color: 0xAAFFFF,
+	map: texture,
+        emissive: 0x222299,
         metalness: 1,
         envMap: envCube
     });
     var red_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xf64f63,
+        color: 0xffff64,
+        emissive: 0xff0000,
         roughness: 0.4,
         metalness: 0.8,
         envMap: envCube
@@ -60,7 +63,7 @@ $(function() {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set( 1, 1 );
-    var gradient_material = new THREE.MeshPhongMaterial({map: texture});
+    var lightgradient_material = new THREE.MeshPhongMaterial({blending: 2,map: texture});
 
     var shader = THREE.FresnelShader;
     var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
@@ -68,15 +71,23 @@ $(function() {
     var parameters = { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShader, uniforms: uniforms };
     var bubble_material = new THREE.ShaderMaterial( parameters );
 
+
+    var new_material = new THREE.ShaderMaterial(THREE.FresnelShader);
+
+
     var l=1.5;
     var s=0.02;
 
     var objects = {
         torus: {src:"TORUS2.obj", position:{x:2*l,y:0,z:-2*l}, scale:s, chapter:'definitions', material:grey_metal_material},
+
         bubble: {src:"BUBBLE.obj", position:{x:(l),y:(l/2),z:0}, scale:s, chapter:'contributions', material:bubble_material},
+
         cloud: {src:"CLOUD.obj", position:{x:-2*l,y:0,z:-2*l}, scale:s, chapter:'curiosities', material:blue_metal_material},
-        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-l,y:-l,z:0}, scale:s, chapter:'infos', material:transparent_material},
-        eyecat_ball: {src:"CAT_EYEBALL_interior.obj", position:{x:0,y:l,z:-l}, scale:3/4*s, chapter:'eros', material:transparent_material},
+
+        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-l,y:-l,z:0}, scale:2*s, chapter:'infos', dae:true},
+
+        eyecat_ball: {src:"test.dae", position:{x:0,y:l,z:-l}, scale:50*s, chapter:'eros', dae:true},
         ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:s, chapter:'ethos', material:red_metal_material},
         sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.014, material: white_material},
     };
