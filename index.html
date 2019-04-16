@@ -30,7 +30,7 @@
             <div class="square"></div>
             <h2>Coucool
             <span class="date fr">26, 27 & 28 juillet 2019</span>
-            <span class="date en">July 26, 27 & 28 2019</span>
+            <span class="date en">July 26, 27 & 28, 2019</span>
             </h2>
         </header>
         <div class="square" id="languageFr"><div><span id="fr" onclick="setLanguage('fr')">Fr</span></div></div>
@@ -42,6 +42,11 @@
         <div class="square ui-link" id="zoomIn"><div>+</div></div>
 
         </div>
+        <svg width="60" height="60" id="close-button_mobile" onclick="closeContent()">
+            <line x1="24" y1="29" x2="36" y2="20" style="stroke:white; stroke-width:4"></line>
+            <line x1="24" y1="31" x2="36" y2="40" style="stroke:white; stroke-width:4"></line>
+            <polyline points="36,20 24,30 36,40" stroke="white" stroke-width="4" fill="none"></polyline>
+        </svg>
 
         <div id="content-container">
 
@@ -54,11 +59,6 @@
                 <line class="cross" x1="26" y1="36" x2="46" y2="36"></line>
                 <line class="cross" x1="36" y1="26" x2="36" y2="46"></line>
                 <circle id="round-stroke" cx="36" cy="36" r="35"></circle>
-            </svg>
-            <svg width="60" height="60" id="close-button_mobile" onclick="closeContent()">
-                <line x1="24" y1="29" x2="36" y2="20" style="stroke:white; stroke-width:4"></line>
-                <line x1="24" y1="31" x2="36" y2="40" style="stroke:white; stroke-width:4"></line>
-                <polyline points="36,20 24,30 36,40" stroke="white" stroke-width="4" fill="none"></polyline>
             </svg>
             <!--CONTENT-->
             <div id="ethos" class="content">

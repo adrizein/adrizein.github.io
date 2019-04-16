@@ -653,12 +653,12 @@ svg:hover .appearing{
         top: 0;
         left: 0;
         z-index: 31;
-	opacity:0;
+	   opacity:0;
         transition: 1s ease-in-out;
     }
 
-    #content-container.active #close-button_mobile{
-	opacity:1;
+    .cursor-close #close-button_mobile{
+	   opacity:1;
         cursor: pointer;
         transition: 1s ease-in-out;
     }
