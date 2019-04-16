@@ -653,6 +653,7 @@ svg:hover .appearing{
         top: 0;
         left: 0;
         z-index: 31;
+	stroke-dasharray: 40;
 	opacity:0;
         transition: 1s ease-in-out;
     }
