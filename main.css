@@ -653,13 +653,12 @@ svg:hover .appearing{
         top: 0;
         left: 0;
         z-index: 31;
-        stroke-dasharray: 40;
-        stroke-dashoffset: 40;
+	opacity:0;
         transition: 1s ease-in-out;
     }
 
     #content-container.active #close-button_mobile{
-        stroke-dashoffset:0;
+	opacity:1;
         cursor: pointer;
         transition: 1s ease-in-out;
     }

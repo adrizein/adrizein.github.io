@@ -14,7 +14,7 @@ $(function() {
             'nz.png'
         ]);
 
-    var geometryCube = new THREE.BoxGeometry(50, 50, 50);
+    var geometryCube = new THREE.BoxGeometry(10, 10, 10);
     geometryCube.scale(-1, 1, 1);
 
     var grey_metal_material = new THREE.MeshStandardMaterial( {
@@ -79,17 +79,17 @@ $(function() {
     var s=0.02;
 
     var objects = {
-        torus: {src:"TORUS2.obj", position:{x:2*l,y:0,z:-2*l}, scale:s, chapter:'definitions', material:grey_metal_material},
+        torus: {src:"TORUS2.obj", position:{x:-1,y:0.5,z:-0.5}, scale:s, chapter:'definitions', material:grey_metal_material},
 
-        bubble: {src:"BUBBLE.obj", position:{x:(l),y:(l/2),z:0}, scale:s, chapter:'contributions', material:bubble_material},
+        bubble: {src:"BUBBLE.obj", position:{x:1,y:0,z:-3}, scale:s, chapter:'contributions', material:bubble_material},
 
-        cloud: {src:"CLOUD.obj", position:{x:-2*l,y:0,z:-2*l}, scale:s, chapter:'curiosities', material:blue_metal_material},
+        cloud: {src:"CLOUD.obj", position:{x:1,y:-0.5,z:0.5}, scale:s, chapter:'curiosities', material:blue_metal_material},
 
-        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-l,y:-l,z:0}, scale:2*s, chapter:'infos', dae:true},
+        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:0,y:0.3,z:-l}, scale:90*s, chapter:'infos', dae:true},
 
-        eyecat_ball: {src:"test.dae", position:{x:0,y:l,z:-l}, scale:50*s, chapter:'eros', dae:true},
-        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:s, chapter:'ethos', material:red_metal_material},
-        sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.014, material: white_material},
+        eyecat_ball: {src:"test.dae", position:{x:-0.5,y:-0.2,z:1.2}, scale:95*s, chapter:'eros', dae:true},
+        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0.4,y:1.2,z:0}, scale:s, chapter:'ethos', material:red_metal_material},
+        sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.012, material: white_material},
     };
 
 
@@ -132,8 +132,8 @@ $(function() {
     controls.rotateSpeed = 0.5;
 
     
-    controls.minDistance = 4;
-    controls.maxDistance = 7;
+    controls.minDistance = 3;
+    controls.maxDistance = 6;
 /*
     controls.minPolarAngle = ;
     controls.maxPolarAngle = ;
@@ -273,7 +273,7 @@ $(function() {
     load_objects();
 
     function rotate_object(object) {
-        var SPEED = 0.004;
+        var SPEED = 0.005;
         object.rotation.x -= SPEED * 2;
         object.rotation.y -= SPEED;
         object.rotation.z -= SPEED * 3;
