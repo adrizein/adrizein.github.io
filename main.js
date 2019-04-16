@@ -273,7 +273,7 @@ $(function() {
     load_objects();
 
     function rotate_object(object) {
-        var SPEED = 0.000;
+        var SPEED = 0.005;
         object.rotation.x -= SPEED * 2;
         object.rotation.y -= SPEED;
         object.rotation.z -= SPEED * 3;
