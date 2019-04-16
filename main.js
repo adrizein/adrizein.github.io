@@ -194,10 +194,10 @@ $(function() {
         $.mobile.loading().hide();
 
         $( "#zoomIn" ).click(function() {
-            zoom(1.2);
+            zoom(0.8);
         });
         $( "#zoomOut" ).click(function() {
-            zoom(0.8);
+            zoom(1.2);
         });
     };
 
@@ -273,7 +273,7 @@ $(function() {
     load_objects();
 
     function rotate_object(object) {
-        var SPEED = 0.000;
+        var SPEED = 0.004;
         object.rotation.x -= SPEED * 2;
         object.rotation.y -= SPEED;
         object.rotation.z -= SPEED * 3;
