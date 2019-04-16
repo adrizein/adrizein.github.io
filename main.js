@@ -18,26 +18,26 @@ $(function() {
     geometryCube.scale(-1, 1, 1);
 
     var grey_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xdddddd,
+        color: 0xc7b39b,
         roughness: 0.5,
         metalness: 1,
         envMap: envCube
     });
     var blue_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0x3080ff,
-        roughness: 0,
-        metalness: 0.5,
+        color: 0xffaf30,
+        roughness: 0.3,
+        metalness: 1,
         envMap: envCube
     });
     var red_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xef0000,
-        roughness: 0,
-        metalness: 0.5,
+        color: 0xf64f63,
+        roughness: 0.4,
+        metalness: 0.8,
         envMap: envCube
     });
 
     var white_material = new THREE.MeshStandardMaterial( {
-        color: 0xffffff,
+        emissive: 0xffffff,
         roughness: 0,
         metalness: 0,
         envMap: envCube

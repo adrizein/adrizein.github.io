@@ -61,6 +61,7 @@ div.ui-page {
     position:fixed;
     bottom: 60px;
     left: 0px;
+    z-index:21;
 }
 
 #emptysquare {
