@@ -426,6 +426,7 @@ $(function() {
     }
 
     $(window).on('resize', onResize);
+    $(window).on('orientationchange', onResize);
 
     onResize();
     render();
