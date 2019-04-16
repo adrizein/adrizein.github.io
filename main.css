@@ -286,6 +286,7 @@ footer h3 {
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
     overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 #content-container::-webkit-scrollbar {
