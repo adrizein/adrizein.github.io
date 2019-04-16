@@ -44,7 +44,10 @@ $(function() {
     });
 
     var transparent_material = new THREE.MeshStandardMaterial( {
-        alphaMap: 0xef0000,
+        blending: 2,
+	opacity: 1,
+	
+	transparent: true,
         color: 0xff0000,
         roughness: 0,
         metalness: 0,
@@ -72,17 +75,17 @@ $(function() {
         torus: {src:"TORUS2.obj", position:{x:2*l,y:0,z:-2*l}, scale:s, chapter:'definitions', material:grey_metal_material},
         bubble: {src:"BUBBLE.obj", position:{x:(l),y:(l/2),z:0}, scale:s, chapter:'contributions', material:bubble_material},
         cloud: {src:"CLOUD.obj", position:{x:-2*l,y:0,z:-2*l}, scale:s, chapter:'curiosities', material:blue_metal_material},
-        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-l,y:-l,z:0}, scale:s, chapter:'infos', dae:true},
-        eyecat_ball: {src:"CAT_EYEBALL_interior.obj", position:{x:0,y:l,z:-l}, scale:3/4*s, chapter:'eros', material:gradient_material},
+        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-l,y:-l,z:0}, scale:s, chapter:'infos', material:transparent_material},
+        eyecat_ball: {src:"CAT_EYEBALL_interior.obj", position:{x:0,y:l,z:-l}, scale:3/4*s, chapter:'eros', material:transparent_material},
         ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0,y:0,z:0}, scale:s, chapter:'ethos', material:red_metal_material},
-        sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.006, material: white_material},
+        sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.014, material: white_material},
     };
 
 
     window.scene = new THREE.Scene();
     window.scene.background = envCube;
 
-    var fov = 30;
+    var fov = 50;
     var aspect = window.innerWidth / window.innerHeight;
     var near = 0.1;
     var far = 100;
@@ -117,13 +120,13 @@ $(function() {
     controls.enableRotate = true;
     controls.rotateSpeed = 0.5;
 
-    /*
-    controls.minDistance = 1
-    controls.maxDistance = 100
-
-    controls.minPolarAngle
-    controls.maxPolarAngle
-    */
+    
+    controls.minDistance = 4;
+    controls.maxDistance = 7;
+/*
+    controls.minPolarAngle = ;
+    controls.maxPolarAngle = ;
+*/    
 
 
     /////// INTERACTIONS
@@ -180,10 +183,10 @@ $(function() {
         $.mobile.loading().hide();
 
         $( "#zoomIn" ).click(function() {
-            zoom(0.8);
+            zoom(1.2);
         });
         $( "#zoomOut" ).click(function() {
-            zoom(1.2);
+            zoom(0.8);
         });
     };
 
@@ -259,7 +262,7 @@ $(function() {
     load_objects();
 
     function rotate_object(object) {
-        var SPEED = 0.005;
+        var SPEED = 0.000;
         object.rotation.x -= SPEED * 2;
         object.rotation.y -= SPEED;
         object.rotation.z -= SPEED * 3;
