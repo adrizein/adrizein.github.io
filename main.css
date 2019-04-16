@@ -397,11 +397,13 @@ a {
 }
 
 #weezevent {
+    /*
     position: fixed;
     top: 200px;
     left: 0;
-    width: 72% !important;
     bottom: 59px;
+    */
+    width: 110% !important;
     overflow: auto;
 }
 
