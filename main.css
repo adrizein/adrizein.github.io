@@ -340,13 +340,20 @@ footer h3 {
 }
 
 #close-button_mobile{
-    display:none;
+    display: none;
+}
+
+.qcm {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .choix {
     cursor: pointer;
     margin: 20px 0;
     display: flex;
+    flex-grow: 1;
+    flex-basis: 400px;
 }
 
 .choix svg {
@@ -379,24 +386,14 @@ a.choix {
     flex-basis: calc(100% - 140px);
 }
 
-#page3 .choix, #en_page3 .choix {
-    border: white solid 2px;
-    padding: 20px 0 0 20px;
-    margin-left: 5px;
-    margin-right: 5px;
-    background-color: rgba(255, 255, 255, 0);
-    transition:1s;
-}
-
 a {
     color: white;
     text-decoration: none;
+    cursor: pointer;
 }
 
-#page3 .choix:hover, #en_page3 .choix:hover {
-    background-color: rgba(255, 255, 255, 1);
-    color:#777777;
-    transition:1s;
+.accordion-item-content a, p a {
+    text-decoration: white underline;
 }
 
 #weezevent {
@@ -522,13 +519,12 @@ html:lang(fr) #fr {
 .accordion-item ul {
     display: none;
     padding-left: 10px;
+    margin-bottom: 0;
 }
 
 .accordion-item.active ul {
     display: block;
 }
-
-
 
 .accordion li {
     font:14px "suisse";
@@ -602,24 +598,24 @@ svg:hover .appearing{
         font-size: 15px !important;
     }
 
-#fb {
-    bottom: 0px;
-    left: calc(100% - 60px);
-}
+    #fb {
+        bottom: 0px;
+        left: calc(100% - 60px);
+    }
 
-#emptysquare {
-    display:none;
-}
-#zoomIn {
-    bottom: 118px;
-    right: 0px;
-}
+    #emptysquare {
+        display:none;
+    }
+    #zoomIn {
+        bottom: 118px;
+        right: 0px;
+    }
 
-#zoomOut {
-    bottom: 59px;
-    right: 0px;
+    #zoomOut {
+        bottom: 59px;
+        right: 0px;
 
-}
+    }
 
     .cursor-close #help,.cursor-close #fb,.cursor-close #languageEn,.cursor-close #languageFr,.cursor-close #zoomOut,.cursor-close #zoomIn  {
         opacity:0;
@@ -636,7 +632,6 @@ svg:hover .appearing{
     }
 
     #content-container {
-        font-size: 12px;
         width: 100%;
         padding: 20px 30px 0px 30px;;
         height: calc(100% - 100px);
@@ -652,22 +647,22 @@ svg:hover .appearing{
         display: none;
     }
 
-#close-button_mobile{
-    display:block;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 31;
-    stroke-dasharray:20;
-    stroke-dashoffset:20;
-    transition: 1s ease-in-out;
-}
+    #close-button_mobile{
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 31;
+        stroke-dasharray: 40;
+        stroke-dashoffset: 40;
+        transition: 1s ease-in-out;
+    }
 
-#content-container.active #close-button_mobile{
-    stroke-dashoffset:0;
-    cursor: pointer;
-    transition: 1s ease-in-out;
-}
+    #content-container.active #close-button_mobile{
+        stroke-dashoffset:0;
+        cursor: pointer;
+        transition: 1s ease-in-out;
+    }
 
     #round-stroke {
         transform: none;
@@ -694,12 +689,6 @@ svg:hover .appearing{
         display: none;
     }
 
-    #page3 .choix, #en_page3 .choix {
-        font-size: 13px !important;
-        padding: 10px;
-        height: auto;
-    }
-
     .choix ul {
         padding-left: 20px;
         margin: 0;
@@ -707,7 +696,7 @@ svg:hover .appearing{
 
     #weezevent {
         position: fixed;
-        top: 150px;
+        top: 60px;
         left: 0;
         width: 100% !important;
         bottom: 0;
