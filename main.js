@@ -362,6 +362,7 @@ $(function() {
     function showContent(chapter) {
         contentHidden = false;
         INTERSECTED = null;
+        $('#content-container').scrollTop(0);
 
         changeChapter(chapter);
 
