@@ -388,6 +388,7 @@ a.choix {
 a {
     color: white;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .accordion-item-content a, p a {
