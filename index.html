@@ -33,35 +33,13 @@
             <span class="date en">26, 27 & 28th of July, 2019</span>
             </h2>
         </header>
-        <div class="square" id="language"><div><span id="fr" onclick="setLanguage('fr')">Fr</span> / <span id="en" onclick="setLanguage('en')">En</span></div></div>
-        <div class="square ui-link" id="fb" onclick="goTo('https://www.facebook.com/coucoolcoucool')"><div>Fb</div></div>
+        <div class="square" id="languageFr"><div><span id="fr" onclick="setLanguage('fr')">Fr</span></div></div>
+        <div class="square" id="languageEn"><div><span id="en" onclick="setLanguage('en')">En</span></div></div>
+        <div class="square ui-link" id="fb" onclick="goTo('https://www.facebook.com/coucoolcoucool')">Fb</div>
         <div class="square ui-link" id="emptysquare"><div></div></div>
-            <table class="top squares">
-            <tbody>
-            <tr>
-                <td class="square ui-link" id="help" style="text-align:center">
+        <div class="square ui-link" id="zoomOut"><div>-</div></div>
 
-                </td>
-                <td class="square"></td>
-            </tr>
-            <tr>
-                <td class="square" style="visibility: hidden;"></td>
-                <td class="square"></td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="bottom right squares">
-            <tbody>
-            <tr>
-                <td class="square" id="zoomIn"> + </td>
-                <td class="square" style="visibility: hidden;"></td>
-            </tr>
-            <tr>
-                <td class="square" style="visibility: hidden;"></td>
-                <td class="square" id="zoomOut"> - </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="square ui-link" id="zoomIn"><div>+</div></div>
 
         </div>
 
@@ -73,9 +51,12 @@
             </svg>
 
             <svg width="72" height="72" id="close-button" onclick="closeContent()">
-                <line class="cross" x1="26" y1="36" x2="46" y2="36" style="stroke:white; stroke-width: 2"></line>
-                <line class="cross" x1="36" y1="26" x2="36" y2="46" style="stroke:white; stroke-width: 2"></line>
+                <line class="cross" x1="26" y1="36" x2="46" y2="36"></line>
+                <line class="cross" x1="36" y1="26" x2="36" y2="46"></line>
                 <circle id="round-stroke" cx="36" cy="36" r="35"></circle>
+            </svg>
+            <svg width="60" height="60" id="close-button_mobile" onclick="closeContent()">
+                <polyline points="36,20 24,30 36,40" stroke="white" stroke-width="4" fill="none"></polyline>
             </svg>
             <!--CONTENT-->
             <div id="ethos" class="content">
@@ -954,9 +935,7 @@
                 </div>
             </div>
         </div>
-
-        <img onclick="closeContent()" id="close_png" src="assets/close.png" width="90px" height="90px">
-        <footer class="menu">
+	<footer class="menu">
             <div class="square"></div>
             <h3>
                 <div class="fr">
