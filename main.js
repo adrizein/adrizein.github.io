@@ -194,10 +194,10 @@ $(function() {
         $.mobile.loading().hide();
 
         $( "#zoomIn" ).click(function() {
-            zoom(1.2);
+            zoom(0.8);
         });
         $( "#zoomOut" ).click(function() {
-            zoom(0.8);
+            zoom(1.2);
         });
     };
 
