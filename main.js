@@ -273,10 +273,10 @@ $(function() {
     load_objects();
 
     function rotate_object(object) {
-        var SPEED = 0.005;
-        object.rotation.x -= SPEED * 2;
-        object.rotation.y -= SPEED;
-        object.rotation.z -= SPEED * 3;
+        var SPEED = 0.003;
+        object.rotation.x -= SPEED * 1;
+        object.rotation.y -= SPEED * 4;
+        object.rotation.z -= SPEED * 1;
     }
 
     function zoom(factor) {
@@ -513,3 +513,21 @@ $(function() {
 function goTo(url) {
     window.open(url, '_blank');
 }
+/*
+$(document)
+  .mousemove(function(e) {
+    $('.cursor2')
+      .eq(0)
+      .css({
+        left: e.pageX,
+        top: e.pageY
+      });
+    setTimeout(function() {
+      $('.cursor2')
+        .eq(1)
+        .css({
+          left: e.pageX,
+          top: e.pageY
+        });
+    }, 100);
+  })*/
