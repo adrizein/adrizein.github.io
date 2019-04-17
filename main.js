@@ -482,7 +482,7 @@ $(function() {
         }
 
         if (pageNum) {
-            if (pageNum === 7) {
+            if (pageNum === 6) {
                 changeChapter('weezevent');
             } else {
                 nextPage = $('#en_page' + (pageNum + 1));
