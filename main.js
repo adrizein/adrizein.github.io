@@ -1,5 +1,7 @@
 $(function() {
-    //screen.lockOrientation('portrait');
+    if (screen && screen.orientation) {
+        screen.orientation.lock();
+    }
 
     if (WEBGL.isWebGLAvailable() === false) {
         document.body.appendChild( WEBGL.getWebGLErrorMessage() );
@@ -81,19 +83,15 @@ $(function() {
         var l=1.5;
         var s=0.02;
 
-        var objects = {
-            torus: {src:"TORUS2.obj", position:{x:-2.5, y: 0.5, z:-0.5}, scale:s, chapter:'ethos', material:grey_metal_material},
-
-            bubble: {src:"BUBBLE.obj", position:{x:1 ,y: 0, z:-3}, scale:s, chapter:'eros', material:bubble_material},
-
-            cloud: {src:"CLOUD.obj", position:{x: 2, y: -1.5, z: 0.5}, scale:s, chapter:'curiosities', material:blue_metal_material},
-
-            dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-2 ,y: 1,z: 3}, scale:90*s, chapter:'infos', dae:true},
-
-            eyecat_ball: {src:"test.dae", position:{x:-0.5,y: -1,z:1.2}, scale:95*s, chapter:'definitions', dae:true},
-            ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0.4,y:0 ,z:0}, scale:s, chapter:'contributions', material:red_metal_material},
-            sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.012, material: white_material},
-        };
+    var objects = {
+        torus: {src:"TORUS2.obj", position:{x:-2, y: 0.8, z:-0.5}, scale:s, chapter:'ethos', material:grey_metal_material},
+        bubble: {src:"BUBBLE.obj", position:{x:1.3 ,y: -0.8, z:-2}, scale:s, chapter:'eros', material:bubble_material},
+        cloud: {src:"CLOUD.obj", position:{x: 2, y: -1, z: 0.5}, scale:s, chapter:'curiosities', material:blue_metal_material},
+        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-1.1 ,y: 0,z:-3}, scale:s, chapter:'infos', dae:true},
+        eyecat_ball: {src:"test.dae", position:{x:-0.6,y: -0.5,z:1.3}, scale:s, chapter:'definitions', dae:true},
+        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0.4,y:0.2 ,z:0.2}, scale:s, chapter:'contributions', material:red_metal_material},
+        sphere: {src: "SPHERE.obj", position: {x: 0, y: -0.3, z: 0}, scale: 0.012, material: white_material},
+    };
 
 
         window.scene = new THREE.Scene();
@@ -105,10 +103,10 @@ $(function() {
         var far = 100;
 
 
-        var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-        camera.position.z = 5;
-        camera.position.y = 0.5;
-        camera.position.x = -1;
+    var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+    camera.position.z = 5;
+    camera.position.y = 1.5;
+    camera.position.x = -1;
 
 
         var renderer = new THREE.WebGLRenderer({alpha:true });
@@ -163,6 +161,7 @@ $(function() {
                     dragging = 1;
                 }
             }
+            event.stopPropagation();
         }
 
         document.addEventListener('mousemove', function (event) {
@@ -275,10 +274,10 @@ $(function() {
         load_objects();
 
         function rotate_object(object) {
-            var SPEED = 0.005;
-            object.rotation.x -= SPEED * 2;
-            object.rotation.y -= SPEED;
-            object.rotation.z -= SPEED * 3;
+            var SPEED = 0.003;
+            object.rotation.x -= SPEED * 1;
+            object.rotation.y -= SPEED * 4;
+            object.rotation.z -= SPEED * 1;
         }
 
         function zoom(factor) {
@@ -391,15 +390,17 @@ $(function() {
         function closeContent() {
             if (!contentHidden) {
                 var container = $('#content-container');
-
                 container.removeClass('active');
-                $('canvas').removeClass('blur');
-                $('.menu').removeClass('blur');
-                all.removeClass('cursor-close');
 
-                controls.enableRotate = true;
-                controls.enableZoom = true;
-                window.location.hash = '';
+                setTimeout(function () {
+                    $('canvas').removeClass('blur');
+                    $('.menu').removeClass('blur');
+                    all.removeClass('cursor-close');
+
+                    controls.enableRotate = true;
+                    controls.enableZoom = true;
+                    window.location.hash = '';
+                }, 500);
 
                 setTimeout(function () {
                     contentHidden = true;
@@ -514,3 +515,4 @@ $(function() {
 function goTo(url) {
     window.open(url, '_blank');
 }
+
