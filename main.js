@@ -396,15 +396,17 @@ $(function() {
     function closeContent() {
         if (!contentHidden) {
             var container = $('#content-container');
-
             container.removeClass('active');
-            $('canvas').removeClass('blur');
-            $('.menu').removeClass('blur');
-            all.removeClass('cursor-close');
 
-            controls.enableRotate = true;
-            controls.enableZoom = true;
-            window.location.hash = '';
+            setTimeout(function () {
+                $('canvas').removeClass('blur');
+                $('.menu').removeClass('blur');
+                all.removeClass('cursor-close');
+
+                controls.enableRotate = true;
+                controls.enableZoom = true;
+                window.location.hash = '';
+            }, 500);
 
             setTimeout(function () {
                 contentHidden = true;
