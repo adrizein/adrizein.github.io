@@ -1,6 +1,6 @@
 $(function() {
 
-    screen.lockOrientation('portrait');
+    //screen.lockOrientation('portrait');
 
     if (WEBGL.isWebGLAvailable() === false) {
         document.body.appendChild( WEBGL.getWebGLErrorMessage() );
