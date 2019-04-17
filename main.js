@@ -1,6 +1,8 @@
 $(function() {
 
-    //screen.lockOrientation('portrait');
+    if (screen && screen.orientation) {
+        screen.orientation.lock();
+    }
 
     if (WEBGL.isWebGLAvailable() === false) {
         document.body.appendChild( WEBGL.getWebGLErrorMessage() );
@@ -163,6 +165,7 @@ $(function() {
                 dragging = 1;
             }
         }
+        event.stopPropagation();
     }
 
     document.addEventListener('mousemove', function (event) {
