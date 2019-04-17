@@ -83,15 +83,15 @@ $(function() {
         var l=1.5;
         var s=0.02;
 
-    var objects = {
-        torus: {src:"TORUS2.obj", position:{x:-2, y: 0.8, z:-0.5}, scale:s, chapter:'ethos', material:grey_metal_material},
-        bubble: {src:"BUBBLE.obj", position:{x:1.3 ,y: -0.8, z:-2}, scale:s, chapter:'eros', material:bubble_material},
-        cloud: {src:"CLOUD.obj", position:{x: 2, y: -1, z: 0.5}, scale:s, chapter:'curiosities', material:blue_metal_material},
-        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-1.1 ,y: 0,z:-3}, scale:s, chapter:'infos', dae:true},
-        eyecat_ball: {src:"test.dae", position:{x:-0.6,y: -0.5,z:1.3}, scale:s, chapter:'definitions', dae:true},
-        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0.4,y:0.2 ,z:0.2}, scale:s, chapter:'contributions', material:red_metal_material},
-        sphere: {src: "SPHERE.obj", position: {x: 0, y: -0.3, z: 0}, scale: 0.012, material: white_material},
-    };
+        var objects = {
+            torus: {src:"TORUS2.obj", position:{x:-2, y: 0.8, z:-0.5}, scale:s, chapter:'ethos', material:grey_metal_material},
+            bubble: {src:"BUBBLE.obj", position:{x:1.3 ,y: -0.8, z:-2}, scale:s, chapter:'eros', material:bubble_material},
+            cloud: {src:"CLOUD.obj", position:{x: 2, y: -1, z: 0.5}, scale:s, chapter:'curiosities', material:blue_metal_material},
+            dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-1.1 ,y: 0,z:-3}, scale:s, chapter:'infos', dae:true},
+            eyecat_ball: {src:"test.dae", position:{x:-0.6,y: -0.5,z:1.3}, scale:s, chapter:'definitions', dae:true},
+            ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0.4,y:0.2 ,z:0.2}, scale:s, chapter:'contributions', material:red_metal_material},
+            sphere: {src: "SPHERE.obj", position: {x: 0, y: -0.3, z: 0}, scale: 0.012, material: white_material},
+        };
 
 
         window.scene = new THREE.Scene();
@@ -103,10 +103,10 @@ $(function() {
         var far = 100;
 
 
-    var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-    camera.position.z = 5;
-    camera.position.y = 1.5;
-    camera.position.x = -1;
+        var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+        camera.position.z = 5;
+        camera.position.y = 1.5;
+        camera.position.x = -1;
 
 
         var renderer = new THREE.WebGLRenderer({alpha:true });
