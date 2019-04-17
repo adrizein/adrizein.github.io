@@ -49,7 +49,7 @@ $(function() {
     var transparent_material = new THREE.MeshStandardMaterial( {
         blending: 2,
 	opacity: 1,
-	
+
 	transparent: true,
         color: 0xff0000,
         roughness: 0,
@@ -79,16 +79,16 @@ $(function() {
     var s=0.02;
 
     var objects = {
-        torus: {src:"TORUS2.obj", position:{x:-1,y:0.5,z:-0.5}, scale:s, chapter:'definitions', material:grey_metal_material},
+        torus: {src:"TORUS2.obj", position:{x:-2.5, y: 0.5, z:-0.5}, scale:s, chapter:'ethos', material:grey_metal_material},
 
-        bubble: {src:"BUBBLE.obj", position:{x:1,y:0,z:-3}, scale:s, chapter:'contributions', material:bubble_material},
+        bubble: {src:"BUBBLE.obj", position:{x:1 ,y: 0, z:-3}, scale:s, chapter:'eros', material:bubble_material},
 
-        cloud: {src:"CLOUD.obj", position:{x:1,y:-0.5,z:0.5}, scale:s, chapter:'curiosities', material:blue_metal_material},
+        cloud: {src:"CLOUD.obj", position:{x: 2, y: -1.5, z: 0.5}, scale:s, chapter:'curiosities', material:blue_metal_material},
 
-        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:0,y:0.3,z:-l}, scale:90*s, chapter:'infos', dae:true},
+        dragon_froot: {src:"DRAGON_FROOT.dae", position:{x:-2 ,y: 1,z: 3}, scale:90*s, chapter:'infos', dae:true},
 
-        eyecat_ball: {src:"test.dae", position:{x:-0.5,y:-0.2,z:1.2}, scale:95*s, chapter:'eros', dae:true},
-        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0.4,y:1.2,z:0}, scale:s, chapter:'ethos', material:red_metal_material},
+        eyecat_ball: {src:"test.dae", position:{x:-0.5,y: -1,z:1.2}, scale:95*s, chapter:'definitions', dae:true},
+        ruby_cube: {src:"RUBY_CUBE.obj", position:{x:0.4,y:0 ,z:0}, scale:s, chapter:'contributions', material:red_metal_material},
         sphere: {src: "SPHERE.obj", position: {x: 0, y: 0, z: 0}, scale: 0.012, material: white_material},
     };
 
@@ -103,7 +103,7 @@ $(function() {
 
 
     var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-    camera.position.z = 10;
+    camera.position.z = 5;
     camera.position.y = 0.5;
     camera.position.x = -1;
 
@@ -131,13 +131,13 @@ $(function() {
     controls.enableRotate = true;
     controls.rotateSpeed = 0.5;
 
-    
-    controls.minDistance = 3;
-    controls.maxDistance = 6;
+
+    controls.minDistance = 1;
+    controls.maxDistance = 10;
 /*
     controls.minPolarAngle = ;
     controls.maxPolarAngle = ;
-*/    
+*/
 
 
     /////// INTERACTIONS
@@ -362,6 +362,7 @@ $(function() {
     function showContent(chapter) {
         contentHidden = false;
         INTERSECTED = null;
+        $('#content-container').scrollTop(0);
 
         changeChapter(chapter);
 
@@ -417,15 +418,17 @@ $(function() {
         }
     });
 
-    window.onresize = function() {
+    function onResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize( window.innerWidth, window.innerHeight );
         $(document.body).width(window.innerWidth).height(window.innerHeight);
-    };
+    }
 
+    $(window).on('resize', onResize);
+    $(window).on('orientationchange', onResize);
 
-    window.onresize();
+    onResize();
     render();
     onHash();
 
