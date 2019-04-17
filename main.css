@@ -1,36 +1,3 @@
-
-/*
-* {
-  cursor: none;
-}
-
-.cursor2{
-    position: fixed;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    border:solid white 1px;
-    backface-visibility: hidden;
-    pointer-events:none;
-}
-
-
-#cursor2 .cursor-click {
-  cursor: url('textures/click.png') 31 31, auto;
-}
-
-#cursor2 .cursor-close {
-    height:50px;
-    width:50px;
-}
-
-#cursor2 .cursor-drag {
-    height: 60px;
-    width: 60px;
-}
-*/
-
 * {
     box-sizing: border-box;
     overflow: hidden;
@@ -406,15 +373,14 @@ footer h3 {
 
 .choix {
     cursor: pointer;
-    margin: 20px 0;
+    margin: 10px 0;
     display: flex;
     flex-grow: 1;
     flex-basis: 400px;
 }
 
 .choix svg {
-    margin-left: 20px;
-    margin-right: 10px;
+    margin: 10px 10px 10px 20px;
 }
 
 .choix:hover .hover_choix {
@@ -435,7 +401,7 @@ a.choix {
 }
 
 .choix .answer {
-    height: 72px;
+    height: 84px;
     font: 16px rumeur, sans-serif;
     display: flex;
     align-items: center;
@@ -760,5 +726,15 @@ svg:hover .appearing{
         bottom: 0;
         margin: 0 !important;
         overflow: auto;
+    }
+}
+
+@media (max-width: 350px) {
+    .choix .answer {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 14px;
     }
 }
