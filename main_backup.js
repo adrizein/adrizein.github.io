@@ -23,16 +23,16 @@ $(function() {
     geometryCube.scale(-1, 1, 1);
 
     var grey_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xeeddcc,
-        emissive: 0x110809,
+        color: 0xffeedd,
+        emissive: 0x221D11,
         roughness: 0.5,
         metalness: 0.9,
         envMap: envCube
     });
     var blue_metal_material = new THREE.MeshStandardMaterial( {
-        color: 0xCCFFFF,
+        color: 0xAAFFFF,
 	map: texture,
-        emissive: 0x221199,
+        emissive: 0x222299,
         metalness: 1,
         envMap: envCube
     });
@@ -142,7 +142,7 @@ $(function() {
 
 
     /////// INTERACTIONS
-    var all = $('#cursor2');
+    var all = $('#all');
     var mouse = new THREE.Vector2(), INTERSECTED;
 
     var raycaster = new THREE.Raycaster();
@@ -520,14 +520,14 @@ function goTo(url) {
 
 $(document)
   .mousemove(function(e) {
-    $('#cursor2')
+    $('.cursor2')
       .eq(0)
       .css({
         left: e.pageX,
         top: e.pageY
       });
     setTimeout(function() {
-      $('#cursor2')
+      $('.cursor2')
         .eq(1)
         .css({
           left: e.pageX,
