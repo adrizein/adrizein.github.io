@@ -1,35 +1,74 @@
+//#*{cursor:none;}
 
-/*
-* {
-  cursor: none;
-}
-
-.cursor2{
+#cursor2{
     position: fixed;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
+    height: 80px;
+    width: 80px;
     transform: translateX(-50%) translateY(-50%);
-    border:solid white 1px;
     backface-visibility: hidden;
     pointer-events:none;
 }
 
 
-#cursor2 .cursor-click {
-  cursor: url('textures/click.png') 31 31, auto;
+#cursor2.cursor-click {
+    height:80px;
+    width:80px;
+    background-image:url("textures/click2.png");
+    background-size: 80px 80px;
+}
+/*
+#cursor2.cursor-close {
+    height:80px;
+    width:80px;
+    background-image:url("textures/close2.png");
+    background-size: 80px 80px;
+}*/
+
+#cursor2.cursor-drag {
+    height: 80px;
+    width: 80px;
+    background-image:url("textures/drag2.png");
+    background-size: 80px 80px;
 }
 
-#cursor2 .cursor-close {
-    height:50px;
-    width:50px;
+#bgcursor{
+    margin:35px 35px 35px 35px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border:solid white 6px;
+    transition:0.3s ease-in-out;
 }
 
-#cursor2 .cursor-drag {
-    height: 60px;
-    width: 60px;
+#cursor2.cursor-click #bgcursor{
+    margin:0px 0px 0px 0px;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border:solid white 1px;
+    transition:0.3s ease-in-out;
 }
-*/
+
+#cursor2.cursor-drag #bgcursor{
+    margin:15px 15px 15px 15px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border:solid white 1px;
+    transition:0.3s ease-in-out;}
+
+/*
+#cursor2.cursor-close #bgcursor{
+    margin:0px 0px 0px 0px;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border:solid white 1px ease-in-out;
+    transition:0.3s ease-in-out;
+}*/
+
+
+
 
 * {
     box-sizing: border-box;
@@ -68,14 +107,14 @@ div.ui-page {
 #help, #fb, #languageEn, #languageFr, #zoomOut, #zoomIn{
     background-color:rgba(255,255,255,0);
     color:#ffffff;
-    transition:1s;
+    transition:0.5s;
     cursor: pointer;
 }
 
 #help:hover, #fb:hover, #languageEn:hover, #languageFr:hover, #zoomOut:hover, #zoomIn:hover{
     background-color:rgba(255,255,255,1);
     color:#777777;
-    transition:1s;
+    transition:0.5s;
 }
 
 #languageFr {
@@ -175,7 +214,7 @@ canvas {
     left: 0;
     right: 0;
     z-index: -1;
-    transition: filter 1s ease-in-out;
+    transition: filter 0.5s ease-in-out;
 }
 
 
@@ -255,7 +294,7 @@ footer h3 {
 .content {
     display: none;
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 0.5s;
 }
 
 .content.visible {
@@ -280,7 +319,6 @@ footer h3 {
 
 #all {
 
-    cursor: url('textures/circle.png') 37 37, auto;
 
     display: flex;
 
@@ -293,6 +331,7 @@ footer h3 {
 }
 
 
+/*
 
 #all.cursor-click {
 
@@ -322,7 +361,7 @@ footer h3 {
     pointer-events: none;
 
 }
-
+*/
 
 #content-container {
     pointer-events: none;
@@ -335,7 +374,7 @@ footer h3 {
     padding-bottom: 0px;
     padding-left: 125px;
     margin-left: -1px;
-    transition: 1s ease-in-out;
+    transition: 0.5s ease-in-out;
     height: calc(100% - 120px);
     -webkit-overflow-scrolling: touch;
     overflow: -moz-scrollbars-none;
@@ -362,7 +401,7 @@ footer h3 {
     margin-right: -72px;
     z-index: 21;
     cursor: pointer;
-    transition: 1s ease-in-out;
+    transition: 0.5s ease-in-out;
     border-radius:35px;
     transform-origin: 50% 50%;
     transform: scale(0.8);
@@ -385,7 +424,7 @@ footer h3 {
 
 #close-button:hover .cross{
     stroke:#000000;
-    transition:1s;
+    transition:0.5s;
 }
 
 #stroke	{
@@ -406,27 +445,26 @@ footer h3 {
 
 .choix {
     cursor: pointer;
-    margin: 20px 0;
+    margin: 10px 0;
     display: flex;
     flex-grow: 1;
     flex-basis: 400px;
 }
 
 .choix svg {
-    margin-left: 20px;
-    margin-right: 10px;
+    margin: 10px 10px 10px 20px;
 }
 
 .choix:hover .hover_choix {
     transform-origin: 30% 50% 0px;
     transform: rotateZ(20deg) translate(30px, -10px);
-    transition: 1s;
+    transition: 0.5s;
 }
 
 .hover_choix {
     transform-origin: 30% 50% 0px;
     transform: rotateZ(20deg) translate(0px, 0px);
-    transition: 1s;
+    transition: 0.5s;
 }
 
 
@@ -435,7 +473,7 @@ a.choix {
 }
 
 .choix .answer {
-    height: 72px;
+    height: 84px;
     font: 16px rumeur, sans-serif;
     display: flex;
     align-items: center;
@@ -466,7 +504,7 @@ a {
 .contribution-page {
     display: none;
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 0.5s;
 }
 
 
@@ -481,7 +519,7 @@ a {
 #top-stroke{
     stroke-dasharray: 90px;
     stroke-dashoffset: 90px;
-    transition: 0.5s 1s;
+    transition: 0.5s 01s;
 }
 
 #round-stroke {
@@ -495,7 +533,7 @@ a {
 #bottom-stroke {
     stroke-dasharray: 130%;
     stroke-dashoffset: 130%;
-    transition: 1s;
+    transition: 0.5s;
 }
 
 .cross {
@@ -503,7 +541,7 @@ a {
     transform: rotateZ(45deg);
     stroke-dasharray:20;
     stroke-dashoffset:20;
-    transition: 1s 1s;
+    transition: 0.5s 1s;
 }
 
 #content-container.active #top-stroke {
@@ -514,7 +552,7 @@ a {
 #content-container.active #round-stroke {
     stroke-dashoffset: 0;
     transform: rotateZ(-270deg);
-    transition: 1s 0.5s;
+    transition: 0.5s 0.5s;
 }
 
 #content-container.active #bottom-stroke {
@@ -525,7 +563,7 @@ a {
 #content-container.active .cross {
     stroke-dashoffset:0;
     stroke-dasharray: 20;
-    transition: 1.5s linear 0.5s;
+    transition: 1s linear 0.5s;
 }
 
 html:lang(fr) .en {
@@ -677,7 +715,7 @@ svg:hover .appearing{
 
     .cursor-close #help,.cursor-close #fb,.cursor-close #languageEn,.cursor-close #languageFr,.cursor-close #zoomOut,.cursor-close #zoomIn  {
         opacity:0;
-        transition:1s;
+        transition:0.5s;
     }
 
     h2 {
@@ -713,13 +751,13 @@ svg:hover .appearing{
         z-index: 31;
 	stroke-dasharray: 40;
 	opacity:0;
-        transition: 1s ease-in-out;
+        transition: 0.5s ease-in-out;
     }
 
     .cursor-close #close-button_mobile{
-	   opacity:1;
+	opacity:1;
         cursor: pointer;
-        transition: 1s ease-in-out;
+        transition: 0.5s ease-in-out;
     }
 
     #round-stroke {
@@ -760,5 +798,15 @@ svg:hover .appearing{
         bottom: 0;
         margin: 0 !important;
         overflow: auto;
+    }
+}
+
+@media (max-width: 350px) {
+    .choix .answer {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 14px;
     }
 }
