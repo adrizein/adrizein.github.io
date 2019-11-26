@@ -1,0 +1,8 @@
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='124' height='124'>
+    <circle r="35" cx="62" cy="62" stroke="white" stroke-width="2" fill="none" />
+    <polygon points="23,69 23,55 14,62" fill="white" stroke="none" stroke-width="0" />
+    <polygon points="23,69 23,55 14,62" fill="white" stroke="none" stroke-width="0" transform="rotate(+90, 62, 62)" />
+    <polygon points="23,69 23,55 14,62" fill="white" stroke="none" stroke-width="0" transform="rotate(180, 62, 62)" />
+    <polygon points="23,69 23,55 14,62" fill="white" stroke="none" stroke-width="0" transform="rotate(-90, 62, 62)" />
+    <text x="42" y="67" fill="white" stroke-width="0" font-size="18" font-family="rumeur,sans-serif">drag</text>
+</svg>

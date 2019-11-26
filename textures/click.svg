@@ -1,9 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'
-     width='74' height='74'>
-    <circle r="35" cx="37" cy="37" stroke="white" stroke-width="2" fill="none" />
-    <polygon points="6,44 6,30 15,37" fill="white" stroke="none" stroke-width="0" />
-    <polygon points="6,44 6,30 15,37" fill="white" stroke="none" stroke-width="0" transform="rotate(+90, 37, 37)" />
-    <polygon points="6,44 6,30 15,37" fill="white" stroke="none" stroke-width="0" transform="rotate(180, 37, 37)" />
-    <polygon points="6,44 6,30 15,37" fill="white" stroke="none" stroke-width="0" transform="rotate(-90, 37, 37)" />
-    <text x="20" y="42" fill="white" stroke-width="0" font-size="18" font-family="rumeur,sans-serif">click</text>
-</svg>
