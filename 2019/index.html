@@ -905,6 +905,18 @@
 
             <div id="curiosities" class="content" style="padding-top: 60px;">
                 <div class="fr" style="text-align: center">
+                    <div onclick="goTo('/comptes/2019')" style="margin:30px 0;">
+                        <svg viewBox="0 0 300 60" width="300" height="60">
+                            <defs>
+                                <mask id="bilan2019">
+                                    <rect fill="#fff" height="100%" width="100%"></rect>
+                                    <text x="150" y="30" id="myText">Bilan 2019</text>
+                                </mask>
+                            </defs>
+                            <rect class="masked" width="300" height="60" style="mask:url('#bilan2019');"></rect>
+                            <text x="150" y="30" class="appearing">Bilan 2018</text>
+                        </svg>
+                    </div>
                     <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
                         <svg viewBox="0 0 300 60" width="300" height="60">
                             <defs>
