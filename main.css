@@ -46,7 +46,13 @@ section {
     color: white;
 }
 
-img.background {
+#backgroundContainer img {
     height: 100%;
     width: 100%;
+    position:fixed;
+    display: none;
+}
+
+#backgroundContainer img.top {
+    display: block;
 }
