@@ -19,79 +19,34 @@ body {
 
 #main {
     height: 100%;
-    background-image: url("/background.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    text-align: center;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
+#backgroundContainer {
+    position: fixed;
     height: 100%;
-    color: whitesmoke;
-    font-family: rumeur, sans-serif;
-    font-size: 2em;
+    width: 100%;
 }
 
-.content {
-    margin: auto;
-    width: 9.8em;
+#content {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
 }
 
-h1 {
-    margin: 0.25em 0;
-    font-size: 1.8em;
+section {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 5em;
+    color: white;
 }
 
-footer {
-    margin: 1em 2em;
-    font-size: 0.5em;
-    letter-spacing: 1px;
-    font-family: suisse, sans-serif;
-}
-
-.date {
-    font-size: 0.75em;
-}
-
-.note {
-    font-size: 0.7em;
-}
-
-.links {
-    margin: 0.8em auto;
-}
-
-.links a:visited, .links a:active {
-    color: whitesmoke;
-    transition-duration: 0ms;
-}
-
-.links a {
-    display: block;
-    margin: 1.3em auto;
-    padding: 1.3em 0.8em;
-    font-size: 0.5em;
-    border: solid whitesmoke 2px ;
-    text-transform: uppercase;
-    color: whitesmoke;
-    text-decoration: none;
-    transition-property: background-color, color;
-    transition-duration: 300ms;
-    transition-timing-function: ease-in-out;
-}
-
-.links a:hover {
-    background-color: whitesmoke;
-    color: gray;
-}
-
-@media (max-width: 550px) {
-    .container {
-        font-size: 1.6em;
-    }
+img.background {
+    height: 100%;
+    width: 100%;
 }
