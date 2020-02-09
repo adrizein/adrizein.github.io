@@ -30,12 +30,16 @@ function updateState(currentSectionWithId) {
 }
 
 function updateBackground(currentSectionWithId) {
+    /* Where we manage the backgrounds */
+
+    
+
     var backgroundsOnTop = document.getElementsByClassName("top");
     var backgroundToPutOnTop = document.getElementById("bg-"+currentSectionWithId.id);
 
-    if(backgroundToPutOnTop != undefined) {
+    if(backgroundToPutOnTop != undefined ) {
         if (backgroundsOnTop.length > 0) {
-            if (backgroundsOnTop[0] != backgroundToPutOnTop) {
+            if (backgroundsOnTop.length > 0 && backgroundsOnTop[0] != backgroundToPutOnTop) {
                 backgroundsOnTop[0].classList.remove("top");
                 backgroundToPutOnTop.classList.add("top");
             }
