@@ -1,3 +1,7 @@
+function goTo(url) {
+    window.open(url, '_blank');
+}
+
 function getCurrentSectionWithId() {
     var sections = document.getElementsByTagName("section");
     var currentSectionWithId = {id:"",distance:0};
@@ -9,9 +13,10 @@ function getCurrentSectionWithId() {
     */
 
     for (var i = 0; i < sections.length; i++) {
-        var distance = (-1)*sections[i].getBoundingClientRect().y
+        var distance =  -(sections[i].getBoundingClientRect().y);
+        console.log(sections[i].id, distance);
         if (sections[i].id && distance >= 0) {
-            if(currentSectionWithId.distance == 0 
+            if(currentSectionWithId.distance == 0
                 || distance <= currentSectionWithId.distance) {
                 currentSectionWithId.id = sections[i].id;
                 currentSectionWithId.distance = distance;
@@ -32,8 +37,6 @@ function updateState(currentSectionWithId) {
 function updateBackground(currentSectionWithId) {
     /* Where we manage the backgrounds */
 
-    
-
     var backgroundsOnTop = document.getElementsByClassName("top");
     var backgroundToPutOnTop = document.getElementById("bg-"+currentSectionWithId.id);
 
@@ -47,7 +50,6 @@ function updateBackground(currentSectionWithId) {
             backgroundToPutOnTop.classList.add("top");
         }
 
-        console.log("Zoom in")
         zoomInBackground(currentSectionWithId, backgroundToPutOnTop);
     }
 
@@ -55,7 +57,7 @@ function updateBackground(currentSectionWithId) {
 
 function zoomInBackground(currentSectionWithId, background){
     var currentSection = document.getElementById(currentSectionWithId.id);
-    
+
     /* The fun part */
     var zoomMax = 6;
     var focusDistance = 0; //currentSection.clientHeight/2;
@@ -75,7 +77,7 @@ function zoomInBackground(currentSectionWithId, background){
         /* At distance focusDistance we want a scale of 1,
         * When distance == currentSection.clientHeight we want a scale of zoom max
         * a * focusDistance + b = 1
-        * a * clientHeight + b = ZoomMax 
+        * a * clientHeight + b = ZoomMax
         * a * (focusDistance - clientHeight) = 1 - ZoomMax
         * b = 1 - a * focusDistance
         */
@@ -88,18 +90,27 @@ function zoomInBackground(currentSectionWithId, background){
     /* At distance 0 we want a blur of 0px,
     * When distance == currentSection.clientHeight we want a blur of zoom max
     * a * 0 + b = 0
-    * a * clientHeight = blurMax 
+    * a * clientHeight = blurMax
     */
     var blur =  blurMax/currentSection.clientHeight * currentSectionWithId.distance
     background.style.filter = 'blur(' + blur + 'px)';
-
 }
 
 function updateOnScroll() {
     var currentSectionWithId = getCurrentSectionWithId();
+    var nextSpacer = document.getElementById(currentSectionWithId.id).nextElementSibling;
+    if (nextSpacer && !nextSpacer.classList.contains('spacer')) {
+        nextSpacer = null;
+    }
 
-   updateState(currentSectionWithId);
-   updateBackground(currentSectionWithId);
+    if (nextSpacer && nextSpacer.getBoundingClientRect().y / window.innerHeight > 0.3) {
+        updateBackground(currentSectionWithId);
+    } else if (nextSpacer) {
+        // TODO: fondu enchainé sur fond suivant
+    }
+
+
+    updateState(currentSectionWithId);
 }
 
 
@@ -108,7 +119,19 @@ function init(){
     updateBackground(currentSectionWithId);
 
     var content= document.getElementById("content");
-    content.addEventListener('scroll', updateOnScroll);
+    content.addEventListener('scroll', updateOnScroll, {passive: true});
+    content.addEventListener('resize', updateOnScroll, {passive: true});
+
+    for (const node of document.getElementsByClassName('accordion-item')) {
+        node.addEventListener('click', (event) => {
+            if (node.classList.contains('active')) {
+                node.classList.remove('active');
+            }
+            else {
+                node.classList.add('active');
+            }
+        });
+    }
 }
 
 window.onload = init;

@@ -10,6 +10,7 @@
 
 html {
     height: 100%;
+    font-family: suisse, sans-serif;
 }
 
 body {
@@ -38,12 +39,19 @@ body {
 }
 
 section {
-    height: 100%;
-    width: 100%;
+    padding: 0 10em;
     text-align: center;
-    vertical-align: middle;
-    font-size: 5em;
+    font-size: 1em;
     color: white;
+}
+
+.spacer {
+    width: 100%;
+    height: 100%;
+}
+
+#home + .spacer {
+    height: 60%;
 }
 
 #backgroundContainer img {
@@ -56,3 +64,108 @@ section {
 #backgroundContainer img.top {
     display: block;
 }
+
+#home {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#home h3 {
+    margin: auto;
+    font-size: 5em;
+}
+
+html:lang(fr) .en {
+    display: none !important;
+}
+
+html:lang(en) .fr {
+    display: none !important;
+}
+
+.accordion {
+    margin: 2px auto 2px auto;
+    max-width: 750px;
+}
+
+.accordion div {
+    text-align: left;
+}
+
+.accordion-item {
+    cursor: pointer;
+    border: solid 1px white;
+    margin: 12px 0;
+    padding: 14px 20px 14px 20px;
+}
+
+.accordion-item h4::before {
+    content: '+';
+    margin-right: 10px;
+}
+
+.accordion-item.active h4::before {
+    content: '-';
+    margin-right: 10px;
+}
+
+.accordion-item ul {
+    display: none;
+    padding-left: 10px;
+    margin-bottom: 0;
+}
+
+.accordion-item.active ul {
+    display: block;
+}
+
+.accordion li {
+    font:14px "suisse";
+    font-weight: normal;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+text {
+    font-size: 30px;
+    text-anchor:middle;
+    dominant-baseline:central;
+}
+
+.masked {
+    fill:rgba(255,255,255,0.8);
+}
+
+#myText {
+    fill: #000;
+}
+
+.appearing{
+    fill:transparent;
+    cursor: pointer;
+}
+
+svg:hover .masked{
+    cursor: pointer;
+    stroke-width:3;stroke:rgb(255,255,255);
+    fill:transparent;
+}
+
+svg:hover .appearing{
+    cursor: pointer;
+    font-size: 30px;
+    fill: white;
+}
+
+#close_png {
+    position: fixed;
+    top: 60px;
+    margin: 0;
+    right: 0;
+    transform: scale(0.5);
+    cursor: pointer;
+    z-index: 100;
+    display: none;
+}
+
