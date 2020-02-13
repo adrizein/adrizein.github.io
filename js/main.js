@@ -4,7 +4,7 @@ function goTo(url) {
 
 function getCurrentSectionWithId() {
     var sections = document.getElementsByTagName("section");
-    var currentSectionWithId = {id:"",distance:0};
+    var currentSectionWithId = {sectionIndex:-1,id:"",distance:0};
 
     /*
     * Not all sections have id
@@ -14,16 +14,21 @@ function getCurrentSectionWithId() {
 
     for (var i = 0; i < sections.length; i++) {
         var distance =  -(sections[i].getBoundingClientRect().y);
-        console.log(sections[i].id, distance);
         if (sections[i].id && distance >= 0) {
             if(currentSectionWithId.distance == 0
                 || distance <= currentSectionWithId.distance) {
+                currentSectionWithId.sectionIndex = i;
                 currentSectionWithId.id = sections[i].id;
                 currentSectionWithId.distance = distance;
             }
         }
     }
     return currentSectionWithId;
+}
+
+function getSectionFromSectionIndex(sectionIndex) {
+    var sections = document.getElementsByTagName("section");
+    return sections[sectionIndex]
 }
 
 
@@ -36,19 +41,24 @@ function updateState(currentSectionWithId) {
 
 function updateBackground(currentSectionWithId) {
     /* Where we manage the backgrounds */
-
-    var backgroundCurrentlyOnTop = document.getElementsByClassName("top")[0];
-    var backgroundToPutOnTop = document.getElementById("bg-"+currentSectionWithId.id);
+    //console.log(currentSectionWithId);
+    var currentBackground = document.getElementById("bg-"+currentSectionWithId.id);
     var currentSection = document.getElementById(currentSectionWithId.id);
-    var spacer = document.getElementsByClassName("spacer")[0]; // To improve 
 
+    var paddingTop  = window.innerHeight;
+    var paddingBottom = window.innerHeight; // can be changed
+    var fadeInAndOutDistance = currentSection.clientHeight - paddingBottom;
+    var focusDistance = paddingBottom/2;
+
+
+    console.log("paddingTop   " + paddingTop)
     /* Here is the sequence 
     * 1 - Home, distance 0 scale of one
 
-    * A section has a padding top of one hundred
+    * A section has a padding top of one hundred and
     * When we start the beginning of a section the background starts appearing at a scale max
     * and the previous one starts disappearing
-    * When we reach the spacer the end of the section 
+    * When we reach the end of the section - paddingBottom
     * The zoom in zoom out occurs in the spacer
 
     * 2 - When reaching the end of the spacer (the beginning of the new section) we reach a zoom of zoom max
@@ -62,30 +72,58 @@ function updateBackground(currentSectionWithId) {
    var opacity = 1;
    var scaleMax = 6;
    var a, b;
-    if (currentSectionWithId.id == "home") {
-        if (backgroundCurrentlyOnTop != undefined) {backgroundCurrentlyOnTop.classList.remove("top")} ;
-        backgroundToPutOnTop.classList.add("top");
+    if (currentSectionWithId.sectionIndex == 0) {
         /* scale of 1 at distance 0
         * scaleMax at home section height + spacer height
         */
         b = 1
-        a = (scaleMax-1)/(currentSection.clientHeight + spacer.clientHeight)
+        a = (scaleMax-1)/(currentSection.clientHeight)
         scale = a * currentSectionWithId.distance + b
-        backgroundToPutOnTop.style.transform = 'scale(' + scale + ')';
+        currentBackground.style.transform = 'scale(' + scale + ')';
+        currentBackground.style.opacity = 1;
     } else {
-        if (currentSectionWithId.distance < currentSection.clientHeight) {
+       console.log("distance " + currentSectionWithId.distance);
+        console.log("fadeInAndOutDistance " + fadeInAndOutDistance);
+        var previousBackground = document.getElementById("bg-"+getSectionFromSectionIndex(currentSectionWithId.sectionIndex - 1).id);
+        if (currentSectionWithId.distance < fadeInAndOutDistance) {
             /* We don't scale in the section and the scale stays at scaleMax */
             scale = scaleMax
-            backgroundToPutOnTop.style.transform = 'scale(' + scale + ')';
+            currentBackground.style.transform = 'scale(' + scale + ')';
+            previousBackground.style.transform = 'scale(' + scale + ')';
             /* We fadeIn the backgroundToPutOnTop so by the end of currentSection its opacity is one
             * One the contrary we fade the background currentlyOnTop
             */
-            opacity = currentSectionWithId.distance / currentSection.clientHeight;
-            backgroundToPutOnTop.style.opacity = opacity;
-            if (backgroundCurrentlyOnTop != undefined) {backgroundCurrentlyOnTop.style.opacity = 1 - opacity} ;
+            opacity = currentSectionWithId.distance / fadeInAndOutDistance;
+            currentBackground.style.opacity = opacity;
+            previousBackground.style.opacity = 1 - opacity ;
         } else {
-            if (backgroundCurrentlyOnTop != undefined) {backgroundCurrentlyOnTop.classList.remove("top")} ;
-            backgroundToPutOnTop.classList.add("top");
+            console.log("Should be zooming");
+            currentBackground.style.opacity = 1;
+            previousBackground.style.opacity = 0;
+
+            // But we zoom out and in in the spacer !
+            var distanceInSpacer = currentSectionWithId.distance - fadeInAndOutDistance;
+
+            console.log(distanceInSpacer);
+            console.log(focusDistance);
+            if ( distanceInSpacer < focusDistance) {
+                // Zoom out 
+                //scale =  1 ;
+                scale = scaleMax + (1 - scaleMax) * distanceInSpacer / focusDistance ;
+            } else {
+                // Zoom in 
+                //scale =  scaleMax ;
+                // At paddingBottom we want  scaleMax
+                // At focusDistance we want 1
+                // 1 = a x focusDistance + b
+                // scaleMax = a x spacer.clientHeight + b
+            
+                a = (1 - scaleMax)/(focusDistance - paddingBottom);
+                b = 1 - a * focusDistance;
+                scale =  b + a * distanceInSpacer;
+            }
+            console.log(scale);
+            currentBackground.style.transform = 'scale(' + scale + ')';
         }
     }
 
@@ -150,6 +188,10 @@ function zoomInBackground(currentSectionWithId, background){
 
 function updateOnScroll() {
     var currentSectionWithId = getCurrentSectionWithId();
+
+    updateBackground(currentSectionWithId);
+
+    /*
     var nextSpacer = document.getElementById(currentSectionWithId.id).nextElementSibling;
     if (nextSpacer && !nextSpacer.classList.contains('spacer')) {
         nextSpacer = null;
@@ -160,7 +202,7 @@ function updateOnScroll() {
     } else if (nextSpacer) {
         // TODO: fondu enchainé sur fond suivant
     }
-
+    */
 
     updateState(currentSectionWithId);
 }
