@@ -40,6 +40,8 @@ function updateState(currentSectionWithId) {
 }
 
 function updateBackground(currentSectionWithId) {
+    /* VINCKY */
+
     /* Where we manage the backgrounds */
     //console.log(currentSectionWithId);
     var currentBackground = document.getElementById("bg-"+currentSectionWithId.id);
@@ -51,22 +53,12 @@ function updateBackground(currentSectionWithId) {
     var zoomInAndOutDistance = paddingBottom/4;
 
 
-
-    console.log("paddingTop   " + paddingTop)
     /* Here is the sequence 
-    * 1 - Home, distance 0 scale of one
-
     * A section has a padding top of one hundred and
     * When we start the beginning of a section the background starts appearing at a scale max
     * and the previous one starts disappearing
     * When we reach the end of the section - paddingBottom
-    * The zoom in zoom out occurs in the spacer
-
-    * 2 - When reaching the end of the spacer (the beginning of the new section) we reach a zoom of zoom max
-    * 3 - we stop the zoom and start fading out the background and fading in the new one at zoom max
-    * 4 - when reaching the end of the section the old background is completely faded out and the new one is faded in
-    * 5 - we start zooming out until we reach the scale of one at spacerheight/2 and zoom back in to reach zoom max at the end of the <spacer className=""></spacer>
-    * 6 - We go back to 3
+    * The zoom in zoom out occurs in the padding bottom
     */
 
    var scale = 1;
@@ -83,8 +75,6 @@ function updateBackground(currentSectionWithId) {
         currentBackground.style.transform = 'scale(' + scale + ')';
         currentBackground.style.opacity = 1;
     } else {
-       console.log("distance " + currentSectionWithId.distance);
-        console.log("fadeInAndOutDistance " + fadeInAndOutDistance);
         var previousBackground = document.getElementById("bg-"+getSectionFromSectionIndex(currentSectionWithId.sectionIndex - 1).id);
         if (currentSectionWithId.distance < fadeInAndOutDistance) {
             /* We don't scale in the section and the scale stays at scaleMax */
@@ -131,84 +121,11 @@ function updateBackground(currentSectionWithId) {
             currentBackground.style.transform = 'scale(' + scale + ')';
         }
     }
-
-
-    /*
-    if(backgroundToPutOnTop != undefined ) {
-        if (backgroundsOnTop.length > 0) {
-            if (backgroundsOnTop.length > 0 && backgroundsOnTop[0] != backgroundToPutOnTop) {
-                backgroundsOnTop[0].classList.remove("top");
-                backgroundToPutOnTop.classList.add("top");
-            }
-        } else {
-            backgroundToPutOnTop.classList.add("top");
-        }
-
-        zoomInBackground(currentSectionWithId, backgroundToPutOnTop);
-    }
-    */
-
-}
-
-function zoomInBackground(currentSectionWithId, background){
-    var currentSection = document.getElementById(currentSectionWithId.id);
-
-    /* The fun part */
-    var zoomMax = 6;
-    var focusDistance = 0; //currentSection.clientHeight/2;
-    var blurMax = 2;
-
-    var scale = 1;
-    if (currentSectionWithId.distance < focusDistance) {
-        /* ZOOM OUT */
-        /* At distance 0 we want a scale of ZoomMax,
-        * When distance == focusDistance we want a scale of 1
-        * a * 0 + b = ZoomMax
-        * a * focusDistance + ZoomMax  = 1
-        */
-       scale =  zoomMax + (1 - zoomMax)/focusDistance * currentSectionWithId.distance
-    } else {
-        /* ZOOM IN */
-        /* At distance focusDistance we want a scale of 1,
-        * When distance == currentSection.clientHeight we want a scale of zoom max
-        * a * focusDistance + b = 1
-        * a * clientHeight + b = ZoomMax
-        * a * (focusDistance - clientHeight) = 1 - ZoomMax
-        * b = 1 - a * focusDistance
-        */
-       var a = (1 - zoomMax)/(focusDistance - currentSection.clientHeight);
-       var b = 1 - a * focusDistance;
-       scale =  b + a * currentSectionWithId.distance
-    }
-    background.style.transform = 'scale(' + scale + ')';
-
-    /* At distance 0 we want a blur of 0px,
-    * When distance == currentSection.clientHeight we want a blur of zoom max
-    * a * 0 + b = 0
-    * a * clientHeight = blurMax
-    */
-    var blur =  blurMax/currentSection.clientHeight * currentSectionWithId.distance
-    background.style.filter = 'blur(' + blur + 'px)';
 }
 
 function updateOnScroll() {
     var currentSectionWithId = getCurrentSectionWithId();
-
     updateBackground(currentSectionWithId);
-
-    /*
-    var nextSpacer = document.getElementById(currentSectionWithId.id).nextElementSibling;
-    if (nextSpacer && !nextSpacer.classList.contains('spacer')) {
-        nextSpacer = null;
-    }
-
-    if (nextSpacer && nextSpacer.getBoundingClientRect().y / window.innerHeight > 0.3) {
-        updateBackground(currentSectionWithId);
-    } else if (nextSpacer) {
-        // TODO: fondu enchainé sur fond suivant
-    }
-    */
-
     updateState(currentSectionWithId);
 }
 
