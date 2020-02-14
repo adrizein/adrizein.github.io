@@ -48,7 +48,8 @@ function updateBackground(currentSectionWithId) {
     var paddingTop  = window.innerHeight;
     var paddingBottom = window.innerHeight; // can be changed
     var fadeInAndOutDistance = currentSection.clientHeight - paddingBottom;
-    var focusDistance = paddingBottom/2;
+    var zoomInAndOutDistance = paddingBottom/4;
+
 
 
     console.log("paddingTop   " + paddingTop)
@@ -97,30 +98,34 @@ function updateBackground(currentSectionWithId) {
             currentBackground.style.opacity = opacity;
             previousBackground.style.opacity = 1 - opacity ;
         } else {
-            console.log("Should be zooming");
             currentBackground.style.opacity = 1;
             previousBackground.style.opacity = 0;
 
             // But we zoom out and in in the spacer !
             var distanceInSpacer = currentSectionWithId.distance - fadeInAndOutDistance;
-
             console.log(distanceInSpacer);
-            console.log(focusDistance);
-            if ( distanceInSpacer < focusDistance) {
+            console.log(paddingBottom);
+            if ( distanceInSpacer < zoomInAndOutDistance) {
                 // Zoom out 
                 //scale =  1 ;
-                scale = scaleMax + (1 - scaleMax) * distanceInSpacer / focusDistance ;
-            } else {
+                console.log("Should be zooming out");
+                scale = scaleMax + (1 - scaleMax) * distanceInSpacer / zoomInAndOutDistance;
+            } else if (distanceInSpacer > (paddingBottom - zoomInAndOutDistance)){
                 // Zoom in 
                 //scale =  scaleMax ;
                 // At paddingBottom we want  scaleMax
-                // At focusDistance we want 1
-                // 1 = a x focusDistance + b
-                // scaleMax = a x spacer.clientHeight + b
+                // At paddingBottom - zoomInAndOutDistance we want 1
+                // 1 = a x (paddingBottom - zoomInAndOutDistance) + b
+                // scaleMax = a x paddingBottom + b
+
+                console.log("Should be zooming in");
             
-                a = (1 - scaleMax)/(focusDistance - paddingBottom);
-                b = 1 - a * focusDistance;
+                a = (scaleMax - 1)/(zoomInAndOutDistance);
+                b = scaleMax - a * paddingBottom;
                 scale =  b + a * distanceInSpacer;
+            } else {
+                // We are in the "palier" where the scale is one
+                scale =  1;
             }
             console.log(scale);
             currentBackground.style.transform = 'scale(' + scale + ')';
