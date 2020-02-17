@@ -58,8 +58,6 @@ header .language .selected {
 }
 
 #backgroundContainer img {
-    height: 100%;
-    width: 100%;
     position:fixed;
     opacity: 0;
 }
@@ -89,17 +87,17 @@ header .language .selected {
 }
 
 section {
-    padding: 50% 0;
+    padding: 0 0 200% 0;
     text-align: center;
     font-size: 1em;
 }
 
 #home {
-    padding: 0;
+    padding: 0 10px 50% 10px;
 }
 
 #content section .container {
-    margin: 0 2em;
+    margin: 0 40em;
 }
 
 a {
