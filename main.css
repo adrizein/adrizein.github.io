@@ -58,8 +58,10 @@ header .language .selected {
 }
 
 #backgroundContainer img {
-    position:fixed;
+    position: fixed;
     opacity: 0;
+    width: 100%;
+    height: auto;
 }
 
 #backgroundContainer img.top {
@@ -97,7 +99,8 @@ section {
 }
 
 #content section .container {
-    margin: 0 40em;
+    max-width: 40em;
+    margin: 0 auto;
 }
 
 a {
@@ -240,13 +243,54 @@ footer div {
     html {
         font-size: 0.9em;
     }
+    footer, header {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 870px) {
+    footer {
+        display: none;
+    }
+
+    header .language {
+        margin-right: 1em;
+        font-size: 1.1em;
+    }
+
+    #content {
+        bottom: 1em;
+    }
 
     h3 {
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
+        font-size: 4em;
+    }
+
+    #content section .container {
+        max-width: none;
+        margin: 0 5em;
     }
 }
 
 @media (max-width: 400px) {
+    h3 {
+        font-size: 3em;
+    }
+}
 
+@media (max-width: 370px) {
+    #curiosites {
+        display: none;
+    }
+
+    html {
+        font-size: 0.7em;
+    }
+}
+
+@media (max-aspect-ratio: 5/4) {
+    #backgroundContainer img {
+        width: auto;
+        height: 100%;
+    }
 }
