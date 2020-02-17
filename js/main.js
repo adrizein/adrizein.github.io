@@ -43,20 +43,18 @@ function updateBackground(currentSectionWithId) {
     /* Where we manage the backgrounds */
     var currentBackground = document.querySelector(`img.background.${currentSectionWithId.id}`);
     var otherBackgrounds = document.querySelectorAll(`img.background:not(.${currentSectionWithId.id})`);
-
     var currentSection = document.getElementById(currentSectionWithId.id);
 
-    var paddingBottom = window.innerHeight; // can be changed
-    var scrollTextLength = currentSection.clientHeight - paddingBottom;
-    var fadeInLength = scrollTextLength / 2;
-    var zoomInAndOutDistance = paddingBottom / 4;
 
 
     /* Here is the sequence 
-    * A section has a padding top of one hundred and
-    * When we start the beginning of a section the background starts appearing at a scale max
-    * and the previous one starts disappearing
-    * When we reach the end of the section - paddingBottom
+    * A section has a padding top of 10px (but we don't care)
+    * When we start the beginning of a section the background is 
+    *   at a scale max
+    *   with a blur Max
+    *   with opacity 1
+    * it stays this way until the end of the text
+    * When we reach the end of the text
     * The zoom in zoom out occurs in the padding bottom
     */
 
@@ -65,39 +63,76 @@ function updateBackground(currentSectionWithId) {
     var scaleMax = 6;
     var a, b;
     if (currentSectionWithId.sectionIndex == 0) {
-        /* scale of 1 at distance 0
-        * scaleMax at home section height
-        */
-        b = 1
-        a = (scaleMax - 1) / (currentSection.clientHeight)
-        scale = a * currentSectionWithId.distance + b
-        currentBackground.style.transform = 'scale(' + scale + ')';
-        currentBackground.style.opacity = 1;
-        otherBackgrounds.forEach((background) => background.style.opacity = 0);
+        var homePaddingBottom =  window.innerHeight / 2; // can be changed
+        var scrollTextLength = currentSection.clientHeight - homePaddingBottom;
+        var distanceInPaddingBottom = currentSectionWithId.distance - scrollTextLength;
+
+        console.log(currentSectionWithId.distance)
+        console.log("Should be fading in and out in home")
+        if (currentSectionWithId.distance < scrollTextLength)  {
+            /* scale of 1 at distance 0
+            * scaleMax at home section height
+            */
+            b = 1
+            a = (scaleMax - 1) / (currentSection.clientHeight)
+            scale = a * currentSectionWithId.distance + b
+            currentBackground.style.transform = 'scale(' + scale + ')';
+            currentBackground.style.opacity = 1;
+            otherBackgrounds.forEach((background) => background.style.opacity = 0);
+        } else {
+            console.log("Should be fading in and out in home")
+            var nextBackground = currentBackground.nextElementSibling;
+            backgrounds.forEach((background) => background.style.transform = `scale(${scaleMax})`);
+            opacity = distanceInPaddingBottom  / homePaddingBottom;
+            currentBackground.style.opacity = 1 - opacity;
+            nextBackground.style.opacity = opacity;
+        }
     } else {
-        var previousBackground = currentBackground.previousElementSibling;
+        var paddingBottom =  2 * window.innerHeight; // can be changed
+        var scrollTextLength = currentSection.clientHeight - paddingBottom;
+        var zoomInAndOutDistance = paddingBottom / 4;
+        var focusDistance = paddingBottom / 4;
+        var fadeInAndOutDistance = paddingBottom - 2 * zoomInAndOutDistance -  focusDistance;
+        var distanceInPaddingBottom = currentSectionWithId.distance - scrollTextLength;
+
         if (currentSectionWithId.distance < scrollTextLength) {
             /* We don't scale in the section and the scale stays at scaleMax */
             scale = scaleMax
             backgrounds.forEach((background) => background.style.transform = `scale(${scale})`);
-            otherBackgrounds.forEach((background) => {
-                if (background !== previousBackground) {
-                    background.style.opacity = 0
-                }
-            });
-
-            if (currentSectionWithId.distance > fadeInLength) {
-                /* We fadeIn the backgroundToPutOnTop so by the end of currentSection its opacity is one
-                * One the contrary we fade out the background currentlyOnTop
-                */
-                opacity = (currentSectionWithId.distance - fadeInLength) / fadeInLength;
-                currentBackground.style.opacity = opacity;
-                previousBackground.style.opacity = 1 - opacity;
-            }
-        } else {
+            otherBackgrounds.forEach((background) => background.style.opacity = 0);
             currentBackground.style.opacity = 1;
-            previousBackground.style.opacity = 0;
-
+        } else if (distanceInPaddingBottom < zoomInAndOutDistance) {
+            console.log("Should be zooming out")
+            scale = scaleMax + (1 - scaleMax) * distanceInPaddingBottom / zoomInAndOutDistance;
+            currentBackground.style.transform = `scale(${scale})`;
+            currentBackground.style.opacity = 1;
+            otherBackgrounds.forEach((background) => background.style.opacity = 0);
+        } else if (distanceInPaddingBottom < zoomInAndOutDistance + focusDistance) {
+            console.log("Should be focused")
+            currentBackground.style.transform = `scale(1)`;
+            currentBackground.style.opacity = 1;
+            otherBackgrounds.forEach((background) => background.style.opacity = 0);
+        } else if (distanceInPaddingBottom < 2* zoomInAndOutDistance + focusDistance) {
+            console.log("Should be zooming in")
+            // When distanceInPaddingBottom = 2* zoomInAndOutDistance + focusDistance
+            // scaleMax = a * (2* zoomInAndOutDistance + focusDistance) + b
+            // 1 = a * (zoomInAndOutDistance + focusDistance) + b
+            //
+            a = (scaleMax - 1) / (zoomInAndOutDistance);
+            b = 1 - a * (zoomInAndOutDistance + focusDistance);
+            scale = b + a * distanceInPaddingBottom;
+            currentBackground.style.transform = `scale(${scale})`;
+            currentBackground.style.opacity = 1;
+            otherBackgrounds.forEach((background) => background.style.opacity = 0);
+        } else {
+            console.log("Should be fading in and out")
+            var nextBackground = currentBackground.nextElementSibling;
+            currentBackground.style.transform = `scale(${scaleMax})`;
+            opacity = (distanceInPaddingBottom - (2* zoomInAndOutDistance + focusDistance)) / fadeInAndOutDistance;
+            currentBackground.style.opacity = 1 - opacity;
+            nextBackground.style.opacity = opacity;
+        }
+        /*
             // But we zoom out and in in the spacer !
             var distanceInSpacer = currentSectionWithId.distance - scrollTextLength;
             if (distanceInSpacer < zoomInAndOutDistance) {
@@ -124,6 +159,7 @@ function updateBackground(currentSectionWithId) {
             }
             currentBackground.style.transform = `scale(${scale})`;
         }
+        */
     }
 }
 
