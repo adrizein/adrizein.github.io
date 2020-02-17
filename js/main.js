@@ -45,8 +45,6 @@ function updateBackground(currentSectionWithId) {
     var otherBackgrounds = document.querySelectorAll(`img.background:not(.${currentSectionWithId.id})`);
     var currentSection = document.getElementById(currentSectionWithId.id);
 
-
-
     /* Here is the sequence 
     * A section has a padding top of 10px (but we don't care)
     * When we start the beginning of a section the background is 
@@ -91,7 +89,7 @@ function updateBackground(currentSectionWithId) {
         var paddingBottom =  2 * window.innerHeight; // can be changed
         var scrollTextLength = currentSection.clientHeight - paddingBottom;
         var zoomInAndOutDistance = paddingBottom / 4;
-        var focusDistance = paddingBottom / 4;
+        var focusDistance = paddingBottom / 8;
         var fadeInAndOutDistance = paddingBottom - 2 * zoomInAndOutDistance -  focusDistance;
         var distanceInPaddingBottom = currentSectionWithId.distance - scrollTextLength;
 
@@ -132,34 +130,47 @@ function updateBackground(currentSectionWithId) {
             currentBackground.style.opacity = 1 - opacity;
             nextBackground.style.opacity = opacity;
         }
-        /*
-            // But we zoom out and in in the spacer !
-            var distanceInSpacer = currentSectionWithId.distance - scrollTextLength;
-            if (distanceInSpacer < zoomInAndOutDistance) {
-                // Zoom out 
-                //scale =  1 ;
-                console.log("Zooming out");
-                scale = scaleMax + (1 - scaleMax) * distanceInSpacer / zoomInAndOutDistance;
-            } else if (distanceInSpacer > (paddingBottom - zoomInAndOutDistance)) {
-                // Zoom in 
-                // scale =  scaleMax ;
-                // At paddingBottom we want  scaleMax
-                // At paddingBottom - zoomInAndOutDistance we want 1
-                // 1 = a x (paddingBottom - zoomInAndOutDistance) + b
-                // scaleMax = a x paddingBottom + b
+    }
+}
 
-                console.log("Zooming in");
+function adaptBackgroundsToWindow() {
+    backgrounds.forEach((background) => adaptBackgroundSize(background));
+}
 
-                a = (scaleMax - 1) / (zoomInAndOutDistance);
-                b = scaleMax - a * paddingBottom;
-                scale = b + a * distanceInSpacer;
-            } else {
-                // We are in the "palier" where the scale is one
-                scale = 1;
-            }
-            currentBackground.style.transform = `scale(${scale})`;
-        }
-        */
+
+function adaptBackgroundSize(background) {
+    console.log('Height  is ' + background.height);
+    console.log('Width  is ' + background.width);
+    var imgScale =  background.height / background.width;
+    var windowScale =  window.innerHeight / window.innerWidth;
+
+    if (windowScale > imgScale) {
+        console.log("Height")
+        background.height = window.innerHeight;
+        background.width = background.height / imgScale;
+        var left = (window.innerWidth - background.width) / 2;
+        background.style.left = `${left}px`;
+    } else {
+        console.log("Width")
+        background.width =  window.innerWidth;
+        background.height = imgScale * background.width;
+        var top = (window.innerHeight - background.height) / 2;
+        background.style.top = `${top}px`;
+    }
+}
+
+function adaptBackgroundCenter(background) {
+    console.log('Height  is ' + background.height);
+    console.log('Width  is ' + background.width);
+    var imgScale =  background.height / background.width;
+    var windowScale =  window.innerHeight / window.innerWidth;
+
+    if (windowScale > imgScale) {
+        console.log("Height")
+    } else {
+        console.log("Width")
+        background.width =  window.innerWidth;
+        background.height = imgScale * background.width;
     }
 }
 
@@ -193,6 +204,7 @@ function init() {
     sections = document.querySelectorAll(`#content section`);
     var currentSectionWithId = getCurrentSectionWithId();
     updateBackground(currentSectionWithId);
+    adaptBackgroundsToWindow();
 
     var content = document.getElementById("content");
     content.addEventListener('scroll', updateOnScroll, { passive: true });
