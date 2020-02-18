@@ -40,6 +40,8 @@ function updateState(currentSectionWithId) {
 function updateBackground(currentSectionWithId) {
     /* VINCKY */
 
+    /* TO DO Mettre le blur, le resize, virer le zoom dans la dernière partie */ 
+
     /* Where we manage the backgrounds */
     var currentBackground = document.querySelector(`img.background.${currentSectionWithId.id}`);
     var otherBackgrounds = document.querySelectorAll(`img.background:not(.${currentSectionWithId.id})`);
@@ -61,7 +63,7 @@ function updateBackground(currentSectionWithId) {
     var scaleMax = 6;
     var a, b;
     if (currentSectionWithId.sectionIndex == 0) {
-        var homePaddingBottom =  window.innerHeight / 2; // can be changed
+        var homePaddingBottom =  650; // can be changed
         var scrollTextLength = currentSection.clientHeight - homePaddingBottom;
         var distanceInPaddingBottom = currentSectionWithId.distance - scrollTextLength;
 
@@ -72,7 +74,7 @@ function updateBackground(currentSectionWithId) {
             * scaleMax at home section height
             */
             b = 1
-            a = (scaleMax - 1) / (currentSection.clientHeight)
+            a = (scaleMax - 1) / (scrollTextLength)
             scale = a * currentSectionWithId.distance + b
             currentBackground.style.transform = 'scale(' + scale + ')';
             currentBackground.style.opacity = 1;
@@ -86,12 +88,16 @@ function updateBackground(currentSectionWithId) {
             nextBackground.style.opacity = opacity;
         }
     } else {
-        var paddingBottom =  2 * window.innerHeight; // can be changed
+        var paddingBottom =  1300; // can be changed
         var scrollTextLength = currentSection.clientHeight - paddingBottom;
         var zoomInAndOutDistance = paddingBottom / 4;
         var focusDistance = paddingBottom / 8;
         var fadeInAndOutDistance = paddingBottom - 2 * zoomInAndOutDistance -  focusDistance;
         var distanceInPaddingBottom = currentSectionWithId.distance - scrollTextLength;
+
+        console.log(window.innerHeight)
+        console.log(paddingBottom)
+        console.log(scrollTextLength)
 
         if (currentSectionWithId.distance < scrollTextLength) {
             /* We don't scale in the section and the scale stays at scaleMax */
