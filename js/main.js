@@ -36,105 +36,142 @@ function updateState(currentSectionWithId) {
     }
 }
 
+var afterTextLength = 1200;
+var blurMax = 8;
+var scaleMax = 3;
+
+var sequenceAfterText = [
+    {'name':'start', 'blur':blurMax, 'scale':scaleMax},
+    {'name':'unBlurring', 'distance': afterTextLength/6,'blur':0, 'scale':scaleMax},
+    {'name':'zoomOut', 'distance': afterTextLength/6, 'blur':0, 'scale':1},
+    {'name':'focus', 'distance': afterTextLength/6, 'blur':0, 'scale':1},
+    {'name':'zoomIn', 'distance': afterTextLength/6, 'blur':0, 'scale':scaleMax},
+    {'name':'switching', 'distance': afterTextLength/6, 'blur':0, 'scale':scaleMax},
+    {'name':'blurring', 'distance': afterTextLength/6, 'blur':blurMax, 'scale':scaleMax}
+]
+
+function getDistancesArray(){
+    var distancesArray = [];
+    var distance = 0
+    sequenceAfterText.forEach(function (limit) {
+        if (limit['distance']) {
+            distance = distance + limit['distance'];
+            distancesArray.push(distance);
+        }
+     });
+     console.log(distancesArray);
+    return distancesArray;
+}
+
+function getY(beginY, endY, endX, X) {
+    var a, b, Y;
+    b = beginY;
+    a = (endY - beginY) / endX;
+    Y = a * X + b;
+    return Y;
+}
+
+function getFromDistanceInSegment(distanceInSegment, segmentIndex, property_name) {
+    var beginProperty = sequenceAfterText[segmentIndex][property_name];
+    var endProperty = sequenceAfterText[segmentIndex+1][property_name];
+    var length = sequenceAfterText[segmentIndex+1]['distance'];
+    var property = getY(beginProperty, endProperty, length, distanceInSegment);
+    return property;
+}
+
+function updateBackgroundInHome(currentSectionWithId) {
+    /* VINCKY */
+    /* TO DO factorize with the other sections for instance by changing getDistanceArray*/
+
+    var currentBackground = document.querySelector(`img.background.${currentSectionWithId.id}`);
+    var currentSection = document.getElementById(currentSectionWithId.id);
+
+    var homeAfterTextLength =  600; // can be changed
+    var switchingLength = homeAfterTextLength/2;
+    var scrollTextLength = currentSection.clientHeight - homeAfterTextLength;
+
+    if (currentSectionWithId.distance < scrollTextLength)  {
+        // scale of 1 at distance 0
+        // scaleMax at home section height
+        //
+        b = 1
+        a = (scaleMax - 1) / (scrollTextLength)
+        scale = a * currentSectionWithId.distance + b
+        currentBackground.style.transform = 'scale(' + scale + ')';
+        currentBackground.style.opacity = 1;
+        currentBackground.style.filter = `blur(0)`;
+    } else {
+        var distanceAfterText = currentSectionWithId.distance - scrollTextLength;
+        if (distanceAfterText < switchingLength) {
+            console.log("Switching")
+            var nextBackground = currentBackground.nextElementSibling;
+            currentBackground.style.transform = `scale(${scaleMax})`;
+            nextBackground.style.transform = `scale(${scaleMax})`;
+            currentBackground.style.filter = `blur(0)`;
+            nextBackground.style.filter = `blur(0)`;
+
+            opacity = distanceAfterText  / switchingLength;
+            currentBackground.style.opacity = 1 - opacity;
+            nextBackground.style.opacity = opacity;
+        } else {
+            console.log("Blurring")
+            currentBackground = currentBackground.nextElementSibling;
+            var blur = (distanceAfterText - switchingLength) / (homeAfterTextLength - switchingLength) * blurMax;
+            currentBackground.style.filter = `blur(${blur}px)`;
+        }
+    }
+}
+
 
 function updateBackground(currentSectionWithId) {
     /* VINCKY */
 
-    /* TO DO Mettre le blur, le resize, virer le zoom dans la dernière partie */ 
-
-    /* Where we manage the backgrounds */
     var currentBackground = document.querySelector(`img.background.${currentSectionWithId.id}`);
     var otherBackgrounds = document.querySelectorAll(`img.background:not(.${currentSectionWithId.id})`);
     var currentSection = document.getElementById(currentSectionWithId.id);
 
-    /* Here is the sequence 
-    * A section has a padding top of 10px (but we don't care)
-    * When we start the beginning of a section the background is 
-    *   at a scale max
-    *   with a blur Max
-    *   with opacity 1
-    * it stays this way until the end of the text
-    * When we reach the end of the text
-    * The zoom in zoom out occurs in the padding bottom
-    */
-
-    var scale = 1;
-    var opacity = 1;
-    var scaleMax = 6;
-    var a, b;
     if (currentSectionWithId.sectionIndex == 0) {
-        var homePaddingBottom =  650; // can be changed
-        var scrollTextLength = currentSection.clientHeight - homePaddingBottom;
-        var distanceInPaddingBottom = currentSectionWithId.distance - scrollTextLength;
-
-        console.log(currentSectionWithId.distance)
-        console.log("Should be fading in and out in home")
-        if (currentSectionWithId.distance < scrollTextLength)  {
-            /* scale of 1 at distance 0
-            * scaleMax at home section height
-            */
-            b = 1
-            a = (scaleMax - 1) / (scrollTextLength)
-            scale = a * currentSectionWithId.distance + b
-            currentBackground.style.transform = 'scale(' + scale + ')';
-            currentBackground.style.opacity = 1;
-            otherBackgrounds.forEach((background) => background.style.opacity = 0);
-        } else {
-            console.log("Should be fading in and out in home")
-            var nextBackground = currentBackground.nextElementSibling;
-            backgrounds.forEach((background) => background.style.transform = `scale(${scaleMax})`);
-            opacity = distanceInPaddingBottom  / homePaddingBottom;
-            currentBackground.style.opacity = 1 - opacity;
-            nextBackground.style.opacity = opacity;
-        }
+        updateBackgroundInHome(currentSectionWithId);
     } else {
-        var paddingBottom =  1300; // can be changed
-        var scrollTextLength = currentSection.clientHeight - paddingBottom;
-        var zoomInAndOutDistance = paddingBottom / 4;
-        var focusDistance = paddingBottom / 8;
-        var fadeInAndOutDistance = paddingBottom - 2 * zoomInAndOutDistance -  focusDistance;
-        var distanceInPaddingBottom = currentSectionWithId.distance - scrollTextLength;
-
-        console.log(window.innerHeight)
-        console.log(paddingBottom)
-        console.log(scrollTextLength)
-
-        if (currentSectionWithId.distance < scrollTextLength) {
-            /* We don't scale in the section and the scale stays at scaleMax */
-            scale = scaleMax
-            backgrounds.forEach((background) => background.style.transform = `scale(${scale})`);
+        var distancesArray = getDistancesArray();
+        var currentSection = document.getElementById(currentSectionWithId.id);
+        var scrollTextLength = currentSection.clientHeight - afterTextLength;
+        if (currentSectionWithId.distance < scrollTextLength){
+            console.log('We are in textScroll');
             otherBackgrounds.forEach((background) => background.style.opacity = 0);
             currentBackground.style.opacity = 1;
-        } else if (distanceInPaddingBottom < zoomInAndOutDistance) {
-            console.log("Should be zooming out")
-            scale = scaleMax + (1 - scaleMax) * distanceInPaddingBottom / zoomInAndOutDistance;
-            currentBackground.style.transform = `scale(${scale})`;
-            currentBackground.style.opacity = 1;
-            otherBackgrounds.forEach((background) => background.style.opacity = 0);
-        } else if (distanceInPaddingBottom < zoomInAndOutDistance + focusDistance) {
-            console.log("Should be focused")
-            currentBackground.style.transform = `scale(1)`;
-            currentBackground.style.opacity = 1;
-            otherBackgrounds.forEach((background) => background.style.opacity = 0);
-        } else if (distanceInPaddingBottom < 2* zoomInAndOutDistance + focusDistance) {
-            console.log("Should be zooming in")
-            // When distanceInPaddingBottom = 2* zoomInAndOutDistance + focusDistance
-            // scaleMax = a * (2* zoomInAndOutDistance + focusDistance) + b
-            // 1 = a * (zoomInAndOutDistance + focusDistance) + b
-            //
-            a = (scaleMax - 1) / (zoomInAndOutDistance);
-            b = 1 - a * (zoomInAndOutDistance + focusDistance);
-            scale = b + a * distanceInPaddingBottom;
-            currentBackground.style.transform = `scale(${scale})`;
-            currentBackground.style.opacity = 1;
-            otherBackgrounds.forEach((background) => background.style.opacity = 0);
-        } else {
-            console.log("Should be fading in and out")
-            var nextBackground = currentBackground.nextElementSibling;
+            currentBackground.style.filter = `blur(${blurMax}px)`;
             currentBackground.style.transform = `scale(${scaleMax})`;
-            opacity = (distanceInPaddingBottom - (2* zoomInAndOutDistance + focusDistance)) / fadeInAndOutDistance;
-            currentBackground.style.opacity = 1 - opacity;
-            nextBackground.style.opacity = opacity;
+        } else {
+            console.log('We are after textScroll');
+            var distanceAfterText = currentSectionWithId.distance - scrollTextLength;
+            for (i = 0; i < distancesArray.length; i++) {
+                if (distanceAfterText < distancesArray[i]) {
+                    var segment = sequenceAfterText[i+1];
+                    var distanceInSegment = i==0 ? distanceAfterText : distanceAfterText - distancesArray[i-1];
+
+                    console.log(`We re  in segment ${i} which corresponds to segment ${segment.name} `);
+                    console.log(`And the distance in segment is ${distanceInSegment}`);
+
+                    var blur = getFromDistanceInSegment(distanceInSegment, i, 'blur');
+                    var scale = getFromDistanceInSegment(distanceInSegment, i, 'scale');
+
+                    // During switching
+                    if (segment.name == 'switching') {
+                        var opacity = distanceInSegment / segment.distance;
+                        currentBackground.style.opacity = 1 - opacity;
+                        currentBackground.nextElementSibling.style.opacity = opacity;
+                        currentBackground.nextElementSibling.style.filter = `blur(0)`;
+                        currentBackground.nextElementSibling.style.transform = `scale(${scaleMax})`;
+                    }
+                    // After switching we change currentBacgkround
+                    if(segment.name == 'blurring') {currentBackground = currentBackground.nextElementSibling}
+
+                    currentBackground.style.filter = `blur(${blur}px)`;
+                    currentBackground.style.transform = `scale(${scale})`;
+                    break
+                }
+            }
         }
     }
 }
@@ -198,6 +235,7 @@ function updateLanguage(lang) {
 }
 
 var backgrounds, sections, languages;
+
 function init() {
     var defaultLanguage = document.firstElementChild.getAttribute('lang');
     languages = document.querySelectorAll('header .language span');
