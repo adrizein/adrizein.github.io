@@ -40,6 +40,8 @@ var afterTextLength = 1200;
 var blurMax = 8;
 var scaleMax = 3;
 
+/*
+//OLD
 var sequenceAfterText = [
     {'name':'start', 'blur':blurMax, 'scale':scaleMax},
     {'name':'unBlurring', 'distance': afterTextLength/6,'blur':0, 'scale':scaleMax},
@@ -48,7 +50,17 @@ var sequenceAfterText = [
     {'name':'zoomIn', 'distance': afterTextLength/6, 'blur':0, 'scale':scaleMax},
     {'name':'switching', 'distance': afterTextLength/6, 'blur':0, 'scale':scaleMax},
     {'name':'blurring', 'distance': afterTextLength/6, 'blur':blurMax, 'scale':scaleMax}
+] */
+
+// Sequence mixant le zoom et le blur 
+var sequenceAfterText = [
+    {'name':'start', 'blur':blurMax, 'scale':scaleMax},
+    {'name':'zoomOutAndUnblurring', 'distance': afterTextLength/4, 'blur':0, 'scale':1},
+    {'name':'focus', 'distance': afterTextLength/3, 'blur':0, 'scale':1},
+    {'name':'zoomInAndBlurring', 'distance': afterTextLength/4, 'blur':blurMax, 'scale':scaleMax},
+    {'name':'switching', 'distance': afterTextLength/6, 'blur':blurMax, 'scale':scaleMax}
 ]
+
 
 function getDistancesArray(){
     var distancesArray = [];
@@ -94,31 +106,35 @@ function updateBackgroundInHome(currentSectionWithId) {
         // scale of 1 at distance 0
         // scaleMax at home section height
         //
-        b = 1
-        a = (scaleMax - 1) / (scrollTextLength)
-        scale = a * currentSectionWithId.distance + b
+        var b = 1
+        var a = (scaleMax - 1) / (scrollTextLength)
+        var scale = a * currentSectionWithId.distance + b
+        var blur = blurMax * currentSectionWithId.distance / scrollTextLength
         currentBackground.style.transform = 'scale(' + scale + ')';
         currentBackground.style.opacity = 1;
-        currentBackground.style.filter = `blur(0)`;
+        currentBackground.style.filter = `blur(${blur}px)`;
     } else {
         var distanceAfterText = currentSectionWithId.distance - scrollTextLength;
-        if (distanceAfterText < switchingLength) {
+        //if (distanceAfterText < switchingLength) {
             console.log("Switching")
             var nextBackground = currentBackground.nextElementSibling;
             currentBackground.style.transform = `scale(${scaleMax})`;
             nextBackground.style.transform = `scale(${scaleMax})`;
-            currentBackground.style.filter = `blur(0)`;
-            nextBackground.style.filter = `blur(0)`;
+            currentBackground.style.filter = `blur(${blurMax}px)`;
+            nextBackground.style.filter = `blur(${blurMax}px)`;
 
-            opacity = distanceAfterText  / switchingLength;
+            opacity = distanceAfterText  / homeAfterTextLength;
             currentBackground.style.opacity = 1 - opacity;
             nextBackground.style.opacity = opacity;
+        
+        /*
         } else {
             console.log("Blurring")
             currentBackground = currentBackground.nextElementSibling;
             var blur = (distanceAfterText - switchingLength) / (homeAfterTextLength - switchingLength) * blurMax;
             currentBackground.style.filter = `blur(${blur}px)`;
         }
+        */
     }
 }
 
@@ -158,17 +174,20 @@ function updateBackground(currentSectionWithId) {
 
                     // During switching
                     if (segment.name == 'switching') {
+                        currentBackground.style.filter = `blur(${segment.blur}px)`;
+                        currentBackground.style.transform = `scale(${segment.scale})`;
+                        currentBackground.nextElementSibling.style.filter = `blur(${segment.blur}px)`;
+                        currentBackground.nextElementSibling.style.transform = `scale(${segment.scale})`;
+
                         var opacity = distanceInSegment / segment.distance;
                         currentBackground.style.opacity = 1 - opacity;
                         currentBackground.nextElementSibling.style.opacity = opacity;
-                        currentBackground.nextElementSibling.style.filter = `blur(0)`;
-                        currentBackground.nextElementSibling.style.transform = `scale(${scaleMax})`;
+                    } else {
+                        currentBackground.style.filter = `blur(${blur}px)`;
+                        currentBackground.style.transform = `scale(${scale})`;
                     }
                     // After switching we change currentBacgkround
-                    if(segment.name == 'blurring') {currentBackground = currentBackground.nextElementSibling}
-
-                    currentBackground.style.filter = `blur(${blur}px)`;
-                    currentBackground.style.transform = `scale(${scale})`;
+                    //if(segment.name == 'blurring') {currentBackground = currentBackground.nextElementSibling}
                     break
                 }
             }
@@ -196,24 +215,9 @@ function adaptBackgroundSize(background) {
     } else {
         console.log("Width")
         background.width =  window.innerWidth;
-        background.height = imgScale * background.width;
+        background.height = imgScale * window.innerWidth;
         var top = (window.innerHeight - background.height) / 2;
         background.style.top = `${top}px`;
-    }
-}
-
-function adaptBackgroundCenter(background) {
-    console.log('Height  is ' + background.height);
-    console.log('Width  is ' + background.width);
-    var imgScale =  background.height / background.width;
-    var windowScale =  window.innerHeight / window.innerWidth;
-
-    if (windowScale > imgScale) {
-        console.log("Height")
-    } else {
-        console.log("Width")
-        background.width =  window.innerWidth;
-        background.height = imgScale * background.width;
     }
 }
 
@@ -267,3 +271,4 @@ function init() {
 }
 
 window.onload = init;
+window.onresize = adaptBackgroundsToWindow;

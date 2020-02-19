@@ -60,8 +60,10 @@ header .language .selected {
 #backgroundContainer img {
     position: fixed;
     opacity: 0;
+    /*
     width: 100%;
     height: auto;
+    */
 }
 
 #backgroundContainer img.top {
@@ -288,9 +290,11 @@ footer div {
     }
 }
 
+/*
 @media (max-aspect-ratio: 5/4) {
     #backgroundContainer img {
         width: auto;
         height: 100%;
     }
 }
+*/
