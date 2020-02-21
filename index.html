@@ -58,7 +58,9 @@
 
     <link href="main.css" rel="stylesheet" type="text/css">
 
-    <script src="js/main.js"></script>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </head>
 
 <body>
@@ -70,8 +72,15 @@
             <img class="background contributions" id="bg-contributions" src="assets/4 - Contributions.jpg"/>
             <img class="background curiosites" id="bg-curiosites" src="assets/5 - Curiosites.jpg"/>
         </div>
+        <div id="menu">
+            <div class="button" data-section="home"><div></div></div>
+            <div class="button" data-section="principes"><div></div></div>
+            <div class="button" data-section="infos"><div></div></div>
+            <div class="button" data-section="contributions"><div></div></div>
+            <div class="button" data-section="curiosites"><div></div></div>
+        </div>
         <header>
-            <div class="language"><span id="fr">Fr</span> - <span id="en">En</span></div>
+            <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
         </header>
         <div id="content">
             <section id="home">
@@ -839,6 +848,7 @@
             </section>
         </div>
         <footer>
+            <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
             <div id="selavy">
                 <span class="en">
                     Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a

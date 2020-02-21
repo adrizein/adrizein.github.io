@@ -34,6 +34,16 @@ function updateState(currentSectionWithId) {
         history.pushState(null, null, "#" + currentSectionWithId.id)
         window.dispatchEvent(new Event('popstate'))
     }
+
+    var allButtons = document.querySelectorAll('#menu .button');
+    for (var button of allButtons) {
+        var id = button.getAttribute('data-section');
+        if (id === currentSectionWithId.id) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    }
 }
 
 var afterTextLength = 1200;
@@ -229,7 +239,7 @@ function updateOnScroll() {
 
 function updateLanguage(lang) {
     languages.forEach((language) => {
-        if (lang === language.id) {
+        if (lang === language.getAttribute('data-lang')) {
             language.classList.add('selected');
         } else {
             language.classList.remove('selected');
@@ -242,9 +252,12 @@ var backgrounds, sections, languages;
 
 function init() {
     var defaultLanguage = document.firstElementChild.getAttribute('lang');
-    languages = document.querySelectorAll('header .language span');
-    languages.forEach((language) => {
-        language.addEventListener('click', (event) => updateLanguage(event.target.id))
+    languages = document.querySelectorAll('.language .button');
+    languages.forEach(function (language) {
+        language.addEventListener(
+            'click',
+            function (event) { updateLanguage(event.target.getAttribute('data-lang')); }
+        );
     });
     updateLanguage(defaultLanguage);
 
@@ -258,8 +271,8 @@ function init() {
     content.addEventListener('scroll', updateOnScroll, { passive: true });
     content.addEventListener('resize', updateOnScroll, { passive: true });
 
-    for (const node of document.getElementsByClassName('accordion-item')) {
-        node.addEventListener('click', (event) => {
+    for (var node of document.getElementsByClassName('accordion-item')) {
+        node.addEventListener('click', function (event) {
             if (node.classList.contains('active')) {
                 node.classList.remove('active');
             }
@@ -268,6 +281,18 @@ function init() {
             }
         });
     }
+
+    /*
+    TODO: with menu
+    $(function() {
+        $('#content').swipe({
+            swipeUp: previousSection,
+            swipeDown: nextSection,
+        });
+    });
+    */
+
+    updateOnScroll();
 }
 
 window.onload = init;

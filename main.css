@@ -37,16 +37,57 @@ header {
     cursor: default;
 }
 
+#menu {
+    position: fixed;
+    top: 5em;
+    bottom: 5em;
+    right: 0;
+    width: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+}
+
+#menu div {
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#menu .button {
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0.5em auto 0.5em 0;
+    border-radius: 0.75em;
+    border: white solid 2px;
+    display: flex;
+}
+
+#menu .button div {
+    width: 0.6em;
+    height: 0.6em;
+    margin: auto;
+    border-radius: 0.4em;
+}
+
+#menu .button.active div {
+    background-color: white;
+}
+
 header .language {
     margin: 1em 2em 0 0;
     font-size: 1.5em;
 }
 
-header .language span {
+footer .language {
+    display: none;
+}
+
+.language .button {
     cursor: pointer;
 }
 
-header .language .selected {
+.language .selected {
     font-weight: bold;
     text-decoration: underline;
 }
@@ -60,10 +101,8 @@ header .language .selected {
 #backgroundContainer img {
     position: fixed;
     opacity: 0;
-    /*
     width: 100%;
     height: auto;
-    */
 }
 
 #backgroundContainer img.top {
@@ -75,8 +114,14 @@ header .language .selected {
     top: 0;
     width: 100%;
     overflow-y: scroll;
-    bottom: 0em;
+    bottom: 3em;
+    -ms-overflow-style: none;
 }
+
+#content::-webkit-scrollbar {
+    display: none;
+}
+
 
 #bg-principes {
     transform-origin: 47% 32%;
@@ -229,6 +274,11 @@ footer div {
     padding: 0 1em;
 }
 
+footer .language {
+    flex-grow: 1;
+    margin-left: 1em;
+}
+
 #selavy {
     flex-grow: 1;
 }
@@ -251,17 +301,16 @@ footer div {
 }
 
 @media (max-width: 870px) {
-    footer {
+    #selavy {
         display: none;
     }
 
     header .language {
-        margin-right: 1em;
-        font-size: 1.1em;
+        display: none;
     }
 
-    #content {
-        bottom: 1em;
+    footer .language {
+        display: block;
     }
 
     h3 {
@@ -270,7 +319,7 @@ footer div {
 
     #content section .container {
         max-width: none;
-        margin: 0 5em;
+        margin: 0 2em;
     }
 }
 
@@ -290,11 +339,16 @@ footer div {
     }
 }
 
-/*
 @media (max-aspect-ratio: 5/4) {
     #backgroundContainer img {
         width: auto;
         height: 100%;
     }
 }
-*/
+
+@media (min-aspect-ratio: 4/5) {
+    #backgroundContainer img#bg-contributions {
+        width: 100%;
+        height: auto;
+    }
+}
