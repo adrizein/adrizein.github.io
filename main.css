@@ -321,6 +321,10 @@ footer .language {
         max-width: none;
         margin: 0 2em;
     }
+
+    #menu {
+        display: none;
+    }
 }
 
 @media (max-width: 400px) {

@@ -282,18 +282,37 @@ function init() {
         });
     }
 
-    /*
-    TODO: with menu
+    for (var button of document.querySelectorAll('#menu .button')) {
+        const section = button.getAttribute('data-section');
+        button.addEventListener('click', function () {
+            goToSection(section);
+        });
+    }
+
     $(function() {
         $('#content').swipe({
-            swipeUp: previousSection,
-            swipeDown: nextSection,
+            swipeUp() {
+                const currentSection = getCurrentSectionWithId();
+                const nextSection = getSectionFromSectionIndex(currentSection.sectionIndex + 1);
+                goToSection(nextSection.id);
+            },
+            swipeDown() {
+                const currentSection = getCurrentSectionWithId();
+                const previousSection = getSectionFromSectionIndex(currentSection.sectionIndex - 1);
+                goToSection(previousSection.id);
+            }
         });
     });
-    */
 
     updateOnScroll();
+    window.onresize = adaptBackgroundsToWindow;
+}
+
+function goToSection(sectionId) {
+    console.log(window.location.href, sectionId)
+    window.location = window.location.href.replace(/#[a-z]+/, `#${sectionId}`);
+    console.log(window.location)
+    updateOnScroll()
 }
 
 window.onload = init;
-window.onresize = adaptBackgroundsToWindow;
