@@ -294,12 +294,16 @@ function init() {
             swipeUp() {
                 const currentSection = getCurrentSectionWithId();
                 const nextSection = getSectionFromSectionIndex(currentSection.sectionIndex + 1);
-                goToSection(nextSection.id);
+                if (nextSection) {
+                    goToSection(nextSection.id);
+                }
             },
             swipeDown() {
                 const currentSection = getCurrentSectionWithId();
                 const previousSection = getSectionFromSectionIndex(currentSection.sectionIndex - 1);
-                goToSection(previousSection.id);
+                if (previousSection) {
+                    goToSection(previousSection.id);
+                }
             }
         });
     });
