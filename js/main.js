@@ -309,10 +309,10 @@ function init() {
 }
 
 function goToSection(sectionId) {
-    console.log(window.location.href, sectionId)
+    console.log(window.location.href, sectionId);
     window.location = window.location.href.replace(/#[a-z]+/, `#${sectionId}`);
     console.log(window.location)
-    updateOnScroll()
+    updateOnScroll();
 }
 
 window.onload = init;

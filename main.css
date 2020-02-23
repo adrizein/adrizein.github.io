@@ -334,10 +334,6 @@ footer .language {
 }
 
 @media (max-width: 370px) {
-    #curiosites {
-        display: none;
-    }
-
     html {
         font-size: 0.7em;
     }
