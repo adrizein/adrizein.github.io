@@ -289,6 +289,7 @@ function init() {
         });
     }
 
+    /*
     $(function() {
         $('#content').swipe({
             swipeUp() {
@@ -307,6 +308,7 @@ function init() {
             }
         });
     });
+    */
 
     updateOnScroll();
     window.onresize = adaptBackgroundsToWindow;
