@@ -136,15 +136,6 @@ function updateBackgroundInHome(currentSectionWithId) {
             opacity = distanceAfterText  / homeAfterTextLength;
             currentBackground.style.opacity = 1 - opacity;
             nextBackground.style.opacity = opacity;
-        
-        /*
-        } else {
-            console.log("Blurring")
-            currentBackground = currentBackground.nextElementSibling;
-            var blur = (distanceAfterText - switchingLength) / (homeAfterTextLength - switchingLength) * blurMax;
-            currentBackground.style.filter = `blur(${blur}px)`;
-        }
-        */
     }
 }
 
@@ -169,19 +160,31 @@ function updateBackground(currentSectionWithId) {
             currentBackground.style.filter = `blur(${blurMax}px)`;
             currentBackground.style.transform = `scale(${scaleMax})`;
         } else {
-            console.log('We are after textScroll');
+            //console.log('We are after textScroll');
             var distanceAfterText = currentSectionWithId.distance - scrollTextLength;
             for (i = 0; i < distancesArray.length; i++) {
                 if (distanceAfterText < distancesArray[i]) {
                     var segment = sequenceAfterText[i+1];
                     var distanceInSegment = i==0 ? distanceAfterText : distanceAfterText - distancesArray[i-1];
 
-                    console.log(`We re  in segment ${i} which corresponds to segment ${segment.name} `);
-                    console.log(`And the distance in segment is ${distanceInSegment}`);
+                    //console.log(`We re  in segment ${i} which corresponds to segment ${segment.name} `);
+                    //console.log(`And the distance in segment is ${distanceInSegment}`);
 
                     var blur = getFromDistanceInSegment(distanceInSegment, i, 'blur');
                     var scale = getFromDistanceInSegment(distanceInSegment, i, 'scale');
 
+                    if (segment.name == 'focus') {
+                        var nextTitle = document.querySelector(`#title-${currentSectionWithId.id}`);
+                        var otherTitles = document.querySelectorAll(`.title:not(#title-${currentSectionWithId.id})`);
+                        console.log(nextTitle)
+                        console.log(otherTitles)
+                        nextTitle.style.opacity = 1;
+                        otherTitles.forEach((title) => title.style.opacity = 0);
+                    } else {
+                        var titles = document.querySelectorAll(".title")
+                        console.log(titles)
+                        titles.forEach((title) => title.style.opacity = 0);
+                    }
                     // During switching
                     if (segment.name == 'switching') {
                         currentBackground.style.filter = `blur(${segment.blur}px)`;

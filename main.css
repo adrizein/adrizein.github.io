@@ -96,6 +96,7 @@ footer .language {
     position: fixed;
     height: 100%;
     width: 100%;
+    display: flex;
 }
 
 #backgroundContainer img {
@@ -135,6 +136,16 @@ footer .language {
     transform-origin: 50% 33%;
 }
 
+#titleContainer .title {
+    position: fixed;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+}
+
+
 section {
     padding: 0 0 1200px 0;
     text-align: center;
@@ -154,7 +165,7 @@ a {
     color: white;
 }
 
-#home {
+#home, #title-container {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -165,7 +176,7 @@ h3 {
     margin: 0.5em auto;
 }
 
-#home h3 {
+#home h3, .title h3 {
     margin: auto;
 }
 
