@@ -271,8 +271,8 @@ function init() {
     content.addEventListener('scroll', updateOnScroll, { passive: true });
     content.addEventListener('resize', updateOnScroll, { passive: true });
 
-    for (var node of document.getElementsByClassName('accordion-item')) {
-        node.addEventListener('click', function (event) {
+    for (const node of document.getElementsByClassName('accordion-item')) {
+        node.addEventListener('click', function () {
             if (node.classList.contains('active')) {
                 node.classList.remove('active');
             }
@@ -282,7 +282,7 @@ function init() {
         });
     }
 
-    for (var button of document.querySelectorAll('#menu .button')) {
+    for (const button of document.querySelectorAll('#menu .button')) {
         const section = button.getAttribute('data-section');
         button.addEventListener('click', function () {
             goToSection(section);
@@ -316,7 +316,7 @@ function init() {
 
 function goToSection(sectionId) {
     console.log(window.location.href, sectionId);
-    window.location = window.location.href.replace(/#[a-z]+/, `#${sectionId}`);
+    window.location.hash = `#${sectionId}`;
     console.log(window.location)
     updateOnScroll();
 }
