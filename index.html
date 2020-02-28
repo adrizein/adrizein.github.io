@@ -20,7 +20,7 @@
         ga('send', 'pageview');
     </script>
      -->
-     
+
     <meta name="description" content="Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy /
     Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy
     ">
@@ -57,42 +57,40 @@
     <meta name="msapplication-square310x310logo" content="2019/assets/favicons/mstile-310x310.png" />
 
     <link href="main.css" rel="stylesheet" type="text/css">
-
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <!--script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script-->
 </head>
 
 <body>
     <div id="main">
-        <div id="backgroundContainer">
-            <img class="background home" id="bg-home" src="assets/1 - Home.jpg"/>
-            <img class="background principes" id="bg-principes" src="assets/2 - Principes.jpg"/>
-            <img class="background infos" id="bg-infos" src="assets/3 - Infos.jpg"/>
-            <img class="background contributions" id="bg-contributions" src="assets/4 - Contributions.jpg"/>
-            <img class="background curiosites" id="bg-curiosites" src="assets/5 - Curiosites.jpg"/>
-        </div>
-        <div id="titleContainer">
-            <div class="title" id="title-principes"><h3>Infos</h3></div>
-            <div class="title" id="title-infos"><h3>Contributions</h3></div>
-            <div class="title" id="title-contributions"><h3>Curiosités</h3></div>
-        </div>
         <nav id="menu">
-            <div class="button" data-section="home"><div></div></div>
-            <div class="button" data-section="principes"><div></div></div>
-            <div class="button" data-section="infos"><div></div></div>
-            <div class="button" data-section="contributions"><div></div></div>
-            <div class="button" data-section="curiosites"><div></div></div>
+            <div class="button" data-section="home">
+                <div></div>
+            </div>
+            <div class="button" data-section="principes">
+                <div></div>
+            </div>
+            <div class="button" data-section="infos">
+                <div></div>
+            </div>
+            <div class="button" data-section="contributions">
+                <div></div>
+            </div>
+            <div class="button" data-section="curiosites">
+                <div></div>
+            </div>
+            <a href="#" class="main-nav prev" data-nav="previous">Prev <span></span></a>
+            <a href="#" class="main-nav next" data-nav="next">Next <span></span></a>
         </nav>
         <header>
-            <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
+            <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en"
+                    class="button">En</span></div>
         </header>
+        <div id="rgbKineticSlider" class="rgbKineticSlider"></div>
         <div id="content">
             <section id="home">
-                <h3>coucool</h3>
             </section>
             <section id="principes">
-                <h3>Ethos</h3>
                 <div class="container">
                     <p class="fr">Cher.e.s coucools,</p>
                     <p class="fr">
@@ -851,7 +849,8 @@
             </section>
         </div>
         <footer>
-            <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
+            <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en"
+                    class="button">En</span></div>
             <div id="selavy">
                 <span class="en">
                     Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a
@@ -869,6 +868,13 @@
             <div id="facebook"><a href="https://www.facebook.com/coucoolcoucool" target="_blank">Facebook</a></div>
         </footer>
     </div>
+
+    <script type="text/javascript" src="js/libs/imagesLoaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="js/libs/pixi.min.js"></script>
+    <script type="text/javascript" src="js/libs/pixi-filters.min.js"></script>
+    <script type="text/javascript" src="js/libs/TweenMax.min.js"></script>
+    <script type="text/javascript" src="js/rgbKineticSlider.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
