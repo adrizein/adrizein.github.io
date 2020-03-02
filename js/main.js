@@ -80,6 +80,37 @@ function init() {
     */
 }
 
+/*
+window.addEventListener('scroll', function(e) {
+    console.log(e.target);
+    console.log(e.target.scrollHeight);
+    console.log(e.target.scrollTop);
+    console.log(e.target.clientHeight);
+}, true);
+*/
+
+
+document.addEventListener('mousewheel',function(event){
+    console.log("inMouseWheel");
+    const content = document.getElementById("content");
+    const presentSection = sections.find((section) => section.classList.contains('active'));
+    
+    var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
+    var isTop = content.scrollTop == 0;	
+	var isScrollingDown = event.wheelDeltaY < -100;
+    var isScrollingUp = event.wheelDeltaY > 100;
+
+	if( isScrollingDown && isBottom) {
+        const nextSection = presentSection.nextElementSibling;
+        goToSection(nextSection.id);
+    }
+	if( isScrollingUp && isTop) {
+        const previousSection = presentSection.previousElementSibling;
+        goToSection(previousSection.id);
+    }
+	
+}, false);
+
 function stepAnswerHandler(step) {
     return function () {
         const answer = this.getAttribute('data-answer');
