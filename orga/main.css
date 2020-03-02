@@ -1,0 +1,97 @@
+@font-face {
+    font-family: rumeur;
+    src: url("2019/fonts/rumeur.otf") format("opentype");
+}
+
+@font-face {
+    font-family: suisse;
+    src: url("2019/fonts/suisseintl-medium.otf") format("opentype");
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+}
+
+#main {
+    height: 100%;
+    background-image: url("/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: 100%;
+    color: whitesmoke;
+    font-family: rumeur, sans-serif;
+    font-size: 2em;
+}
+
+.content {
+    margin: auto;
+    width: 30em;
+}
+
+h1 {
+    margin: 0.25em 0;
+    font-size: 1.8em;
+}
+
+footer {
+    margin: 1em 2em;
+    font-size: 0.5em;
+    letter-spacing: 1px;
+    font-family: suisse, sans-serif;
+}
+
+.date {
+    font-size: 0.75em;
+}
+
+.note {
+    font-size: 0.7em;
+}
+
+.links {
+    margin: 0.8em auto;
+}
+
+.links a:visited, .links a:active {
+    color: whitesmoke;
+    transition-duration: 0ms;
+}
+
+.links a {
+    display: block;
+    margin: 1.3em auto;
+    padding: 1.3em 0.8em;
+    font-size: 0.5em;
+    border: solid whitesmoke 2px ;
+    text-transform: uppercase;
+    color: whitesmoke;
+    text-decoration: none;
+    transition-property: background-color, color;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+.links a:hover {
+    background-color: whitesmoke;
+    color: gray;
+}
+
+@media (max-width: 550px) {
+    .container {
+        font-size: 1.6em;
+    }
+}
