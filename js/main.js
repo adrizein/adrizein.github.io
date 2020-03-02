@@ -13,7 +13,7 @@ function updateLanguage(lang) {
     document.firstElementChild.setAttribute('lang', lang);
 }
 
-var sections, languages;
+var sections, languages, navigation, steps, transitioning = false;
 
 function init() {
     var defaultLanguage = document.firstElementChild.getAttribute('lang');
@@ -26,7 +26,20 @@ function init() {
     });
     updateLanguage(defaultLanguage);
 
-    sections = document.querySelectorAll(`#content section`);
+    sections = Array.from(document.querySelectorAll('#content section'));
+    navigation = Array.from(document.querySelectorAll('#menu .main-nav'));
+    steps = Array.from(document.querySelectorAll('#contributions .step'));
+
+    for (const button of navigation) {
+        const sectionIndex = parseInt(button.getAttribute('data-nav'));
+        const sectionId = sections[sectionIndex].id;
+        button.addEventListener('click', function () {
+            goToSection(sectionId);
+        });
+    }
+
+    const hash = location.hash.slice(1) || 'home';
+    goToSection(hash)
 
     for (const node of document.getElementsByClassName('accordion-item')) {
         node.addEventListener('click', function () {
@@ -39,13 +52,11 @@ function init() {
         });
     }
 
-    for (const button of document.querySelectorAll('#menu .button')) {
-        const section = button.getAttribute('data-section');
-        button.addEventListener('click', function () {
-            goToSection(section);
-        });
+    for (const step of steps) {
+        for (const answer of step.querySelectorAll('.answer')) {
+            answer.addEventListener('click', stepAnswerHandler(step));
+        }
     }
-
 
     /*
     $(function() {
@@ -69,10 +80,65 @@ function init() {
     */
 }
 
+function stepAnswerHandler(step) {
+    return function () {
+        const answer = this.getAttribute('data-answer');
+        if (answer === 'next') {
+            goToNextStep(step);
+        }
+        else if (answer) {
+            goToSection(answer);
+        }
+    }
+}
+
+/**
+ * 
+ * @param {HTMLElement} step 
+ */
+function goToNextStep(step) {
+    step.classList.remove('visible');
+    const nextStep = step.nextElementSibling;
+    setTimeout(() => {
+        step.classList.remove('active');
+        nextStep.classList.add('active');
+        if (nextStep.classList.contains('weezevent')) {
+        }
+        requestAnimationFrame(() => nextStep.classList.add('visible'));
+    }, 500);
+}
+
 function goToSection(sectionId) {
-    console.log(window.location.href, sectionId);
-    window.location.hash = `#${sectionId}`;
-    console.log(window.location)
+    if (!transitioning) {
+        transitioning = true;
+        setTimeout(() => transitioning = false, 2000);
+        window.location.hash = `#${sectionId}`;
+        const canvas = document.getElementById('rgbKineticSlider');
+        canvas.classList.remove('blur');
+        const currentSection = sections.find((section) => section.classList.contains('active'));
+        const currentButton = navigation.find((nav) => nav.classList.contains('active'));
+        const targetSection = sections.find((section) => section.id === sectionId);
+        const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
+        if (currentSection === targetSection) {
+            return;
+        }
+        if (currentSection) currentSection.classList.remove('visible');
+        if (currentButton) currentButton.classList.remove('active');
+        targetButton.classList.add('active');
+        if (!currentSection) targetSection.classList.add('active');
+        setTimeout(() => {
+            if (currentSection) {
+                currentSection.classList.remove('active');
+                targetSection.classList.add('active');
+            }
+            if (sectionId !== 'home') {
+                canvas.classList.add('blur');
+            }
+            requestAnimationFrame(() => {
+                targetSection.classList.add('visible');
+            });
+        }, 1000);
+    }
 }
 
 window.onload = init;
@@ -88,16 +154,16 @@ const images = [
 // content setup
 const texts = [
     ["Coucool", ""],
-    ["Ethos", ""],
-    ["Infos", ""],
-    ["Contributions", ""],
+    ["", ""], // Ethos
+    ["", ""], // Infos
+    ["", ""], // Sesame
     ["Curiosités", ""],
 ]
 
 rgbKineticSlider = new rgbKineticSlider({
 
-    slideImages: images, // array of images > must be 1920 x 1080
-    itemsTitles: texts, // array of titles / subtitles
+    slideImages: images,
+    itemsTitles: texts,
 
     backgroundDisplacementSprite: 'http://hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg', // slide displacement image 
     cursorDisplacementSprite: 'http://hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png', // cursor displacement image

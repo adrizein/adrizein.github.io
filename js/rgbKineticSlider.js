@@ -847,7 +847,7 @@
 
                 let navItem = nav[i];
 
-                navItem.onclick = function(event) {
+                navItem.onclick = function (event) {
 
                     // Make sure the previous transition has ended
                     if (is_playing) {
@@ -856,25 +856,37 @@
 
                     const active = document.querySelector('.active');
 
-                    if(active){
+                    if (active) {
                         active.classList.remove('active');
                     }
-                      this.classList.add('active');
+                    this.classList.add('active');
 
-                    if (this.getAttribute('data-nav') === 'next') {
+                    const action = this.getAttribute('data-nav');
+                    if (action === 'next') {
                         if (currentIndex >= 0 && currentIndex < options.slideImages.length - 1) {
                             slideTransition(currentIndex + 1);
                         } else {
                             slideTransition(0);
                         }
-                    } else {
+                    } else if (action === 'previous') {
                         if (currentIndex > 0 && currentIndex < options.slideImages.length) {
                             slideTransition(currentIndex - 1);
                         } else {
                             slideTransition(options.slideImages.length - 1);
                         }
+                    } else {
+                        const slideIndex = parseInt(action);
+                        if (slideIndex >= 0 && slideIndex < options.slideImages.length) {
+                            if (slideIndex !== currentIndex) {
+                                slideTransition(slideIndex)
+                            }
+                        }
+                        else {
+                            console.error('data-nav invalid:', action);
+                        }
+
+                        return false;
                     }
-                    return false;
                 }
             }
         }
@@ -888,7 +900,7 @@
         function init() {
             
             // re init renderer on ready
-            renderer.resize(imgWidth,imgHeight);
+            renderer.resize(imgWidth, imgHeight);
 
             // construct
             build_scene();
@@ -923,10 +935,18 @@
                 families: options.googleFonts
             },
 
-            active: function() { 
+            active: function () {
                 // load the stage images 
-                imagesLoaded(images, function() {
+                imagesLoaded(images, function () {
                     document.body.classList.remove('loading');
+
+                    const hash = location.hash.slice(1);
+                    if (hash) {
+                        const nav = document.querySelector(`.main-nav.${hash}`);
+                        if (nav) {
+                            currentIndex = parseInt(nav.getAttribute('data-nav'));
+                        }
+                    }
                     // init slider
                     init();
                 });
@@ -934,11 +954,3 @@
         };
     };
 })();
-
-
-
-
-
-
-
-

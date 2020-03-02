@@ -64,33 +64,30 @@
 <body>
     <div id="main">
         <nav id="menu">
-            <div class="button" data-section="home">
+            <div class="main-nav home" data-nav=0>
                 <div></div>
             </div>
-            <div class="button" data-section="principes">
+            <div class="main-nav ethos" data-nav=1>
                 <div></div>
             </div>
-            <div class="button" data-section="infos">
+            <div class="main-nav infos" data-nav=2>
                 <div></div>
             </div>
-            <div class="button" data-section="contributions">
+            <div class="main-nav contributions" data-nav=3>
                 <div></div>
             </div>
-            <div class="button" data-section="curiosites">
+            <div class="main-nav curiosites" data-nav=4>
                 <div></div>
             </div>
-            <a href="#" class="main-nav prev" data-nav="previous">Prev <span></span></a>
-            <a href="#" class="main-nav next" data-nav="next">Next <span></span></a>
         </nav>
         <header>
-            <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en"
-                    class="button">En</span></div>
+            <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
         </header>
         <div id="rgbKineticSlider" class="rgbKineticSlider"></div>
         <div id="content">
             <section id="home">
             </section>
-            <section id="principes">
+            <section id="ethos">
                 <div class="container">
                     <p class="fr">Cher.e.s coucools,</p>
                     <p class="fr">
@@ -295,14 +292,13 @@
                                     <a href="https://www.togetzer.com/covoiturage-evenement/h7dd37"
                                         target="_blank">c’est par ici.</a></li>
                                 <li>Des navettes directes depuis et vers Paris sont disponibles sur la billetterie : <a
-                                        onclick="window.location.hash = '#contributions'">c’est par là</a>. </li>
+                                        onclick="goTo('contributions')">c’est par là</a>. </li>
                             </ul>
                         </div>
                         <div class="accordion-item">
                             <h4>Chacun.e s’engage à respecter l’ethos de la communauté Coucool.</h4>
                             <ul class="accordion-item-content">
-                                <li>Ces grands principes sont listés dans l’Éthos d’Éros Sélavy : <a
-                                        onclick="window.location.hash = '#ethos'">par ici</a>.</li>
+                                <li>Ces grands principes sont listés dans l’Éthos d’Éros Sélavy : <a onclick="goToSection('ethos')">par ici</a>.</li>
                             </ul>
                         </div>
                         <div class="accordion-item">
@@ -394,14 +390,14 @@
                                         href="https://www.togetzer.com/covoiturage-evenement/h7dd37"
                                         target="_blank">click here</a>.</li>
                                 <li>Direct buses from and to Paris are available on the online ticket sales : <a
-                                        onclick="window.location.hash = '#contributions'">over there</a>.</li>
+                                        onclick="goToSection('contributions')">over there</a>.</li>
                             </ul>
                         </div>
                         <div class="accordion-item">
                             <h4>Everyone commits to respect Coucool’s ethos and community.</h4>
                             <ul class="accordion-item-content">
                                 <li>Core principles are listed in Éros Sélavy’s Ethos : <a
-                                        onclick="window.location.hash = '#ethos'">this way</a>.</li>
+                                        onclick="goToSection('ethos')">this way</a>.</li>
                             </ul>
                         </div>
                         <div class="accordion-item">
@@ -479,9 +475,9 @@
             <section id="contributions">
                 <div class="container">
                     <div class="content-container fr">
-                        <div id="page1" class="contribution-page active visible">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step active visible">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Bienvenue à la première étape vers la 7ème galaxie Coucool.</p>
                                     <p>Un test de personnalité en 5 questions va attester que tu es paré.e au voyage,
                                         car si la contribution pour coucooler ensemble est financière, elle est aussi et
@@ -489,70 +485,68 @@
                                         Coucool repose sur un sens du dévouement collectif et sur des valeurs fortes
                                         telles que la bienveillance, la collaboration et la générosité.</p>
                                     <p>C’est pourquoi nous te demandons avant toute chose de lire ces quelques principes
-                                        fondamentaux à respecter : <a
-                                            onclick="window.location.hash = '#ethos'">www.cou.cool/#ethos</a></p>
+                                        fondamentaux à respecter : <a onclick="goToSection('ethos')">www.cou.cool/#ethos</a></p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix yes">
-                                        <div class="answer">Coucoolons</div>
+                                    <div class="answer" data-answer="next">
+                                        <div class="answer-content">Coucoolons</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="page2" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Quel principe Coucool es-tu ?</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix no ethos link">
-                                        <div class="answer">Chacun.e coucoole comme il lui plait</div>
+                                    <div class="answer" data-answer="principes">
+                                        <div class="answer-content">Chacun.e coucoole comme il lui plait</div>
                                     </div>
-                                    <div class="choix yes">
-                                        <div class="answer">Coucooler l’autre, c’est l’inviter et le découvrir</div>
+                                    <div class="answer" data-answer="next">
+                                        <div class="answer-content">Coucooler l’autre, c’est l’inviter et le découvrir</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="page3" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Chacun.e s'engage à contribuer humainement, en accordant au moins 2h de son temps
-                                        sur une mission bénévole ou en proposant une initiative coucool (artistique,
-                                        sportive, méditative...).</p>
+                                        sur une mission bénévole ou en proposant une initiative coucool (artistique, sportive, méditative...).</p>
                                     <p>Quel animal te coucoole le plus ?</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix yes">
-                                        <div class="answer">La fourmi : je participe activement</div>
+                                    <div class="answer" data-answer="next">
+                                        <div class="answer-content">La fourmi : je participe activement</div>
                                     </div>
-                                    <a class="choix no ethos link">
-                                        <div class="answer">L’autruche : j’me la coule douce</div>
+                                    <a class="answer" data-answer="principes">
+                                        <div class="answer-content">L’autruche : j’me la coule douce</div>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div id="page4" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Coucool reverse partie de ses bénéfices à des associations caritatives.</p>
                                     <p>Chacun.e contribue aussi individuellement au principe de don en venant avec des
                                         petits présents à offrir, à la volée, à une âme sœur ou à un.e inconnu.e.</p>
                                     <p>Quel cadeau aurais-tu le plus envie d’offrir à Coucool ?</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix yes">
-                                        <div class="answer">La douceur à l’honneur : des caramels au beurre salé</div>
+                                    <div class="answer" data-answer="next">
+                                        <div class="answer-content">La douceur à l’honneur : des caramels au beurre salé</div>
                                     </div>
-                                    <div class="choix yes">
-                                        <div class="answer">Le pratique c’est chic : des cendriers de poche</div>
+                                    <div class="answer" data-answer="next">
+                                        <div class="answer-content">Le pratique c’est chic : des cendriers de poche</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="page5" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>
                                         Chacun.e s’engage à respecter le lieu et préserver la nature :
                                     </p>
@@ -565,19 +559,19 @@
                                     </ul>
                                 </div>
                                 <div class="qcm">
-                                    <a class="choix no" href="https://youtu.be/ZyhrYis509A" target='_blank'>
-                                        <div class="answer">"Life in plastic, it’s fantastic" – Barbie</div>
+                                    <a class="answer" href="https://youtu.be/ZyhrYis509A" target='_blank'>
+                                        <div class="answer-content">"Life in plastic, it’s fantastic" – Barbie</div>
                                     </a>
-                                    <div class="choix yes">
-                                        <div class="answer">"Ranger, c’est faire le point sur ce qu’on aime vraiment." –
+                                    <div class="answer" data-answer="next">
+                                        <div class="answer-content">"Ranger, c’est faire le point sur ce qu’on aime vraiment." –
                                             Marie Kondo</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="page6" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Bravo, tu as été défini apte à passer la première étape vers Coucool !<br />
                                         Les résultats complets de ton test de personnalité : <a
                                             href="https://youtu.be/ckKeQNCyPBU" target="_blank">c’est par ici</a></p>
@@ -595,18 +589,22 @@
                                         les principes.</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix yes">
-                                        <div class="answer">Je contribue financièrement</div>
+                                    <div class="answer" data-answer="next">
+                                        <div class="answer-content">Je contribue financièrement</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="step weezevent">
+            <a title="Logiciel billetterie en ligne" href="https://weezevent.com/?c=sys_widget" class="weezevent-widget-integration" target="_blank" data-src="https://www.weezevent.com/widget_billeterie.php?id_evenement=580171&lg_billetterie=1&code=13681&width_auto=1&color_primary=00AEEF&widget_key=d7beeb4e-cf0c-470d-bfc2-f5198de428d1" data-width="650" data-height="600" data-id="580171" data-resize="1" data-width_auto="1" data-noscroll="0" data-nopb="0">Billetterie Weezevent</a>
+            <script type="text/javascript" src="https://www.weezevent.com/js/widget/min/widget.min.js"></script>
+                        </div>
                     </div>
 
                     <div class="content-container en">
-                        <div id="en_page1" class="contribution-page active visible">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step active visible">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Welcome to the first phase through which you will join the 7th galaxy Coucool.
                                     </p>
                                     <p>A 5-question personality test will certify that you are ready for the trip.
@@ -615,71 +613,70 @@
                                         Coucool is built upon a collective sense of commitment and upon strong values
                                         such as benevolence, collaboration and generosity.</p>
                                     <p>This is why we ask you to read the fundamental principles you have to commit to
-                                        in the first place : <a
-                                            onclick="window.location.hash = '#ethos'">www.cou.cool/#ethos</a></p>
+                                        in the first place : <a onclick="goToSection('ethos')">www.cou.cool/#ethos</a></p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix yes">
-                                        <div class="answer">Let’s coucool</div>
+                                    <div class="answer yes">
+                                        <div class="answer-content">Let’s coucool</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="en_page2" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Which Coucool principle are you?</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix no ethos link">
-                                        <div class="answer">Everyone coucools as they like</div>
+                                    <div class="answer no ethos link">
+                                        <div class="answer-content">Everyone coucools as they like</div>
                                     </div>
-                                    <div class="choix yes">
-                                        <div class="answer">Coucooling the other is inviting him.her and discovering
+                                    <div class="answer yes">
+                                        <div class="answer-content">Coucooling the other is inviting him.her and discovering
                                             him.her</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="en_page3" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Everyone commits to give of oneself by dedicating at least 2h of his.her time to
                                         a volunteering shift or by submitting a coucool initiative (artistic,
                                         intellectual, meditative physical activity…).</p>
                                     <p>Which animal coucools you the most?</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix no ethos link">
-                                        <div class="answer">The ostrich : I take it easy</div>
+                                    <div class="answer no ethos link">
+                                        <div class="answer-content">The ostrich : I take it easy</div>
                                     </div>
-                                    <div class="choix yes">
-                                        <div class="answer">The ant : I am proactive</div>
+                                    <div class="answer yes">
+                                        <div class="answer-content">The ant : I am proactive</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="en_page4" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Coucool distributes part of its benefits to charity organizations. Everyone
                                         individually takes part to this spirit of donation by coming with small gifts to
                                         offer on the fly to a soulmate or a stranger.</p>
                                     <p>Which gift would you like to offer the most at Coucool?</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix yes">
-                                        <div class="answer">Sweetness at its best : salted caramel butter candies</div>
+                                    <div class="answer yes">
+                                        <div class="answer-content">Sweetness at its best : salted caramel butter candies</div>
                                     </div>
-                                    <div class="choix yes">
-                                        <div class="answer">Practical is the new Karl : portable ashtrays</div>
+                                    <div class="answer yes">
+                                        <div class="answer-content">Practical is the new Karl : portable ashtrays</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="en_page5" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Everyone commits to respect the site and to preserve its ecosystem :</p>
                                     <ul>
                                         <li>By not throwing anything on the ground and picking up the trash you would
@@ -690,19 +687,19 @@
                                     <p>Which quote best represents your state of mind?</p>
                                 </div>
                                 <div class="qcm">
-                                    <a href="https://youtu.be/ZyhrYis509A" target='_blank' class="choix no">
-                                        <div class="answer">"Life in plastic, it’s fantastic" – Barbie</div>
+                                    <a href="https://youtu.be/ZyhrYis509A" target='_blank' class="answer no">
+                                        <div class="answer-content">"Life in plastic, it’s fantastic" – Barbie</div>
                                     </a>
-                                    <div class="choix yes">
-                                        <div class="answer">"The objective of cleaning is to feel happiness living
+                                    <div class="answer yes">
+                                        <div class="answer-content">"The objective of cleaning is to feel happiness living
                                             within that environment." – Marie Kondo</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="en_page6" class="contribution-page">
-                            <div class="contribution-page-container">
-                                <div class="contribution-page-content">
+                        <div class="step">
+                            <div class="step-container">
+                                <div class="step-content">
                                     <p>Congratulations, you are qualified to go through Coucool’s first step !<br />
                                         The complete results of your personality tests are to be found <a
                                             href="https://youtu.be/ckKeQNCyPBU" target="_blank">here</a>.
@@ -720,8 +717,8 @@
                                         follow its principles.</p>
                                 </div>
                                 <div class="qcm">
-                                    <div class="choix yes">
-                                        <div class="answer">I financially contribute</div>
+                                    <div class="answer yes">
+                                        <div class="answer-content">I financially contribute</div>
                                     </div>
                                 </div>
                             </div>
@@ -849,8 +846,7 @@
             </section>
         </div>
         <footer>
-            <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en"
-                    class="button">En</span></div>
+            <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
             <div id="selavy">
                 <span class="en">
                     Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a
