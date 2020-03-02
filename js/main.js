@@ -183,18 +183,14 @@ const images = [
 ];
 
 // content setup
-const texts = [
-    ["Coucool", ""],
-    ["", ""], // Ethos
-    ["", ""], // Infos
-    ["", ""], // Sesame
-    ["Curiosités", ""],
-]
+const titles = [
+    {text: "Coucool", anchor: 0.5, x: 0.5, y: 0.5},
+].concat(["Ethos", "Infos", "Sesame", "Contributions", "Curiosités"].map((text) => ({text, anchor: 0.5, angle: -90, x: 0.1, y: 0.5, pivot: {x: 0.5, y: 0.5}})));
 
 rgbKineticSlider = new rgbKineticSlider({
 
     slideImages: images,
-    itemsTitles: texts,
+    itemsTitles: titles,
 
     backgroundDisplacementSprite: 'http://hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg', // slide displacement image 
     cursorDisplacementSprite: 'http://hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png', // cursor displacement image
@@ -220,23 +216,15 @@ rgbKineticSlider = new rgbKineticSlider({
     navImagesRgbIntensity: 80, // set img rgb intensity for regular nav 
 
     textsDisplay: true, // show title
-    textsSubTitleDisplay: true, // show subtitles
     textsTiltEffect: true, // enable text tilt
-    googleFonts: ['Playfair Display:700', 'Roboto:400'], // select google font to use
+    fonts: ['trash:700'], // select google font to use
     buttonMode: false, // enable button mode for title
     textsRgbEffect: true, // enable text rgb effect
     textsRgbIntensity: 0.03, // set text rgb intensity
     navTextsRgbIntensity: 15, // set text rgb intensity for regular nav
 
     textTitleColor: 'white', // title color
-    textTitleSize: 125, // title size
-    mobileTextTitleSize: 125, // title size
+    textTitleSize: 100, // title size
+    mobileTextTitleSize: 100, // title size
     textTitleLetterspacing: 3, // title letterspacing
-
-    textSubTitleColor: 'white', // subtitle color ex : 0x000000
-    textSubTitleSize: 21, // subtitle size
-    mobileTextSubTitleSize: 21, // mobile subtitle size
-    textSubTitleLetterspacing: 2, // subtitle letter spacing
-    textSubTitleOffsetTop: 90, // subtitle offset top
-    mobileTextSubTitleOffsetTop: 90, // mobile subtitle offset top
 });

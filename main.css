@@ -1,11 +1,11 @@
 @font-face {
-    font-family: rumeur;
-    src: url("2019/fonts/rumeur.otf") format("opentype");
+    font-family: trash;
+    src: url("fonts/TrashBold.otf") format("opentype");
 }
 
 @font-face {
-    font-family: suisse;
-    src: url("2019/fonts/suisseintl-medium.otf") format("opentype");
+    font-family: walsheim;
+    src: url("fonts/GTWalsheimProRegular.otf") format("opentype");
 }
 
   
@@ -53,7 +53,7 @@
 
 html {
     height: 100%;
-    font-family: suisse, sans-serif;
+    font-family: walsheim, sans-serif;
     background-color: #000;
     color: white;
     font-size: 1em;
@@ -90,7 +90,7 @@ body {
 }
 
 #rgbKineticSlider.blur canvas {
-    filter: blur(10px)
+    /* filter: blur(10px) */
 }
 
 header {
@@ -309,7 +309,7 @@ html:lang(en) .fr {
 }
 
 .accordion li {
-    font: 1em "suisse";
+    font-size: 1em;
     font-weight: normal;
     line-height: 1.5em;
 }
