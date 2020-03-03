@@ -39,15 +39,18 @@ function init() {
     }
 
     const hash = location.hash.slice(1) || 'home';
-    goToSection(hash)
+    goToSection(hash);
 
-    for (const node of document.getElementsByClassName('accordion-item')) {
+    const accordions = document.getElementsByClassName('accordion-item');
+    for (const node of accordions) {
         node.addEventListener('click', function () {
-            if (node.classList.contains('active')) {
-                node.classList.remove('active');
-            }
-            else {
-                node.classList.add('active');
+            for (const otherNode of accordions) {
+                if (otherNode.classList.contains('active')) {
+                    otherNode.classList.remove('active');
+                }
+                else if (otherNode === node) {
+                    node.classList.add('active');
+                }
             }
         });
     }

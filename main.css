@@ -157,6 +157,7 @@ footer .language {
     width: 100%;
     overflow-y: scroll;
     bottom: 3em;
+    display: flex;
     -ms-overflow-style: none;
 }
 
@@ -166,7 +167,7 @@ footer .language {
 
 section {
     display: none;
-    margin: 4em;
+    margin: auto 4em;
     text-align: left;
     font-size: 1em;
     opacity: 0;
@@ -278,9 +279,7 @@ html:lang(en) .fr {
 
 .accordion-item {
     cursor: pointer;
-    border: solid 1px white;
     margin: 1em 0;
-    padding: 1em;
 }
 
 .accordion-item h4 {
@@ -298,14 +297,25 @@ html:lang(en) .fr {
 }
 
 .accordion-item ul {
-    display: none;
+    opacity: 0;
+    margin-top: 0;
+    max-height: 0;
+    visibility: hidden;
     padding-left: 1em;
     margin-bottom: 0;
-    margin-left: 1em;
+    margin-left: 0.5em;
+    border-left: solid 1px white;
+    transition: max-height 0.5s ease-in-out 0s, opacity 0.25s ease-in-out 0s, padding 0s ease-in-out 0s, visibility 0s ease-in-out 0.5s;
+    list-style: none;
 }
 
 .accordion-item.active ul {
     display: block;
+    visibility: visible;
+    margin-top: 1em;
+    max-height: 10em;
+    opacity: 1;
+    transition: max-height 0.5s ease-in-out 0.10s, opacity 0.25s ease-in-out 0.5s, padding 0s ease-in-out 0s, visibility 0s ease-in-out 0s;
 }
 
 .accordion li {
