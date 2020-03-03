@@ -53,8 +53,8 @@
 
         ///////////////////////////////
 
-        let imgWidth = 1080;
-        let imgHeight = 864;
+        let imgWidth = 1920;
+        let imgHeight = 1536;
 
         // remove pixi message in console
         PIXI.utils.skipHello();
@@ -418,7 +418,6 @@
                                 splitRgbImgs.red = [-(options.navImagesRgbIntensity - timelineTransition.progress() * options.navImagesRgbIntensity), 0];
                                 splitRgbImgs.green = [0, 0];
                                 splitRgbImgs.blue = [((options.navImagesRgbIntensity - timelineTransition.progress() * options.navImagesRgbIntensity)), 0];
-
                             }
                         }
                     }

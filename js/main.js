@@ -176,7 +176,7 @@ window.onload = init;
 
 const images = [
     "/assets/1-home.jpg",
-    "/assets/2-principes.jpg",
+    "/assets/2-ethos.jpg",
     "/assets/3-infos.jpg",
     "/assets/4-contributions.jpg",
     "/assets/5-curiosites.jpg",
@@ -224,7 +224,7 @@ rgbKineticSlider = new rgbKineticSlider({
     navTextsRgbIntensity: 15, // set text rgb intensity for regular nav
 
     textTitleColor: 'white', // title color
-    textTitleSize: 100, // title size
-    mobileTextTitleSize: 100, // title size
+    textTitleSize: 150, // title size
+    mobileTextTitleSize: 150, // title size
     textTitleLetterspacing: 3, // title letterspacing
 });
