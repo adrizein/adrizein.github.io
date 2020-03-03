@@ -84,6 +84,8 @@
         const splitRgb = new PIXI.filters.RGBSplitFilter;
         const splitRgbImgs = new PIXI.filters.RGBSplitFilter;
 
+        const blur = new PIXI.filters.BlurFilter();
+
         // main elements
         let render; // pixi render
         let mainLoopID; // raf
@@ -159,11 +161,11 @@
             if ((options.imagesRgbEffect == true) && (options.cursorImgEffect == true)) {
 
                 if (options.cursorImgEffect == true) {
-                    imagesContainer.filters = [dispFilter_2, splitRgbImgs];
+                    imagesContainer.filters = [dispFilter_2, splitRgbImgs, blur];
                 }
 
                 else {
-                    imagesContainer.filters = [splitRgbImgs];
+                    imagesContainer.filters = [splitRgbImgs, blur];
                 }
 
                 splitRgbImgs.red = [0, 0];
@@ -174,7 +176,7 @@
 
             else {
                 if (options.cursorImgEffect == true) {
-                    imagesContainer.filters = [dispFilter_2];
+                    imagesContainer.filters = [dispFilter_2, blur];
                 }
             }
 
@@ -185,6 +187,8 @@
             dispSprite_2.anchor.set(0.5);
             dispFilter_2.scale.x = 0;
             dispFilter_2.scale.y = 0;
+
+            blur.blur = 0;
             
             // renderer settings
 
@@ -313,10 +317,7 @@
                             }
                         }
                     }
-                    slideTexts = textsContainer.children.map((child, i) => ({
-                        child,
-                        ...options.itemsTitles[i]
-                    }));
+                    slideTexts = textsContainer.children.map((child, i) => Object.assign({child}, options.itemsTitles[i]));
                 }
             }
 
@@ -379,6 +380,14 @@
                     dispSprite.rotation = options.transitionSpriteRotation; // frequency
                     dispSprite.scale.set(timelineTransition.progress() * options.transitionScaleIntensity);
 
+                    const progress = timelineTransition.progress();
+                    const rgbTimelineRatio = next === 0 ? 1 : 0.9;
+                    const blurTimelineRatio = 1 - rgbTimelineRatio;
+                    const unblurTimelineRatio = 0.1;
+                    const unblurProgress = progress / unblurTimelineRatio;
+                    const rgbProgress = Math.max(0, progress / rgbTimelineRatio);
+                    const blurProgress = blurTimelineRatio ? Math.max(0, (progress - rgbTimelineRatio) / blurTimelineRatio) : 0;
+
                     if (is_loaded === true) {
 
                         // rgb shift effect for navigation transition
@@ -387,17 +396,17 @@
 
                             // on first half of transition
                             // match splitRgb values with timeline progress / from 0 to x
-                            if (timelineTransition.progress() < 0.5) {
-                                splitRgb.red = [timelineTransition.progress() * options.navTextsRgbIntensity, 0];
+                            if (rgbProgress < 0.5) {
+                                splitRgb.red = [rgbProgress * options.navTextsRgbIntensity, 0];
                                 splitRgb.green = [0, 0];
-                                splitRgb.blue = [(- (timelineTransition.progress())), 0];
+                                splitRgb.blue = [-rgbProgress, 0];
                             }
                             // on second half of transition
                             // match splitRgb values with timeline progress / from x to 0
-                            else {
-                                splitRgb.red = [-(options.navTextsRgbIntensity - timelineTransition.progress() * options.navTextsRgbIntensity), 0];
+                            else if (rgbProgress < 1) {
+                                splitRgb.red = [-(options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity), 0];
                                 splitRgb.green = [0, 0];
-                                splitRgb.blue = [((options.navTextsRgbIntensity - timelineTransition.progress() * options.navTextsRgbIntensity)), 0];
+                                splitRgb.blue = [((options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity)), 0];
                             }
                         }
 
@@ -406,25 +415,34 @@
 
                             // on first half of transition
                             // match splitRgb values with timeline progress / from 0 to x
-                            if (timelineTransition.progress() < 0.5) {
-                                splitRgbImgs.red = [-timelineTransition.progress() * options.navImagesRgbIntensity, 0];
+                            if (rgbProgress < 0.5) {
+                                splitRgbImgs.red = [-rgbProgress * options.navImagesRgbIntensity, 0];
                                 splitRgbImgs.green = [0, 0];
-                                splitRgbImgs.blue = [(timelineTransition.progress()), 0];
+                                splitRgbImgs.blue = [rgbProgress, 0];
                             }
 
                             // on second half of transition
                             // match splitRgb values with timeline progress / from x to 0
-                            else {
-                                splitRgbImgs.red = [-(options.navImagesRgbIntensity - timelineTransition.progress() * options.navImagesRgbIntensity), 0];
+                            else if (rgbProgress < 1) {
+                                splitRgbImgs.red = [-(options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity), 0];
                                 splitRgbImgs.green = [0, 0];
-                                splitRgbImgs.blue = [((options.navImagesRgbIntensity - timelineTransition.progress() * options.navImagesRgbIntensity)), 0];
+                                splitRgbImgs.blue = [((options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity)), 0];
                             }
                         }
+
+                        if (currentIndex > 0 && unblurProgress < 1) {
+                            blur.blur = (1 - unblurProgress) * 20;
+                        }
                     }
+
+                    if (next > 0 && blurProgress > 0) {
+                        blur.blur = blurProgress * 20;
+                    }
+
                 }
             });
 
-            // make sure timeline is finish
+            // make sure timeline is finished
             timelineTransition.clear();
             if (timelineTransition.isActive()) {
                 return;
@@ -859,6 +877,8 @@
                     }
                     // init slider
                     init();
+                    window.slideNext =  () => slideTransition(currentIndex + 1);
+                    window.slidePrevious =  () => slideTransition(currentIndex - 1);
                 });
             }
         };

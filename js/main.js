@@ -102,11 +102,17 @@ document.addEventListener('mousewheel',function(event){
 
 	if( isScrollingDown && isBottom) {
         const nextSection = presentSection.nextElementSibling;
-        goToSection(nextSection.id);
+        if (nextSection) {
+            goToSection(nextSection.id);
+            slideNext()
+        }
     }
 	if( isScrollingUp && isTop) {
         const previousSection = presentSection.previousElementSibling;
-        goToSection(previousSection.id);
+        if (previousSection) {
+            goToSection(previousSection.id);
+            slidePrevious();
+        }
     }
 	
 }, false);
@@ -196,7 +202,7 @@ rgbKineticSlider = new rgbKineticSlider({
     cursorDisplacementSprite: 'http://hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png', // cursor displacement image
 
     cursorImgEffect: true, // enable cursor effect
-    cursorTextEffect: false, // enable cursor text effect
+    cursorTextEffect: true, // enable cursor text effect
     cursorScaleIntensity: 0.65, // cursor effect intensity
     cursorMomentum: 0.14, // lower is slower
 
@@ -211,7 +217,7 @@ rgbKineticSlider = new rgbKineticSlider({
     nav: true, // enable navigation
     navElement: '.main-nav', // set nav class
 
-    imagesRgbEffect: false, // enable img rgb effect
+    imagesRgbEffect: true, // enable img rgb effect
     imagesRgbIntensity: 0.9, // set img rgb intensity
     navImagesRgbIntensity: 80, // set img rgb intensity for regular nav 
 
