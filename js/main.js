@@ -93,8 +93,7 @@ window.addEventListener('scroll', function(e) {
 */
 
 
-document.addEventListener('mousewheel',function(event){
-    console.log("inMouseWheel");
+document.addEventListener('mousewheel', function(event){
     const content = document.getElementById("content");
     const presentSection = sections.find((section) => section.classList.contains('active'));
     
@@ -105,14 +104,14 @@ document.addEventListener('mousewheel',function(event){
 
 	if( isScrollingDown && isBottom) {
         const nextSection = presentSection.nextElementSibling;
-        if (nextSection) {
+        if (nextSection && !transitioning) {
             goToSection(nextSection.id);
             slideNext()
         }
     }
 	if( isScrollingUp && isTop) {
         const previousSection = presentSection.previousElementSibling;
-        if (previousSection) {
+        if (previousSection && !transitioning) {
             goToSection(previousSection.id);
             slidePrevious();
         }
@@ -153,8 +152,7 @@ function goToSection(sectionId) {
         transitioning = true;
         setTimeout(() => transitioning = false, 2000);
         window.location.hash = `#${sectionId}`;
-        const canvas = document.getElementById('rgbKineticSlider');
-        canvas.classList.remove('blur');
+        unblur(1000);
         const currentSection = sections.find((section) => section.classList.contains('active'));
         const currentButton = navigation.find((nav) => nav.classList.contains('active'));
         const targetSection = sections.find((section) => section.id === sectionId);
@@ -172,13 +170,53 @@ function goToSection(sectionId) {
                 targetSection.classList.add('active');
             }
             if (sectionId !== 'home') {
-                canvas.classList.add('blur');
+                blur(1000, 20);
             }
             requestAnimationFrame(() => {
                 targetSection.classList.add('visible');
             });
-        }, 1000);
+        }, 3000);
     }
+}
+
+function blur(duration, target) {
+    let start;
+    function blurProgress(current) {
+        if (!start) {
+            start = current;
+            return requestAnimationFrame(blurProgress);
+        }
+
+        const progress = (current - start) / duration;
+        if (progress < 1) {
+            setBlur(progress * target);
+            return requestAnimationFrame(blurProgress);
+        }
+    }
+    requestAnimationFrame(blurProgress);
+}
+
+function unblur(duration) {
+    const initialBlur = getBlur();
+    if (initialBlur < 0.001) {
+        return setBlur(0);
+    }
+    let start;
+    function unblurProgress(current) {
+        if (!start) {
+            start = current;
+            return requestAnimationFrame(unblurProgress);
+        }
+
+        const progress = (current - start) / duration;
+        if (progress < 1) {
+            setBlur((1 - progress) * initialBlur);
+            return requestAnimationFrame(unblurProgress);
+        } else {
+            setBlur(0);
+        }
+    }
+    requestAnimationFrame(unblurProgress);
 }
 
 window.onload = init;
@@ -188,21 +226,21 @@ const images = [
     "/assets/2-ethos.jpg",
     "/assets/3-infos.jpg",
     "/assets/4-contributions.jpg",
-    "/assets/5-curiosites.jpg",
+    "/assets/5-souvenirs.jpg",
 ];
 
 // content setup
 const titles = [
     {text: "Coucool", anchor: 0.5, x: 0.5, y: 0.5},
-].concat(["Ethos", "Infos", "Sesame", "Contributions", "Curiosités"].map((text) => ({text, anchor: 0.5, angle: -90, x: 0.1, y: 0.5, pivot: {x: 0.5, y: 0.5}})));
+].concat(["Ethos", "Infos", "Sesame", "Souvenirs"].map((text) => ({text, anchor: 0.5, angle: -90, x: 0.1, y: 0.5, pivot: {x: 0.5, y: 0.5}})));
 
 rgbKineticSlider = new rgbKineticSlider({
 
     slideImages: images,
     itemsTitles: titles,
 
-    backgroundDisplacementSprite: 'http://hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg', // slide displacement image 
-    cursorDisplacementSprite: 'http://hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png', // cursor displacement image
+    backgroundDisplacementSprite: '//hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg', // slide displacement image 
+    cursorDisplacementSprite: '//hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png', // cursor displacement image
 
     cursorImgEffect: true, // enable cursor effect
     cursorTextEffect: true, // enable cursor text effect

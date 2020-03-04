@@ -380,13 +380,7 @@
                     dispSprite.rotation = options.transitionSpriteRotation; // frequency
                     dispSprite.scale.set(timelineTransition.progress() * options.transitionScaleIntensity);
 
-                    const progress = timelineTransition.progress();
-                    const rgbTimelineRatio = next === 0 ? 1 : 0.9;
-                    const blurTimelineRatio = 1 - rgbTimelineRatio;
-                    const unblurTimelineRatio = 0.1;
-                    const unblurProgress = progress / unblurTimelineRatio;
-                    const rgbProgress = Math.max(0, progress / rgbTimelineRatio);
-                    const blurProgress = blurTimelineRatio ? Math.max(0, (progress - rgbTimelineRatio) / blurTimelineRatio) : 0;
+                    const rgbProgress = timelineTransition.progress();
 
                     if (is_loaded === true) {
 
@@ -403,7 +397,7 @@
                             }
                             // on second half of transition
                             // match splitRgb values with timeline progress / from x to 0
-                            else if (rgbProgress < 1) {
+                            else {
                                 splitRgb.red = [-(options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity), 0];
                                 splitRgb.green = [0, 0];
                                 splitRgb.blue = [((options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity)), 0];
@@ -423,22 +417,13 @@
 
                             // on second half of transition
                             // match splitRgb values with timeline progress / from x to 0
-                            else if (rgbProgress < 1) {
+                            else {
                                 splitRgbImgs.red = [-(options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity), 0];
                                 splitRgbImgs.green = [0, 0];
                                 splitRgbImgs.blue = [((options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity)), 0];
                             }
                         }
-
-                        if (currentIndex > 0 && unblurProgress < 1) {
-                            blur.blur = (1 - unblurProgress) * 20;
-                        }
                     }
-
-                    if (next > 0 && blurProgress > 0) {
-                        blur.blur = blurProgress * 20;
-                    }
-
                 }
             });
 
@@ -879,6 +864,8 @@
                     init();
                     window.slideNext =  () => slideTransition(currentIndex + 1);
                     window.slidePrevious =  () => slideTransition(currentIndex - 1);
+                    window.setBlur = (value) => { blur.blur = value; };
+                    window.getBlur = () => blur.blur;
                 });
             }
         };
