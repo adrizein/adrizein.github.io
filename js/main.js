@@ -120,7 +120,6 @@ window.addEventListener('scroll', function(e) {
 
 
 
-
 function stepAnswerHandler(step) {
     return function () {
         const answer = this.getAttribute('data-answer');
@@ -134,8 +133,8 @@ function stepAnswerHandler(step) {
 }
 
 /**
- * 
- * @param {HTMLElement} step 
+ *
+ * @param {HTMLElement} step
  */
 function goToNextStep(step) {
     step.classList.remove('visible');
@@ -241,8 +240,8 @@ rgbKineticSlider = new rgbKineticSlider({
     slideImages: images,
     itemsTitles: titles,
 
-    backgroundDisplacementSprite: '//hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg', // slide displacement image 
-    cursorDisplacementSprite: '//hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png', // cursor displacement image
+    backgroundDisplacementSprite: 'assets/map-9.jpg', // slide displacement image
+    cursorDisplacementSprite: 'assets/displace-circle.png', // cursor displacement image
 
     cursorImgEffect: true, // enable cursor effect
     cursorTextEffect: true, // enable cursor text effect
