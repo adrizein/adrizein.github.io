@@ -81,6 +81,32 @@ function init() {
         });
     });
     */
+
+    document.addEventListener('mousewheel', function(event){
+        const content = document.getElementById("content");
+        const presentSection = sections.find((section) => section.classList.contains('active'));
+        
+        var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
+        var isTop = content.scrollTop == 0;	
+        var isScrollingDown = event.wheelDeltaY < -100;
+        var isScrollingUp = event.wheelDeltaY > 100;
+
+        if( isScrollingDown && isBottom) {
+            const nextSection = presentSection.nextElementSibling;
+            if (nextSection && !transitioning) {
+                goToSection(nextSection.id);
+                slideNext()
+            }
+        }
+        if( isScrollingUp && isTop) {
+            const previousSection = presentSection.previousElementSibling;
+            if (previousSection && !transitioning) {
+                goToSection(previousSection.id);
+                slidePrevious();
+            }
+        }
+        
+    }, false);
 }
 
 /*
@@ -93,31 +119,7 @@ window.addEventListener('scroll', function(e) {
 */
 
 
-document.addEventListener('mousewheel', function(event){
-    const content = document.getElementById("content");
-    const presentSection = sections.find((section) => section.classList.contains('active'));
-    
-    var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
-    var isTop = content.scrollTop == 0;	
-	var isScrollingDown = event.wheelDeltaY < -100;
-    var isScrollingUp = event.wheelDeltaY > 100;
 
-	if( isScrollingDown && isBottom) {
-        const nextSection = presentSection.nextElementSibling;
-        if (nextSection && !transitioning) {
-            goToSection(nextSection.id);
-            slideNext()
-        }
-    }
-	if( isScrollingUp && isTop) {
-        const previousSection = presentSection.previousElementSibling;
-        if (previousSection && !transitioning) {
-            goToSection(previousSection.id);
-            slidePrevious();
-        }
-    }
-	
-}, false);
 
 function stepAnswerHandler(step) {
     return function () {
