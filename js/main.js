@@ -96,27 +96,27 @@ window.addEventListener('scroll', function(e) {
 document.addEventListener('mousewheel', function(event){
     const content = document.getElementById("content");
     const presentSection = sections.find((section) => section.classList.contains('active'));
-    
+
     var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
-    var isTop = content.scrollTop == 0;	
-	var isScrollingDown = event.wheelDeltaY < -100;
+    var isTop = content.scrollTop == 0;
+    var isScrollingDown = event.wheelDeltaY < -100;
     var isScrollingUp = event.wheelDeltaY > 100;
 
-	if( isScrollingDown && isBottom) {
+    if( isScrollingDown && isBottom) {
         const nextSection = presentSection.nextElementSibling;
         if (nextSection && !transitioning) {
             goToSection(nextSection.id);
             slideNext()
         }
     }
-	if( isScrollingUp && isTop) {
+    if( isScrollingUp && isTop) {
         const previousSection = presentSection.previousElementSibling;
         if (previousSection && !transitioning) {
             goToSection(previousSection.id);
             slidePrevious();
         }
     }
-	
+
 }, false);
 
 function stepAnswerHandler(step) {
@@ -132,8 +132,8 @@ function stepAnswerHandler(step) {
 }
 
 /**
- * 
- * @param {HTMLElement} step 
+ *
+ * @param {HTMLElement} step
  */
 function goToNextStep(step) {
     step.classList.remove('visible');
@@ -239,8 +239,8 @@ rgbKineticSlider = new rgbKineticSlider({
     slideImages: images,
     itemsTitles: titles,
 
-    backgroundDisplacementSprite: '//hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg', // slide displacement image 
-    cursorDisplacementSprite: '//hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png', // cursor displacement image
+    backgroundDisplacementSprite: `${document.location.protocol}//hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg`,
+    cursorDisplacementSprite: `${document.location.protocol}//hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png`,
 
     cursorImgEffect: true, // enable cursor effect
     cursorTextEffect: true, // enable cursor text effect
