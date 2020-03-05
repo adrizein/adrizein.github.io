@@ -239,8 +239,8 @@ rgbKineticSlider = new rgbKineticSlider({
     slideImages: images,
     itemsTitles: titles,
 
-    backgroundDisplacementSprite: `${document.location.protocol}//hmongouachon.com/_demos/rgbKineticSlider/map-9.jpg`,
-    cursorDisplacementSprite: `${document.location.protocol}//hmongouachon.com/_demos/rgbKineticSlider/displace-circle.png`,
+    backgroundDisplacementSprite: 'assets/map-9.jpg', // slide displacement image
+    cursorDisplacementSprite: 'assets/displace-circle.png', // cursor displacement image
 
     cursorImgEffect: true, // enable cursor effect
     cursorTextEffect: true, // enable cursor text effect
