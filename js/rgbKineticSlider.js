@@ -140,7 +140,7 @@
             mainContainer.interactive = true;
 
             // apply rgbsplit effect on texts
-            if (options.textsRgbEffect == true) {
+            if (options.textsRgbEffect === true) {
 
                 textsContainer.filters = [splitRgb];
 
@@ -150,14 +150,14 @@
                 splitRgb.blue = [0, 0];
             }
 
-            if (options.cursorTextEffect == true) {
+            if (options.cursorTextEffect === true) {
                 textsContainer.filters = [dispFilter_2, splitRgb];
             }
 
             // apply rgbsplit effect on imgs
-            if ((options.imagesRgbEffect == true) && (options.cursorImgEffect == true)) {
+            if ((options.imagesRgbEffect === true) && (options.cursorImgEffect === true)) {
 
-                if (options.cursorImgEffect == true) {
+                if (options.cursorImgEffect === true) {
                     imagesContainer.filters = [dispFilter_2, splitRgbImgs, blur];
                 }
 
@@ -172,7 +172,7 @@
             }
 
             else {
-                if (options.cursorImgEffect == true) {
+                if (options.cursorImgEffect === true) {
                     imagesContainer.filters = [dispFilter_2, blur];
                 }
             }
@@ -251,7 +251,7 @@
             if (options.itemsTitles.length > 0) {
 
                 // build  titles
-                if (options.textsDisplay == true) {
+                if (options.textsDisplay === true) {
 
                     const fontOptions = options.fonts[0].split(':');
                     const fontFamily = fontOptions[0];
@@ -302,7 +302,7 @@
                             alpha: 0
                         });
 
-                        if (options.buttonMode == true) {
+                        if (options.buttonMode === true) {
 
                             textTitles.interactive = true;
                             textTitles.buttonMode = true;
@@ -350,13 +350,13 @@
                     onComplete: function () {
 
                         // reset rgb values
-                        if (options.textsRgbEffect == true) {
+                        if (options.textsRgbEffect === true) {
                             splitRgb.red = [0, 0];
                             splitRgb.green = [0, 0];
                             splitRgb.blue = [0, 0];
                         }
 
-                        if (options.imagesRgbEffect == true) {
+                        if (options.imagesRgbEffect === true) {
                             splitRgbImgs.red = [0, 0];
                             splitRgbImgs.green = [0, 0];
                             splitRgbImgs.blue = [0, 0];
@@ -386,7 +386,7 @@
 
                             // rgb shift effect for navigation transition
                             // if text rgb effect is enable
-                            if (options.textsRgbEffect == true) {
+                            if (options.textsRgbEffect === true) {
 
                                 // on first half of transition
                                 // match splitRgb values with timeline progress / from 0 to x
@@ -405,7 +405,7 @@
                             }
 
                             // if img rgb effect is enable
-                            if (options.imagesRgbEffect == true) {
+                            if (options.imagesRgbEffect === true) {
 
                                 // on first half of transition
                                 // match splitRgb values with timeline progress / from 0 to x
@@ -445,7 +445,7 @@
                 }
 
                 // if title active
-                if ((options.textsDisplay == true) && (options.itemsTitles.length > 0)) {
+                if ((options.textsDisplay === true) && (options.itemsTitles.length > 0)) {
 
                     timelineTransition
                         .to(dispFilter.scale, options.slideTransitionDuration, {
@@ -556,7 +556,7 @@
             kineY = Math.floor(posy - vy);
 
             // enable text tilt effect
-            if (options.textsTiltEffect == true) {
+            if (options.textsTiltEffect === true) {
                 tilt(currentIndex, kineX, kineY)
             }
 
@@ -593,13 +593,13 @@
                 dispFilter.scale.y = kineY * (options.swipeScaleIntensity);
 
                 // if text rgb effect enable
-                if (options.textsRgbEffect == true) {
+                if (options.textsRgbEffect === true) {
                     splitRgb.red = [(kineX * options.textsRgbIntensity), 0];
                     splitRgb.green = [0, 0];
                     splitRgb.blue = [(-kineX * options.textsRgbIntensity), 0];
                 }
                 // if img rgb effect enable
-                if (options.imagesRgbEffect == true) {
+                if (options.imagesRgbEffect === true) {
                     splitRgbImgs.red = [(kineX * options.imagesRgbIntensity), 0];
                     splitRgbImgs.green = [0, 0];
                     splitRgbImgs.blue = [(-kineX * options.imagesRgbIntensity), 0];
@@ -617,7 +617,7 @@
 
             if (options.itemsTitles.length > 0) {
 
-                if (options.textsDisplay == true) {
+                if (options.textsDisplay === true) {
                     const currentText = slideTexts[currentIndex];
 
                     TweenMax.to(currentText.child, 2, {

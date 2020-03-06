@@ -245,11 +245,11 @@ function unblur(duration) {
 window.onload = init;
 
 const images = [
-    "/assets/1-home.jpg",
-    "/assets/2-ethos.jpg",
-    "/assets/3-infos.jpg",
-    "/assets/4-contributions.jpg",
-    "/assets/5-souvenirs.jpg",
+    "assets/1-home.jpg",
+    "assets/2-ethos.jpg",
+    "assets/3-infos.jpg",
+    "assets/4-contributions.jpg",
+    "assets/5-souvenirs.jpg",
 ];
 
 // content setup
@@ -263,7 +263,11 @@ const titles = [
                 y: 0.48,
                 size: 200
             },
-            mobile: {},
+            mobile: {
+                x: 0.5,
+                y: 0.5,
+                size: 200,
+            },
         },
         subtitle: "14.09.20 - 16.08.20",
     },
@@ -278,7 +282,13 @@ const titles = [
                 y: 0.5,
                 pivot: { x: 0.5, y: 0.5 }
             },
-            mobile: {},
+            mobile: {
+                size: 200,
+                angle: 0,
+                x: 0.5,
+                y: 0.1,
+                pivot: { x: 0.5, y: 0.5 }
+            },
         },
     },
     {
@@ -292,7 +302,13 @@ const titles = [
                 y: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
-            mobile: {},
+            mobile: {
+                size: 200,
+                angle: 0,
+                x: 0.5,
+                y: 0.1,
+                pivot: { x: 0.5, y: 0.5 }
+            },
         },
     },
     {
@@ -306,7 +322,13 @@ const titles = [
                 y: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
-            mobile: {},
+            mobile: {
+                size: 150,
+                angle: 0,
+                x: 0.5,
+                y: 0.1,
+                pivot: { x: 0.5, y: 0.5 }
+            },
         },
     },
     {
