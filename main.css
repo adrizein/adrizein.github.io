@@ -8,6 +8,16 @@
     src: url("fonts/GTWalsheimProRegular.otf") format("opentype");
 }
 
+@font-face {
+    font-family: walsheim_light;
+    src: url("fonts/GTWalsheimProLight.otf") format("opentype");
+}
+
+@font-face {
+    font-family: walsheim_thin;
+    src: url("fonts/GTWalsheimProThin.otf") format("opentype");
+}
+
   
 *,
 *::after,
@@ -100,12 +110,13 @@ header {
     text-align: right;
     z-index: 1;
     cursor: default;
+    height:3em;
 }
 
 #menu {
     position: fixed;
-    top: 5em;
-    bottom: 5em;
+    top: 3em;
+    bottom: 3em;
     right: 0;
     width: 5em;
     display: flex;
@@ -135,7 +146,7 @@ header {
 
 header .language {
     margin: 1em 2em 0 0;
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 footer .language {
@@ -153,10 +164,10 @@ footer .language {
 
 #content {
     position: absolute;
-    top: 0;
+    top: 4em;
     width: 100%;
     overflow-y: scroll;
-    bottom: 3em;
+    bottom: 4em;
     display: flex;
     -ms-overflow-style: none;
 }
@@ -184,7 +195,8 @@ section.visible {
 }
 
 section .container {
-    margin: auto 10em auto 20em;
+    margin: auto 10em;
+    font-size:1.3em;
 }
 
 #contributions.active {
@@ -211,8 +223,13 @@ section .container {
     font-size: 1.2em;
 }
 
+#curiosites  {
+    margin:auto;
+}
+
 .qcm {
     display: flex;
+    justify-content: center;
 }
 
 .answer {
@@ -259,6 +276,10 @@ a {
 h3 {
     font-size: 7em;
     margin: 0.5em auto;
+}
+
+.thin {
+    font-family: walsheim_thin, sans-serif;
 }
 
 #home h3, .title h3 {
@@ -309,6 +330,10 @@ html:lang(en) .fr {
     list-style: none;
 }
 
+.accordion-item:last-child ul {
+    display: none;
+}
+
 .accordion-item.active ul {
     display: block;
     visibility: visible;
@@ -319,7 +344,7 @@ html:lang(en) .fr {
 
 .accordion li {
     font-size: 1em;
-    font-weight: normal;
+    font-family: walsheim_thin, sans-serif;
     line-height: 1.5em;
 }
 
