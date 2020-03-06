@@ -160,8 +160,8 @@ footer .language {
 
 #content {
     position: absolute;
-    top: 13em;
-    bottom: 14em;
+    top: 6em;
+    bottom: 6em;
     width: 100%;
     overflow-y: scroll;
     display: flex;
@@ -190,7 +190,7 @@ section.visible {
 }
 
 section .container {
-    margin: auto 10em auto 24em;
+    margin: auto 10em auto 18em;
 }
 
 #contributions.active {
