@@ -678,11 +678,12 @@
                     }
                     // init slider
                     init();
-                    window.slideTo =  (index) => slideTransition(index);
-                    window.setBlur = (value) => { blur.blur = value; };
-                    window.getBlur = () => blur.blur;
                 });
             }
         };
+
+        window.slideTo =  (index) => slideTransition(index);
+        window.setBlur = (value) => { blur.blur = value; };
+        window.getBlur = () => blur.blur;
     };
 })();
