@@ -99,10 +99,6 @@ body {
     transition: filter ease-in-out 1000ms 500ms;
 }
 
-#rgbKineticSlider.blur canvas {
-    /* filter: blur(10px) */
-}
-
 header {
     position: fixed;
     top: 0;
@@ -132,7 +128,7 @@ header {
 
 #menu .main-nav div {
     width: 3em;
-    height: 2px;
+    height: 3px;
     margin: 8px 0;
     background-color: #e0e0e0a0;
     transition: ease-in-out 500ms;
@@ -164,10 +160,10 @@ footer .language {
 
 #content {
     position: absolute;
-    top: 4em;
+    top: 13em;
+    bottom: 14em;
     width: 100%;
     overflow-y: scroll;
-    bottom: 4em;
     display: flex;
     -ms-overflow-style: none;
 }
@@ -178,9 +174,8 @@ footer .language {
 
 section {
     display: none;
-    margin: auto 4em;
     text-align: left;
-    font-size: 1em;
+    font-size: 1.3em;
     opacity: 0;
     transition: opacity ease-in-out 500ms;
 }
@@ -195,8 +190,7 @@ section.visible {
 }
 
 section .container {
-    margin: auto 10em;
-    font-size:1.3em;
+    margin: auto 10em auto 24em;
 }
 
 #contributions.active {
@@ -219,7 +213,7 @@ section .container {
     opacity: 1;
 }
 
-#contributions  {
+#contributions .content-container  {
     font-size: 1.2em;
 }
 

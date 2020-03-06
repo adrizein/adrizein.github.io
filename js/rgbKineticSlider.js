@@ -17,8 +17,6 @@
         options.cursorTextEffect = options.hasOwnProperty('cursorTextEffect') ? options.cursorTextEffect : true;
         options.cursorScaleIntensity = options.hasOwnProperty('cursorScaleIntensity') ? options.cursorScaleIntensity : 0.25;
         options.cursorMomentum = options.hasOwnProperty('cursorMomentum') ? options.cursorMomentum : 0.14;
-        options.swipe = options.hasOwnProperty('swipe') ? options.swipe : true;
-        options.swipeDistance = options.hasOwnProperty('swipeDistance') ? options.swipeDistance : 500;
         options.slideTransitionDuration = options.hasOwnProperty('slideTransitionDuration') ? options.slideTransitionDuration : 1;
         options.transitionScaleIntensity = options.hasOwnProperty('transitionScaleIntensity') ? options.transitionScaleIntensity : 40;
         options.transitionScaleAmplitude = options.hasOwnProperty('transitionScaleAmplitude') ? options.transitionScaleAmplitude : 300;
@@ -245,9 +243,9 @@
 
         ///////////////////////////////
 
-        let titleSize;
-
         function build_texts() {
+
+            const device = window.innerWidth < 870 ? 'mobile' : 'desktop';
 
             // make sure array is not empty
             if (options.itemsTitles.length > 0) {
@@ -255,15 +253,9 @@
                 // build  titles
                 if (options.textsDisplay == true) {
 
-                    // set mobile font size based on window size
-                    if (window.innerWidth < 768) {
-                        titleSize = options.mobileTextTitleSize;
-                    }
-                    else {
-                        titleSize = options.textTitleSize;
-                    }
-                    
-                    const [font_1, fontWeight_1] = options.fonts[0].split(':');
+                    const fontOptions = options.fonts[0].split(':');
+                    const fontFamily = fontOptions[0];
+                    const fontWeight = fontOptions[1];
 
                     for (let i = 0; i < options.itemsTitles.length; i++) {
                         // get font family value from options array
@@ -271,14 +263,21 @@
                         // ['Playfair Display:700', 'Roboto:400']
                         // for first array, get string before :
 
-                        const {text, anchor, x, y, angle, pivot} = options.itemsTitles[i];
-                        textTitles = new PIXI.Text(text, {
-                            fontFamily: font_1,
+                        const item = options.itemsTitles[i];
+                        const title = item.title;
+                        const anchor = title.anchor || title[device].anchor || 0.5;
+                        const x = title.x || title[device].x;
+                        const y = title.y || title[device].y;
+                        const pivot = title.pivot || title[device].pivot;
+                        const angle = title.angle || title[device].angle;
+                        const titleSize = title.size || title[device].size
+                        textTitles = new PIXI.Text(title.text, {
+                            fontFamily,
                             fontSize: titleSize,
-                            fontWeight: fontWeight_1,
+                            fontWeight,
                             fill: 'transparent',
                             stroke: options.textTitleColor,
-                            strokeThickness: 2,
+                            strokeThickness: 3 * titleSize / 200,
                         });
 
                         if (anchor) {
@@ -468,7 +467,6 @@
                             ease: Power1.easeOut
                         }, options.slideTransitionDuration);
                 }
-
                 else {
                     timelineTransition
                         .to(dispFilter.scale, options.slideTransitionDuration, {
@@ -611,124 +609,6 @@
 
         ///////////////////////////////    
 
-        //  Drag / swipe event
-
-        ///////////////////////////////
-
-        function swipe() {
-
-            if (options.swipe == true) {
-
-                mainContainer
-                    .on('pointerdown', onDragStart)
-                    .on('pointerup', onDragEnd)
-                    .on('pointermove', onDragMove)
-
-                // drag start
-                function onDragStart(event) {
-
-                    if (is_playing) {
-                        return;
-                    }
-
-                    // get event position as data
-                    this.data = event.data;
-                    drag_start = this.data.getLocalPosition(this.parent);
-
-                    // this.drag = true;
-                    is_swipping = true;
-
-                    // disable rgbSplit effect
-                    if (options.textsRgbEffect == true) {
-                        splitRgb.red = [0, 0];
-                        splitRgb.green = [0, 0];
-                        splitRgb.blue = [0, 0];
-                    }
-
-                    if (options.imagesRgbEffect == true) {
-                        splitRgbImgs.red = [0, 0];
-                        splitRgbImgs.green = [0, 0];
-                        splitRgbImgs.blue = [0, 0];
-                    }
-                }
-
-                // drag end
-                function onDragEnd() {
-
-                    // make sure slide transition is not playing
-                    if (is_playing) {
-                        return;
-                    }
-
-                    // disable rgbSplit effect
-                    if (options.textsRgbEffect == true) {
-                        splitRgb.red = [0, 0];
-                        splitRgb.green = [0, 0];
-                        splitRgb.blue = [0, 0];
-                    }
-
-                    if (options.imagesRgbEffect == true) {
-                        splitRgbImgs.red = [0, 0];
-                        splitRgbImgs.green = [0, 0];
-                        splitRgbImgs.blue = [0, 0];
-                    }
-
-                    // reset displacement filter scale value to 0
-                    TweenMax.to(dispFilter.scale, 0.5, {
-                        x: 0,
-                        y: 0,
-                        ease: Power4.easeOut
-                    });
-
-                    // update dispFilter position 
-                    TweenMax.to(dispFilter, 0.5, {
-                        x: vx,
-                        y: vy,
-                        ease: Power4.easeOut
-                    });
-
-                    // update swiping flag
-                    this.data = null;
-                    is_swipping = false;
-                }
-
-                // drag move > swipe
-                function onDragMove() {
-
-                    // make sure slide transition is completed and user is swipping
-                    if (is_playing) {
-                        return;
-                    }
-
-                    if (is_swipping) {
-
-                        // get the new position
-                        let newPosition = this.data.getLocalPosition(this.parent);
-
-                        // if user swipe the screen from left to right : next slide
-                        if ((drag_start.x - newPosition.x) < - options.swipeDistance) {
-                            if (currentIndex >= 0 && currentIndex < options.slideImages.length - 1) {
-                                slideTransition(currentIndex + 1);
-                            } else {
-                                slideTransition(0);
-                            }
-                        }
-
-                        // if user swipe from right to left : prev slide
-                        if ((drag_start.x - newPosition.x) > options.swipeDistance) {
-                            if (currentIndex > 0 && currentIndex < options.slideImages.length) {
-                                slideTransition(currentIndex - 1);
-                            } else {
-                                slideTransition(options.slideImages.length - 1);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        ///////////////////////////////    
-
         //  Texts tilt effect
 
         ///////////////////////////////
@@ -763,28 +643,19 @@
 
             // construct
             build_scene();
-            build_imgs();
             resizeTexts();
 
             // interactivity
             cursorInteractive();
-            swipe();
             slideTransition(currentIndex);
 
             // Listen for window resize events
             window.addEventListener('resize', resizeTexts);
             function resizeTexts() {
-                // build_imgs();
-                if (window.innerWidth < 768) {
-                    build_texts();
-                    renderer.render(stage);
-                }
-
-                else {
-                    build_texts();
-                    renderer.render(stage);
-                }
-
+                //renderer.resize(window.innerWidth, window.innerHeight);
+                build_imgs();
+                build_texts();
+                renderer.render(stage);
             }
         };
 

@@ -30,19 +30,19 @@ function init() {
     navigation = Array.from(document.querySelectorAll('#menu .main-nav'));
     steps = Array.from(document.querySelectorAll('#contributions .step'));
 
-    for (const button of navigation) {
+    navigation.forEach((button) => {
         const sectionIndex = parseInt(button.getAttribute('data-nav'));
         const sectionId = sections[sectionIndex].id;
         button.addEventListener('click', function () {
             goToSection(sectionId);
         });
-    }
+    });
 
     const hash = location.hash.slice(1) || 'home';
     goToSection(hash);
 
-    const accordions = document.getElementsByClassName('accordion-item');
-    for (const node of accordions) {
+    const accordions = Array.from(document.getElementsByClassName('accordion-item'));
+    accordions.forEach((node) => {
         node.addEventListener('click', function () {
             for (const otherNode of accordions) {
                 if (otherNode.classList.contains('active')) {
@@ -53,60 +53,56 @@ function init() {
                 }
             }
         });
-    }
+    });
 
-    for (const step of steps) {
-        for (const answer of step.querySelectorAll('.answer')) {
-            answer.addEventListener('click', stepAnswerHandler(step));
-        }
-    }
+    steps.forEach((step) => {
+        const answers = Array.from(step.querySelectorAll('.answer'))
+        answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
+    })
 
-    /*
     $(function() {
         $('#content').swipe({
             swipeUp() {
-                const currentSection = getCurrentSectionWithId();
-                const nextSection = getSectionFromSectionIndex(currentSection.sectionIndex + 1);
+                const currentSection = sections.find((section) => section.classList.contains('active'));
+                const nextSection = currentSection.nextElementSibling;
                 if (nextSection) {
                     goToSection(nextSection.id);
                 }
             },
             swipeDown() {
-                const currentSection = getCurrentSectionWithId();
-                const previousSection = getSectionFromSectionIndex(currentSection.sectionIndex - 1);
+                const currentSection = sections.find((section) => section.classList.contains('active'));
+                const previousSection = currentSection.previousElementSibling;
                 if (previousSection) {
                     goToSection(previousSection.id);
                 }
             }
         });
     });
-    */
 
-    document.addEventListener('mousewheel', function(event){
+    document.addEventListener('mousewheel', function (event) {
         const content = document.getElementById("content");
-        const presentSection = sections.find((section) => section.classList.contains('active'));
-        
+        const currentSection = sections.find((section) => section.classList.contains('active'));
+
         var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
-        var isTop = content.scrollTop == 0;	
+        var isTop = content.scrollTop == 0;
         var isScrollingDown = event.wheelDeltaY < -100;
         var isScrollingUp = event.wheelDeltaY > 100;
 
-        if( isScrollingDown && isBottom) {
-            const nextSection = presentSection.nextElementSibling;
+        if (isScrollingDown && isBottom) {
+            const nextSection = currentSection.nextElementSibling;
             if (nextSection && !transitioning) {
                 goToSection(nextSection.id);
-                slideNext()
             }
         }
-        if( isScrollingUp && isTop) {
-            const previousSection = presentSection.previousElementSibling;
+        if (isScrollingUp && isTop) {
+            const previousSection = currentSection.previousElementSibling;
             if (previousSection && !transitioning) {
                 goToSection(previousSection.id);
-                slidePrevious();
             }
         }
-        
+
     }, false);
+
 }
 
 /*
@@ -118,30 +114,6 @@ window.addEventListener('scroll', function(e) {
 }, true);
 */
 
-
-document.addEventListener('mousewheel', function(event){
-    const content = document.getElementById("content");
-    const presentSection = sections.find((section) => section.classList.contains('active'));
-
-    var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
-    var isTop = content.scrollTop == 0;
-    var isScrollingDown = event.wheelDeltaY < -100;
-    var isScrollingUp = event.wheelDeltaY > 100;
-
-    if( isScrollingDown && isBottom) {
-        const nextSection = presentSection.nextElementSibling;
-        if (nextSection && !transitioning) {
-            goToSection(nextSection.id);
-        }
-    }
-    if( isScrollingUp && isTop) {
-        const previousSection = presentSection.previousElementSibling;
-        if (previousSection && !transitioning) {
-            goToSection(previousSection.id);
-        }
-    }
-
-}, false);
 
 function stepAnswerHandler(step) {
     return function () {
@@ -214,11 +186,10 @@ function goToSection(sectionId) {
                     });
                     if (sectionId === 'home') return;
                     return blur(1000, 20);
-                }).then(() => {
-                    transitioning = false;
                 });
         }
     }).then(() => {
+        transitioning = false;
         loaded = true;
     });
 }
@@ -283,8 +254,76 @@ const images = [
 
 // content setup
 const titles = [
-    {text: "Coucool", anchor: 0.5, x: 0.5, y: 0.5},
-].concat(["Ethos", "Infos", "Sesame", "Souvenirs"].map((text) => ({text, anchor: 0.5, angle: -90, x: 0.1, y: 0.5, pivot: {x: 0.5, y: 0.5}})));
+    {
+        title: {
+            text: "Coucool",
+            anchor: 0.5,
+            desktop: {
+                x: 0.5,
+                y: 0.48,
+                size: 200
+            },
+            mobile: {},
+        },
+        subtitle: "14.09.20 - 16.08.20",
+    },
+    {
+        title: {
+            text: "Ethos",
+            anchor: 0.5,
+            desktop: {
+                size: 200,
+                angle: -90,
+                x: 0.12,
+                y: 0.5,
+                pivot: { x: 0.5, y: 0.5 }
+            },
+            mobile: {},
+        },
+    },
+    {
+        title: {
+            text: "Infos",
+            anchor: 0.5,
+            desktop: {
+                size: 200,
+                angle: -90,
+                x: 0.12,
+                y: 0.5,
+                pivot: { x: 0.5, y: 0.5 },
+            },
+            mobile: {},
+        },
+    },
+    {
+        title: {
+            text: "Sesame",
+            anchor: 0.5,
+            desktop: {
+                size: 170,
+                angle: -90,
+                x: 0.15,
+                y: 0.5,
+                pivot: { x: 0.5, y: 0.5 },
+            },
+            mobile: {},
+        },
+    },
+    {
+        title: {
+            text: "Souvenirs",
+            anchor: 0.5,
+            desktop: {
+                size: 150,
+                angle: -90,
+                x: 0.12,
+                y: 0.5,
+                pivot: { x: 0.5, y: 0.5 },
+            },
+            mobile: {},
+        },
+    },
+];
 
 rgbKineticSlider = new rgbKineticSlider({
 
@@ -320,7 +359,7 @@ rgbKineticSlider = new rgbKineticSlider({
     navTextsRgbIntensity: 15, // set text rgb intensity for regular nav
 
     textTitleColor: 'white', // title color
-    textTitleSize: 150, // title size
+    textTitleSize: 200, // title size
     mobileTextTitleSize: 150, // title size
     textTitleLetterspacing: 3, // title letterspacing
 });
