@@ -99,15 +99,46 @@ body {
     transition: filter ease-in-out 1000ms 500ms;
 }
 
+#main-structure {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
 header {
-    position: fixed;
-    top: 0;
+    flex: 0;
     width: 100%;
     text-align: right;
     z-index: 1;
     cursor: default;
     height:3em;
 }
+
+#main-row {
+    flex: 1;
+    width: 100%;
+}
+
+footer {
+    flex: 0;
+    width: 100%;
+    display: flex;
+    margin: 1em 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #menu {
     position: fixed;
@@ -385,13 +416,7 @@ svg:hover .appearing{
     display: none;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    margin: 1em 0;
-}
+
 
 footer div {
     padding: 0 1em;
