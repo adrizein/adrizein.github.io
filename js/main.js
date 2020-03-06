@@ -13,7 +13,7 @@ function updateLanguage(lang) {
     document.firstElementChild.setAttribute('lang', lang);
 }
 
-var sections, languages, navigation, steps, transitioning = false;
+var sections, languages, navigation, steps, transitioning = false, loaded = false;
 
 function init() {
     var defaultLanguage = document.firstElementChild.getAttribute('lang');
@@ -106,14 +106,12 @@ document.addEventListener('mousewheel', function(event){
         const nextSection = presentSection.nextElementSibling;
         if (nextSection && !transitioning) {
             goToSection(nextSection.id);
-            slideNext()
         }
     }
     if( isScrollingUp && isTop) {
         const previousSection = presentSection.previousElementSibling;
         if (previousSection && !transitioning) {
             goToSection(previousSection.id);
-            slidePrevious();
         }
     }
 
@@ -148,75 +146,103 @@ function goToNextStep(step) {
 }
 
 function goToSection(sectionId) {
-    if (!transitioning) {
-        transitioning = true;
-        setTimeout(() => transitioning = false, 2000);
-        window.location.hash = `#${sectionId}`;
-        unblur(1000);
-        const currentSection = sections.find((section) => section.classList.contains('active'));
-        const currentButton = navigation.find((nav) => nav.classList.contains('active'));
-        const targetSection = sections.find((section) => section.id === sectionId);
-        const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
-        if (currentSection === targetSection) {
-            return;
+    return Promise.resolve().then(() => {
+        if (!transitioning) {
+            transitioning = true;
+            window.location.hash = `#${sectionId}`;
+            const currentSection = sections.find((section) => section.classList.contains('active'));
+            const currentButton = navigation.find((nav) => nav.classList.contains('active'));
+            const targetSection = sections.find((section) => section.id === sectionId);
+            const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
+            if (currentSection === targetSection) return;
+            if (currentSection) currentSection.classList.remove('visible');
+            if (currentButton) currentButton.classList.remove('active');
+            targetButton.classList.add('active');
+            return unblur(1000)
+                .then(() => {
+                    if (!loaded) return targetSection.classList.add('active');
+                    const index = sections.findIndex((section) => section.id === sectionId);
+                    return slideTo(index);
+                })
+                .then(() => {
+                    if (sectionId === 'home') return;
+
+                    return new Promise((resolve) => {
+                        function nextThen() {
+                            document.removeEventListener('click', nextThen);
+                            document.removeEventListener('scroll', nextThen);
+                            return resolve();
+                        }
+                        setTimeout(nextThen, 2000);
+                        document.addEventListener('click', nextThen);
+                        document.addEventListener('mousewheel', nextThen);
+                    });
+                })
+                .then(() => {
+                    if (currentSection) {
+                        currentSection.classList.remove('active');
+                        targetSection.classList.add('active');
+                    }
+                    requestAnimationFrame(() => {
+                        targetSection.classList.add('visible');
+                    });
+                    if (sectionId === 'home') return;
+                    return blur(1000, 20);
+                }).then(() => {
+                    transitioning = false;
+                });
         }
-        if (currentSection) currentSection.classList.remove('visible');
-        if (currentButton) currentButton.classList.remove('active');
-        targetButton.classList.add('active');
-        if (!currentSection) targetSection.classList.add('active');
-        setTimeout(() => {
-            if (currentSection) {
-                currentSection.classList.remove('active');
-                targetSection.classList.add('active');
-            }
-            if (sectionId !== 'home') {
-                blur(1000, 20);
-            }
-            requestAnimationFrame(() => {
-                targetSection.classList.add('visible');
-            });
-        }, 3000);
-    }
+    }).then(() => {
+        loaded = true;
+    });
 }
 
 function blur(duration, target) {
     let start;
-    function blurProgress(current) {
-        if (!start) {
-            start = current;
-            return requestAnimationFrame(blurProgress);
-        }
+    return new Promise((resolve) => {
+        function blurProgress(current) {
+            if (!start) {
+                start = current;
+                return requestAnimationFrame(blurProgress);
+            }
 
-        const progress = (current - start) / duration;
-        if (progress < 1) {
-            setBlur(progress * target);
-            return requestAnimationFrame(blurProgress);
+            const progress = (current - start) / duration;
+            if (progress < 1) {
+                setBlur(progress * target);
+                return requestAnimationFrame(blurProgress);
+            } else {
+                setBlur(target);
+                return resolve();
+            }
         }
-    }
-    requestAnimationFrame(blurProgress);
+        requestAnimationFrame(blurProgress);
+    })
 }
 
 function unblur(duration) {
     const initialBlur = getBlur();
     if (initialBlur < 0.001) {
-        return setBlur(0);
+        return Promise.resolve(setBlur(0));
     }
     let start;
-    function unblurProgress(current) {
-        if (!start) {
-            start = current;
-            return requestAnimationFrame(unblurProgress);
-        }
+    return new Promise((resolve) => {
+        function unblurProgress(current) {
+            if (!start) {
+                start = current;
+                return requestAnimationFrame(unblurProgress);
+            }
 
-        const progress = (current - start) / duration;
-        if (progress < 1) {
-            setBlur((1 - progress) * initialBlur);
-            return requestAnimationFrame(unblurProgress);
-        } else {
-            setBlur(0);
+            const progress = (current - start) / duration;
+            if (progress < 1) {
+                setBlur((1 - progress) * initialBlur);
+                return requestAnimationFrame(unblurProgress);
+            } else {
+                setBlur(0);
+                return resolve();
+            }
         }
-    }
-    requestAnimationFrame(unblurProgress);
+        requestAnimationFrame(unblurProgress);
+    })
 }
 
 window.onload = init;
@@ -244,19 +270,16 @@ rgbKineticSlider = new rgbKineticSlider({
 
     cursorImgEffect: true, // enable cursor effect
     cursorTextEffect: true, // enable cursor text effect
-    cursorScaleIntensity: 0.65, // cursor effect intensity
+    cursorScaleIntensity: 0.83, // cursor effect intensity
     cursorMomentum: 0.14, // lower is slower
 
-    swipe: true, // enable swipe
+    swipe: false, // enable swipe
     swipeDistance: window.innerWidth * 0.4, // swipe distance - ex : 580
     swipeScaleIntensity: 2, // scale intensity during swipping
 
-    slideTransitionDuration: 1, // transition duration
-    transitionScaleIntensity: 30, // scale intensity during transition
+    slideTransitionDuration: 1.5, // transition duration
+    transitionScaleIntensity: 20, // scale intensity during transition
     transitionScaleAmplitude: 160, // scale amplitude during transition
-
-    nav: true, // enable navigation
-    navElement: '.main-nav', // set nav class
 
     imagesRgbEffect: true, // enable img rgb effect
     imagesRgbIntensity: 0.9, // set img rgb intensity

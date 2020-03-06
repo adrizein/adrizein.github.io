@@ -24,7 +24,6 @@
         options.transitionScaleAmplitude = options.hasOwnProperty('transitionScaleAmplitude') ? options.transitionScaleAmplitude : 300;
         options.swipeScaleIntensity = options.hasOwnProperty('swipeScaleIntensity') ? options.swipeScaleIntensity : 0.3;
         options.transitionSpriteRotation = options.hasOwnProperty('transitionSpriteRotation') ? options.transitionSpriteRotation : 0;
-        options.nav = options.hasOwnProperty('nav') ? options.nav : true;
         options.textsRgbEffect = options.hasOwnProperty('textsRgbEffect') ? options.textsRgbEffect : true;
         options.imagesRgbEffect = options.hasOwnProperty('imagesRgbEffect') ? options.imagesRgbEffect : false;
         options.textsSubTitleDisplay = options.hasOwnProperty('textsSubTitleDisplay') ? options.textsSubTitleDisplay : false;
@@ -330,165 +329,168 @@
         ///////////////////////////////
 
         function slideTransition(next) {
+            return new Promise((resolve) => {
 
-            // center displacement
-            dispSprite.anchor.set(0.5);
-            dispSprite.x = renderer.view.width / 2;
-            dispSprite.y = renderer.view.height / 2;
-            
-            // set timeline with callbacks
-            timelineTransition = new TimelineMax({
-                onStart: function () {
+                // center displacement
+                dispSprite.anchor.set(0.5);
+                dispSprite.x = renderer.view.width / 2;
+                dispSprite.y = renderer.view.height / 2;
 
-                    // update playing flag
-                    is_playing = true;
-                    // update draging flag
-                    is_swipping = false;
+                // set timeline with callbacks
+                timelineTransition = new TimelineMax({
+                    onStart: function () {
 
-                    dispSprite.rotation = 0;
-                },
+                        // update playing flag
+                        is_playing = true;
+                        // update draging flag
+                        is_swipping = false;
 
-                onComplete: function () {
+                        dispSprite.rotation = 0;
+                    },
 
-                    // reset rgb values
-                    if (options.textsRgbEffect == true) {
-                        splitRgb.red = [0, 0];
-                        splitRgb.green = [0, 0];
-                        splitRgb.blue = [0, 0];
-                    }
+                    onComplete: function () {
 
-                    if (options.imagesRgbEffect == true) {
-                        splitRgbImgs.red = [0, 0];
-                        splitRgbImgs.green = [0, 0];
-                        splitRgbImgs.blue = [0, 0];
-                    }
-
-                    // update flags
-                    is_playing = false;
-                    is_swipping = false;
-
-                    // after the first transition
-                    // will prevent first animation transition
-                    is_loaded = true
-
-                    // set new index
-                    currentIndex = next;
-                },
-
-                onUpdate: function () {
-
-                    dispSprite.rotation = options.transitionSpriteRotation; // frequency
-                    dispSprite.scale.set(timelineTransition.progress() * options.transitionScaleIntensity);
-
-                    const rgbProgress = timelineTransition.progress();
-
-                    if (is_loaded === true) {
-
-                        // rgb shift effect for navigation transition
-                        // if text rgb effect is enable
+                        // reset rgb values
                         if (options.textsRgbEffect == true) {
-
-                            // on first half of transition
-                            // match splitRgb values with timeline progress / from 0 to x
-                            if (rgbProgress < 0.5) {
-                                splitRgb.red = [rgbProgress * options.navTextsRgbIntensity, 0];
-                                splitRgb.green = [0, 0];
-                                splitRgb.blue = [-rgbProgress, 0];
-                            }
-                            // on second half of transition
-                            // match splitRgb values with timeline progress / from x to 0
-                            else {
-                                splitRgb.red = [-(options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity), 0];
-                                splitRgb.green = [0, 0];
-                                splitRgb.blue = [((options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity)), 0];
-                            }
+                            splitRgb.red = [0, 0];
+                            splitRgb.green = [0, 0];
+                            splitRgb.blue = [0, 0];
                         }
 
-                        // if img rgb effect is enable
                         if (options.imagesRgbEffect == true) {
+                            splitRgbImgs.red = [0, 0];
+                            splitRgbImgs.green = [0, 0];
+                            splitRgbImgs.blue = [0, 0];
+                        }
 
-                            // on first half of transition
-                            // match splitRgb values with timeline progress / from 0 to x
-                            if (rgbProgress < 0.5) {
-                                splitRgbImgs.red = [-rgbProgress * options.navImagesRgbIntensity, 0];
-                                splitRgbImgs.green = [0, 0];
-                                splitRgbImgs.blue = [rgbProgress, 0];
+                        // update flags
+                        is_playing = false;
+                        is_swipping = false;
+
+                        // after the first transition
+                        // will prevent first animation transition
+                        is_loaded = true
+
+                        // set new index
+                        currentIndex = next;
+                        return resolve();
+                    },
+
+                    onUpdate: function () {
+
+                        dispSprite.rotation = options.transitionSpriteRotation; // frequency
+                        dispSprite.scale.set(timelineTransition.progress() * options.transitionScaleIntensity);
+
+                        const rgbProgress = timelineTransition.progress();
+
+                        if (is_loaded === true) {
+
+                            // rgb shift effect for navigation transition
+                            // if text rgb effect is enable
+                            if (options.textsRgbEffect == true) {
+
+                                // on first half of transition
+                                // match splitRgb values with timeline progress / from 0 to x
+                                if (rgbProgress < 0.5) {
+                                    splitRgb.red = [rgbProgress * options.navTextsRgbIntensity, 0];
+                                    splitRgb.green = [0, 0];
+                                    splitRgb.blue = [-rgbProgress, 0];
+                                }
+                                // on second half of transition
+                                // match splitRgb values with timeline progress / from x to 0
+                                else {
+                                    splitRgb.red = [-(options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity), 0];
+                                    splitRgb.green = [0, 0];
+                                    splitRgb.blue = [((options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity)), 0];
+                                }
                             }
 
-                            // on second half of transition
-                            // match splitRgb values with timeline progress / from x to 0
-                            else {
-                                splitRgbImgs.red = [-(options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity), 0];
-                                splitRgbImgs.green = [0, 0];
-                                splitRgbImgs.blue = [((options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity)), 0];
+                            // if img rgb effect is enable
+                            if (options.imagesRgbEffect == true) {
+
+                                // on first half of transition
+                                // match splitRgb values with timeline progress / from 0 to x
+                                if (rgbProgress < 0.5) {
+                                    splitRgbImgs.red = [-rgbProgress * options.navImagesRgbIntensity, 0];
+                                    splitRgbImgs.green = [0, 0];
+                                    splitRgbImgs.blue = [rgbProgress, 0];
+                                }
+
+                                // on second half of transition
+                                // match splitRgb values with timeline progress / from x to 0
+                                else {
+                                    splitRgbImgs.red = [-(options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity), 0];
+                                    splitRgbImgs.green = [0, 0];
+                                    splitRgbImgs.blue = [((options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity)), 0];
+                                }
                             }
                         }
                     }
+                });
+
+                // make sure timeline is finished
+                timelineTransition.clear();
+                if (timelineTransition.isActive()) {
+                    return;
                 }
-            });
 
-            // make sure timeline is finished
-            timelineTransition.clear();
-            if (timelineTransition.isActive()) {
-                return;
-            }
+                var scaleAmp;
 
-            var scaleAmp;
+                // prevent first animation transition
+                if (is_loaded === false) {
+                    scaleAmp = 0;
+                }
+                // the first transition is done > applly effect
+                else {
+                    scaleAmp = options.transitionScaleAmplitude;
+                }
 
-            // prevent first animation transition
-            if (is_loaded === false) {
-                scaleAmp = 0;
-            }
-            // the first transition is done > applly effect
-            else {
-                scaleAmp = options.transitionScaleAmplitude;
-            }
+                // if title active
+                if ((options.textsDisplay == true) && (options.itemsTitles.length > 0)) {
 
-            // if title active
-            if ((options.textsDisplay == true) && (options.itemsTitles.length > 0)) {
+                    timelineTransition
+                        .to(dispFilter.scale, options.slideTransitionDuration, {
+                            x: scaleAmp,
+                            y: scaleAmp,
+                            ease: Power2.easeIn
+                        })
+                        .to([slideImages[currentIndex], slideTexts[currentIndex].child], options.slideTransitionDuration, {
+                            alpha: 0,
+                            ease: Power2.easeOut
+                        }, options.slideTransitionDuration * 0.5)
+                        .to([slideImages[next], slideTexts[next].child], options.slideTransitionDuration, {
+                            alpha: 1,
+                            ease: Power2.easeOut
+                        }, options.slideTransitionDuration * 0.5)
+                        .to(dispFilter.scale, options.slideTransitionDuration, {
+                            x: 0,
+                            y: 0,
+                            ease: Power1.easeOut
+                        }, options.slideTransitionDuration);
+                }
 
-                timelineTransition
-                    .to(dispFilter.scale, options.slideTransitionDuration, {
-                        x: scaleAmp,
-                        y: scaleAmp,
-                        ease: Power2.easeIn
-                    })
-                    .to([slideImages[currentIndex], slideTexts[currentIndex].child], options.slideTransitionDuration, {
-                        alpha: 0,
-                        ease: Power2.easeOut
-                    }, options.slideTransitionDuration * 0.5)
-                    .to([slideImages[next], slideTexts[next].child], options.slideTransitionDuration, {
-                        alpha: 1,
-                        ease: Power2.easeOut
-                    }, options.slideTransitionDuration * 0.5)
-                    .to(dispFilter.scale, options.slideTransitionDuration, {
-                        x: 0,
-                        y: 0,
-                        ease: Power1.easeOut
-                    }, options.slideTransitionDuration);
-            }
-
-            else {
-                timelineTransition
-                    .to(dispFilter.scale, options.slideTransitionDuration, {
-                        x: scaleAmp,
-                        y: scaleAmp,
-                        ease: Power2.easeIn
-                    })
-                    .to(slideImages, options.slideTransitionDuration, {
-                        alpha: 0,
-                        ease: Power2.easeOut
-                    }, options.slideTransitionDuration * 0.5)
-                    .to([slideImages[next]], options.slideTransitionDuration, {
-                        alpha: 1,
-                        ease: Power2.easeOut
-                    }, options.slideTransitionDuration * 0.5)
-                    .to(dispFilter.scale, options.slideTransitionDuration, {
-                        x: 0,
-                        y: 0,
-                        ease: Power1.easeOut
-                    }, options.slideTransitionDuration);
-            }
+                else {
+                    timelineTransition
+                        .to(dispFilter.scale, options.slideTransitionDuration, {
+                            x: scaleAmp,
+                            y: scaleAmp,
+                            ease: Power2.easeIn
+                        })
+                        .to(slideImages, options.slideTransitionDuration, {
+                            alpha: 0,
+                            ease: Power2.easeOut
+                        }, options.slideTransitionDuration * 0.5)
+                        .to([slideImages[next]], options.slideTransitionDuration, {
+                            alpha: 1,
+                            ease: Power2.easeOut
+                        }, options.slideTransitionDuration * 0.5)
+                        .to(dispFilter.scale, options.slideTransitionDuration, {
+                            x: 0,
+                            y: 0,
+                            ease: Power1.easeOut
+                        }, options.slideTransitionDuration);
+                }
+            })
         };
 
         ///////////////////////////////    
@@ -747,63 +749,6 @@
             }
         }
 
-        ///////////////////////////////    
-
-        //  navigation 
-
-        ///////////////////////////////
-
-        if (options.nav == true) {
-
-            let nav = document.querySelectorAll('.main-nav');
-
-            for (let i = 0; i < nav.length; i++) {
-
-                let navItem = nav[i];
-
-                navItem.onclick = function (event) {
-
-                    // Make sure the previous transition has ended
-                    if (is_playing) {
-                        return false;
-                    }
-
-                    const active = document.querySelector('.active');
-
-                    if (active) {
-                        active.classList.remove('active');
-                    }
-                    this.classList.add('active');
-
-                    const action = this.getAttribute('data-nav');
-                    if (action === 'next') {
-                        if (currentIndex >= 0 && currentIndex < options.slideImages.length - 1) {
-                            slideTransition(currentIndex + 1);
-                        } else {
-                            slideTransition(0);
-                        }
-                    } else if (action === 'previous') {
-                        if (currentIndex > 0 && currentIndex < options.slideImages.length) {
-                            slideTransition(currentIndex - 1);
-                        } else {
-                            slideTransition(options.slideImages.length - 1);
-                        }
-                    } else {
-                        const slideIndex = parseInt(action);
-                        if (slideIndex >= 0 && slideIndex < options.slideImages.length) {
-                            if (slideIndex !== currentIndex) {
-                                slideTransition(slideIndex)
-                            }
-                        }
-                        else {
-                            console.error('data-nav invalid:', action);
-                        }
-
-                        return false;
-                    }
-                }
-            }
-        }
 
         ///////////////////////////////    
 
@@ -862,8 +807,7 @@
                     }
                     // init slider
                     init();
-                    window.slideNext =  () => slideTransition(currentIndex + 1);
-                    window.slidePrevious =  () => slideTransition(currentIndex - 1);
+                    window.slideTo =  (index) => slideTransition(index);
                     window.setBlur = (value) => { blur.blur = value; };
                     window.getBlur = () => blur.blur;
                 });
