@@ -51,7 +51,9 @@ function switchSectionOnSwipe(){
     gestureZone.addEventListener('touchend', function(event) {
         touchendX = event.changedTouches[0].screenX;
         touchendY = event.changedTouches[0].screenY;
-        switchSection(touchendY >= touchstartY);
+        if (touchendY != touchstartY) {
+            switchSection(touchendY > touchstartY);
+        }
     }, false); 
 }
 
