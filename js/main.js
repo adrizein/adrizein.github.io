@@ -60,6 +60,9 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     })
 
+    $.getScript("./js/jquery.touchSwipe.min.js" );
+
+    /*
     $(function() {
         $('#content').swipe({
             swipeUp() {
@@ -78,7 +81,8 @@ function init() {
             }
         });
     });
-
+    */
+   
     document.addEventListener('mousewheel', function (event) {
         const content = document.getElementById("content");
         const currentSection = sections.find((section) => section.classList.contains('active'));
