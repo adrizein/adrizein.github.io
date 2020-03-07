@@ -150,7 +150,7 @@ footer #credits a {
 }
 
 #main-row #title-placeholder {
-    flex:0 0 18em;
+    flex:0 0 20%;
 }
 
 #main-row #menu {
@@ -435,10 +435,6 @@ svg:hover .appearing{
     #main-row {
         flex-direction:column;
         padding: 0 2em;
-    }
-    
-    #main-row #title-placeholder {
-        flex:0 0 7em;
     }
 
     #main-row #menu {
