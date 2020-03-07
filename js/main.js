@@ -60,10 +60,11 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     })
 
+    /*	
     $(function() {
         $.getScript("./js/jquery.touchSwipe.min.js",
             function() {
-            /*			
+		
             //Enable swiping...
             $('#content').swipe({
                 swipeUp() {
@@ -81,9 +82,9 @@ function init() {
                     }
                 }
             });
-            */
         });
     });
+    */
     
     document.addEventListener('mousewheel', function (event) {
         const content = document.getElementById("content");
