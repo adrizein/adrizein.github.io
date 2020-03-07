@@ -15,6 +15,56 @@ function updateLanguage(lang) {
 
 var sections, languages, navigation, steps, transitioning = false, loaded = false;
 
+
+let touchstartX = 0;
+let touchstartY = 0;
+let touchendX = 0;
+let touchendY = 0;
+
+function switchSection(isScrollingDown) {
+    const content = document.getElementById("content");
+    const currentSection = sections.find((section) => section.classList.contains('active'));
+    var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
+    var isTop = content.scrollTop == 0;
+    if (isScrollingDown && isBottom) {
+        const nextSection = currentSection.nextElementSibling;
+        if (nextSection && !transitioning) {
+            goToSection(nextSection.id);
+        }
+    }
+    if (!isScrollingDown && isTop) {
+        const previousSection = currentSection.previousElementSibling;
+        if (previousSection && !transitioning) {
+            goToSection(previousSection.id);
+        }
+    }
+}
+
+function switchSectionOnSwipe(){
+    const gestureZone = document.getElementById('content');
+    
+    gestureZone.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+        touchstartY = event.changedTouches[0].screenY;
+    }, false);
+
+    gestureZone.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        touchendY = event.changedTouches[0].screenY;
+        switchSection(touchendY >= touchstartY);
+    }, false); 
+}
+
+function switchSectionOnMouseWheel(){
+    document.addEventListener('mousewheel', function (event) {
+        var isScrollingDown = event.wheelDeltaY < -100;
+        var isScrollingUp = event.wheelDeltaY > 100;
+        if (isScrollingDown | isScrollingUp) {
+            switchSection(isScrollingDown)
+        }
+    }, false);
+}
+
 function init() {
     var defaultLanguage = document.firstElementChild.getAttribute('lang');
     languages = document.querySelectorAll('.language .button');
@@ -60,7 +110,10 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     })
 
-    /*	
+    switchSectionOnMouseWheel();
+    switchSectionOnSwipe();
+
+/*
     $(function() {
         $.getScript("./js/jquery.touchSwipe.min.js",
             function() {
@@ -84,12 +137,10 @@ function init() {
             });
         });
     });
-    */
-    
+
     document.addEventListener('mousewheel', function (event) {
         const content = document.getElementById("content");
         const currentSection = sections.find((section) => section.classList.contains('active'));
-
         var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
         var isTop = content.scrollTop == 0;
         var isScrollingDown = event.wheelDeltaY < -100;
@@ -109,6 +160,7 @@ function init() {
         }
 
     }, false);
+    */
 
 }
 
