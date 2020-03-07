@@ -62,7 +62,8 @@ function init() {
 
     $(function() {
         $.getScript("./js/jquery.touchSwipe.min.js",
-            function() {			
+            function() {
+            /*			
             //Enable swiping...
             $('#content').swipe({
                 swipeUp() {
@@ -80,6 +81,7 @@ function init() {
                     }
                 }
             });
+            */
         });
     });
     
