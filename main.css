@@ -185,6 +185,7 @@ footer #credits a {
     flex:1;
     overflow-y: scroll;
     display: flex;
+    align-items: center;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
 }
@@ -193,46 +194,38 @@ footer #credits a {
     display: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-section {
+#main-row #content section {
     display: none;
+    flex-direction: column;
     text-align: left;
-    font-size: 1.3em;
+    font-size: 1.1em;
     opacity: 0;
     transition: opacity ease-in-out 500ms;
 }
 
-section.active {
-    display: block;
+#main-row #content section.active {
+    display: flex;
 }
 
-section.visible {
+#main-row #content section.visible {
     opacity: 1;
     transition-delay: 500ms;
 }
 
-section .container {
-    margin: auto 10em auto 18em;
-}
 
-#contributions.active {
-    display: flex;
-    flex-direction: column;
-    height: calc(100% - 8em);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #contributions .step {
     display: none;
@@ -455,11 +448,6 @@ svg:hover .appearing{
 
     h3 {
         font-size: 4em;
-    }
-
-    #content section .container {
-        max-width: none;
-        margin: 0 2em;
     }
 }
 
