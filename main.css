@@ -186,6 +186,7 @@ footer #credits a {
     overflow-y: scroll;
     display: flex;
     -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 #main-row #content::-webkit-scrollbar {

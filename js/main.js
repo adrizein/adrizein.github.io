@@ -60,29 +60,29 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     })
 
-    $.getScript("./js/jquery.touchSwipe.min.js" );
-
-    /*
     $(function() {
-        $('#content').swipe({
-            swipeUp() {
-                const currentSection = sections.find((section) => section.classList.contains('active'));
-                const nextSection = currentSection.nextElementSibling;
-                if (nextSection) {
-                    goToSection(nextSection.id);
+        $.getScript("./js/jquery.touchSwipe.min.js",
+            function() {			
+            //Enable swiping...
+            $('#content').swipe({
+                swipeUp() {
+                    const currentSection = sections.find((section) => section.classList.contains('active'));
+                    const nextSection = currentSection.nextElementSibling;
+                    if (nextSection) {
+                        goToSection(nextSection.id);
+                    }
+                },
+                swipeDown() {
+                    const currentSection = sections.find((section) => section.classList.contains('active'));
+                    const previousSection = currentSection.previousElementSibling;
+                    if (previousSection) {
+                        goToSection(previousSection.id);
+                    }
                 }
-            },
-            swipeDown() {
-                const currentSection = sections.find((section) => section.classList.contains('active'));
-                const previousSection = currentSection.previousElementSibling;
-                if (previousSection) {
-                    goToSection(previousSection.id);
-                }
-            }
+            });
         });
     });
-
-
+    
     document.addEventListener('mousewheel', function (event) {
         const content = document.getElementById("content");
         const currentSection = sections.find((section) => section.classList.contains('active'));
@@ -106,7 +106,6 @@ function init() {
         }
 
     }, false);
-    */
 
 }
 
