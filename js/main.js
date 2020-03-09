@@ -159,54 +159,52 @@ function goToNextStep(step) {
 }
 
 function goToSection(sectionId) {
-    return Promise.resolve().then(() => {
-        if (!transitioning) {
-            transitioning = true;
-            window.location.hash = `#${sectionId}`;
-            const currentSection = sections.find((section) => section.classList.contains('active'));
-            const currentButton = navigation.find((nav) => nav.classList.contains('active'));
-            const targetSection = sections.find((section) => section.id === sectionId);
-            const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
-            if (currentSection === targetSection) return;
-            if (currentSection) currentSection.classList.remove('visible');
-            if (currentButton) currentButton.classList.remove('active');
-            targetButton.classList.add('active');
-            return unblur(1000)
-                .then(() => {
-                    if (!loaded) return targetSection.classList.add('active');
-                    if (currentSection) currentSection.classList.remove('active');
-                    const index = sections.findIndex((section) => section.id === sectionId);
-                    return slideTo(index);
-                })
-                .then(() => {
-                    if (sectionId === 'home') return;
+    if (!transitioning) {
+        transitioning = true;
+        window.location.hash = `#${sectionId}`;
+        const currentSection = sections.find((section) => section.classList.contains('active'));
+        const currentButton = navigation.find((nav) => nav.classList.contains('active'));
+        const targetSection = sections.find((section) => section.id === sectionId);
+        const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
+        if (currentSection === targetSection) return (loaded = true) && (transitioning = false);
+        if (currentSection) currentSection.classList.remove('visible');
+        if (currentButton) currentButton.classList.remove('active');
+        targetButton.classList.add('active');
+        return unblur(1000)
+            .then(() => {
+                if (!loaded) return targetSection.classList.add('active');
+                if (currentSection) currentSection.classList.remove('active');
+                const index = sections.findIndex((section) => section.id === sectionId);
+                return slideTo(index);
+            })
+            .then(() => {
+                if (sectionId === 'home') return;
 
-                    return new Promise((resolve) => {
-                        function nextThen() {
-                            document.removeEventListener('click', nextThen);
-                            document.removeEventListener('mousewheel', nextThen);
-                            return resolve();
-                        }
-                        setTimeout(nextThen, 2000);
-                        document.addEventListener('click', nextThen);
-                        document.addEventListener('mousewheel', nextThen);
-                    });
-                })
-                .then(() => {
-                    if (currentSection) {
-                        targetSection.classList.add('active');
+                return new Promise((resolve) => {
+                    function nextThen() {
+                        document.removeEventListener('click', nextThen);
+                        document.removeEventListener('mousewheel', nextThen);
+                        return resolve();
                     }
-                    requestAnimationFrame(() => {
-                        targetSection.classList.add('visible');
-                    });
-                    if (sectionId === 'home') return;
-                    return blur(1000, 20);
+                    setTimeout(nextThen, 2000);
+                    document.addEventListener('click', nextThen);
+                    document.addEventListener('mousewheel', nextThen);
                 });
-        }
-    }).then(() => {
-        transitioning = false;
-        loaded = true;
-    });
+            })
+            .then(() => {
+                if (currentSection) {
+                    targetSection.classList.add('active');
+                }
+                requestAnimationFrame(() => {
+                    targetSection.classList.add('visible');
+                });
+                if (sectionId === 'home') return;
+                return blur(1000, 20);
+            }).then(() => {
+                transitioning = false;
+                loaded = true;
+            });
+    }
 }
 
 function blur(duration, target) {
