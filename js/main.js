@@ -54,7 +54,7 @@ function switchSectionOnSwipe(){
         touchend = event.timeStamp;
         const velocity = Math.abs(touchendY - touchstartY) / (touchend - touchstart);
         console.log({velocity});
-        if (velocity > 2) {
+        if (velocity > 1) {
             switchSection(touchendY < touchstartY);
             touchstartY = 0;
             touchendY = 0;
@@ -66,16 +66,12 @@ function switchSectionOnMouseWheel(){
     let deltaY = 0;
     document.addEventListener('mousewheel', function (event) {
         deltaY += event.wheelDeltaY;
-        console.log('mousewheel', deltaY);
-        if (deltaY > 200) {
+        if (Math.abs(deltaY) > 300) {
+            switchSection(deltaY < 0);
             deltaY = 0;
-            switchSection(false);
-        } else if (deltaY < -200) {
-            deltaY = 0;
-            switchSection(true);
-        } else {
+        }
+        else {
             setTimeout(() => {
-                console.log('timeout', deltaY);
                 if (deltaY) {
                     deltaY -= event.wheelDeltaY;
                 }
@@ -163,54 +159,52 @@ function goToNextStep(step) {
 }
 
 function goToSection(sectionId) {
-    return Promise.resolve().then(() => {
-        if (!transitioning) {
-            transitioning = true;
-            window.location.hash = `#${sectionId}`;
-            const currentSection = sections.find((section) => section.classList.contains('active'));
-            const currentButton = navigation.find((nav) => nav.classList.contains('active'));
-            const targetSection = sections.find((section) => section.id === sectionId);
-            const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
-            if (currentSection === targetSection) return;
-            if (currentSection) currentSection.classList.remove('visible');
-            if (currentButton) currentButton.classList.remove('active');
-            targetButton.classList.add('active');
-            return unblur(1000)
-                .then(() => {
-                    if (!loaded) return targetSection.classList.add('active');
-                    if (currentSection) currentSection.classList.remove('active');
-                    const index = sections.findIndex((section) => section.id === sectionId);
-                    return slideTo(index);
-                })
-                .then(() => {
-                    if (sectionId === 'home') return;
+    if (!transitioning) {
+        transitioning = true;
+        window.location.hash = `#${sectionId}`;
+        const currentSection = sections.find((section) => section.classList.contains('active'));
+        const currentButton = navigation.find((nav) => nav.classList.contains('active'));
+        const targetSection = sections.find((section) => section.id === sectionId);
+        const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
+        if (currentSection === targetSection) return (loaded = true) && (transitioning = false);
+        if (currentSection) currentSection.classList.remove('visible');
+        if (currentButton) currentButton.classList.remove('active');
+        targetButton.classList.add('active');
+        return unblur(1000)
+            .then(() => {
+                if (!loaded) return targetSection.classList.add('active');
+                if (currentSection) currentSection.classList.remove('active');
+                const index = sections.findIndex((section) => section.id === sectionId);
+                return slideTo(index);
+            })
+            .then(() => {
+                if (sectionId === 'home') return;
 
-                    return new Promise((resolve) => {
-                        function nextThen() {
-                            document.removeEventListener('click', nextThen);
-                            document.removeEventListener('mousewheel', nextThen);
-                            return resolve();
-                        }
-                        setTimeout(nextThen, 2000);
-                        document.addEventListener('click', nextThen);
-                        document.addEventListener('mousewheel', nextThen);
-                    });
-                })
-                .then(() => {
-                    if (currentSection) {
-                        targetSection.classList.add('active');
+                return new Promise((resolve) => {
+                    function nextThen() {
+                        document.removeEventListener('click', nextThen);
+                        document.removeEventListener('mousewheel', nextThen);
+                        return resolve();
                     }
-                    requestAnimationFrame(() => {
-                        targetSection.classList.add('visible');
-                    });
-                    if (sectionId === 'home') return;
-                    return blur(1000, 20);
+                    setTimeout(nextThen, 2000);
+                    document.addEventListener('click', nextThen);
+                    document.addEventListener('mousewheel', nextThen);
                 });
-        }
-    }).then(() => {
-        transitioning = false;
-        loaded = true;
-    });
+            })
+            .then(() => {
+                if (currentSection) {
+                    targetSection.classList.add('active');
+                }
+                requestAnimationFrame(() => {
+                    targetSection.classList.add('visible');
+                });
+                if (sectionId === 'home') return;
+                return blur(1000, 20);
+            }).then(() => {
+                transitioning = false;
+                loaded = true;
+            });
+    }
 }
 
 function blur(duration, target) {
@@ -298,6 +292,7 @@ const titles = [
             desktop: {
                 anchor: 0.5,
                 size: 0.22,
+                maxSize: 200,
                 angle: -90,
                 rx: 0.09,
                 ry: 0.5,
@@ -305,9 +300,10 @@ const titles = [
             mobile: {
                 anchor: {x: 0.5, y: 0},
                 size: 0.22,
+                maxSize: 150,
                 angle: 0,
                 rx: 0.5,
-                y: 0,
+                ry: 0,
             },
         },
     },
@@ -317,6 +313,7 @@ const titles = [
             desktop: {
                 anchor: 0.5,
                 size: 0.20,
+                maxSize: 200,
                 angle: -90,
                 rx: 0.09,
                 ry: 0.5,
@@ -324,7 +321,8 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0.5, y: 0},
-                size: 0.23,
+                size: 0.22,
+                maxSize: 150,
                 angle: 0,
                 rx: 0.5,
                 y: 0.1,
@@ -338,6 +336,7 @@ const titles = [
             desktop: {
                 anchor: 0.5,
                 size: 0.18,
+                maxSize: 200,
                 angle: -90,
                 rx: 0.09,
                 ry: 0.5,
@@ -359,6 +358,7 @@ const titles = [
             desktop: {
                 anchor: 0.5,
                 size: 0.15,
+                maxSize: 200,
                 angle: -90,
                 rx: 0.09,
                 ry: 0.5,

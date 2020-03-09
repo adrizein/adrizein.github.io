@@ -291,6 +291,7 @@
                         // for first array, get string before :
 
                         const item = options.itemsTitles[i];
+                        const subtitle = item.subtitle;
                         const title = item.title;
                         const fontStyle = getFontStyle(item, device);
                         const textTitle = new PIXI.Text(title.text, {
@@ -301,6 +302,14 @@
                             stroke: options.textTitleColor,
                             strokeThickness: fontStyle.strokeThickness,
                         });
+                        let textSubtitle;
+                        if (subtitle) {
+                            textSubtitle = new PIXI.Text(subtitle.text, {
+                                fontFamily,
+                                fontSize: fontStyle.fontSize * 0.5,
+                                fill: options.textTitleColor,
+                            });
+                        } 
 
                         resize_text(textTitle, item, device);
 
@@ -317,15 +326,16 @@
         }
 
         function getFontStyle(item, device) {
+            const maxSize = item.title[device].maxSize || Number.POSITIVE_INFINITY;
             let fontSize, strokeThickness;
             const value = item.title[device].size;
             if (device === 'desktop') {
                 fontSize = value * renderer.height;
-                strokeThickness = 3 * fontSize / 200;
             } else {
                 fontSize = value * renderer.width;
-                strokeThickness = 3 * fontSize / 200;
             }
+            fontSize = Math.min(fontSize, maxSize);
+            strokeThickness = 3 * fontSize / 200;
             return { fontSize, strokeThickness };
         }
 
