@@ -54,7 +54,7 @@ function switchSectionOnSwipe(){
         touchend = event.timeStamp;
         const velocity = Math.abs(touchendY - touchstartY) / (touchend - touchstart);
         console.log({velocity});
-        if (velocity > 2) {
+        if (velocity > 1) {
             switchSection(touchendY < touchstartY);
             touchstartY = 0;
             touchendY = 0;
@@ -66,16 +66,12 @@ function switchSectionOnMouseWheel(){
     let deltaY = 0;
     document.addEventListener('mousewheel', function (event) {
         deltaY += event.wheelDeltaY;
-        console.log('mousewheel', deltaY);
-        if (deltaY > 200) {
+        if (Math.abs(deltaY) > 300) {
+            switchSection(deltaY < 0);
             deltaY = 0;
-            switchSection(false);
-        } else if (deltaY < -200) {
-            deltaY = 0;
-            switchSection(true);
-        } else {
+        }
+        else {
             setTimeout(() => {
-                console.log('timeout', deltaY);
                 if (deltaY) {
                     deltaY -= event.wheelDeltaY;
                 }
