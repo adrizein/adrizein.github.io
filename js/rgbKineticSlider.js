@@ -317,15 +317,16 @@
         }
 
         function getFontStyle(item, device) {
+            const maxSize = item.title[device].maxSize || Number.POSITIVE_INFINITY;
             let fontSize, strokeThickness;
             const value = item.title[device].size;
             if (device === 'desktop') {
                 fontSize = value * renderer.height;
-                strokeThickness = 3 * fontSize / 200;
             } else {
                 fontSize = value * renderer.width;
-                strokeThickness = 3 * fontSize / 200;
             }
+            fontSize = Math.min(fontSize, maxSize);
+            strokeThickness = 3 * fontSize / 200;
             return { fontSize, strokeThickness };
         }
 
