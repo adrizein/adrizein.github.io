@@ -56,7 +56,7 @@
         // remove pixi message in console
         PIXI.utils.skipHello();
 
-        const renderer = new PIXI.autoDetectRenderer(imgWidth, imgHeight, {
+        const renderer = new PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, {
             transparent: true,
             autoResize: true,
             resolution: devicePixelRatio,
@@ -215,14 +215,13 @@
             for (let i = 0; i < options.slideImages.length; i++) {
 
                 // get texture from image
-                texture = new PIXI.Texture.from(options.slideImages[i]);
+                const texture = new PIXI.Texture.from(options.slideImages[i]);
                 // set sprite from texture
-                imgSprite = new PIXI.Sprite(texture);
+                const imgSprite = new PIXI.Sprite(texture);
 
                 // center img
                 imgSprite.anchor.set(0.5);
-                imgSprite.x = renderer.width / 2;
-                imgSprite.y = renderer.height / 2;
+                resize_img(imgSprite);
                 
                 // hide all imgs
                 TweenMax.set(imgSprite, {
@@ -236,6 +235,23 @@
             slideImages = imagesContainer.children;
         }
 
+        function resize_img(imgSprite) {
+            const aspectRatio = renderer.height / renderer.width;
+            if (aspectRatio < (imgHeight / imgWidth)) {
+                imgSprite.width = renderer.width;
+                imgSprite.height = imgHeight * (renderer.width / imgWidth);
+            } else {
+                imgSprite.height = renderer.height;
+                imgSprite.width = imgWidth * (renderer.height / imgHeight);
+            }
+            imgSprite.x = renderer.width / 2;
+            imgSprite.y = renderer.height / 2;
+        }
+
+        function resize_imgs() {
+            slideImages.forEach(resize_img);
+        }
+
 
         ///////////////////////////////    
 
@@ -243,9 +259,20 @@
 
         ///////////////////////////////
 
+        function getDevice() {
+            if (window.innerWidth < 1100) {
+                if (window.innerHeight < 400) {
+                    return 'desktop';
+                }
+                return 'mobile';
+            } else {
+                return 'desktop';
+            }
+        }
+
         function build_texts() {
 
-            const device = window.innerWidth < 870 ? 'mobile' : 'desktop';
+            const device = getDevice();
 
             // make sure array is not empty
             if (options.itemsTitles.length > 0) {
@@ -265,61 +292,86 @@
 
                         const item = options.itemsTitles[i];
                         const title = item.title;
-                        const anchor = title.anchor || title[device].anchor || 0.5;
-                        const x = title.x || title[device].x;
-                        const y = title.y || title[device].y;
-                        const pivot = title.pivot || title[device].pivot;
-                        const angle = title.angle || title[device].angle;
-                        const titleSize = title.size || title[device].size
-                        textTitles = new PIXI.Text(title.text, {
+                        const fontStyle = getFontStyle(item, device);
+                        const textTitle = new PIXI.Text(title.text, {
                             fontFamily,
-                            fontSize: titleSize,
+                            fontSize: fontStyle.fontSize,
                             fontWeight,
                             fill: 'transparent',
                             stroke: options.textTitleColor,
-                            strokeThickness: 3 * titleSize / 200,
+                            strokeThickness: fontStyle.strokeThickness,
                         });
 
-                        if (anchor) {
-                            textTitles.anchor.set(anchor);
-                        }
-                        if (x) {
-                            textTitles.x = x * renderer.width;
-                        }
-                        if (y) {
-                            textTitles.y = y * renderer.height;
-                        }
-                        if (pivot) {
-                            textTitles.pivot = pivot;
-                        }
-                        if (angle) {
-                            textTitles.angle = angle;
-                        }
-                        textsContainer.addChild(textTitles);
+                        resize_text(textTitle, item, device);
+
+                        textsContainer.addChild(textTitle);
 
                         // hide all titles on init
-                        TweenMax.set(textTitles, {
+                        TweenMax.set(textTitle, {
                             alpha: 0
                         });
-
-                        if (options.buttonMode === true) {
-
-                            textTitles.interactive = true;
-                            textTitles.buttonMode = true;
-
-                            // Pointers normalize touch and mouse
-                            textTitles.on('pointerdown', onClick);
-
-                            function onClick() {
-                                // do something on click
-                            }
-                        }
                     }
                     slideTexts = textsContainer.children.map((child, i) => Object.assign({child}, options.itemsTitles[i]));
                 }
             }
-
         }
+
+        function getFontStyle(item, device) {
+            let fontSize, strokeThickness;
+            const value = item.title[device].size;
+            if (device === 'desktop') {
+                fontSize = value * renderer.height;
+                strokeThickness = 3 * fontSize / 200;
+            } else {
+                fontSize = value * renderer.width;
+                strokeThickness = 3 * fontSize / 200;
+            }
+            return { fontSize, strokeThickness };
+        }
+
+        function resize_text(textTitle, item, device) {
+            const title = item.title;
+            const anchor = title[device].anchor;
+            const x = title[device].x;
+            const y = title[device].y;
+            const rx = title[device].rx;
+            const ry = title[device].ry;
+            const pivot = title[device].pivot || title.pivot;
+            const angle = title[device].angle;
+            if (typeof anchor === 'number') {
+                textTitle.anchor.set(anchor);
+            }
+            else if (anchor) {
+                textTitle.anchor.set(anchor.x, anchor.y);
+            }
+            if (x === 0 || x) {
+                textTitle.x = x;
+            }
+            if (y === 0 || y) {
+                textTitle.y = y;
+            }
+            if (rx === 0 || rx) {
+                textTitle.x = rx * renderer.width;
+            }
+            if (ry === 0 || ry) {
+                textTitle.y = ry * renderer.height;
+            }
+            if (pivot) {
+                textTitle.pivot = pivot;
+            }
+            if (angle === 0 || angle) {
+                textTitle.angle = angle;
+            }
+            const fontStyle = getFontStyle(item, device);
+            textTitle.style.fontSize = fontStyle.fontSize;
+            textTitle.style.strokeThickness = fontStyle.strokeThickness;
+        }
+
+        function resize_texts() {
+            const device = getDevice();
+            slideTexts.forEach((item) => resize_text(item.child, item, device));
+        }
+
 
         ///////////////////////////////    
 
@@ -639,22 +691,23 @@
         function init() {
 
             // re init renderer on ready
-            renderer.resize(imgWidth, imgHeight);
+            renderer.resize(window.innerWidth, window.innerHeight);
 
             // construct
             build_scene();
-            resizeTexts();
+            build_imgs();
+            build_texts();
 
             // interactivity
             cursorInteractive();
             slideTransition(currentIndex);
 
             // Listen for window resize events
-            window.addEventListener('resize', resizeTexts);
-            function resizeTexts() {
-                //renderer.resize(window.innerWidth, window.innerHeight);
-                build_imgs();
-                build_texts();
+            window.addEventListener('resize', resize);
+            function resize() {
+                renderer.resize(window.innerWidth, window.innerHeight);
+                resize_imgs();
+                resize_texts();
                 renderer.render(stage);
             }
         };

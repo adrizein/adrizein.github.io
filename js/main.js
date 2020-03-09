@@ -43,26 +43,43 @@ function switchSection(isScrollingDown) {
 function switchSectionOnSwipe(){
     const gestureZone = document.getElementById('content');
     
+    let touchstartY, touchendY, touchstart, touchend;
     gestureZone.addEventListener('touchstart', function(event) {
-        touchstartX = event.changedTouches[0].screenX;
         touchstartY = event.changedTouches[0].screenY;
+        touchstart = event.timeStamp;
     }, false);
 
     gestureZone.addEventListener('touchend', function(event) {
-        touchendX = event.changedTouches[0].screenX;
         touchendY = event.changedTouches[0].screenY;
-        if (touchendY != touchstartY) {
-            switchSection(touchendY > touchstartY);
+        touchend = event.timeStamp;
+        const velocity = Math.abs(touchendY - touchstartY) / (touchend - touchstart);
+        console.log({velocity});
+        if (velocity > 2) {
+            switchSection(touchendY < touchstartY);
+            touchstartY = 0;
+            touchendY = 0;
         }
     }, false); 
 }
 
 function switchSectionOnMouseWheel(){
+    let deltaY = 0;
     document.addEventListener('mousewheel', function (event) {
-        var isScrollingDown = event.wheelDeltaY < -100;
-        var isScrollingUp = event.wheelDeltaY > 100;
-        if (isScrollingDown | isScrollingUp) {
-            switchSection(isScrollingDown)
+        deltaY += event.wheelDeltaY;
+        console.log('mousewheel', deltaY);
+        if (deltaY > 200) {
+            deltaY = 0;
+            switchSection(false);
+        } else if (deltaY < -200) {
+            deltaY = 0;
+            switchSection(true);
+        } else {
+            setTimeout(() => {
+                console.log('timeout', deltaY);
+                if (deltaY) {
+                    deltaY -= event.wheelDeltaY;
+                }
+            }, 200);
         }
     }, false);
 }
@@ -114,66 +131,7 @@ function init() {
 
     switchSectionOnMouseWheel();
     switchSectionOnSwipe();
-
-/*
-    $(function() {
-        $.getScript("./js/jquery.touchSwipe.min.js",
-            function() {
-		
-            //Enable swiping...
-            $('#content').swipe({
-                swipeUp() {
-                    const currentSection = sections.find((section) => section.classList.contains('active'));
-                    const nextSection = currentSection.nextElementSibling;
-                    if (nextSection) {
-                        goToSection(nextSection.id);
-                    }
-                },
-                swipeDown() {
-                    const currentSection = sections.find((section) => section.classList.contains('active'));
-                    const previousSection = currentSection.previousElementSibling;
-                    if (previousSection) {
-                        goToSection(previousSection.id);
-                    }
-                }
-            });
-        });
-    });
-
-    document.addEventListener('mousewheel', function (event) {
-        const content = document.getElementById("content");
-        const currentSection = sections.find((section) => section.classList.contains('active'));
-        var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
-        var isTop = content.scrollTop == 0;
-        var isScrollingDown = event.wheelDeltaY < -100;
-        var isScrollingUp = event.wheelDeltaY > 100;
-
-        if (isScrollingDown && isBottom) {
-            const nextSection = currentSection.nextElementSibling;
-            if (nextSection && !transitioning) {
-                goToSection(nextSection.id);
-            }
-        }
-        if (isScrollingUp && isTop) {
-            const previousSection = currentSection.previousElementSibling;
-            if (previousSection && !transitioning) {
-                goToSection(previousSection.id);
-            }
-        }
-
-    }, false);
-    */
-
 }
-
-/*
-window.addEventListener('scroll', function(e) {
-    console.log(e.target);
-    console.log(e.target.scrollHeight);
-    console.log(e.target.scrollTop);
-    console.log(e.target.clientHeight);
-}, true);
-*/
 
 
 function stepAnswerHandler(step) {
@@ -220,6 +178,7 @@ function goToSection(sectionId) {
             return unblur(1000)
                 .then(() => {
                     if (!loaded) return targetSection.classList.add('active');
+                    if (currentSection) currentSection.classList.remove('active');
                     const index = sections.findIndex((section) => section.id === sectionId);
                     return slideTo(index);
                 })
@@ -229,7 +188,7 @@ function goToSection(sectionId) {
                     return new Promise((resolve) => {
                         function nextThen() {
                             document.removeEventListener('click', nextThen);
-                            document.removeEventListener('scroll', nextThen);
+                            document.removeEventListener('mousewheel', nextThen);
                             return resolve();
                         }
                         setTimeout(nextThen, 2000);
@@ -239,7 +198,6 @@ function goToSection(sectionId) {
                 })
                 .then(() => {
                     if (currentSection) {
-                        currentSection.classList.remove('active');
                         targetSection.classList.add('active');
                     }
                     requestAnimationFrame(() => {
@@ -320,14 +278,14 @@ const titles = [
             text: "Coucool",
             anchor: 0.5,
             desktop: {
-                x: 0.5,
-                y: 0.48,
-                size: 200
+                rx: 0.5,
+                ry: 0.48,
+                size: 0.22
             },
             mobile: {
-                x: 0.5,
-                y: 0.5,
-                size: 200,
+                rx: 0.5,
+                ry: 0.5,
+                size: 0.16,
             },
         },
         subtitle: "14.09.20 - 16.08.20",
@@ -335,38 +293,39 @@ const titles = [
     {
         title: {
             text: "Ethos",
-            anchor: 0.5,
+            pivot: { x: 0.5, y: 0.5 },
             desktop: {
-                size: 200,
+                anchor: 0.5,
+                size: 0.22,
                 angle: -90,
-                x: 0.12,
-                y: 0.5,
-                pivot: { x: 0.5, y: 0.5 }
+                rx: 0.09,
+                ry: 0.5,
             },
             mobile: {
-                size: 200,
+                anchor: {x: 0.5, y: 0},
+                size: 0.22,
                 angle: 0,
-                x: 0.5,
-                y: 0.1,
-                pivot: { x: 0.5, y: 0.5 }
+                rx: 0.5,
+                y: 0,
             },
         },
     },
     {
         title: {
             text: "Infos",
-            anchor: 0.5,
             desktop: {
-                size: 200,
+                anchor: 0.5,
+                size: 0.20,
                 angle: -90,
-                x: 0.12,
-                y: 0.5,
+                rx: 0.09,
+                ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
             mobile: {
-                size: 200,
+                anchor: {x: 0.5, y: 0},
+                size: 0.23,
                 angle: 0,
-                x: 0.5,
+                rx: 0.5,
                 y: 0.1,
                 pivot: { x: 0.5, y: 0.5 }
             },
@@ -375,19 +334,20 @@ const titles = [
     {
         title: {
             text: "Sesame",
-            anchor: 0.5,
             desktop: {
-                size: 170,
+                anchor: 0.5,
+                size: 0.18,
                 angle: -90,
-                x: 0.15,
-                y: 0.5,
+                rx: 0.09,
+                ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
             mobile: {
-                size: 150,
+                anchor: {x: 0.5, y: 0},
+                size: 0.18,
                 angle: 0,
-                x: 0.5,
-                y: 0.1,
+                rx: 0.5,
+                y: 0.08,
                 pivot: { x: 0.5, y: 0.5 }
             },
         },
@@ -395,15 +355,22 @@ const titles = [
     {
         title: {
             text: "Souvenirs",
-            anchor: 0.5,
             desktop: {
-                size: 150,
+                anchor: 0.5,
+                size: 0.15,
                 angle: -90,
-                x: 0.12,
-                y: 0.5,
+                rx: 0.09,
+                ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
-            mobile: {},
+            mobile: {
+                anchor: {x: 0.5, y: 0},
+                size: 0.15,
+                angle: 0,
+                rx: 0.5,
+                y: 0.1,
+                pivot: {x: 0.5, y: 0.5}
+            },
         },
     },
 ];
