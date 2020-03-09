@@ -332,7 +332,7 @@ html:lang(en) .fr {
 .accordion-item.active ul {
     display: block;
     visibility: visible;
-    max-height: 10em;
+    max-height: 13em;
     opacity: 1;
     transition: max-height 0.5s ease-in-out 0.10s, opacity 0.25s ease-in-out 0.5s, padding 0s ease-in-out 0s, visibility 0s ease-in-out 0s;
 }
