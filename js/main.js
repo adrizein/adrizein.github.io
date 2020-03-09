@@ -276,13 +276,14 @@ const titles = [
     {
         title: {
             text: "Coucool",
-            anchor: 0.5,
             desktop: {
+                anchor: 0.5,
                 rx: 0.5,
                 ry: 0.48,
                 size: 0.22
             },
             mobile: {
+                anchor: 0.5,
                 rx: 0.5,
                 ry: 0.5,
                 size: 0.16,
