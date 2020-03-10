@@ -60,7 +60,7 @@
             transparent: true,
             autoResize: true,
             resolution: devicePixelRatio,
-            antialias: true,
+            antialias: false,
         });
 
         const canvas = document.getElementById("rgbKineticSlider");
@@ -85,7 +85,7 @@
         const splitRgb = new PIXI.filters.RGBSplitFilter;
         const splitRgbImgs = new PIXI.filters.RGBSplitFilter;
 
-        const blur = new PIXI.filters.BlurFilter();
+        const blur = new PIXI.filters.BlurFilter(8, 6);
 
         // main elements
         let render; // pixi render
@@ -471,7 +471,7 @@
                                 else {
                                     splitRgb.red = [-(options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity), 0];
                                     splitRgb.green = [0, 0];
-                                    splitRgb.blue = [((options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity)), 0];
+                                    splitRgb.blue = [options.navTextsRgbIntensity - rgbProgress * options.navTextsRgbIntensity, 0];
                                 }
                             }
 
@@ -491,7 +491,7 @@
                                 else {
                                     splitRgbImgs.red = [-(options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity), 0];
                                     splitRgbImgs.green = [0, 0];
-                                    splitRgbImgs.blue = [((options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity)), 0];
+                                    splitRgbImgs.blue = [options.navImagesRgbIntensity - rgbProgress * options.navImagesRgbIntensity, 0];
                                 }
                             }
                         }

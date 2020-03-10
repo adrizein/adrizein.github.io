@@ -21,18 +21,18 @@ let touchstartY = 0;
 let touchendX = 0;
 let touchendY = 0;
 
-function switchSection(isScrollingDown) {
+function switchSection(isScrollingDown, bypass) {
     const content = document.getElementById("content");
     const currentSection = sections.find((section) => section.classList.contains('active'));
     var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
     var isTop = content.scrollTop == 0;
-    if (isScrollingDown && isBottom) {
+    if (isScrollingDown && (bypass || isBottom)) {
         const nextSection = currentSection.nextElementSibling;
         if (nextSection && !transitioning) {
             goToSection(nextSection.id);
         }
     }
-    if (!isScrollingDown && isTop) {
+    if (!isScrollingDown && (bypass || isTop)) {
         const previousSection = currentSection.previousElementSibling;
         if (previousSection && !transitioning) {
             goToSection(previousSection.id);
@@ -43,21 +43,21 @@ function switchSection(isScrollingDown) {
 function switchSectionOnSwipe(){
     const gestureZone = document.getElementById('content');
     
-    let touchstartY, touchendY, touchstart, touchend;
+    let touchstartX, touchendX, touchstart, touchend;
     gestureZone.addEventListener('touchstart', function(event) {
-        touchstartY = event.changedTouches[0].screenY;
+        touchstartX = event.changedTouches[0].screenX;
         touchstart = event.timeStamp;
     }, false);
 
     gestureZone.addEventListener('touchend', function(event) {
-        touchendY = event.changedTouches[0].screenY;
+        touchendX = event.changedTouches[0].screenX;
         touchend = event.timeStamp;
-        const velocity = Math.abs(touchendY - touchstartY) / (touchend - touchstart);
+        const velocity = Math.abs(touchendX - touchstartX) / (touchend - touchstart);
         console.log({velocity});
         if (velocity > 1) {
-            switchSection(touchendY < touchstartY);
-            touchstartY = 0;
-            touchendY = 0;
+            switchSection(touchendX < touchstartX, true);
+            touchstartX = 0;
+            touchendX = 0;
         }
     }, false); 
 }
@@ -207,9 +207,7 @@ function goToSection(sectionId) {
 
 function when(event, target) {
     if (target) {
-        return new Promise((resolve) => {
-            target.addEventListener(event, resolve);
-        })
+        return new Promise((resolve) => target.addEventListener(event, resolve));
     } else {
         return Promise.resolve();
     }
