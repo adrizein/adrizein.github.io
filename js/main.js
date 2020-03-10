@@ -161,50 +161,62 @@ function goToNextStep(step) {
 function goToSection(sectionId) {
     if (!transitioning) {
         transitioning = true;
-        window.location.hash = `#${sectionId}`;
-        const currentSection = sections.find((section) => section.classList.contains('active'));
-        const currentButton = navigation.find((nav) => nav.classList.contains('active'));
-        const targetSection = sections.find((section) => section.id === sectionId);
-        const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
-        if (currentSection === targetSection) return (loaded = true) && (transitioning = false);
-        if (currentSection) currentSection.classList.remove('visible');
-        if (currentButton) currentButton.classList.remove('active');
-        targetButton.classList.add('active');
-        return unblur(1000)
+        return Promise.resolve()
             .then(() => {
-                if (!loaded) return targetSection.classList.add('active');
-                if (currentSection) currentSection.classList.remove('active');
-                const index = sections.findIndex((section) => section.id === sectionId);
-                return slideTo(index);
-            })
-            .then(() => {
-                if (sectionId === 'home') return;
-
-                return new Promise((resolve) => {
-                    function nextThen() {
-                        document.removeEventListener('click', nextThen);
-                        document.removeEventListener('mousewheel', nextThen);
-                        return resolve();
-                    }
-                    setTimeout(nextThen, 2000);
-                    document.addEventListener('click', nextThen);
-                    document.addEventListener('mousewheel', nextThen);
-                });
-            })
-            .then(() => {
-                if (currentSection) {
-                    targetSection.classList.add('active');
-                }
-                requestAnimationFrame(() => {
-                    targetSection.classList.add('visible');
-                });
-                if (sectionId === 'home') return;
-                return blur(1000, 20);
+                window.location.hash = `#${sectionId}`;
+                const currentSection = sections.find((section) => section.classList.contains('active'));
+                const currentButton = navigation.find((nav) => nav.classList.contains('active'));
+                const targetSection = sections.find((section) => section.id === sectionId);
+                const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
+                if (currentSection === targetSection) return;
+                if (currentSection) currentSection.classList.remove('visible');
+                if (currentButton) currentButton.classList.remove('active');
+                targetButton.classList.add('active');
+                return when('transitionend', currentSection)
+                    .then(() => {
+                        if (!loaded) return targetSection.classList.add('active');
+                        if (currentSection) currentSection.classList.remove('active');
+                        const index = sections.findIndex((section) => section.id === sectionId);
+                        wait(500).then(() => unblur(500));
+                        return slideTo(index);
+                    })
+                    .then(() => {
+                        if (sectionId === 'home') return;
+                        return Promise.race([
+                            wait(2500) /*.then(() => when('mousemove', document))*/, // the commented part would unblur if the mouse moves only after 2.5 seconds
+                            when('click', document),
+                            when('mouswheel', document)
+                        ]);
+                    })
+                    .then(() => {
+                        if (currentSection) {
+                            targetSection.classList.add('active');
+                        }
+                        requestAnimationFrame(() => {
+                            targetSection.classList.add('visible');
+                        });
+                        if (sectionId === 'home') return;
+                        return blur(1000, 20);
+                    })
             }).then(() => {
                 transitioning = false;
                 loaded = true;
             });
     }
+}
+
+function when(event, target) {
+    if (target) {
+        return new Promise((resolve) => {
+            target.addEventListener(event, resolve);
+        })
+    } else {
+        return Promise.resolve();
+    }
+}
+
+function wait(duration) {
+    return new Promise((resolve) => setTimeout(resolve, duration));
 }
 
 function blur(duration, target) {
@@ -274,13 +286,15 @@ const titles = [
                 anchor: 0.5,
                 rx: 0.5,
                 ry: 0.48,
-                size: 0.22
+                size: 200,
+                stroke: 2.5,
             },
             mobile: {
                 anchor: 0.5,
                 rx: 0.5,
                 ry: 0.5,
-                size: 0.16,
+                rsize: 0.16,
+                maxSize: 170,
             },
         },
         subtitle: "14.09.20 - 16.08.20",
@@ -291,7 +305,7 @@ const titles = [
             pivot: { x: 0.5, y: 0.5 },
             desktop: {
                 anchor: 0.5,
-                size: 0.22,
+                rsize: 0.22,
                 maxSize: 200,
                 angle: -90,
                 rx: 0.09,
@@ -299,7 +313,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0.5, y: 0},
-                size: 0.22,
+                rsize: 0.22,
                 maxSize: 150,
                 angle: 0,
                 rx: 0.5,
@@ -312,7 +326,7 @@ const titles = [
             text: "Infos",
             desktop: {
                 anchor: 0.5,
-                size: 0.20,
+                rsize: 0.20,
                 maxSize: 200,
                 angle: -90,
                 rx: 0.09,
@@ -321,7 +335,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0.5, y: 0},
-                size: 0.22,
+                rsize: 0.22,
                 maxSize: 150,
                 angle: 0,
                 rx: 0.5,
@@ -335,7 +349,7 @@ const titles = [
             text: "Sesame",
             desktop: {
                 anchor: 0.5,
-                size: 0.18,
+                rsize: 0.18,
                 maxSize: 200,
                 angle: -90,
                 rx: 0.09,
@@ -344,7 +358,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0.5, y: 0},
-                size: 0.18,
+                rsize: 0.18,
                 angle: 0,
                 rx: 0.5,
                 y: 0.08,
@@ -357,7 +371,7 @@ const titles = [
             text: "Souvenirs",
             desktop: {
                 anchor: 0.5,
-                size: 0.15,
+                rsize: 0.15,
                 maxSize: 200,
                 angle: -90,
                 rx: 0.09,
@@ -366,7 +380,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0.5, y: 0},
-                size: 0.15,
+                rsize: 0.15,
                 angle: 0,
                 rx: 0.5,
                 y: 0.1,

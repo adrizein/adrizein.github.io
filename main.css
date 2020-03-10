@@ -204,7 +204,7 @@ section {
     text-align: left;
     font-size: 1.1em;
     opacity: 0;
-    transition: opacity ease-in-out 500ms;
+    transition: opacity ease-in-out 200ms;
     margin-left: 20%;
 }
 

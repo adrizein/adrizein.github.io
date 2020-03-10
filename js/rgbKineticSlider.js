@@ -68,6 +68,10 @@
         const mainContainer = new PIXI.Container();
         const imagesContainer = new PIXI.Container();
         const textsContainer = new PIXI.Container();
+        textsContainer._calculateBounds = function () {
+            this._bounds.clear();
+            this._bounds.addFrame(this.transform, 0, 0, renderer.width, renderer.height);
+        }
 
         // displacement variables used for slides transition 
         const dispSprite = new PIXI.Sprite.from(options.backgroundDisplacementSprite);
@@ -97,7 +101,7 @@
         let drag_start = 0;
         // transition flag
         let is_playing = false;
-        // movig flag
+        // moving flag
         let is_moving = false;
         // load flag
         let is_loaded = false;
@@ -271,7 +275,6 @@
         }
 
         function build_texts() {
-
             const device = getDevice();
 
             // make sure array is not empty
@@ -326,16 +329,22 @@
         }
 
         function getFontStyle(item, device) {
-            const maxSize = item.title[device].maxSize || Number.POSITIVE_INFINITY;
+            const titleStyle = item.title[device];
+            const maxSize = titleStyle.maxSize || Number.POSITIVE_INFINITY;
             let fontSize, strokeThickness;
-            const value = item.title[device].size;
-            if (device === 'desktop') {
-                fontSize = value * renderer.height;
-            } else {
-                fontSize = value * renderer.width;
+            let value = titleStyle.rsize;
+            if (value) {
+                if (device === 'desktop') {
+                    fontSize = value * renderer.height;
+                } else {
+                    fontSize = value * renderer.width;
+                }
+                fontSize = Math.min(fontSize, maxSize);
             }
-            fontSize = Math.min(fontSize, maxSize);
-            strokeThickness = 3 * fontSize / 200;
+            else {
+                fontSize = titleStyle.size;
+            }
+            strokeThickness = titleStyle.stroke || 3 * fontSize / 200;
             return { fontSize, strokeThickness };
         }
 
