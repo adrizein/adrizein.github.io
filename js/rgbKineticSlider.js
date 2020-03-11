@@ -151,8 +151,8 @@
             splitRgb.green = [0, 0];
             splitRgb.blue = [0, 0];
 
-            textsContainer.filters = [dispFilter_2, splitRgb];
-            dateContainer.filters =  [dispFilter_2, splitRgb];
+            textsContainer.filters = [splitRgb];
+            dateContainer.filters =  [splitRgb];
 
             // apply rgbsplit effect on imgs
             if ((options.imagesRgbEffect === true) && (options.cursorImgEffect === true)) {
@@ -671,17 +671,25 @@
         ///////////////////////////////
 
         function tilt(currentIndex, kineX, kineY) {
+            const device = getDevice()
             if (options.itemsTitles.length > 0) {
                 const currentText = slideTexts[currentIndex];
-                const currentElements = [currentText.child];
-                if (currentIndex === 0) {
-                    currentElements.push(dateContainer.getChildAt(0));
-                }
-                TweenMax.to(currentElements, 2, {
-                    x: currentText.x * renderer.width - (kineX * 0.1),
-                    y: currentText.y * renderer.height - (kineY * 0.2),
+                const position = currentText.title[device];
+                TweenMax.to(currentText.child, 2, {
+                    x: position.rx * renderer.width - (kineX * 0.1),
+                    y: position.ry * renderer.height - (kineY * 0.2),
                     ease: Expo.easeOut
                 });
+
+                if (currentIndex === 0) {
+                    const dateY = currentText.child.getBounds().bottom;
+                    TweenMax.to(dateContainer.getChildAt(0), 2, {
+                        x: position.rx * renderer.width - kineX * 0.25,
+                        y: dateY + kineY * 0.2,
+                        ease: Expo.easeOut
+                    })
+                }
+
             }
         }
 

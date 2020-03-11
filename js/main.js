@@ -304,7 +304,7 @@ const titles = [
                 rsize: 0.16,
             },
         },
-        subtitle: "14.09.20 - 16.08.20",
+        subtitle: "14, 15 & 16 août 2020",
     },
     {
         title: {
