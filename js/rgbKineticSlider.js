@@ -685,7 +685,7 @@
                     const dateY = currentText.child.getBounds().bottom;
                     TweenMax.to(dateContainer.getChildAt(0), 2, {
                         x: position.rx * renderer.width - kineX * 0.25,
-                        y: dateY + kineY * 0.2,
+                        y: dateY - kineY * 0.2,
                         ease: Expo.easeOut
                     })
                 }
