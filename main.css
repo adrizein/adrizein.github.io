@@ -240,12 +240,9 @@ section {
 
 iframe {
     position: fixed;
-    top: 2em;
-    bottom: 2em;
-    left: 20%;
-    width: 60%;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0em;
+    width: 70%;
+    height: 100%;
 }
 
 #curiosites  {
@@ -461,11 +458,10 @@ svg:hover .appearing{
     }
 
     iframe {
-        top: 0em;
-        bottom: 0em;
+        top: 20%;
         left: 0;
-        width: 0;
-        top: 0;
+        width: 100%;
+        height: 80%;
     }
 
     @media (max-height: 400px) {
