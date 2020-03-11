@@ -318,7 +318,7 @@
                         });
                     }
 
-                    resizeDate();
+                    resizeDate(device);
                     TweenMax.set(dateContainer, {alpha: 0});
                     slideTexts = textsContainer.children.map((child, i) => Object.assign({child}, options.itemsTitles[i]));
                 }
@@ -329,12 +329,11 @@
             const titleStyle = item.title[device];
             const maxSize = titleStyle.maxSize || Number.POSITIVE_INFINITY;
             let fontSize, strokeThickness;
-            let value = titleStyle.rsize;
-            if (value) {
+            if (titleStyle.rsize) {
                 if (device === 'desktop') {
-                    fontSize = value * renderer.height;
+                    fontSize = titleStyle.rsize * renderer.height;
                 } else {
-                    fontSize = value * renderer.width;
+                    fontSize = titleStyle.rsize * renderer.width;
                 }
                 fontSize = Math.min(fontSize, maxSize);
             }
@@ -345,12 +344,16 @@
             return { fontSize, strokeThickness };
         }
 
-        function resizeDate() {
+        function resizeDate(device) {
             const title = textsContainer.children[0];
             const dateSubtitle = dateContainer.children[0];
             dateSubtitle.anchor.set(0.5, 0);
             dateSubtitle.x = title.x;
             dateSubtitle.y = title.getBounds().bottom
+            dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
+            if (device === 'mobile') {
+                dateSubtitle.resolution = 2;
+            }
         }
 
         function resizeText(textTitle, item, device) {
@@ -389,12 +392,15 @@
             const fontStyle = getFontStyle(item, device);
             textTitle.style.fontSize = fontStyle.fontSize;
             textTitle.style.strokeThickness = fontStyle.strokeThickness;
+            if (device === 'mobile') {
+                textTitle.resolution = 2;
+            }
         }
 
         function resizeTexts() {
             const device = getDevice();
             slideTexts.forEach((item) => resizeText(item.child, item, device));
-            resizeDate();
+            resizeDate(device);
         }
 
 
