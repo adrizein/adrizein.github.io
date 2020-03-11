@@ -94,7 +94,8 @@ body {
     position: fixed;
     width: 100%;
     text-align:center;
-    bottom:1em;
+    left: 0;
+    bottom:3em;
 }
 
 .chevron{
