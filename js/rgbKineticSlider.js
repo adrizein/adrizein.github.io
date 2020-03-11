@@ -62,17 +62,19 @@
             resolution: devicePixelRatio,
             antialias: false,
         });
+        function fullBounds() {
+            this._bounds.clear();
+            this._bounds.addFrame(this.transform, 0, 0, renderer.width, renderer.height);
+        }
 
         const canvas = document.getElementById("rgbKineticSlider");
         const stage = new PIXI.Container();
         const mainContainer = new PIXI.Container();
         const imagesContainer = new PIXI.Container();
+        const dateContainer = new PIXI.Container();
         const textsContainer = new PIXI.Container();
-        textsContainer._calculateBounds = function () {
-            this._bounds.clear();
-            this._bounds.addFrame(this.transform, 0, 0, renderer.width, renderer.height);
-        }
-
+        textsContainer._calculateBounds = fullBounds;
+        dateContainer._calculateBounds = fullBounds;
         // displacement variables used for slides transition 
         const dispSprite = new PIXI.Sprite.from(options.backgroundDisplacementSprite);
         const dispFilter = new PIXI.filters.DisplacementFilter(dispSprite);
@@ -143,20 +145,13 @@
             // enable cursorInteractive on mainContainer
             mainContainer.interactive = true;
 
-            // apply rgbsplit effect on texts
-            if (options.textsRgbEffect === true) {
+            // set rgbSplitFilter to 0
+            splitRgb.red = [0, 0];
+            splitRgb.green = [0, 0];
+            splitRgb.blue = [0, 0];
 
-                textsContainer.filters = [splitRgb];
-
-                // set rgbSplitFilter to 0
-                splitRgb.red = [0, 0];
-                splitRgb.green = [0, 0];
-                splitRgb.blue = [0, 0];
-            }
-
-            if (options.cursorTextEffect === true) {
-                textsContainer.filters = [dispFilter_2, splitRgb];
-            }
+            textsContainer.filters = [dispFilter_2, splitRgb];
+            dateContainer.filters =  [dispFilter_2, splitRgb];
 
             // apply rgbsplit effect on imgs
             if ((options.imagesRgbEffect === true) && (options.cursorImgEffect === true)) {
@@ -194,7 +189,7 @@
             // renderer settings
 
             //  Add children to the main container
-            mainContainer.addChild(imagesContainer, textsContainer, dispSprite_2);
+            mainContainer.addChild(imagesContainer, textsContainer, dateContainer, dispSprite_2);
 
             // Add children to the stage = canvas
             stage.addChild(mainContainer, dispSprite);
@@ -214,7 +209,7 @@
 
         ///////////////////////////////
 
-        function build_imgs() {
+        function buildImgs() {
 
             for (let i = 0; i < options.slideImages.length; i++) {
 
@@ -225,7 +220,7 @@
 
                 // center img
                 imgSprite.anchor.set(0.5);
-                resize_img(imgSprite);
+                resizeImg(imgSprite);
                 
                 // hide all imgs
                 TweenMax.set(imgSprite, {
@@ -239,7 +234,7 @@
             slideImages = imagesContainer.children;
         }
 
-        function resize_img(imgSprite) {
+        function resizeImg(imgSprite) {
             const aspectRatio = renderer.height / renderer.width;
             if (aspectRatio < (imgHeight / imgWidth)) {
                 imgSprite.width = renderer.width;
@@ -252,8 +247,8 @@
             imgSprite.y = renderer.height / 2;
         }
 
-        function resize_imgs() {
-            slideImages.forEach(resize_img);
+        function resizeImgs() {
+            slideImages.forEach(resizeImg);
         }
 
 
@@ -274,7 +269,7 @@
             }
         }
 
-        function build_texts() {
+        function buildTexts() {
             const device = getDevice();
 
             // make sure array is not empty
@@ -305,17 +300,16 @@
                             stroke: options.textTitleColor,
                             strokeThickness: fontStyle.strokeThickness,
                         });
-                        let textSubtitle;
                         if (subtitle) {
-                            textSubtitle = new PIXI.Text(subtitle.text, {
-                                fontFamily,
-                                fontSize: fontStyle.fontSize * 0.5,
+                            dateContainer.addChild(new PIXI.Text(subtitle, {
+                                fontFamily: 'walsheim',
+                                fontSize: fontStyle.fontSize * 0.25,
+                                fontWeight: 400,
                                 fill: options.textTitleColor,
-                            });
-                        } 
+                            }));
+                        }
 
-                        resize_text(textTitle, item, device);
-
+                        resizeText(textTitle, item, device);
                         textsContainer.addChild(textTitle);
 
                         // hide all titles on init
@@ -323,6 +317,9 @@
                             alpha: 0
                         });
                     }
+
+                    resizeDate();
+                    TweenMax.set(dateContainer, {alpha: 0});
                     slideTexts = textsContainer.children.map((child, i) => Object.assign({child}, options.itemsTitles[i]));
                 }
             }
@@ -344,11 +341,19 @@
             else {
                 fontSize = titleStyle.size;
             }
-            strokeThickness = titleStyle.stroke || 3 * fontSize / 200;
+            strokeThickness = titleStyle.stroke || 2 * fontSize / 200;
             return { fontSize, strokeThickness };
         }
 
-        function resize_text(textTitle, item, device) {
+        function resizeDate() {
+            const title = textsContainer.children[0];
+            const dateSubtitle = dateContainer.children[0];
+            dateSubtitle.anchor.set(0.5, 0);
+            dateSubtitle.x = title.x;
+            dateSubtitle.y = title.getBounds().bottom
+        }
+
+        function resizeText(textTitle, item, device) {
             const title = item.title;
             const anchor = title[device].anchor;
             const x = title[device].x;
@@ -386,9 +391,10 @@
             textTitle.style.strokeThickness = fontStyle.strokeThickness;
         }
 
-        function resize_texts() {
+        function resizeTexts() {
             const device = getDevice();
-            slideTexts.forEach((item) => resize_text(item.child, item, device));
+            slideTexts.forEach((item) => resizeText(item.child, item, device));
+            resizeDate();
         }
 
 
@@ -515,50 +521,30 @@
                     scaleAmp = options.transitionScaleAmplitude;
                 }
 
-                // if title active
-                if ((options.textsDisplay === true) && (options.itemsTitles.length > 0)) {
+                const currentContainers = [slideImages[currentIndex], slideTexts[currentIndex].child];
+                if (currentIndex === 0) currentContainers.push(dateContainer);
 
-                    timelineTransition
-                        .to(dispFilter.scale, options.slideTransitionDuration, {
-                            x: scaleAmp,
-                            y: scaleAmp,
-                            ease: Power2.easeIn
-                        })
-                        .to([slideImages[currentIndex], slideTexts[currentIndex].child], options.slideTransitionDuration, {
-                            alpha: 0,
-                            ease: Power2.easeOut
-                        }, options.slideTransitionDuration * 0.5)
-                        .to([slideImages[next], slideTexts[next].child], options.slideTransitionDuration, {
-                            alpha: 1,
-                            ease: Power2.easeOut
-                        }, options.slideTransitionDuration * 0.5)
-                        .to(dispFilter.scale, options.slideTransitionDuration, {
-                            x: 0,
-                            y: 0,
-                            ease: Power1.easeOut
-                        }, options.slideTransitionDuration);
-                }
-                else {
-                    timelineTransition
-                        .to(dispFilter.scale, options.slideTransitionDuration, {
-                            x: scaleAmp,
-                            y: scaleAmp,
-                            ease: Power2.easeIn
-                        })
-                        .to(slideImages, options.slideTransitionDuration, {
-                            alpha: 0,
-                            ease: Power2.easeOut
-                        }, options.slideTransitionDuration * 0.5)
-                        .to([slideImages[next]], options.slideTransitionDuration, {
-                            alpha: 1,
-                            ease: Power2.easeOut
-                        }, options.slideTransitionDuration * 0.5)
-                        .to(dispFilter.scale, options.slideTransitionDuration, {
-                            x: 0,
-                            y: 0,
-                            ease: Power1.easeOut
-                        }, options.slideTransitionDuration);
-                }
+                const nextContainers = [slideImages[next], slideTexts[next].child];
+                if (next === 0) nextContainers.push(dateContainer);
+                timelineTransition
+                    .to(dispFilter.scale, options.slideTransitionDuration, {
+                        x: scaleAmp,
+                        y: scaleAmp,
+                        ease: Power2.easeIn
+                    })
+                    .to(currentContainers, options.slideTransitionDuration, {
+                        alpha: 0,
+                        ease: Power2.easeOut
+                    }, options.slideTransitionDuration * 0.5)
+                    .to(nextContainers, options.slideTransitionDuration, {
+                        alpha: 1,
+                        ease: Power2.easeOut
+                    }, options.slideTransitionDuration * 0.5)
+                    .to(dispFilter.scale, options.slideTransitionDuration, {
+                        x: 0,
+                        y: 0,
+                        ease: Power1.easeOut
+                    }, options.slideTransitionDuration);
             })
         };
 
@@ -685,18 +671,17 @@
         ///////////////////////////////
 
         function tilt(currentIndex, kineX, kineY) {
-
             if (options.itemsTitles.length > 0) {
-
-                if (options.textsDisplay === true) {
-                    const currentText = slideTexts[currentIndex];
-
-                    TweenMax.to(currentText.child, 2, {
-                        x: currentText.x * renderer.width - (kineX * 0.1),
-                        y: currentText.y * renderer.height - (kineY * 0.2),
-                        ease: Expo.easeOut
-                    });
+                const currentText = slideTexts[currentIndex];
+                const currentElements = [currentText.child];
+                if (currentIndex === 0) {
+                    currentElements.push(dateContainer.getChildAt(0));
                 }
+                TweenMax.to(currentElements, 2, {
+                    x: currentText.x * renderer.width - (kineX * 0.1),
+                    y: currentText.y * renderer.height - (kineY * 0.2),
+                    ease: Expo.easeOut
+                });
             }
         }
 
@@ -714,8 +699,8 @@
 
             // construct
             build_scene();
-            build_imgs();
-            build_texts();
+            buildImgs();
+            buildTexts();
 
             // interactivity
             cursorInteractive();
@@ -725,8 +710,8 @@
             window.addEventListener('resize', resize);
             function resize() {
                 renderer.resize(window.innerWidth, window.innerHeight);
-                resize_imgs();
-                resize_texts();
+                resizeImgs();
+                resizeTexts();
                 renderer.render(stage);
             }
         };
@@ -734,7 +719,7 @@
         // Load them google fonts before starting...!
         window.WebFontConfig = {
             custom: {
-                families: ['trash:700'],
+                families: ['trash:700', 'walsheim:400'],
             },
             active: function () {
                 // load the stage images 

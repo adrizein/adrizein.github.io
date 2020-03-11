@@ -81,15 +81,25 @@ function switchSectionOnMouseWheel(){
 }
 
 function init() {
-    var defaultLanguage = document.firstElementChild.getAttribute('lang');
+    var defaultLanguage = navigator.language.split('-')[0];
     languages = document.querySelectorAll('.language .button');
-    languages.forEach(function (language) {
+    let languageOk = false;
+    languages.forEach((language) => {
+        const lang = language.getAttribute('data-lang')
+        if (lang === defaultLanguage) {
+            languageOk = true;
+        }
         language.addEventListener(
             'click',
-            function (event) { updateLanguage(event.target.getAttribute('data-lang')); }
+            () => updateLanguage(lang)
         );
     });
+    if (!languageOk) {
+        defaultLanguage = 'en';
+    }
     updateLanguage(defaultLanguage);
+    const loader = document.getElementById('loader');
+    loader.style.display = 'none';
 
     sections = Array.from(document.querySelectorAll('#content section'));
     navigation = Array.from(document.querySelectorAll('#menu .main-nav'));
@@ -172,12 +182,14 @@ function goToSection(sectionId) {
                 if (currentSection) currentSection.classList.remove('visible');
                 if (currentButton) currentButton.classList.remove('active');
                 targetButton.classList.add('active');
-                return when('transitionend', currentSection)
+                return Promise.resolve()
                     .then(() => {
                         if (!loaded) return targetSection.classList.add('active');
-                        if (currentSection) currentSection.classList.remove('active');
                         const index = sections.findIndex((section) => section.id === sectionId);
-                        wait(500).then(() => unblur(500));
+                        wait(500).then(() => {
+                            if (currentSection) currentSection.classList.remove('active');
+                            unblur(500)
+                        });
                         return slideTo(index);
                     })
                     .then(() => {
@@ -285,7 +297,7 @@ const titles = [
                 rx: 0.5,
                 ry: 0.48,
                 size: 200,
-                stroke: 2.5,
+                stroke: 2,
             },
             mobile: {
                 anchor: 0.5,
@@ -389,7 +401,6 @@ const titles = [
 ];
 
 rgbKineticSlider = new rgbKineticSlider({
-
     slideImages: images,
     itemsTitles: titles,
 
