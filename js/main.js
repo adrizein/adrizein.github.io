@@ -53,7 +53,6 @@ function switchSectionOnSwipe(){
         touchendX = event.changedTouches[0].screenX;
         touchend = event.timeStamp;
         const velocity = Math.abs(touchendX - touchstartX) / (touchend - touchstart);
-        console.log({velocity});
         if (velocity > 1) {
             switchSection(touchendX < touchstartX, true);
             touchstartX = 0;
@@ -303,7 +302,6 @@ const titles = [
                 rx: 0.5,
                 ry: 0.5,
                 rsize: 0.16,
-                maxSize: 100,
             },
         },
         subtitle: "14.09.20 - 16.08.20",

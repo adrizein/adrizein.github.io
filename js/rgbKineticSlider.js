@@ -56,12 +56,13 @@
         // remove pixi message in console
         PIXI.utils.skipHello();
 
-        const renderer = new PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, {
+        const renderer = new PIXI.autoDetectRenderer(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio, {
             transparent: true,
-            autoResize: true,
-            resolution: devicePixelRatio,
-            antialias: false,
+            autoResize: false,
+            resolution: 1,
+            antialias: true,
         });
+
         function fullBounds() {
             this._bounds.clear();
             this._bounds.addFrame(this.transform, 0, 0, renderer.width, renderer.height);
@@ -331,16 +332,16 @@
             let fontSize, strokeThickness;
             if (titleStyle.rsize) {
                 if (device === 'desktop') {
-                    fontSize = titleStyle.rsize * renderer.height;
+                    fontSize = titleStyle.rsize * renderer.view.height;
                 } else {
-                    fontSize = titleStyle.rsize * renderer.width;
+                    fontSize = titleStyle.rsize * renderer.view.width;
                 }
-                fontSize = Math.min(fontSize, maxSize);
+                fontSize = Math.min(fontSize, maxSize * devicePixelRatio);
             }
             else {
-                fontSize = titleStyle.size;
+                fontSize = titleStyle.size * devicePixelRatio;
             }
-            strokeThickness = titleStyle.stroke || 2 * fontSize / 200;
+            strokeThickness = titleStyle.stroke || 3 * fontSize / 200;
             return { fontSize, strokeThickness };
         }
 
@@ -351,9 +352,6 @@
             dateSubtitle.x = title.x;
             dateSubtitle.y = title.getBounds().bottom
             dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
-            if (device === 'mobile') {
-                dateSubtitle.resolution = 2;
-            }
         }
 
         function resizeText(textTitle, item, device) {
@@ -392,9 +390,6 @@
             const fontStyle = getFontStyle(item, device);
             textTitle.style.fontSize = fontStyle.fontSize;
             textTitle.style.strokeThickness = fontStyle.strokeThickness;
-            if (device === 'mobile') {
-                textTitle.resolution = 2;
-            }
         }
 
         function resizeTexts() {
@@ -415,8 +410,8 @@
 
                 // center displacement
                 dispSprite.anchor.set(0.5);
-                dispSprite.x = renderer.view.width / 2;
-                dispSprite.y = renderer.view.height / 2;
+                dispSprite.x = renderer.width / 2;
+                dispSprite.y = renderer.height / 2;
 
                 // set timeline with callbacks
                 timelineTransition = new TimelineMax({
@@ -596,7 +591,7 @@
             mainLoopID = requestAnimationFrame(mainLoop);
 
             // if user is out of screen
-            if (posy <= 0 || posx <= 0 || (posx >= (window.innerWidth - 2) || posy >= (window.innerHeight - 2))) {
+            if (posy <= 0 || posx <= 0 || (posx >= (window.innerWidth - 1) || posy >= (window.innerHeight - 1))) {
 
                 is_moving = false;
                 // re-init values
@@ -605,7 +600,6 @@
                 kineX = kineY = newkineX = newkineY = 0;
 
             }
-
             else {
                 is_moving = true;
             }
@@ -701,7 +695,9 @@
         function init() {
 
             // re init renderer on ready
-            renderer.resize(window.innerWidth, window.innerHeight);
+            renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
+            renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
+            renderer.view.style.transformOrigin = '0 0'
 
             // construct
             build_scene();
@@ -715,7 +711,9 @@
             // Listen for window resize events
             window.addEventListener('resize', resize);
             function resize() {
-                renderer.resize(window.innerWidth, window.innerHeight);
+                renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
+                renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
+                renderer.view.style.transformOrigin = '0 0'
                 resizeImgs();
                 resizeTexts();
                 renderer.render(stage);
