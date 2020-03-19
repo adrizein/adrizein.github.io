@@ -85,9 +85,10 @@ body {
 #selavy {
     transform: rotate(-90deg);
     position: fixed;
-    top: 49%;
-    left: -19em;
-    transform-origin: left left;
+    bottom: 1em;
+    left: 2em;
+    transform-origin: left;
+    font-size: 0.9em;
 }
 
 #scroll-down {
@@ -95,13 +96,14 @@ body {
     width: 100%;
     text-align:center;
     left: 0;
-    bottom:3em;
+    bottom:0.3em;
     cursor: pointer;
+    font-size: 2em;
 }
 
 .chevron{
-    font-size:3em;
-    line-height:0.5em;
+    font-size:1em;
+    line-height:0.9em;
 }
 
 #main {
@@ -240,11 +242,24 @@ section {
     font-size: 1.2em;
 }
 
-iframe {
+#contributions .step.weezevent.active  {
     position: fixed;
-    top: 0em;
+    height: 100%;
+    top: 0;
+    overflow: scroll;
+    width: 100%;
+}
+
+
+iframe {
+    /*position: fixed;
+    top: 0em;*/
     width: 70%;
     height: 100%;
+}
+
+iframe:first-of-type:after {
+    content: "Paiement en trois fois ci-dessous";
 }
 
 #curiosites  {
@@ -405,7 +420,7 @@ svg:hover .appearing{
     fill: white;
 }
 
-@media (max-height: 780px) {
+@media (max-height: 690px) {
     #selavy {
         display: none;
     }
