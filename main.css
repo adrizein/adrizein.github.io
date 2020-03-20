@@ -78,6 +78,7 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
+    z-index: 10;
 }
 
 #loader h2 {
@@ -304,6 +305,10 @@ iframe:first-of-type:after {
     position: relative;
     overflow: hidden;
     margin-left: 1em;
+}
+
+.answer a {
+    text-decoration: underline;
 }
 
 .answer:first-child {

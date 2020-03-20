@@ -26,19 +26,20 @@ let touchendX = 0;
 let touchendY = 0;
 
 function switchSection(isScrollingDown, bypass) {
+    if (transitioning) return;
     const content = document.getElementById("content");
     const currentSection = sections.find((section) => section.classList.contains('active'));
     var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1);
     var isTop = content.scrollTop === 0;
     if (isScrollingDown && (bypass || isBottom)) {
         const nextSection = currentSection.nextElementSibling;
-        if (nextSection && !transitioning) {
+        if (nextSection) {
             goToSection(nextSection.id);
         }
     }
     if (!isScrollingDown && (bypass || isTop)) {
         const previousSection = currentSection.previousElementSibling;
-        if (previousSection && !transitioning) {
+        if (previousSection) {
             goToSection(previousSection.id);
         }
     }
@@ -65,7 +66,7 @@ function switchSectionOnSwipe() {
     }, false); 
 }
 
-function switchSectionOnMouseWheel(){
+function switchSectionOnMouseWheel() {
     let deltaY = 0;
     let deltaThreshold;
     document.addEventListener('wheel', function (event) {
@@ -78,11 +79,7 @@ function switchSectionOnMouseWheel(){
             deltaY = 0;
         }
         else {
-            setTimeout(() => {
-                if (deltaY) {
-                    deltaY -= event.deltaY;
-                }
-            }, 200);
+            setTimeout(() => deltaY = 0, 200);
         }
     }, false);
 }
@@ -178,6 +175,11 @@ function processSectionTarget() {
     const sectionId = targetSections.current;
     return Promise.resolve()
         .then(() => {
+            if (false && targetSections.next !== null) {
+                targetSections.current = targetSections.next;
+                targetSections.next = null;
+                return processSectionTarget();
+            }
             window.location.hash = `#${sectionId}`;
             const currentSection = sections.find((section) => section.classList.contains('active'));
             const currentButton = navigation.find((nav) => nav.classList.contains('active'));
@@ -189,6 +191,11 @@ function processSectionTarget() {
             targetButton.classList.add('active');
             return Promise.resolve()
                 .then(() => {
+                    if (false && targetSections.next !== null) {
+                        targetSections.current = targetSections.next;
+                        targetSections.next = null;
+                        return processSectionTarget();
+                    }
                     if (!loaded) return targetSection.classList.add('active');
                     const index = sections.findIndex((section) => section.id === sectionId);
                     wait(500).then(() => {
