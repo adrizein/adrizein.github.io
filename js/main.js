@@ -14,6 +14,10 @@ function updateLanguage(lang) {
 }
 
 var sections, languages, navigation, steps, transitioning = false, loaded = false;
+const targetSections = {
+    current: null,
+    next: null,
+};
 
 
 let touchstartX = 0;
@@ -24,8 +28,8 @@ let touchendY = 0;
 function switchSection(isScrollingDown, bypass) {
     const content = document.getElementById("content");
     const currentSection = sections.find((section) => section.classList.contains('active'));
-    var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1)
-    var isTop = content.scrollTop == 0;
+    var isBottom = (content.scrollHeight - content.scrollTop - content.clientHeight < 1);
+    var isTop = content.scrollTop === 0;
     if (isScrollingDown && (bypass || isBottom)) {
         const nextSection = currentSection.nextElementSibling;
         if (nextSection && !transitioning) {
@@ -40,7 +44,7 @@ function switchSection(isScrollingDown, bypass) {
     }
 }
 
-function switchSectionOnSwipe(){
+function switchSectionOnSwipe() {
     const gestureZone = document.getElementById('content');
     
     let touchstartX, touchendX, touchstart, touchend;
@@ -63,16 +67,20 @@ function switchSectionOnSwipe(){
 
 function switchSectionOnMouseWheel(){
     let deltaY = 0;
-    document.addEventListener('mousewheel', function (event) {
-        deltaY += event.wheelDeltaY;
-        if (Math.abs(deltaY) > 300) {
-            switchSection(deltaY < 0);
+    let deltaThreshold;
+    document.addEventListener('wheel', function (event) {
+        if (deltaThreshold === undefined) {
+            deltaThreshold = event.deltaY > 70 ? 300 : 10;
+        }
+        deltaY += event.deltaY;
+        if (Math.abs(deltaY) > deltaThreshold) {
+            switchSection(deltaY > 0);
             deltaY = 0;
         }
         else {
             setTimeout(() => {
                 if (deltaY) {
-                    deltaY -= event.wheelDeltaY;
+                    deltaY -= event.deltaY;
                 }
             }, 200);
         }
@@ -84,7 +92,7 @@ function init() {
     languages = document.querySelectorAll('.language .button');
     let languageOk = false;
     languages.forEach((language) => {
-        const lang = language.getAttribute('data-lang')
+        const lang = language.getAttribute('data-lang');
         if (lang === defaultLanguage) {
             languageOk = true;
         }
@@ -97,8 +105,7 @@ function init() {
         defaultLanguage = 'en';
     }
     updateLanguage(defaultLanguage);
-    const loader = document.getElementById('loader');
-    loader.style.display = 'none';
+    document.documentElement.classList.add('page-loaded');
 
     sections = Array.from(document.querySelectorAll('#content section'));
     navigation = Array.from(document.querySelectorAll('#menu .main-nav'));
@@ -130,9 +137,9 @@ function init() {
     });
 
     steps.forEach((step) => {
-        const answers = Array.from(step.querySelectorAll('.answer'))
+        const answers = Array.from(step.querySelectorAll('.answer'));
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
-    })
+    });
 
     switchSectionOnMouseWheel();
     switchSectionOnSwipe();
@@ -167,52 +174,61 @@ function goToNextStep(step) {
     }, 500);
 }
 
+function processSectionTarget() {
+    const sectionId = targetSections.current;
+    return Promise.resolve()
+        .then(() => {
+            window.location.hash = `#${sectionId}`;
+            const currentSection = sections.find((section) => section.classList.contains('active'));
+            const currentButton = navigation.find((nav) => nav.classList.contains('active'));
+            const targetSection = sections.find((section) => section.id === sectionId);
+            const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
+            if (currentSection === targetSection) return;
+            if (currentSection) currentSection.classList.remove('visible');
+            if (currentButton) currentButton.classList.remove('active');
+            targetButton.classList.add('active');
+            return Promise.resolve()
+                .then(() => {
+                    if (!loaded) return targetSection.classList.add('active');
+                    const index = sections.findIndex((section) => section.id === sectionId);
+                    wait(500).then(() => {
+                        if (currentSection) currentSection.classList.remove('active');
+                        unblur(500)
+                    });
+                    return slideTo(index);
+                })
+                .then(() => {
+                    if (sectionId === 'home') return;
+                    return Promise.race([
+                        wait(2500) /*.then(() => when('mousemove', document))*/, // the commented part would unblur if the mouse moves only after 2.5 seconds
+                        when('click', document),
+                        when('wheel', document)
+                    ]);
+                })
+                .then(() => {
+                    if (currentSection) {
+                        targetSection.classList.add('active');
+                    }
+                    requestAnimationFrame(() => {
+                        targetSection.classList.add('visible');
+                    });
+                    if (sectionId === 'home') return;
+                    return blur(1000, 20);
+                })
+        }).then(() => {
+            transitioning = false;
+            loaded = true;
+        });
+}
+
 function goToSection(sectionId) {
     if (!transitioning) {
         transitioning = true;
-        return Promise.resolve()
-            .then(() => {
-                window.location.hash = `#${sectionId}`;
-                const currentSection = sections.find((section) => section.classList.contains('active'));
-                const currentButton = navigation.find((nav) => nav.classList.contains('active'));
-                const targetSection = sections.find((section) => section.id === sectionId);
-                const targetButton = navigation.find((nav) => nav.classList.contains(sectionId));
-                if (currentSection === targetSection) return;
-                if (currentSection) currentSection.classList.remove('visible');
-                if (currentButton) currentButton.classList.remove('active');
-                targetButton.classList.add('active');
-                return Promise.resolve()
-                    .then(() => {
-                        if (!loaded) return targetSection.classList.add('active');
-                        const index = sections.findIndex((section) => section.id === sectionId);
-                        wait(500).then(() => {
-                            if (currentSection) currentSection.classList.remove('active');
-                            unblur(500)
-                        });
-                        return slideTo(index);
-                    })
-                    .then(() => {
-                        if (sectionId === 'home') return;
-                        return Promise.race([
-                            wait(2500) /*.then(() => when('mousemove', document))*/, // the commented part would unblur if the mouse moves only after 2.5 seconds
-                            when('click', document),
-                            when('mouswheel', document)
-                        ]);
-                    })
-                    .then(() => {
-                        if (currentSection) {
-                            targetSection.classList.add('active');
-                        }
-                        requestAnimationFrame(() => {
-                            targetSection.classList.add('visible');
-                        });
-                        if (sectionId === 'home') return;
-                        return blur(1000, 20);
-                    })
-            }).then(() => {
-                transitioning = false;
-                loaded = true;
-            });
+        targetSections.current = sectionId;
+        processSectionTarget();
+    }
+    else {
+        targetSections.next = sectionId;
     }
 }
 
@@ -353,7 +369,7 @@ const titles = [
     },
     {
         title: {
-            text: "Sesame",
+            text: "Sésame",
             desktop: {
                 anchor: 0.5,
                 rsize: 0.18,

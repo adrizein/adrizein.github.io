@@ -705,7 +705,7 @@
             // re init renderer on ready
             renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
             renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
-            renderer.view.style.transformOrigin = '0 0'
+            renderer.view.style.transformOrigin = '0 0';
 
             // construct
             build_scene();
@@ -721,11 +721,13 @@
             function resize() {
                 renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
                 renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
-                renderer.view.style.transformOrigin = '0 0'
+                renderer.view.style.transformOrigin = '0 0';
                 resizeImgs();
                 resizeTexts();
                 renderer.render(stage);
             }
+
+            document.documentElement.classList.add('image-loaded');
         };
 
         // Load them google fonts before starting...!

@@ -73,6 +73,24 @@ body {
     margin: 0;
 }
 
+#loader {
+    position: fixed;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+#loader h2 {
+    margin: auto;
+    font-size: 4em;
+    opacity: 1;
+}
+
+html.page-loaded.image-loaded #loader h2 {
+    transition: opacity ease-in-out 500ms 0s;
+    opacity: 0;
+}
+
 #rgbKineticSlider {
     position: fixed;
     top: 0;
@@ -106,6 +124,10 @@ body {
     line-height:0.9em;
 }
 
+html.page-loaded.image-loaded #main {
+    visibility: visible;
+}
+
 #main {
     height: 100%;
     width: 100%;
@@ -113,6 +135,7 @@ body {
     flex-direction: column;
     position: fixed;
     overflow: hidden;
+    visibility: hidden;
 }
 
 header, footer {
@@ -196,6 +219,7 @@ footer #credits a {
     overflow-y: scroll;
     display: flex;
     -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 #content::-webkit-scrollbar {
