@@ -149,8 +149,8 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
 
-    switchSectionOnMouseWheel();
-    switchSectionOnSwipe();
+    //switchSectionOnMouseWheel();
+    //switchSectionOnSwipe();
 }
 
 
@@ -164,6 +164,10 @@ function stepAnswerHandler(step) {
             goToSection(answer);
         }
     }
+}
+
+function switchPayment() {
+    document.documentElement.classList.toggle("three-times-payment-active");
 }
 
 /**
