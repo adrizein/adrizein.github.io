@@ -107,7 +107,7 @@ html.page-loaded.image-loaded #loader h2 {
     bottom: 1em;
     left: 2em;
     transform-origin: left;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 #scroll-down {
@@ -115,9 +115,9 @@ html.page-loaded.image-loaded #loader h2 {
     width: 100%;
     text-align:center;
     left: 0;
-    bottom:0.3em;
+    bottom:1em;
     cursor: pointer;
-    font-size: 2em;
+    font-size: 1.6em;
 }
 
 .chevron{
@@ -137,6 +137,36 @@ html.page-loaded.image-loaded #main {
     position: fixed;
     overflow: hidden;
     visibility: hidden;
+    right: 0;
+    transition: 1000ms ease-in-out;
+}
+
+#menu-links {
+    position: fixed;
+    top: 0;
+    bottom:0;
+    transition: 1000ms ease-in-out;
+    right:-20em;
+    background-color:black;
+    display: flex;
+    font-size: 3em;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 1em;
+}
+
+#menu-links > div {
+    cursor: pointer;
+}
+
+#menu-links > div:hover {
+    color:#EEEEEE;
+}
+
+#menu-links .close {
+    align-self: flex-end;
+    flex-direction: column;
 }
 
 header, footer {
@@ -145,7 +175,7 @@ header, footer {
     width: 100%;
     align-items: center;
     justify-content: flex-end;
-    z-index: 1;
+    z-index: 20;
     cursor: default;
     height: 3em;
 }
@@ -194,6 +224,9 @@ footer #credits a {
     flex-direction: column;
     justify-content: center;
     z-index: 3;
+    margin: 1em 0;
+    opacity: 1;
+    transition: 1000ms ease-in-out;
 }
 
 #menu .main-nav {
@@ -276,20 +309,32 @@ section {
     position: fixed;
     height: 100%;
     top: 0;
+    left: 0;
     overflow: scroll;
+    width: 100%;
+
+}
+
+.weezevent-container {
+    left: 0;
     width: 100%;
 }
 
-
-iframe {
-    /*position: fixed;
-    top: 0em;*/
-    width: 70%;
-    height: 100%;
+.three-times-payment-active .three-times, .one-time {
+    display: block;
 }
 
-iframe:first-of-type:after {
-    content: "Paiement en trois fois ci-dessous";
+.three-times, .three-times-payment-active .one-time {
+    display: none;
+}
+
+iframe {
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+    left: 15%;
+    position: absolute;
+    z-index: 30;
 }
 
 #curiosites  {
@@ -305,21 +350,30 @@ iframe:first-of-type:after {
     justify-content: center;
 }
 
+.spacer {
+    width: 1em;
+}
+
 .step.last .answer {
     width: 20em;
     text-align: center;
 }
 
-.answer {
+.answer, .three-times-payment {
     border: solid 1px white;
     padding: 1.3em;
     cursor: pointer;
     text-align: left;
     position: relative;
     overflow: hidden;
-    margin-left: 1em;
 }
 
+.three-times-payment {
+    margin: 1em auto;
+    font-size: 1em;
+    max-width: 400px;
+    text-align: center;
+}
 .answer h5 {
     margin: 0;
     font-size: 1.4em;
@@ -337,7 +391,7 @@ iframe:first-of-type:after {
     margin-left: 0;
 }
 
-.answer::after {
+.answer::after,  .three-times-payment::after{
     position: absolute;
     transition: .3s;
     content: '';
@@ -348,7 +402,7 @@ iframe:first-of-type:after {
     background: white;
 }
 
-.answer:hover::after {
+.answer:hover::after, .three-times-payment:hover::after {
     width: 100%;
     left: 0;
 }
@@ -467,7 +521,7 @@ svg:hover .appearing{
     fill: white;
 }
 
-@media (max-height: 690px) {
+@media (max-height: 590px) {
     #selavy {
         display: none;
     }
@@ -481,27 +535,40 @@ svg:hover .appearing{
     footer, header {
         font-size: 0.9em;
     }
-
-    header {
-        height: 18%;
-    }
 }
 
 @media (max-width: 1100px) {
+
+    .menu-opened #menu-links {
+        right:0em;
+    }
+
+    .menu-opened #main {
+        right: 20em;
+    }
+
+    .menu-opened #main-row #menu {
+        opacity: 0;
+    }
+
+    #menu .main-nav div {
+        margin: 4px 0;
+    }
+
     #main-row {
-        flex-direction: column;
+        flex-direction: column-reverse;
         padding: 0 2em;
     }
 
-    #main-row #menu {
+    #main-row #menu{
+        margin: 2em 0;
+    }
+
+    #selavy, #credits, #scroll-down {
         display: none;
     }
 
-    #selavy {
-        display: none;
-    }
-
-    header .language {
+    header {
         display: none;
     }
 
@@ -521,11 +588,18 @@ svg:hover .appearing{
         font-size: 1em;
     }
 
-    iframe {
-        top: 20%;
-        left: 0;
-        width: 100%;
+    .answer, .three-times-payment{
+        font-size: 1.2em;
+    }
+
+    #contributions .step.weezevent.active  {
         height: 80%;
+        top: 20%;
+    }
+
+    iframe {
+        width: 100%;
+        left: 0%;
     }
 
     @media (max-height: 400px) {

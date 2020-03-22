@@ -84,6 +84,10 @@ function switchSectionOnMouseWheel() {
     }, false);
 }
 
+function toggleMenu() {
+    document.documentElement.classList.toggle("menu-opened");
+}
+
 function init() {
     var defaultLanguage = navigator.language.split('-')[0];
     languages = document.querySelectorAll('.language .button');
@@ -114,7 +118,11 @@ function init() {
         const sectionIndex = parseInt(button.getAttribute('data-nav'));
         const sectionId = sections[sectionIndex].id;
         button.addEventListener('click', function () {
-            goToSection(sectionId);
+            if (window.innerWidth < 1100) {
+                toggleMenu();
+            } else {
+                goToSection(sectionId);
+            }
         });
     });
 
@@ -140,8 +148,8 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
 
-    switchSectionOnMouseWheel();
-    switchSectionOnSwipe();
+    //switchSectionOnMouseWheel();
+    //switchSectionOnSwipe();
 }
 
 
@@ -155,6 +163,10 @@ function stepAnswerHandler(step) {
             goToSection(answer);
         }
     }
+}
+
+function switchPayment() {
+    document.documentElement.classList.toggle("three-times-payment-active");
 }
 
 /**
@@ -232,14 +244,21 @@ function processSectionTarget() {
 }
 
 function goToSection(sectionId) {
-    if (!transitioning) {
-        transitioning = true;
-        targetSections.current = sectionId;
-        processSectionTarget();
-    }
-    else {
-        targetSections.next = sectionId;
-    }
+        if (!transitioning) {
+            transitioning = true;
+            targetSections.current = sectionId;
+            processSectionTarget();
+        }
+        else {
+            targetSections.next = sectionId;
+        }
+}
+
+function closeAndGoToSection(sectionId) {
+    toggleMenu();
+    setTimeout(() => {  
+        goToSection(sectionId);
+    }, 1000);
 }
 
 function when(event, target) {

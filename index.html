@@ -66,14 +66,47 @@
         <h2>LOADING</h2>
     </div>
     <div id="rgbKineticSlider" class="rgbKineticSlider"></div>
+    <div id="menu-links">
+        <div class="close" onclick="toggleMenu()">
+            x
+        </div>
+        <div onclick="closeAndGoToSection('ethos')">
+            Ethos
+        </div>
+        <div onclick="closeAndGoToSection('infos')">
+            Infos
+        </div>
+        <div onclick="closeAndGoToSection('contributions')">
+            Sesame
+        </div>
+        <div onclick="closeAndGoToSection('curiosites')">
+            <span class="fr">Curiosités</span><span class="en">Curiosities</span>
+        </div>
+    </div>
     <div id="main">
         <header>
             <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
+            <!--
+            <input type="checkbox" id="nav-check">
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <hr>
+                    <hr>
+                    <hr>
+                </label>
+            </div>
+            <div class="nav-links">
+                    <a href="#prices">Tarifs</a>
+                    <a href="#about">À propos</a>
+                    <a href="mailto:contact@adequa.me">Contact</a>
+                    <a href="mailto:contact@adequa.me" class="green_button">Essai gratuit</a>
+            </div>
+            -->
         </header>
         <div id="main-row">
             <div id="content">
                     <section id="home">
-                        <div id="selavy">
+                        <div id="selavy" class="thin">
                             <span class="en">
                                 Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a
                                     href="mailto:eros@cou.cool"> Write to him </a>
@@ -85,10 +118,10 @@
                         </div>
                         <div id="scroll-down" onclick="switchSection(true, true)">
                             <div class="fr">
-                                Par ici
+                                par ici
                             </div>
                             <div class="en">
-                                This way
+                                this way
                             </div>
                             <div class="chevron">
                                 &#8964;
@@ -641,6 +674,8 @@
                                                 <p class="thin">Go solo, Narcisse Sétavy</p>
                                             </div>
                                         </div>
+                                        <div class="spacer" >
+                                        </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">
                                                 <h5>Lady Gaga</h5>
@@ -667,6 +702,7 @@
                                                 <p class="thin">Comme Jean-Jacques</p>
                                             </div>
                                         </div>
+                                        <div class="spacer"> </div>
                                         <div class="answer" data-answer="ethos">
                                             <div class="answer-content">
                                                 <h5>“Gimme, gimme more”</h5>
@@ -696,6 +732,7 @@
                                                 <p class="thin">Pour aller jouer avec les loups</p>
                                             </div>
                                         </div>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">
                                                 <h5>Princesse Mononoke</h5>
@@ -722,6 +759,7 @@
                                                 <p class="thin">L’amour à l’origine d’une flèche</p>
                                             </div>
                                         </div>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">
                                                 <h5>Éros</h5>
@@ -760,17 +798,31 @@
                                 </div>
                             </div>
                             <div class="step weezevent">
-                                    <a title="Logiciel billetterie en ligne" href="https://weezevent.com/?c=sys_widget"
+                                    <div class="three-times-payment" onclick="switchPayment()">
+                                        <div class="one-time">
+                                            Je souhaite payer en trois fois
+                                        </div>
+                                        <div class="three-times">
+                                            Je souhaite payer en une fois
+                                        </div>
+                                    </div>
+                                    <div class="weezevent-container">
+                                        <div class="one-time">
+                                           <a title="Logiciel billetterie en ligne" href="https://weezevent.com/?c=sys_widget"
                                        class="weezevent-widget-integration" target="_blank"
                                        data-src="https://widget.weezevent.com/ticket/E580171/?id_evenement=580171&\
                                        lg_billetterie=1&code=13681&color_primary=00AEEF"
                                        data-id="580171" data-noscroll="0" data-nopb="0" data-type="neo">Billetterie Weezevent</a>
-                                    <a title="Logiciel billetterie en ligne" href="https://weezevent.com/?c=sys_widget"
+                                        </div>
+                                        <div class="three-times">
+                                            <a title="Logiciel billetterie en ligne" href="https://weezevent.com/?c=sys_widget"
                                        class="weezevent-widget-integration" target="_blank"
                                        data-src="https://widget.weezevent.com/ticket/E604828/?id_evenement=604828&\
                                        lg_billetterie=1&code=28573&width_auto=1&color_primary=00AEEF"
                                        data-id="604828" data-noscroll="0" data-nopb="0" data-type="neo">Billetterie Weezevent</a>
-                                    <script type="text/javascript" src="https://widget.weezevent.com/weez.js"></script>
+                                        </div>
+                                        <script type="text/javascript" src="https://widget.weezevent.com/weez.js"></script>
+                                    </div>
                             </div>
                         </div>
                         <div class="content-container en">
@@ -802,6 +854,7 @@
                                         <div class="answer" data-answer="ethos">
                                             <div class="answer-content">Everyone coucools as they like</div>
                                         </div>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">Coucooling the other is inviting him.her and discovering
                                                 him.her</div>
@@ -821,6 +874,7 @@
                                         <div class="answer" data-answer="ethos">
                                             <div class="answer-content">The ostrich : I take it easy</div>
                                         </div>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">The ant : I am proactive</div>
                                         </div>
@@ -839,6 +893,7 @@
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">Sweetness at its best : salted caramel butter candies</div>
                                         </div>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">Practical is the new Karl : portable ashtrays</div>
                                         </div>
@@ -861,6 +916,7 @@
                                         <a href="https://youtu.be/ZyhrYis509A" target='_blank' class="answer">
                                             <div class="answer-content">"Life in plastic, it’s fantastic" – Barbie</div>
                                         </a>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">"The objective of cleaning is to feel happiness living
                                                 within that environment." – Marie Kondo</div>
@@ -895,16 +951,29 @@
                                 </div>
                             </div>
                             <div class="step weezevent">
-                                    <a title="Logiciel billetterie en ligne"
+                                    <div class="three-times-payment" onclick="switchPayment()">
+                                        <div class="one-time">
+                                            I'd like to pay in three installements
+                                        </div>
+                                        <div class="three-times">
+                                            I'd like to pay at once
+                                        </div>
+                                    </div>
+                                    <div class="weezevent-container">
+                                        <div class="one-time">
+                                            <a title="Logiciel billetterie en ligne"
                                        href="https://weezevent.com/?c=sys_widget"
                                        class="weezevent-widget-integration"
                                        target="_blank"
                                        data-src="https://widget.weezevent.com/ticket/E580171/?id_evenement=580171&\
-                                       lg_billetterie=2&code=13681&resize=1&width_auto=1&color_primary=00AEEF"
-                                       data-width="650"
-                                       data-height="600" data-id="580171" data-resize="1" data-width_auto="1"
-                                       data-noscroll="0" data-nopb="0" data-type="neo">Billetterie Weezevent</a>
-                                    <script type="text/javascript" src="https://widget.weezevent.com/weez.js"></script>
+                                       lg_billetterie=1&code=13681&color_primary=00AEEF"
+                                        data-id="580171" data-noscroll="0" data-nopb="0" data-type="neo">Billetterie Weezevent</a>
+                                        </div>
+                                        <div class="three-times">
+                                            <a title="Logiciel billetterie en ligne" href="https://weezevent.com/?c=sys_widget" class="weezevent-widget-integration" target="_blank" data-src="https://widget.weezevent.com/ticket/E604828/?id_evenement=604828&lg_billetterie=1&code=28573&width_auto=1&color_primary=00AEEF" data-id="604828"
+                                       data-noscroll="0" data-nopb="0" data-type="neo">Billetterie Weezevent</a></div>
+                                        <script type="text/javascript" src="https://widget.weezevent.com/weez.js"></script>
+                                    </div>
                             </div>
                         </div>
                     </section>
@@ -1043,7 +1112,7 @@
         </div>
         <footer>
             <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
-            <div id="credits">
+            <div id="credits" class="thin">
                 <span class="fr">Photos</span><span class="en">Artwork</span> – <a
                     href="https://gbuffer.myportfolio.com/" target="_blank">Benoit Paillet</a>
             </div>
