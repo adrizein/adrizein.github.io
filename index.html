@@ -66,14 +66,47 @@
         <h2>LOADING</h2>
     </div>
     <div id="rgbKineticSlider" class="rgbKineticSlider"></div>
+    <div id="menu-links">
+        <div class="close" onclick="toggleMenu()">
+            x
+        </div> 
+        <div onclick="closeAndGoToSection('ethos')">
+            Ethos
+        </div> 
+        <div onclick="closeAndGoToSection('infos')">
+            Infos
+        </div> 
+        <div onclick="closeAndGoToSection('contributions')">
+            Sesame
+        </div> 
+        <div onclick="closeAndGoToSection('curiosites')">
+            <span class="fr">Curiosités</span><span class="en">Curiosities</span>
+        </div> 
+    </div>
     <div id="main">
         <header>
             <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
+            <!--
+            <input type="checkbox" id="nav-check"> 
+            <div class="nav-btn">
+                <label for="nav-check">
+                    <hr>
+                    <hr>
+                    <hr>
+                </label>
+            </div> 
+            <div class="nav-links">
+                    <a href="#prices">Tarifs</a>
+                    <a href="#about">À propos</a>
+                    <a href="mailto:contact@adequa.me">Contact</a>
+                    <a href="mailto:contact@adequa.me" class="green_button">Essai gratuit</a>
+            </div> 
+            -->
         </header>
         <div id="main-row">
             <div id="content">
                     <section id="home">
-                        <div id="selavy">
+                        <div id="selavy" class="thin">
                             <span class="en">
                                 Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a
                                     href="mailto:eros@cou.cool"> Write to him </a>
@@ -85,10 +118,10 @@
                         </div>
                         <div id="scroll-down" onclick="switchSection(true, true)">
                             <div class="fr">
-                                Par ici
+                                par ici
                             </div>
                             <div class="en">
-                                This way
+                                this way
                             </div>
                             <div class="chevron">
                                 &#8964;
@@ -505,6 +538,8 @@
                                         <div class="answer" data-answer="ethos">
                                             <div class="answer-content">Chacun.e coucoole comme il lui plait</div>
                                         </div>
+                                        <div class="spacer" >
+                                        </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">Coucooler l’autre, c’est l’inviter et le découvrir</div>
                                         </div>
@@ -522,6 +557,7 @@
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">La fourmi : je participe activement</div>
                                         </div>
+                                        <div class="spacer" > </div>
                                         <a class="answer" data-answer="ethos">
                                             <div class="answer-content">L’autruche : j’me la coule douce</div>
                                         </a>
@@ -540,6 +576,7 @@
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">La douceur à l’honneur : des caramels au beurre salé</div>
                                         </div>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">Le pratique c’est chic : des cendriers de poche</div>
                                         </div>
@@ -564,6 +601,7 @@
                                         <a class="answer" href="https://youtu.be/ZyhrYis509A" target='_blank'>
                                             <div class="answer-content">"Life in plastic, it’s fantastic" – Barbie</div>
                                         </a>
+                                        <div class="spacer" > </div>
                                         <div class="answer" data-answer="next">
                                             <div class="answer-content">"Ranger, c’est faire le point sur ce qu’on aime vraiment." –
                                                 Marie Kondo</div>
@@ -867,7 +905,7 @@
         </div>
         <footer>
             <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
-            <div id="credits">
+            <div id="credits" class="thin">
                 <span class="fr">Visuels</span><span class="en">Artwork</span> – <a
                     href="https://gbuffer.myportfolio.com/" target="_blank">Benoit Paillet</a>
             </div>
