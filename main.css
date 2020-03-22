@@ -78,7 +78,7 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
-    z-index: 10;
+    z-index: 2;
 }
 
 #loader h2 {
@@ -147,7 +147,7 @@ header, footer {
     justify-content: flex-end;
     z-index: 1;
     cursor: default;
-    height:3em;
+    height: 3em;
 }
 
 header {
@@ -264,6 +264,11 @@ section {
 }
 
 #contributions .content-container  {
+    font-size: 1.4em;
+    margin-right: 5em;
+}
+
+#contributions h4 {
     font-size: 1.2em;
 }
 
@@ -288,27 +293,44 @@ iframe:first-of-type:after {
 }
 
 #curiosites  {
-    margin:auto;
+    margin: auto;
 }
 
-.qcm {
+.answers {
     display: flex;
+    justify-content: space-between;
+}
+
+.step.last .answers {
     justify-content: center;
+}
+
+.step.last .answer {
+    width: 20em;
+    text-align: center;
 }
 
 .answer {
     border: solid 1px white;
-    padding: 0.8em 1em;
+    padding: 1.3em;
     cursor: pointer;
-    font-size: 1.4em;
     text-align: left;
     position: relative;
     overflow: hidden;
     margin-left: 1em;
 }
 
-.answer a {
-    text-decoration: underline;
+.answer h5 {
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.answer p {
+    margin: 0;
+}
+
+.answer a, a.answer {
+    text-decoration: none;
 }
 
 .answer:first-child {
@@ -399,14 +421,10 @@ html:lang(en) .fr {
     list-style: none;
 }
 
-.accordion-item:last-child ul {
-    display: none;
-}
-
 .accordion-item.active ul {
     display: block;
     visibility: visible;
-    max-height: 13em;
+    max-height: 15em;
     opacity: 1;
     transition: max-height 0.5s ease-in-out 0.10s, opacity 0.25s ease-in-out 0.5s, padding 0s ease-in-out 0s, visibility 0s ease-in-out 0s;
 }
@@ -432,7 +450,7 @@ text {
 }
 
 .appearing{
-    fill:transparent;
+    fill: transparent;
     cursor: pointer;
 }
 
@@ -440,7 +458,7 @@ svg:hover .masked{
     cursor: pointer;
     stroke-width: 3;
     stroke: rgb(255,255,255);
-    fill:transparent;
+    fill: transparent;
 }
 
 svg:hover .appearing{

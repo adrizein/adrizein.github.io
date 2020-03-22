@@ -103,6 +103,8 @@ function init() {
     }
     updateLanguage(defaultLanguage);
     document.documentElement.classList.add('page-loaded');
+    const loader = document.getElementById('loader');
+    when('transitionend', loader).then(() => loader.style.display = 'none');
 
     sections = Array.from(document.querySelectorAll('#content section'));
     navigation = Array.from(document.querySelectorAll('#menu .main-nav'));
@@ -162,13 +164,13 @@ function stepAnswerHandler(step) {
 function goToNextStep(step) {
     step.classList.remove('visible');
     const nextStep = step.nextElementSibling;
-    setTimeout(() => {
+    return when('transitionend', step).then(() => {
         step.classList.remove('active');
         nextStep.classList.add('active');
-        if (nextStep.classList.contains('weezevent')) {
-        }
-        requestAnimationFrame(() => nextStep.classList.add('visible'));
-    }, 500);
+        return wait(10);
+    }).then(() => {
+        nextStep.classList.add('visible');
+    });
 }
 
 function processSectionTarget() {
@@ -207,9 +209,10 @@ function processSectionTarget() {
                 .then(() => {
                     if (sectionId === 'home') return;
                     return Promise.race([
-                        wait(2500) /*.then(() => when('mousemove', document))*/, // the commented part would unblur if the mouse moves only after 2.5 seconds
+                        wait(2500),
                         when('click', document),
-                        when('wheel', document)
+                        when('wheel', document),
+                        when('touch', document),
                     ]);
                 })
                 .then(() => {
