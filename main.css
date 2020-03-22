@@ -301,8 +301,8 @@ section {
 
 #contributions .step.weezevent.active  {
     position: fixed;
-    height: 80%;
-    top: 20%;
+    height: 100%;
+    top: 0;
     left: 0;
     overflow: scroll;
     width: 100%;
@@ -564,6 +564,11 @@ svg:hover .appearing{
 
     .answer, .three-times-payment{
         font-size: 1.2em;
+    }
+
+    #contributions .step.weezevent.active  {
+        height: 80%;
+        top: 20%;
     }
 
     iframe {
