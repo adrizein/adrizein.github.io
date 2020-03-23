@@ -106,7 +106,7 @@ function init() {
         defaultLanguage = 'en';
     }
     updateLanguage(defaultLanguage);
-    document.documentElement.classList.add('page-loaded');
+    document.body.classList.add('page-loaded');
     const loader = document.getElementById('loader');
     when('transitionend', loader).then(() => loader.style.display = 'none');
 
@@ -148,8 +148,8 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
 
-    //switchSectionOnMouseWheel();
-    //switchSectionOnSwipe();
+    switchSectionOnMouseWheel();
+    switchSectionOnSwipe();
 }
 
 
@@ -176,6 +176,11 @@ function switchPayment() {
 function goToNextStep(step) {
     step.classList.remove('visible');
     const nextStep = step.nextElementSibling;
+    if (location.hash === '#orga') {
+        nextStep.classList.add('orga');
+    } else {
+        nextStep.classList.remove('orga');
+    }
     return when('transitionend', step).then(() => {
         step.classList.remove('active');
         nextStep.classList.add('active');
@@ -186,7 +191,7 @@ function goToNextStep(step) {
 }
 
 function processSectionTarget() {
-    const sectionId = targetSections.current;
+    let sectionId = targetSections.current;
     return Promise.resolve()
         .then(() => {
             if (false && targetSections.next !== null) {
@@ -194,7 +199,12 @@ function processSectionTarget() {
                 targetSections.next = null;
                 return processSectionTarget();
             }
+
             window.location.hash = `#${sectionId}`;
+            if (sectionId === 'orga') {
+                sectionId = 'contributions';
+                steps.forEach((step) => step.classList.add('orga'));
+            }
             const currentSection = sections.find((section) => section.classList.contains('active'));
             const currentButton = navigation.find((nav) => nav.classList.contains('active'));
             const targetSection = sections.find((section) => section.id === sectionId);
@@ -360,7 +370,7 @@ const titles = [
                 rsize: 0.22,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.09,
+                rx: 0.15,
                 ry: 0.5,
             },
             mobile: {
@@ -381,7 +391,7 @@ const titles = [
                 rsize: 0.20,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.09,
+                rx: 0.1,
                 ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
@@ -404,16 +414,16 @@ const titles = [
                 rsize: 0.18,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.09,
+                rx: 0.1,
                 ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
             mobile: {
-                anchor: {x: 0.5, y: 0},
-                rsize: 0.18,
+                anchor: {x: 0, y: 0},
+                rsize: 0.16,
                 angle: 0,
-                rx: 0.5,
-                y: 0.08,
+                rx: 0.04,
+                y: 0.1,
                 pivot: { x: 0.5, y: 0.5 }
             },
         },
@@ -426,16 +436,16 @@ const titles = [
                 rsize: 0.15,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.09,
+                rx: 0.1,
                 ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
             mobile: {
-                anchor: {x: 0.5, y: 0},
-                rsize: 0.15,
+                anchor: {x: 0, y: 0},
+                rsize: 0.13,
                 angle: 0,
-                rx: 0.5,
-                y: 0.1,
+                rx: 0.04,
+                y: 40,
                 pivot: {x: 0.5, y: 0.5}
             },
         },

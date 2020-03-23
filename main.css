@@ -87,7 +87,7 @@ body {
     opacity: 1;
 }
 
-html.page-loaded.image-loaded #loader h2 {
+body.page-loaded.image-loaded #loader h2 {
     transition: opacity ease-in-out 500ms 0s;
     opacity: 0;
 }
@@ -99,7 +99,6 @@ html.page-loaded.image-loaded #loader h2 {
     left: 0;
     right: 0;
 }
-
 
 #selavy {
     transform: rotate(-90deg);
@@ -125,7 +124,7 @@ html.page-loaded.image-loaded #loader h2 {
     line-height:0.9em;
 }
 
-html.page-loaded.image-loaded #main {
+body.page-loaded.image-loaded #main {
     visibility: visible;
 }
 
@@ -146,7 +145,7 @@ html.page-loaded.image-loaded #main {
     top: 0;
     bottom:0;
     transition: 1000ms ease-in-out;
-    right:-20em;
+    right: -20em;
     background-color:black;
     display: flex;
     font-size: 3em;
@@ -267,7 +266,8 @@ section {
     font-size: 1.1em;
     opacity: 0;
     transition: opacity ease-in-out 500ms;
-    margin-left: 20%;
+    margin: 0 5em 0 25%;
+    width: 100%;
 }
 
 #content section.active {
@@ -296,49 +296,55 @@ section {
     opacity: 1;
 }
 
-#contributions .content-container  {
+#contributions {
     font-size: 1.4em;
-    margin-right: 5em;
+}
+
+#contributions .step.weezevent {
+    height: 100%;
+}
+
+#contributions .step.weezevent.active {
+    display: flex;
+    flex-direction: column;
+}
+
+#contributions .weezevent-container {
+    overflow-y: scroll;
 }
 
 #contributions h4 {
     font-size: 1.2em;
-}
-
-#contributions .step.weezevent.active  {
-    position: fixed;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: scroll;
-    width: 100%;
-
-}
-
-.weezevent-container {
-    left: 0;
-    width: 100%;
+    margin-top: 0;
 }
 
 .three-times-payment-active .three-times, .one-time {
     display: block;
 }
 
-.three-times, .three-times-payment-active .one-time {
+.three-times, .three-times-payment-active .one-time, .orga {
     display: none;
 }
 
+.step.weezevent.orga .three-times-payment {
+    display: none;
+}
+
+.step.weezevent.orga .weezevent-container > div:not(.orga) {
+    display: none;
+}
+
+.step.weezevent.orga .weezevent-container .orga {
+    display: block;
+}
+
 iframe {
-    width: 70%;
-    margin: 0 auto;
-    height: 100%;
-    left: 15%;
-    position: absolute;
-    z-index: 30;
+    width: 100%;
 }
 
 #curiosites  {
-    margin: auto;
+    margin: 0 25%;
+    justify-content: center;
 }
 
 .answers {
@@ -350,13 +356,17 @@ iframe {
     justify-content: center;
 }
 
-.spacer {
-    width: 1em;
-}
-
 .step.last .answer {
     width: 20em;
     text-align: center;
+}
+
+.answer {
+    margin-right: 1em;
+}
+
+.answer:last-child {
+    margin-right: 0;
 }
 
 .answer, .three-times-payment {
@@ -365,15 +375,14 @@ iframe {
     cursor: pointer;
     text-align: left;
     position: relative;
-    overflow: hidden;
 }
 
 .three-times-payment {
     margin: 1em auto;
-    font-size: 1em;
     max-width: 400px;
     text-align: center;
 }
+
 .answer h5 {
     margin: 0;
     font-size: 1.4em;
@@ -391,7 +400,7 @@ iframe {
     margin-left: 0;
 }
 
-.answer::after,  .three-times-payment::after{
+.answer::after,  .three-times-payment::after {
     position: absolute;
     transition: .3s;
     content: '';
@@ -478,7 +487,7 @@ html:lang(en) .fr {
 .accordion-item.active ul {
     display: block;
     visibility: visible;
-    max-height: 15em;
+    max-height: 20em;
     opacity: 1;
     transition: max-height 0.5s ease-in-out 0.10s, opacity 0.25s ease-in-out 0.5s, padding 0s ease-in-out 0s, visibility 0s ease-in-out 0s;
 }
@@ -535,12 +544,9 @@ svg:hover .appearing{
     footer, header {
         font-size: 0.9em;
     }
-}
-
-@media (max-width: 1100px) {
 
     .menu-opened #menu-links {
-        right:0em;
+        right: 0;
     }
 
     .menu-opened #main {
@@ -580,26 +586,22 @@ svg:hover .appearing{
         font-size: 4em;
     }
 
-    section {
-        margin-left: 0;
+    section, #curiosites {
+        margin: 0 5%;
     }
 
-    #contributions {
+    #contributions .answers {
         font-size: 1em;
+        flex-direction: column;
     }
 
-    .answer, .three-times-payment{
-        font-size: 1.2em;
+    #contributions .answer {
+        margin-right: 0;
+        margin-bottom: 1em;
     }
 
-    #contributions .step.weezevent.active  {
-        height: 80%;
-        top: 20%;
-    }
-
-    iframe {
-        width: 100%;
-        left: 0%;
+    #contributions .answer:last-child {
+        margin-bottom: 0;
     }
 
     @media (max-height: 400px) {
@@ -613,15 +615,15 @@ svg:hover .appearing{
     }
 }
 
+@media (max-width: 500px) {
+    #contributions {
+        font-size: 1.1em;
+    }
+}
+
 
 @media (max-width: 400px) {
     h3 {
         font-size: 3em;
-    }
-}
-
-@media (max-width: 370px) {
-    html {
-        font-size: 0.7em;
     }
 }

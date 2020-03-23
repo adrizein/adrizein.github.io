@@ -350,7 +350,7 @@
             const dateSubtitle = dateContainer.children[0];
             dateSubtitle.anchor.set(0.5, 0);
             dateSubtitle.x = title.x;
-            dateSubtitle.y = title.getBounds().bottom
+            dateSubtitle.y = title.getBounds().bottom;
             dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
         }
 
@@ -446,7 +446,7 @@
 
                         // after the first transition
                         // will prevent first animation transition
-                        is_loaded = true
+                        is_loaded = true;
 
                         // set new index
                         currentIndex = next;
@@ -671,7 +671,7 @@
         ///////////////////////////////
 
         function tilt(currentIndex, kineX, kineY) {
-            const device = getDevice()
+            const device = getDevice();
             if (options.itemsTitles.length > 0) {
                 const currentText = slideTexts[currentIndex];
                 const position = currentText.title[device];
@@ -710,25 +710,27 @@
             // construct
             build_scene();
             buildImgs();
-            buildTexts();
+            window.addEventListener('load', () => {
+                buildTexts();
 
-            // interactivity
-            cursorInteractive();
-            slideTransition(currentIndex);
+                // interactivity
+                cursorInteractive();
+                slideTransition(currentIndex);
 
-            // Listen for window resize events
-            window.addEventListener('resize', resize);
-            function resize() {
-                renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
-                renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
-                renderer.view.style.transformOrigin = '0 0';
-                resizeImgs();
-                resizeTexts();
-                renderer.render(stage);
-            }
+                // Listen for window resize events
+                window.addEventListener('resize', resize);
 
-            document.documentElement.classList.add('image-loaded');
-        };
+                function resize() {
+                    renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
+                    renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
+                    renderer.view.style.transformOrigin = '0 0';
+                    resizeImgs();
+                    resizeTexts();
+                    renderer.render(stage);
+                }
+            });
+        }
+
 
         // Load them google fonts before starting...!
         window.WebFontConfig = {
@@ -739,8 +741,12 @@
                 // load the stage images 
                 imagesLoaded(images, function () {
                     document.body.classList.remove('loading');
+                    document.body.classList.add('image-loaded');
 
-                    const hash = location.hash.slice(1);
+                    let hash = location.hash.slice(1);
+                    if (hash === 'orga') {
+                        hash = 'contributions';
+                    }
                     if (hash) {
                         const nav = document.querySelector(`.main-nav.${hash}`);
                         if (nav) {
