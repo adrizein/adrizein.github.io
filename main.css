@@ -73,7 +73,7 @@ html {
     font-family: walsheim, sans-serif;
     background-color: #000;
     color: #E6E0D5;
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 body {
@@ -115,7 +115,7 @@ body.page-loaded.image-loaded #loader h2 {
     bottom: 1em;
     left: 2em;
     transform-origin: left;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 #selavy a {
@@ -133,8 +133,8 @@ body.page-loaded.image-loaded #loader h2 {
 }
 
 .chevron{
-    font-size:1em;
-    line-height:0.9em;
+    font-size: 1em;
+    line-height: 0.9em;
 }
 
 body.page-loaded.image-loaded #main {
@@ -245,7 +245,7 @@ footer #credits a {
 #menu .main-nav div {
     width: 2.5em;
     height: 3px;
-    margin: 8px 0;
+    margin: 0.35em 0;
     background-color: #E6E0D5;
     transition: ease-in-out 500ms;
     transition-property: background, width;
@@ -277,6 +277,15 @@ section {
     transition: opacity ease-in-out 500ms;
     margin: 0 5em 0 25%;
     width: 100%;
+}
+
+
+h4 {
+    font-size: 1.1em;
+}
+
+section p {
+    margin-bottom: 0;
 }
 
 #content section.active {
@@ -651,7 +660,7 @@ svg:hover .appearing {
     }
 
     .svg-text {
-        transform: scale(1);
+        transform: scale(0.9);
     }
 }
 

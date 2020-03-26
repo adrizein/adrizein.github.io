@@ -82,6 +82,8 @@
 
         // displacement variables used for cursor moving effect
         const dispSprite_2 = PIXI.Sprite.from(options.cursorDisplacementSprite);
+        dispSprite_2.height = devicePixelRatio * 512;
+        dispSprite_2.width = devicePixelRatio * 512;
         const dispFilter_2 = new PIXI.filters.DisplacementFilter(dispSprite_2);
 
         // colors filters
@@ -182,8 +184,6 @@
             dispFilter.autoFit = false;
             dispFilter.padding = 0;
             dispSprite_2.anchor.set(0.5);
-            dispFilter_2.scale.x = 0;
-            dispFilter_2.scale.y = 0;
 
             blur.blur = 0;
             
@@ -725,7 +725,8 @@
                 function resize() {
                     renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
                     renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
-                    renderer.view.style.transformOrigin = '0 0';
+                    dispSprite_2.height = devicePixelRatio * 512;
+                    dispSprite_2.width = devicePixelRatio * 512;
                     resizeImgs();
                     resizeTexts();
                     renderer.render(stage);

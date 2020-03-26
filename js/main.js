@@ -129,6 +129,11 @@ function init() {
     const hash = location.hash.slice(1) || 'home';
     goToSection(hash);
 
+    window.addEventListener('hashchange', () => {
+        const hash = location.hash.slice(1) || 'home';
+        goToSection(hash);
+    });
+
     const accordions = Array.from(document.getElementsByClassName('accordion-item'));
     accordions.forEach((node) => {
         node.addEventListener('click', function () {
@@ -142,6 +147,8 @@ function init() {
             }
         });
     });
+
+
 
     steps.forEach((step) => {
         const answers = Array.from(step.querySelectorAll('.answer'));
@@ -345,12 +352,12 @@ const images = [
 const titles = [
     {
         title: {
-            text: "coucool",
+            text: "Coucool",
             desktop: {
                 anchor: 0.5,
                 rx: 0.5,
                 ry: 0.48,
-                size: 200,
+                size: 160,
             },
             mobile: {
                 anchor: 0.5,
@@ -367,7 +374,7 @@ const titles = [
             pivot: { x: 0.5, y: 0.5 },
             desktop: {
                 anchor: 0.5,
-                rsize: 0.22,
+                rsize: 0.2,
                 maxSize: 200,
                 angle: -90,
                 rx: 0.12,
