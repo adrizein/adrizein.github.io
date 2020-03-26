@@ -19,12 +19,6 @@ const targetSections = {
     next: null,
 };
 
-
-let touchstartX = 0;
-let touchstartY = 0;
-let touchendX = 0;
-let touchendY = 0;
-
 function switchSection(isScrollingDown, bypass) {
     if (transitioning) return;
     const content = document.getElementById("content");
@@ -241,7 +235,7 @@ function processSectionTarget() {
                         wait(2500),
                         when('click', document),
                         when('wheel', document),
-                        when('touch', document),
+                        when('touchstart', document),
                     ]);
                 })
                 .then(() => {
