@@ -285,7 +285,7 @@ h4 {
 }
 
 section p {
-    margin-bottom: 0;
+    margin: 1em 0;
 }
 
 #content section.active {
