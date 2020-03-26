@@ -115,7 +115,7 @@ body.page-loaded.image-loaded #loader h2 {
     bottom: 1em;
     left: 2em;
     transform-origin: left;
-    font-size: 0.9em;
+    font-size: 2vh;
 }
 
 #selavy a {
@@ -278,7 +278,6 @@ section {
     margin: 0 5em 0 25%;
     width: 100%;
 }
-
 
 h4 {
     font-size: 1.1em;
@@ -450,10 +449,6 @@ h3 {
     margin: 0.5em auto;
 }
 
-.thin {
-    //font-weight: 200;
-}
-
 #home h3, .title h3 {
     margin: auto;
 }
@@ -563,7 +558,7 @@ svg:hover .appearing {
     fill: #E6E0D5;
 }
 
-@media (max-height: 590px) {
+@media (max-height: 500px) {
     #selavy {
         display: none;
     }
@@ -592,7 +587,7 @@ svg:hover .appearing {
 
     #main-row {
         flex-direction: column-reverse;
-        padding: 0 2em;
+        padding: 0 1em;
     }
 
     #main-row #menu {
@@ -616,7 +611,7 @@ svg:hover .appearing {
     }
 
     section, #curiosites {
-        margin: 0 4%;
+        margin: 0
     }
 
     #contributions .answers {

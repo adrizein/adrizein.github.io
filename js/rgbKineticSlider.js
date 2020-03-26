@@ -82,8 +82,9 @@
 
         // displacement variables used for cursor moving effect
         const dispSprite_2 = PIXI.Sprite.from(options.cursorDisplacementSprite);
-        dispSprite_2.height = devicePixelRatio * 512;
-        dispSprite_2.width = devicePixelRatio * 512;
+        const size = Math.max(window.innerHeight, window.innerHeight);
+        dispSprite_2.height = devicePixelRatio * size / 1.5;
+        dispSprite_2.width = devicePixelRatio * size / 1.5;
         const dispFilter_2 = new PIXI.filters.DisplacementFilter(dispSprite_2);
 
         // colors filters
@@ -162,7 +163,6 @@
                 if (options.cursorImgEffect === true) {
                     imagesContainer.filters = [dispFilter_2, splitRgbImgs, blur];
                 }
-
                 else {
                     imagesContainer.filters = [splitRgbImgs, blur];
                 }
@@ -170,7 +170,6 @@
                 splitRgbImgs.red = [0, 0];
                 splitRgbImgs.green = [0, 0];
                 splitRgbImgs.blue = [0, 0];
-
             }
 
             else {
@@ -304,7 +303,7 @@
                         if (subtitle) {
                             dateContainer.addChild(new PIXI.Text(subtitle, {
                                 fontFamily: 'walsheim',
-                                fontSize: fontStyle.fontSize * 0.25,
+                                fontSize: fontStyle.fontSize * 0.2,
                                 fontWeight: 400,
                                 fill: options.textTitleColor,
                             }));
@@ -332,7 +331,7 @@
             let fontSize, strokeThickness;
             if (titleStyle.rsize) {
                 if (device === 'desktop') {
-                    fontSize = titleStyle.rsize * renderer.view.height;
+                    fontSize = titleStyle.rsize * renderer.view.width;
                 } else {
                     fontSize = titleStyle.rsize * renderer.view.width;
                 }
@@ -348,7 +347,7 @@
         function resizeDate(device) {
             const title = textsContainer.children[0];
             const dateSubtitle = dateContainer.children[0];
-            dateSubtitle.anchor.set(0.5, 0);
+            dateSubtitle.anchor.set(0.5, 0.1);
             dateSubtitle.x = title.x;
             dateSubtitle.y = title.getBounds().bottom;
             dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
@@ -725,8 +724,9 @@
                 function resize() {
                     renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
                     renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
-                    dispSprite_2.height = devicePixelRatio * 512;
-                    dispSprite_2.width = devicePixelRatio * 512;
+                    const size = Math.max(window.innerHeight, window.innerHeight);
+                    dispSprite_2.height = devicePixelRatio * size / 1.5;
+                    dispSprite_2.width = devicePixelRatio * size / 1.5;
                     resizeImgs();
                     resizeTexts();
                     renderer.render(stage);

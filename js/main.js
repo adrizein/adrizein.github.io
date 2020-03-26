@@ -357,7 +357,7 @@ const titles = [
                 anchor: 0.5,
                 rx: 0.5,
                 ry: 0.48,
-                size: 160,
+                rsize: 0.11,
             },
             mobile: {
                 anchor: 0.5,
@@ -382,7 +382,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0, y: 0},
-                rsize: 0.2,
+                size: 50,
                 maxSize: 150,
                 angle: 0,
                 rx: 0.04,
@@ -395,7 +395,7 @@ const titles = [
             text: "Infos",
             desktop: {
                 anchor: 0.5,
-                rsize: 0.20,
+                size: 0.20,
                 maxSize: 200,
                 angle: -90,
                 rx: 0.12,
@@ -404,7 +404,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0, y: 0},
-                rsize: 0.2,
+                size: 50,
                 maxSize: 150,
                 angle: 0,
                 rx: 0.04,
@@ -427,7 +427,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0, y: 0},
-                rsize: 0.15,
+                size: 50,
                 angle: 0,
                 rx: 0.04,
                 ry: 0,
@@ -449,7 +449,7 @@ const titles = [
             },
             mobile: {
                 anchor: {x: 0, y: 0},
-                rsize: 0.12,
+                size: 50,
                 angle: 0,
                 rx: 0.05,
                 ry: 0,
