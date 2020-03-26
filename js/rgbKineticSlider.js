@@ -565,13 +565,13 @@
 
             // track user mouse position
             function onPointerMove(e) {
-                posx = e.clientX;
-                posy = e.clientY;
+                posx = e.clientX * devicePixelRatio;
+                posy = e.clientY * devicePixelRatio;
             }
 
             function onTouchMove(e) {
-                posx = e.touches[0].clientX;
-                posy = e.touches[0].clientY;
+                posx = e.touches[0].clientX * devicePixelRatio;
+                posy = e.touches[0].clientY * devicePixelRatio;
             }
 
             // enable raf loop
@@ -591,12 +591,12 @@
             mainLoopID = requestAnimationFrame(mainLoop);
 
             // if user is out of screen
-            if (posy <= 0 || posx <= 0 || (posx >= (window.innerWidth - 1) || posy >= (window.innerHeight - 1))) {
+            if (posy <= 0 || posx <= 0 || (posx > (window.innerWidth * devicePixelRatio) || posy > (window.innerHeight * devicePixelRatio))) {
 
                 is_moving = false;
                 // re-init values
-                posx = vx = window.innerWidth / 2;
-                posy = vy = window.innerHeight / 2;
+                posx = vx = window.innerWidth * devicePixelRatio / 2;
+                posy = vy = window.innerHeight * devicePixelRatio / 2;
                 kineX = kineY = newkineX = newkineY = 0;
 
             }
@@ -710,7 +710,9 @@
             // construct
             build_scene();
             buildImgs();
-            window.addEventListener('load', () => {
+            console.log('init');
+            function onLoad() {
+                console.log('init');
                 buildTexts();
 
                 // interactivity
@@ -728,7 +730,14 @@
                     resizeTexts();
                     renderer.render(stage);
                 }
-            });
+            }
+
+            if (window.document.readyState === 'complete') {
+                onLoad();
+            } else {
+                console.log(window.loaded);
+                window.addEventListener('load', onLoad);
+            }
         }
 
 

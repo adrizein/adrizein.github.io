@@ -5,19 +5,27 @@
 
 @font-face {
     font-family: walsheim;
+    src: url("fonts/GTWalsheimProBold.otf") format("opentype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: walsheim;
     src: url("fonts/GTWalsheimProRegular.otf") format("opentype");
+    font-weight: normal;
 }
 
 @font-face {
-    font-family: walsheim_light;
+    font-family: walsheim;
     src: url("fonts/GTWalsheimProLight.otf") format("opentype");
+    font-weight: 100;
 }
 
 @font-face {
-    font-family: walsheim_thin;
+    font-family: walsheim;
     src: url("fonts/GTWalsheimProThin.otf") format("opentype");
+    font-weight: 200;
 }
-
   
 *,
 *::after,
@@ -64,8 +72,8 @@ html {
     height: 100%;
     font-family: walsheim, sans-serif;
     background-color: #000;
-    color: #FEFEFE;
-    font-size: 1em;
+    color: #E6E0D5;
+    font-size: 1.5em;
 }
 
 body {
@@ -85,6 +93,7 @@ body {
     margin: auto;
     font-size: 4em;
     opacity: 1;
+    font-weight: normal;
 }
 
 body.page-loaded.image-loaded #loader h2 {
@@ -107,6 +116,10 @@ body.page-loaded.image-loaded #loader h2 {
     left: 2em;
     transform-origin: left;
     font-size: 0.8em;
+}
+
+#selavy a {
+    font-weight: bold;
 }
 
 #scroll-down {
@@ -160,7 +173,7 @@ body.page-loaded.image-loaded #main {
 }
 
 #menu-links > div:hover {
-    color:#EEEEEE;
+    color: #EEEEEE;
 }
 
 #menu-links .close {
@@ -170,22 +183,18 @@ body.page-loaded.image-loaded #main {
 
 header, footer {
     padding: 0 2em;
-    display:flex;
+    display: flex;
     width: 100%;
     align-items: center;
     justify-content: flex-end;
     z-index: 20;
     cursor: default;
     height: 3em;
-}
-
-header {
-    justify-content: flex-end;
+    font-size: 1.1em;
 }
 
 footer .language {
     flex-grow: 1;
-    margin-left: 1em;
     display: none;
 }
 
@@ -235,16 +244,16 @@ footer #credits a {
 
 #menu .main-nav div {
     width: 2.5em;
-    height: 2px;
+    height: 3px;
     margin: 8px 0;
-    background-color: #e0e0e0a0;
+    background-color: #E6E0D5;
     transition: ease-in-out 500ms;
     transition-property: background, width;
 }
 
 #menu .main-nav.active div {
     width: 4em;
-    background-color: white;
+    background-color: #f9f3e8;
 }
 
 #content {
@@ -297,7 +306,7 @@ section {
 }
 
 #contributions {
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 #contributions .step.weezevent {
@@ -400,7 +409,7 @@ iframe {
     margin-left: 0;
 }
 
-.answer::after,  .three-times-payment::after {
+.answer::after, .three-times-payment::after {
     position: absolute;
     transition: .3s;
     content: '';
@@ -417,7 +426,7 @@ iframe {
 }
 
 a {
-    color: white;
+    color: #E6E0D5;
 }
 
 #home.active {
@@ -433,7 +442,7 @@ h3 {
 }
 
 .thin {
-    font-family: walsheim_thin, sans-serif;
+    //font-weight: 200;
 }
 
 #home h3, .title h3 {
@@ -455,6 +464,7 @@ html:lang(en) .fr {
 .accordion-item {
     cursor: pointer;
     margin: 1em 0;
+    overflow: hidden;
 }
 
 .accordion-item h4 {
@@ -468,11 +478,10 @@ html:lang(en) .fr {
 
 .accordion-item.active h4::before {
     content: '-';
-    margin-right: 0.9em;
 }
 
 .accordion-item ul {
-    margin-top: 1em;
+    margin-top: 0;
     opacity: 0;
     max-height: 0;
     visibility: hidden;
@@ -480,7 +489,12 @@ html:lang(en) .fr {
     margin-bottom: 0;
     margin-left: 0.5em;
     border-left: solid 1px white;
-    transition: max-height 0.5s ease-in-out 0s, opacity 0.25s ease-in-out 0s, padding 0s ease-in-out 0s, visibility 0s ease-in-out 0.5s;
+    transition:
+            max-height 0.5s ease-in-out 0s,
+            opacity 0.25s ease-in-out 0s,
+            padding 0s ease-in-out 0s,
+            margin-top 0.5s ease-in-out 0s,
+            visibility 0s ease-in-out 0.5s;
     list-style: none;
 }
 
@@ -489,45 +503,55 @@ html:lang(en) .fr {
     visibility: visible;
     max-height: 20em;
     opacity: 1;
-    transition: max-height 0.5s ease-in-out 0.10s, opacity 0.25s ease-in-out 0.5s, padding 0s ease-in-out 0s, visibility 0s ease-in-out 0s;
+    margin-top: 1em;
+    transition:
+            max-height 0.5s ease-in-out 0.10s,
+            opacity 0.25s ease-in-out 0.5s,
+            padding 0s ease-in-out 0s,
+            margin-top 0.5s ease-in-out 0.10s,
+            visibility 0s ease-in-out 0s;
 }
 
 .accordion li {
     font-size: 1em;
-    font-family: walsheim_thin, sans-serif;
+    font-family: walsheim, sans-serif;
     line-height: 1.5em;
 }
 
 text {
-    font-size: 1.8em;
     text-anchor: middle;
     dominant-baseline: central;
+    font-size: 28px;
 }
 
 .masked {
-    fill:rgba(255,255,255,0.8);
+    fill: #E6E0D5cc;
 }
 
 #myText {
     fill: #000;
 }
 
-.appearing{
+.svg-text {
+    margin: 1em auto;
+    transform: scale(1.2);
+}
+
+.appearing {
     fill: transparent;
     cursor: pointer;
 }
 
-svg:hover .masked{
+svg:hover .masked {
     cursor: pointer;
     stroke-width: 3;
-    stroke: rgb(255,255,255);
+    stroke: #E6E0D5;
     fill: transparent;
 }
 
-svg:hover .appearing{
+svg:hover .appearing {
     cursor: pointer;
-    font-size: 1.8em;
-    fill: white;
+    fill: #E6E0D5;
 }
 
 @media (max-height: 590px) {
@@ -538,11 +562,7 @@ svg:hover .appearing{
 
 @media (max-width: 1100px) {
     html {
-        font-size: 0.9em;
-    }
-
-    footer, header {
-        font-size: 0.9em;
+        font-size: 1.2em;
     }
 
     .menu-opened #menu-links {
@@ -566,8 +586,8 @@ svg:hover .appearing{
         padding: 0 2em;
     }
 
-    #main-row #menu{
-        margin: 2em 0;
+    #main-row #menu {
+        margin: 2em 0 4em 0;
     }
 
     #selavy, #credits, #scroll-down {
@@ -587,7 +607,7 @@ svg:hover .appearing{
     }
 
     section, #curiosites {
-        margin: 0 5%;
+        margin: 0 4%;
     }
 
     #contributions .answers {
@@ -615,15 +635,55 @@ svg:hover .appearing{
     }
 }
 
-@media (max-width: 500px) {
-    #contributions {
+@media (max-width: 760px) {
+    html {
         font-size: 1.1em;
+    }
+
+    #menu .main-nav div {
+        width: 1.5em;
+        height: 2px;
+        margin: 2px 0;
+    }
+
+    #menu .main-nav.active div {
+        width: 2em;
+    }
+
+    .svg-text {
+        transform: scale(1);
     }
 }
 
+@media (max-width: 500px) {
+    #contributions {
+        font-size: 1em;
+    }
+
+    #contributions .answer h5 {
+        font-size: 1.2em;
+    }
+
+    .answer, .three-times-payment {
+        padding: 1em;
+    }
+
+    #main-row #menu {
+        margin: 1.5em 0 2em 0;
+    }
+}
 
 @media (max-width: 400px) {
+    html {
+        font-size: 0.9em;
+    }
+
     h3 {
         font-size: 3em;
+    }
+
+    .accordion-item h4::before {
+        content: '+';
+        margin-right: 0.5em;
     }
 }

@@ -345,7 +345,7 @@ const images = [
 const titles = [
     {
         title: {
-            text: "Coucool",
+            text: "coucool",
             desktop: {
                 anchor: 0.5,
                 rx: 0.5,
@@ -370,15 +370,15 @@ const titles = [
                 rsize: 0.22,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.15,
+                rx: 0.12,
                 ry: 0.5,
             },
             mobile: {
-                anchor: {x: 0.5, y: 0},
-                rsize: 0.22,
+                anchor: {x: 0, y: 0},
+                rsize: 0.2,
                 maxSize: 150,
                 angle: 0,
-                rx: 0.5,
+                rx: 0.04,
                 ry: 0,
             },
         },
@@ -391,17 +391,17 @@ const titles = [
                 rsize: 0.20,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.1,
+                rx: 0.12,
                 ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
             mobile: {
-                anchor: {x: 0.5, y: 0},
-                rsize: 0.22,
+                anchor: {x: 0, y: 0},
+                rsize: 0.2,
                 maxSize: 150,
                 angle: 0,
-                rx: 0.5,
-                y: 0.1,
+                rx: 0.04,
+                ry: 0,
                 pivot: { x: 0.5, y: 0.5 }
             },
         },
@@ -414,16 +414,16 @@ const titles = [
                 rsize: 0.18,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.1,
+                rx: 0.12,
                 ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
             mobile: {
                 anchor: {x: 0, y: 0},
-                rsize: 0.16,
+                rsize: 0.15,
                 angle: 0,
                 rx: 0.04,
-                y: 0.1,
+                ry: 0,
                 pivot: { x: 0.5, y: 0.5 }
             },
         },
@@ -436,16 +436,16 @@ const titles = [
                 rsize: 0.15,
                 maxSize: 200,
                 angle: -90,
-                rx: 0.1,
-                ry: 0.5,
+                rx: 0.12,
+                ry: 0.04,
                 pivot: { x: 0.5, y: 0.5 },
             },
             mobile: {
                 anchor: {x: 0, y: 0},
-                rsize: 0.13,
+                rsize: 0.12,
                 angle: 0,
-                rx: 0.04,
-                y: 40,
+                rx: 0.05,
+                ry: 0,
                 pivot: {x: 0.5, y: 0.5}
             },
         },
@@ -484,7 +484,7 @@ rgbKineticSlider = new rgbKineticSlider({
     textsRgbIntensity: 0.03, // set text rgb intensity
     navTextsRgbIntensity: 15, // set text rgb intensity for regular nav
 
-    textTitleColor: 'white', // title color
+    textTitleColor: '#E6E0D5', // title color
     textTitleSize: 200, // title size
     mobileTextTitleSize: 150, // title size
     textTitleLetterspacing: 3, // title letterspacing

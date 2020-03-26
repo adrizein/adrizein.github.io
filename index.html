@@ -86,34 +86,18 @@
     <div id="main">
         <header>
             <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
-            <!--
-            <input type="checkbox" id="nav-check">
-            <div class="nav-btn">
-                <label for="nav-check">
-                    <hr>
-                    <hr>
-                    <hr>
-                </label>
-            </div>
-            <div class="nav-links">
-                    <a href="#prices">Tarifs</a>
-                    <a href="#about">À propos</a>
-                    <a href="mailto:contact@adequa.me">Contact</a>
-                    <a href="mailto:contact@adequa.me" class="green_button">Essai gratuit</a>
-            </div>
-            -->
         </header>
         <div id="main-row">
             <div id="content">
                     <section id="home">
-                        <div id="selavy" class="thin">
+                        <div id="selavy">
                             <span class="en">
                                 Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy - <a
-                                    href="mailto:eros@cou.cool"> Write to him </a>
+                                    href="mailto:eros@cou.cool" target="_blank"> Write to him </a>
                             </span>
                             <span class="fr">
                                 Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy – <a
-                                    href="mailto:eros@cou.cool"> Lui Écrire </a>
+                                    href="mailto:eros@cou.cool" target="_blank"> Lui Écrire </a>
                             </span>
                         </div>
                         <div id="scroll-down" onclick="switchSection(true, true)">
@@ -946,7 +930,7 @@
                     </section>
                     <section id="curiosites">
                         <div class="fr" style="text-align: center; margin: auto;">
-                            <div onclick="goTo('/2019')" style="margin:30px 0;">
+                            <div onclick="goTo('/2019')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="site2019">
@@ -958,7 +942,7 @@
                                     <text x="150" y="30" class="appearing">Site 2019</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/comptes/2019')" style="margin:30px 0;">
+                            <div onclick="goTo('/comptes/2019')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="bilan2019">
@@ -970,7 +954,7 @@
                                     <text x="150" y="30" class="appearing">Bilan 2019</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
+                            <div onclick="goTo('/comptes/2018')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="bilan2018">
@@ -982,7 +966,7 @@
                                     <text x="150" y="30" class="appearing">Bilan 2018</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/2018')" style="margin:30px 0;">
+                            <div onclick="goTo('/2018')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="site2018">
@@ -994,7 +978,7 @@
                                     <text x="150" y="30" class="appearing">Site 2018</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/2017')" style="margin:30px 0;">
+                            <div onclick="goTo('/2017')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="site2017">
@@ -1006,7 +990,7 @@
                                     <text x="150" y="30" class="appearing">Site 2017</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/2016')" style="margin:30px 0;">
+                            <div onclick="goTo('/2016')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="site2016">
@@ -1020,7 +1004,7 @@
                             </div>
                         </div>
                         <div class="en" style="text-align: center">
-                            <div onclick="goTo('/comptes/2018')" style="margin:30px 0;">
+                            <div onclick="goTo('/comptes/2018')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="review2018">
@@ -1032,7 +1016,7 @@
                                     <text x="150" y="30" class="appearing">2018 review</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/2018')" style="margin:30px 0;">
+                            <div onclick="goTo('/2018')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="2018website">
@@ -1044,7 +1028,7 @@
                                     <text x="150" y="30" class="appearing">2018 website</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/2017')" style="margin:30px 0;">
+                            <div onclick="goTo('/2017')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="2017website">
@@ -1056,7 +1040,7 @@
                                     <text x="150" y="30" class="appearing">2017 website</text>
                                 </svg>
                             </div>
-                            <div onclick="goTo('/2016')" style="margin:30px 0;">
+                            <div onclick="goTo('/2016')" class="svg-text">
                                 <svg viewBox="0 0 300 60" width="300" height="60">
                                     <defs>
                                         <mask id="2016website">
@@ -1091,9 +1075,9 @@
         </div>
         <footer>
             <div class="language mobile"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
-            <div id="credits" class="thin">
+            <div id="credits">
                 <span class="fr">Photos</span><span class="en">Artwork</span> – <a
-                    href="https://gbuffer.myportfolio.com/" target="_blank">Benoit Paillet</a>
+                    href="https://gbuffer.myportfolio.com/" target="_blank">Benoit Paillé</a>
             </div>
             <div id="facebook"><a href="https://www.facebook.com/coucoolcoucool" target="_blank">Facebook</a></div>
         </footer>
