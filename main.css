@@ -564,10 +564,7 @@ svg:hover .appearing {
     }
 }
 
-@media (max-width: 1100px) {
-    html {
-        font-size: 1.2em;
-    }
+@media (max-aspect-ratio: 5/4) {
 
     .menu-opened #menu-links {
         right: 0;
@@ -587,7 +584,7 @@ svg:hover .appearing {
 
     #main-row {
         flex-direction: column-reverse;
-        padding: 0 1em;
+        padding: 0 5%;
     }
 
     #main-row #menu {
@@ -628,44 +625,36 @@ svg:hover .appearing {
         margin-bottom: 0;
     }
 
-    @media (max-height: 400px) {
-        header {
-            height: 15%;
-        }
+    #contributions .last.step .answer {
+        margin: auto auto 0 auto;
+    }
 
-        section {
-            margin-left: 15%;
-        }
+    #menu .main-nav.active div {
+        width: 2em;
     }
 }
 
 @media (max-width: 760px) {
-    html {
-        font-size: 1.1em;
-    }
-
     #menu .main-nav div {
         width: 1.5em;
         height: 2px;
         margin: 2px 0;
     }
 
-    #menu .main-nav.active div {
-        width: 2em;
-    }
-
     .svg-text {
         transform: scale(0.9);
     }
-}
 
-@media (max-width: 500px) {
     #contributions {
         font-size: 1em;
     }
 
     #contributions .answer h5 {
         font-size: 1.2em;
+    }
+
+    section h4 {
+        font-size: 1em;
     }
 
     .answer, .three-times-payment {
@@ -675,9 +664,7 @@ svg:hover .appearing {
     #main-row #menu {
         margin: 1.5em 0 2em 0;
     }
-}
 
-@media (max-width: 400px) {
     html {
         font-size: 0.9em;
     }

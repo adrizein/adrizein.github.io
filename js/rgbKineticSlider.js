@@ -50,8 +50,10 @@
 
         ///////////////////////////////
 
-        let imgWidth = 1920;
-        let imgHeight = 1536;
+        const imgWidth = 1920;
+        const imgHeight = 1536;
+        const imgRatio = imgWidth / imgHeight;
+
 
         // remove pixi message in console
         PIXI.utils.skipHello();
@@ -235,8 +237,8 @@
         }
 
         function resizeImg(imgSprite) {
-            const aspectRatio = renderer.height / renderer.width;
-            if (aspectRatio < (imgHeight / imgWidth)) {
+            const aspectRatio = renderer.width / renderer.height;
+            if (aspectRatio > imgRatio) {
                 imgSprite.width = renderer.width;
                 imgSprite.height = imgHeight * (renderer.width / imgWidth);
             } else {
@@ -258,19 +260,17 @@
 
         ///////////////////////////////
 
-        function getDevice() {
-            if (window.innerWidth < 1100) {
-                if (window.innerHeight < 400) {
-                    return 'desktop';
-                }
-                return 'mobile';
+        function getOrientation() {
+            const ratio = window.innerWidth / window.innerHeight;
+            if (ratio > imgRatio) {
+                return 'landscape';
             } else {
-                return 'desktop';
+                return 'portrait';
             }
         }
 
         function buildTexts() {
-            const device = getDevice();
+            const orientation = getOrientation();
 
             // make sure array is not empty
             if (options.itemsTitles.length > 0) {
@@ -291,7 +291,7 @@
                         const item = options.itemsTitles[i];
                         const subtitle = item.subtitle;
                         const title = item.title;
-                        const fontStyle = getFontStyle(item, device);
+                        const fontStyle = getFontStyle(item, orientation);
                         const textTitle = new PIXI.Text(title.text, {
                             fontFamily,
                             fontSize: fontStyle.fontSize,
@@ -309,7 +309,7 @@
                             }));
                         }
 
-                        resizeText(textTitle, item, device);
+                        resizeText(textTitle, item, orientation);
                         textsContainer.addChild(textTitle);
 
                         // hide all titles on init
@@ -318,20 +318,20 @@
                         });
                     }
 
-                    resizeDate(device);
+                    resizeDate(orientation);
                     TweenMax.set(dateContainer, {alpha: 0});
                     slideTexts = textsContainer.children.map((child, i) => Object.assign({child}, options.itemsTitles[i]));
                 }
             }
         }
 
-        function getFontStyle(item, device) {
-            const titleStyle = item.title[device];
+        function getFontStyle(item, orientation) {
+            const titleStyle = item.title[orientation];
             const maxSize = titleStyle.maxSize || Number.POSITIVE_INFINITY;
             let fontSize, strokeThickness;
             if (titleStyle.rsize) {
-                if (device === 'desktop') {
-                    fontSize = titleStyle.rsize * renderer.view.width;
+                if (titleStyle.vertical) {
+                    fontSize = titleStyle.rsize * renderer.view.height;
                 } else {
                     fontSize = titleStyle.rsize * renderer.view.width;
                 }
@@ -344,7 +344,7 @@
             return { fontSize, strokeThickness };
         }
 
-        function resizeDate(device) {
+        function resizeDate(orientation) {
             const title = textsContainer.children[0];
             const dateSubtitle = dateContainer.children[0];
             dateSubtitle.anchor.set(0.5, 0.1);
@@ -353,15 +353,14 @@
             dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
         }
 
-        function resizeText(textTitle, item, device) {
+        function resizeText(textTitle, item, orientation) {
             const title = item.title;
-            const anchor = title[device].anchor;
-            const x = title[device].x;
-            const y = title[device].y;
-            const rx = title[device].rx;
-            const ry = title[device].ry;
-            const pivot = title[device].pivot || title.pivot;
-            const angle = title[device].angle;
+            const anchor = title[orientation].anchor;
+            const x = title[orientation].x;
+            const y = title[orientation].y;
+            const rx = title[orientation].rx;
+            const ry = title[orientation].ry;
+            const vertical = !!title[orientation].vertical;
             if (typeof anchor === 'number') {
                 textTitle.anchor.set(anchor);
             }
@@ -380,21 +379,19 @@
             if (ry === 0 || ry) {
                 textTitle.y = ry * renderer.height;
             }
-            if (pivot) {
-                textTitle.pivot = pivot;
+            if (vertical) {
+                textTitle.pivot = {x: 0.5, y: 0.5};
+                textTitle.angle = -90;
             }
-            if (angle === 0 || angle) {
-                textTitle.angle = angle;
-            }
-            const fontStyle = getFontStyle(item, device);
+            const fontStyle = getFontStyle(item, orientation);
             textTitle.style.fontSize = fontStyle.fontSize;
             textTitle.style.strokeThickness = fontStyle.strokeThickness;
         }
 
         function resizeTexts() {
-            const device = getDevice();
-            slideTexts.forEach((item) => resizeText(item.child, item, device));
-            resizeDate(device);
+            const orientation = getOrientation();
+            slideTexts.forEach((item) => resizeText(item.child, item, orientation));
+            resizeDate(orientation);
         }
 
 
@@ -670,10 +667,10 @@
         ///////////////////////////////
 
         function tilt(currentIndex, kineX, kineY) {
-            const device = getDevice();
+            const orientation = getOrientation();
             if (options.itemsTitles.length > 0) {
                 const currentText = slideTexts[currentIndex];
-                const position = currentText.title[device];
+                const position = currentText.title[orientation];
                 TweenMax.to(currentText.child, 2, {
                     x: position.rx * renderer.width - (kineX * 0.1),
                     y: position.ry * renderer.height - (kineY * 0.2),

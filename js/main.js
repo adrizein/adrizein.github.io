@@ -347,17 +347,18 @@ const titles = [
     {
         title: {
             text: "Coucool",
-            desktop: {
+            landscape: {
                 anchor: 0.5,
                 rx: 0.5,
                 ry: 0.48,
-                rsize: 0.11,
+                rsize: 0.1,
             },
-            mobile: {
+            portrait: {
                 anchor: 0.5,
                 rx: 0.5,
-                ry: 0.5,
-                rsize: 0.16,
+                ry: 0.48,
+                rsize: 0.17,
+                maxSize: 100,
             },
         },
         subtitle: "14, 15 & 16 août 2020",
@@ -365,16 +366,15 @@ const titles = [
     {
         title: {
             text: "Ethos",
-            pivot: { x: 0.5, y: 0.5 },
-            desktop: {
+            landscape: {
+                vertical: true,
                 anchor: 0.5,
                 rsize: 0.2,
                 maxSize: 200,
-                angle: -90,
                 rx: 0.12,
                 ry: 0.5,
             },
-            mobile: {
+            portrait: {
                 anchor: {x: 0, y: 0},
                 size: 50,
                 maxSize: 150,
@@ -387,7 +387,8 @@ const titles = [
     {
         title: {
             text: "Infos",
-            desktop: {
+            landscape: {
+                vertical: true,
                 anchor: 0.5,
                 size: 0.20,
                 maxSize: 200,
@@ -396,7 +397,7 @@ const titles = [
                 ry: 0.5,
                 pivot: { x: 0.5, y: 0.5 },
             },
-            mobile: {
+            portrait: {
                 anchor: {x: 0, y: 0},
                 size: 50,
                 maxSize: 150,
@@ -410,16 +411,15 @@ const titles = [
     {
         title: {
             text: "Sésame",
-            desktop: {
+            landscape: {
+                vertical: true,
                 anchor: 0.5,
                 rsize: 0.18,
                 maxSize: 200,
-                angle: -90,
                 rx: 0.12,
                 ry: 0.5,
-                pivot: { x: 0.5, y: 0.5 },
             },
-            mobile: {
+            portrait: {
                 anchor: {x: 0, y: 0},
                 size: 50,
                 angle: 0,
@@ -432,20 +432,19 @@ const titles = [
     {
         title: {
             text: "Souvenirs",
-            desktop: {
+            landscape: {
                 anchor: 0.5,
                 rsize: 0.15,
                 maxSize: 200,
-                angle: -90,
                 rx: 0.12,
                 ry: 0.04,
-                pivot: { x: 0.5, y: 0.5 },
+                vertical: true,
             },
-            mobile: {
+            portrait: {
                 anchor: {x: 0, y: 0},
                 size: 50,
                 angle: 0,
-                rx: 0.05,
+                rx: 0.04,
                 ry: 0,
                 pivot: {x: 0.5, y: 0.5}
             },
