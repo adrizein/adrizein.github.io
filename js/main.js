@@ -142,8 +142,6 @@ function init() {
         });
     });
 
-
-
     steps.forEach((step) => {
         const answers = Array.from(step.querySelectorAll('.answer'));
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
@@ -214,6 +212,7 @@ function processSectionTarget() {
             if (currentSection) currentSection.classList.remove('visible');
             if (currentButton) currentButton.classList.remove('active');
             if (targetButton) targetButton.classList.add('active');
+
             return Promise.resolve()
                 .then(() => {
                     if (false && targetSections.next !== null) {
@@ -239,14 +238,11 @@ function processSectionTarget() {
                     ]);
                 })
                 .then(() => {
-                    if (currentSection) {
-                        targetSection.classList.add('active');
-                    }
-                    requestAnimationFrame(() => {
-                        targetSection.classList.add('visible');
-                    });
-                    if (sectionId === 'home') return;
-                    return blur(1000, 20);
+                    targetSection.classList.add('active');
+                    return wait(10);
+                }).then(() => {
+                    targetSection.classList.add('visible');
+                    if (sectionId !== 'home') blur(1000, 20);
                 })
         }).then(() => {
             transitioning = false;

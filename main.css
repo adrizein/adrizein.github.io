@@ -292,11 +292,11 @@ section p {
     margin: 1em 0;
 }
 
-#content section.active {
+section.active {
     display: flex;
 }
 
-#content section.visible {
+section.visible {
     opacity: 1;
 }
 
