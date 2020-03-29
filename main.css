@@ -359,7 +359,7 @@ iframe {
     width: 100%;
 }
 
-#curiosites  {
+#souvenirs  {
     margin: 0 25%;
     justify-content: center;
 }
@@ -607,7 +607,7 @@ svg:hover .appearing {
         font-size: 4em;
     }
 
-    section, #curiosites {
+    section, #souvenirs {
         margin: 0
     }
 

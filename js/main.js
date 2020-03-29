@@ -213,7 +213,7 @@ function processSectionTarget() {
             if (currentSection === targetSection) return;
             if (currentSection) currentSection.classList.remove('visible');
             if (currentButton) currentButton.classList.remove('active');
-            targetButton.classList.add('active');
+            if (targetButton) targetButton.classList.add('active');
             return Promise.resolve()
                 .then(() => {
                     if (false && targetSections.next !== null) {
