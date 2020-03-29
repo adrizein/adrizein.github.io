@@ -363,7 +363,6 @@
             const rx = style.rx;
             const ry = style.ry;
             const vertical = style.vertical;
-            console.log(style);
             if (typeof anchor === 'number') {
                 textTitle.anchor.set(anchor);
             }

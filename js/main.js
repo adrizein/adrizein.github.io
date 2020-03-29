@@ -44,7 +44,6 @@ function switchSectionOnSwipe() {
     
     let touchstartX, touchendX, touchstart, touchend;
     gestureZone.addEventListener('touchstart', function(event) {
-        console.log(event);
         touchstartX = event.changedTouches[0].screenX;
         touchstart = event.timeStamp;
     }, false);
@@ -226,12 +225,17 @@ function processSectionTarget() {
                         targetSections.next = null;
                         return processSectionTarget();
                     }
-                    if (!loaded) return targetSection.classList.add('active');
+                    if (currentSection) {
+                        return when('transitionend', currentSection);
+                    }
+                }).then(() => {
+                    if (currentSection) currentSection.classList.remove('active');
+                    targetSection.classList.add('active');
+                    unblur(500);
+                    return wait(10);
+                }).then(() => {
+                    if (!loaded) return;
                     const index = sections.findIndex((section) => section.id === sectionId);
-                    wait(500).then(() => {
-                        if (currentSection) currentSection.classList.remove('active');
-                        unblur(500)
-                    });
                     return slideTo(index);
                 })
                 .then(() => {
@@ -243,12 +247,9 @@ function processSectionTarget() {
                         when('touchstart', document),
                     ]);
                 })
-                .then(() => {
-                    targetSection.classList.add('active');
-                    return wait(10);
-                }).then(() => {
+               .then(() => {
                     if (targetSection.querySelector('.spacer:first-child')) {
-                        content.scrollTop = window.innerHeight / 10;
+                        // content.scrollTop = window.innerHeight / 10;
                     }
                     targetSection.classList.add('visible');
                     if (sectionId !== 'home') blur(1000, 20);
