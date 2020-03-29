@@ -230,6 +230,7 @@ function processSectionTarget() {
                     unblur(500);
                     return wait(10);
                 }).then(() => {
+                    if (!loaded) return;
                     const index = sections.findIndex((section) => section.id === sectionId);
                     return slideTo(index);
                 })
