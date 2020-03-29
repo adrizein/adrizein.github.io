@@ -162,7 +162,7 @@ body.page-loaded.image-loaded #main {
     background-color:black;
     display: flex;
     font-size: 3em;
-    justify-content: space-around;
+    /*justify-content: space-around;*/
     align-items: flex-start;
     flex-direction: column;
     padding: 0 1em;
@@ -170,6 +170,7 @@ body.page-loaded.image-loaded #main {
 
 #menu-links > div {
     cursor: pointer;
+    padding: 0.5em 0;
 }
 
 #menu-links > div:hover {
@@ -630,7 +631,7 @@ svg:hover .appearing {
     }
 
     #contributions .last.step .answer {
-        margin: auto auto 0 auto;
+        margin: auto auto 1em auto;
     }
 
     #menu .main-nav.active div {
