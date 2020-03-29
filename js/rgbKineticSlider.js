@@ -380,7 +380,7 @@
                 textTitle.y = ry * renderer.height;
             }
             if (vertical) {
-                textTitle.pivot = {x: 0.5, y: 0.5};
+                textTitle.pivot.set(0.5, 0.5);
                 textTitle.angle = -90;
             }
             const fontStyle = getFontStyle(item, orientation);
