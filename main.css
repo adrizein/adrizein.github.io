@@ -190,7 +190,7 @@ header, footer {
     z-index: 20;
     cursor: default;
     height: 3em;
-    font-size: 1.1em;
+    font-size: 0.9em;
 }
 
 footer .language {
@@ -198,8 +198,12 @@ footer .language {
     display: none;
 }
 
-footer #facebook {
-    margin-left: 1em;
+footer .social {
+    margin-left: 1.5em;
+}
+
+footer #credits {
+    padding-right: 20px;
 }
 
 footer #credits a {
