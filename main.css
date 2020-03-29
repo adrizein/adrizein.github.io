@@ -510,7 +510,7 @@ html:lang(en) .fr {
 .accordion-item.active ul {
     display: block;
     visibility: visible;
-    max-height: 20em;
+    max-height: 40em;
     opacity: 1;
     margin-top: 1em;
     transition:
