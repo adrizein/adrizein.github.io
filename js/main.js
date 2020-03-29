@@ -268,9 +268,15 @@ function closeAndGoToSection(sectionId) {
     }, 1000);
 }
 
-function when(event, target) {
+function when(eventName, target) {
     if (target) {
-        return new Promise((resolve) => target.addEventListener(event, resolve));
+        return new Promise((resolve) => {
+            function eventListener(event) {
+                resolve();
+                target.removeEventListener(eventName, eventListener);
+            }
+            target.addEventListener(eventName, eventListener);
+        });
     } else {
         return Promise.resolve();
     }
