@@ -288,10 +288,10 @@
                         // ['Playfair Display:700', 'Roboto:400']
                         // for first array, get string before :
 
-                        const item = options.itemsTitles[i];
-                        const subtitle = item.subtitle;
-                        const title = item.title;
-                        const fontStyle = getFontStyle(item, orientation);
+                        const properties = options.itemsTitles[i];
+                        const subtitle = properties.subtitle;
+                        const title = properties.title;
+                        const fontStyle = getFontStyle(properties, orientation);
                         const textTitle = new PIXI.Text(title.text, {
                             fontFamily,
                             fontSize: fontStyle.fontSize,
@@ -309,7 +309,8 @@
                             }));
                         }
 
-                        resizeText(textTitle, item, orientation);
+                        textTitle.pivot.set(0.5, 0.5);
+                        resizeText(textTitle, properties, orientation);
                         textsContainer.addChild(textTitle);
 
                         // hide all titles on init
@@ -325,8 +326,8 @@
             }
         }
 
-        function getFontStyle(item, orientation) {
-            const titleStyle = item.title[orientation];
+        function getFontStyle(properties, orientation) {
+            const titleStyle = properties.title[orientation];
             const maxSize = titleStyle.maxSize || Number.POSITIVE_INFINITY;
             let fontSize, strokeThickness;
             if (titleStyle.rsize) {
@@ -355,12 +356,14 @@
 
         function resizeText(textTitle, item, orientation) {
             const title = item.title;
-            const anchor = title[orientation].anchor;
-            const x = title[orientation].x;
-            const y = title[orientation].y;
-            const rx = title[orientation].rx;
-            const ry = title[orientation].ry;
-            const vertical = !!title[orientation].vertical;
+            const style = title[orientation];
+            const anchor = style.anchor;
+            const x = style.x;
+            const y = style.y;
+            const rx = style.rx;
+            const ry = style.ry;
+            const vertical = style.vertical;
+            console.log(style);
             if (typeof anchor === 'number') {
                 textTitle.anchor.set(anchor);
             }
@@ -379,9 +382,11 @@
             if (ry === 0 || ry) {
                 textTitle.y = ry * renderer.height;
             }
+
             if (vertical) {
-                textTitle.pivot.set(0.5, 0.5);
                 textTitle.angle = -90;
+            } else {
+                textTitle.angle = 0;
             }
             const fontStyle = getFontStyle(item, orientation);
             textTitle.style.fontSize = fontStyle.fontSize;
@@ -422,7 +427,6 @@
                     },
 
                     onComplete: function () {
-
                         // reset rgb values
                         if (options.textsRgbEffect === true) {
                             splitRgb.red = [0, 0];
@@ -542,8 +546,8 @@
                         y: 0,
                         ease: Power1.easeOut
                     }, options.slideTransitionDuration);
-            })
-        };
+            });
+        }
 
         ///////////////////////////////    
 
@@ -733,7 +737,6 @@
             if (window.document.readyState === 'complete') {
                 onLoad();
             } else {
-                console.log(window.loaded);
                 window.addEventListener('load', onLoad);
             }
         }

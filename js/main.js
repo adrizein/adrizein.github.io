@@ -13,7 +13,7 @@ function updateLanguage(lang) {
     document.firstElementChild.setAttribute('lang', lang);
 }
 
-var sections, languages, navigation, steps, transitioning = false, loaded = false;
+var sections, languages, navigation, steps, transitioning = false, loaded = false, content;
 const targetSections = {
     current: null,
     next: null,
@@ -44,6 +44,7 @@ function switchSectionOnSwipe() {
     
     let touchstartX, touchendX, touchstart, touchend;
     gestureZone.addEventListener('touchstart', function(event) {
+        console.log(event);
         touchstartX = event.changedTouches[0].screenX;
         touchstart = event.timeStamp;
     }, false);
@@ -104,6 +105,7 @@ function init() {
     const loader = document.getElementById('loader');
     when('transitionend', loader).then(() => loader.style.display = 'none');
 
+    content = document.getElementById('content');
     sections = Array.from(document.querySelectorAll('#content section'));
     navigation = Array.from(document.querySelectorAll('#menu .main-nav'));
     steps = Array.from(document.querySelectorAll('#contributions .step'));
@@ -241,6 +243,9 @@ function processSectionTarget() {
                     targetSection.classList.add('active');
                     return wait(10);
                 }).then(() => {
+                    if (targetSection.querySelector('.spacer:first-child')) {
+                        content.scrollTop = window.innerHeight / 10;
+                    }
                     targetSection.classList.add('visible');
                     if (sectionId !== 'home') blur(1000, 20);
                 })
