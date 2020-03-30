@@ -250,7 +250,7 @@ function processSectionTarget() {
                 })
                .then(() => {
                     if (targetSection.querySelector('.spacer:first-child')) {
-                        // content.scrollTop = window.innerHeight / 10;
+                        content.scrollTop = window.innerHeight * 0.25;
                     }
                     targetSection.classList.add('visible');
                     if (sectionId !== 'home') blur(1000, 20);
@@ -354,7 +354,7 @@ const images = [
     "assets/4-contributions.jpg",
     "assets/5-souvenirs.jpg",
 ];
-
+const y = 14;
 // content setup
 const titles = [
     {
@@ -392,7 +392,7 @@ const titles = [
                 size: 50,
                 maxSize: 150,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },
@@ -412,7 +412,7 @@ const titles = [
                 size: 50,
                 maxSize: 150,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },
@@ -431,7 +431,7 @@ const titles = [
                 anchor: {x: 0, y: 0},
                 size: 50,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },
@@ -450,7 +450,7 @@ const titles = [
                 anchor: {x: 0, y: 0},
                 size: 50,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },

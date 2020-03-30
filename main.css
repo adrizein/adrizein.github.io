@@ -592,7 +592,7 @@ svg:hover .appearing {
 
     #main-row {
         flex-direction: column-reverse;
-        padding: 0 5%;
+        padding: 0 4%;
     }
 
     #selavy, #credits, #scroll-down {
@@ -634,7 +634,7 @@ svg:hover .appearing {
     }
 
     #menu {
-        margin: 1.5em 0 2em 0;
+        margin: 1.5em 0 2.5em 0;
     }
 
     #menu .main-nav div {
