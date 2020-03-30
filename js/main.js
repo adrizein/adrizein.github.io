@@ -169,6 +169,10 @@ function switchPayment() {
     document.documentElement.classList.toggle("three-times-payment-active");
 }
 
+function setThreeTimesPayment() {
+    document.documentElement.classList.add("three-times-payment-active");
+}
+
 /**
  *
  * @param {HTMLElement} step
