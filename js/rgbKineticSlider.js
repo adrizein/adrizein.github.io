@@ -44,16 +44,13 @@
         options.imagesRgbIntensity = options.hasOwnProperty('imagesRgbIntensity') ? options.imagesRgbIntensity : 0.9;
         options.navImagesRgbIntensity = options.hasOwnProperty('navImagesRgbIntensity') ? options.navImagesRgbIntensity : 100;
 
-        ///////////////////////////////    
-
-        //  PIXI letS
-
+        ///////////////////////////////
+        //  PIXI                     //
         ///////////////////////////////
 
         const imgWidth = 1920;
         const imgHeight = 1536;
         const imgRatio = imgWidth / imgHeight;
-
 
         // remove pixi message in console
         PIXI.utils.skipHello();
@@ -101,6 +98,7 @@
 
         let slideImages;
         let slideTexts;
+        let subtitle;
 
         // slide index
         let currentIndex = 0;
@@ -123,7 +121,7 @@
             kineY = 0;
 
         // include the web-font loader script dynamically
-        (function() {
+        (function () {
             let wf = document.createElement('script');
             wf.src = (document.location.protocol === 'https:' ? 'https' : 'http') +
                 '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
@@ -133,10 +131,8 @@
             s.parentNode.insertBefore(wf, s);
         }());
 
-        ///////////////////////////////    
-
-        //  Build pixi scene
-
+        ///////////////////////////////
+        //  Build pixi scene         //
         ///////////////////////////////
 
         function build_scene() {
@@ -157,24 +153,21 @@
             splitRgb.blue = [0, 0];
 
             textsContainer.filters = [splitRgb];
-            dateContainer.filters =  [splitRgb];
+            dateContainer.filters = [splitRgb];
 
             // apply rgbsplit effect on imgs
             if ((options.imagesRgbEffect === true) && (options.cursorImgEffect === true)) {
 
                 if (options.cursorImgEffect === true) {
                     imagesContainer.filters = [dispFilter_2, splitRgbImgs, blur];
-                }
-                else {
+                } else {
                     imagesContainer.filters = [splitRgbImgs, blur];
                 }
 
                 splitRgbImgs.red = [0, 0];
                 splitRgbImgs.green = [0, 0];
                 splitRgbImgs.blue = [0, 0];
-            }
-
-            else {
+            } else {
                 if (options.cursorImgEffect === true) {
                     imagesContainer.filters = [dispFilter_2, blur];
                 }
@@ -187,7 +180,7 @@
             dispSprite_2.anchor.set(0.5);
 
             blur.blur = 0;
-            
+
             // renderer settings
 
             //  Add children to the main container
@@ -205,10 +198,8 @@
         }
 
 
-        ///////////////////////////////    
-
-        //  Build pixi img elements
-
+        ///////////////////////////////
+        //  Build pixi img elements  //
         ///////////////////////////////
 
         function buildImgs() {
@@ -223,7 +214,7 @@
                 // center img
                 imgSprite.anchor.set(0.5);
                 resizeImg(imgSprite);
-                
+
                 // hide all imgs
                 TweenMax.set(imgSprite, {
                     alpha: 0
@@ -254,11 +245,9 @@
         }
 
 
-        ///////////////////////////////    
-
-        //  Build pixi texts elements
-
-        ///////////////////////////////
+        ////////////////////////////////
+        //  Build pixi texts elements //
+        ////////////////////////////////
 
         function getOrientation() {
             const ratio = window.innerWidth / window.innerHeight;
@@ -269,60 +258,58 @@
             }
         }
 
+        function getLanguage() {
+            return document.documentElement.lang;
+        }
+
         function buildTexts() {
             const orientation = getOrientation();
+            const language = getLanguage();
 
             // make sure array is not empty
             if (options.itemsTitles.length > 0) {
+                const fontOptions = options.fonts[0].split(':');
+                const fontFamily = fontOptions[0];
+                const fontWeight = fontOptions[1];
 
-                // build  titles
-                if (options.textsDisplay === true) {
+                for (let i = 0; i < options.itemsTitles.length; i++) {
+                    const properties = options.itemsTitles[i];
+                    const maybeSubtitle = properties.subtitle;
+                    const title = properties.title;
+                    const fontStyle = getFontStyle(properties, orientation);
+                    const text = title.text[language] || title.text;
+                    const textTitle = new PIXI.Text(text, {
+                        fontFamily,
+                        fontSize: fontStyle.fontSize,
+                        fontWeight,
+                        fill: 'transparent',
+                        stroke: options.textTitleColor,
+                        strokeThickness: fontStyle.strokeThickness,
+                    });
 
-                    const fontOptions = options.fonts[0].split(':');
-                    const fontFamily = fontOptions[0];
-                    const fontWeight = fontOptions[1];
-
-                    for (let i = 0; i < options.itemsTitles.length; i++) {
-                        // get font family value from options array
-                        // we need to separate font-family and font-weight from titles and subtitles
-                        // ['Playfair Display:700', 'Roboto:400']
-                        // for first array, get string before :
-
-                        const properties = options.itemsTitles[i];
-                        const subtitle = properties.subtitle;
-                        const title = properties.title;
-                        const fontStyle = getFontStyle(properties, orientation);
-                        const textTitle = new PIXI.Text(title.text, {
-                            fontFamily,
-                            fontSize: fontStyle.fontSize,
-                            fontWeight,
-                            fill: 'transparent',
-                            stroke: options.textTitleColor,
-                            strokeThickness: fontStyle.strokeThickness,
-                        });
-                        if (subtitle) {
-                            dateContainer.addChild(new PIXI.Text(subtitle, {
-                                fontFamily: 'walsheim',
-                                fontSize: fontStyle.fontSize * 0.2,
-                                fontWeight: 400,
-                                fill: options.textTitleColor,
-                            }));
-                        }
-
-                        textTitle.pivot.set(0.5, 0.5);
-                        resizeText(textTitle, properties, orientation);
-                        textsContainer.addChild(textTitle);
-
-                        // hide all titles on init
-                        TweenMax.set(textTitle, {
-                            alpha: 0
-                        });
+                    if (maybeSubtitle && !subtitle) {
+                        subtitle = maybeSubtitle;
+                        dateContainer.addChild(new PIXI.Text(subtitle[language], {
+                            fontFamily: 'walsheim',
+                            fontSize: fontStyle.fontSize * 0.2,
+                            fontWeight: 400,
+                            fill: options.textTitleColor,
+                        }));
                     }
 
-                    resizeDate(orientation);
-                    TweenMax.set(dateContainer, {alpha: 0});
-                    slideTexts = textsContainer.children.map((child, i) => Object.assign({child}, options.itemsTitles[i]));
+                    textTitle.pivot.set(0.5, 0.5);
+                    resizeText(textTitle, properties, orientation, language);
+                    textsContainer.addChild(textTitle);
+
+                    // hide all titles on init
+                    TweenMax.set(textTitle, {
+                        alpha: 0
+                    });
                 }
+
+                resizeDate(orientation, language);
+                TweenMax.set(dateContainer, {alpha: 0});
+                slideTexts = textsContainer.children.map((child, i) => Object.assign({child}, options.itemsTitles[i]));
             }
         }
 
@@ -337,25 +324,28 @@
                     fontSize = titleStyle.rsize * renderer.view.width;
                 }
                 fontSize = Math.min(fontSize, maxSize * devicePixelRatio);
-            }
-            else {
+            } else {
                 fontSize = titleStyle.size * devicePixelRatio;
             }
             strokeThickness = titleStyle.stroke || 3 * fontSize / 200;
-            return { fontSize, strokeThickness };
+            return {fontSize, strokeThickness};
         }
 
-        function resizeDate(orientation) {
+        function resizeDate(orientation, language) {
             const title = textsContainer.children[0];
             const dateSubtitle = dateContainer.children[0];
+            const text = subtitle[language];
+            dateSubtitle.text = text;
             dateSubtitle.anchor.set(0.5, 0.1);
             dateSubtitle.x = title.x;
             dateSubtitle.y = title.getBounds().bottom;
             dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
+            dateSubtitle.updateText(false);
         }
 
-        function resizeText(textTitle, item, orientation) {
+        function resizeText(textTitle, item, orientation, language) {
             const title = item.title;
+            const text = item.title.text[language] || item.title.text;
             const style = title[orientation];
             const anchor = style.anchor;
             const x = style.x;
@@ -363,10 +353,10 @@
             const rx = style.rx;
             const ry = style.ry;
             const vertical = style.vertical;
+            textTitle.text = text;
             if (typeof anchor === 'number') {
                 textTitle.anchor.set(anchor);
-            }
-            else if (anchor) {
+            } else if (anchor) {
                 textTitle.anchor.set(anchor.x, anchor.y);
             }
             if (x === 0 || x) {
@@ -390,19 +380,20 @@
             const fontStyle = getFontStyle(item, orientation);
             textTitle.style.fontSize = fontStyle.fontSize;
             textTitle.style.strokeThickness = fontStyle.strokeThickness;
+            textTitle.updateText(false);
         }
 
         function resizeTexts() {
+            
             const orientation = getOrientation();
-            slideTexts.forEach((item) => resizeText(item.child, item, orientation));
-            resizeDate(orientation);
+            const language = getLanguage();
+            slideTexts.forEach((item) => resizeText(item.child, item, orientation, language));
+            resizeDate(orientation, language);
         }
 
 
-        ///////////////////////////////    
-
+        ///////////////////////////////
         //  Slide transition effect
-
         ///////////////////////////////
 
         function slideTransition(next) {
@@ -416,7 +407,6 @@
                 // set timeline with callbacks
                 timelineTransition = new TimelineMax({
                     onStart: function () {
-
                         // update playing flag
                         is_playing = true;
                         // update draging flag
@@ -555,7 +545,6 @@
         ///////////////////////////////
 
         function cursorInteractive() {
-
             // mousemove event
             // because pixi stage has a 1.15 scale factor,
             // we need to use native listener in order to get the real mouse coordinates (not affected by scale)
@@ -585,21 +574,18 @@
         ///////////////////////////////
 
         function mainLoop() {
-
             // enable raf animation
             mainLoopID = requestAnimationFrame(mainLoop);
 
             // if user is out of screen
             if (posy <= 0 || posx <= 0 || (posx > (window.innerWidth * devicePixelRatio) || posy > (window.innerHeight * devicePixelRatio))) {
-
                 is_moving = false;
                 // re-init values
                 posx = vx = window.innerWidth * devicePixelRatio / 2;
                 posy = vy = window.innerHeight * devicePixelRatio / 2;
                 kineX = kineY = newkineX = newkineY = 0;
 
-            }
-            else {
+            } else {
                 is_moving = true;
             }
 
@@ -699,8 +685,19 @@
 
         ///////////////////////////////
 
-        function init() {
+        function resize() {
+            
+            renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
+            renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
+            const size = Math.max(window.innerHeight, window.innerWidth);
+            dispSprite_2.height = devicePixelRatio * size / 1.5;
+            dispSprite_2.width = devicePixelRatio * size / 1.5;
+            resizeImgs();
+            resizeTexts();
+            renderer.render(stage);
+        }
 
+        function init() {
             // re init renderer on ready
             renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
             renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
@@ -709,9 +706,8 @@
             // construct
             build_scene();
             buildImgs();
-            console.log('init');
+
             function onLoad() {
-                console.log('init');
                 buildTexts();
 
                 // interactivity
@@ -720,17 +716,7 @@
 
                 // Listen for window resize events
                 window.addEventListener('resize', resize);
-
-                function resize() {
-                    renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
-                    renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
-                    const size = Math.max(window.innerHeight, window.innerHeight);
-                    dispSprite_2.height = devicePixelRatio * size / 1.5;
-                    dispSprite_2.width = devicePixelRatio * size / 1.5;
-                    resizeImgs();
-                    resizeTexts();
-                    renderer.render(stage);
-                }
+                window.resizeCanvas = resize;
             }
 
             if (window.document.readyState === 'complete') {
@@ -739,7 +725,6 @@
                 window.addEventListener('load', onLoad);
             }
         }
-
 
         // Load them google fonts before starting...!
         window.WebFontConfig = {
@@ -768,8 +753,10 @@
             }
         };
 
-        window.slideTo =  (index) => slideTransition(index);
-        window.setBlur = (value) => { blur.blur = value; };
+        window.slideTo = (index) => slideTransition(index);
+        window.setBlur = (value) => {
+            blur.blur = value;
+        };
         window.getBlur = () => blur.blur;
     };
 })();

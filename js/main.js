@@ -10,7 +10,8 @@ function updateLanguage(lang) {
             language.classList.remove('selected');
         }
     });
-    document.firstElementChild.setAttribute('lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    if (window.resizeCanvas) window.resizeCanvas();
 }
 
 var sections, languages, navigation, steps, transitioning = false, loaded = false, content;
@@ -373,7 +374,7 @@ const titles = [
                 maxSize: 100,
             },
         },
-        subtitle: "14, 15 & 16 août 2020",
+        subtitle: {fr: "14, 15 & 16 août 2020", en: "14, 15 & 16 august 2020"},
     },
     {
         title: {
@@ -417,7 +418,7 @@ const titles = [
     },
     {
         title: {
-            text: "Sésame",
+            text: {fr: "Sésame", en: "Sesame"},
             landscape: {
                 vertical: true,
                 anchor: 0.5,
@@ -436,7 +437,7 @@ const titles = [
     },
     {
         title: {
-            text: "Souvenirs",
+            text: {fr: "Souvenirs", en: "Memories"},
             landscape: {
                 anchor: 0.5,
                 rsize: 0.15,
@@ -481,7 +482,7 @@ rgbKineticSlider = new rgbKineticSlider({
 
     textsDisplay: true, // show title
     textsTiltEffect: true, // enable text tilt
-    fonts: ['trash:700'], // select google font to use
+    fonts: ['trash:600'], // select google font to use
     buttonMode: false, // enable button mode for title
     textsRgbEffect: true, // enable text rgb effect
     textsRgbIntensity: 0.03, // set text rgb intensity
