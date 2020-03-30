@@ -1,6 +1,7 @@
 @font-face {
     font-family: trash;
     src: url("fonts/TrashBold.otf") format("opentype");
+    font-weight: 600;
 }
 
 @font-face {
@@ -233,7 +234,6 @@ footer #credits a {
 }
 
 #menu {
-    flex: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

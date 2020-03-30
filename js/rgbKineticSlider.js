@@ -744,7 +744,7 @@
         // Load them google fonts before starting...!
         window.WebFontConfig = {
             custom: {
-                families: ['trash:700', 'walsheim:400'],
+                families: ['trash:600', 'walsheim:400'],
             },
             active: function () {
                 // load the stage images 
