@@ -10,7 +10,8 @@ function updateLanguage(lang) {
             language.classList.remove('selected');
         }
     });
-    document.firstElementChild.setAttribute('lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    if (window.resizeCanvas) window.resizeCanvas();
 }
 
 var sections, languages, navigation, steps, transitioning = false, loaded = false, content;
@@ -249,7 +250,7 @@ function processSectionTarget() {
                 })
                .then(() => {
                     if (targetSection.querySelector('.spacer:first-child')) {
-                        // content.scrollTop = window.innerHeight / 10;
+                        content.scrollTop = window.innerHeight * 0.25;
                     }
                     targetSection.classList.add('visible');
                     if (sectionId !== 'home') blur(1000, 20);
@@ -353,7 +354,7 @@ const images = [
     "assets/4-contributions.jpg",
     "assets/5-souvenirs.jpg",
 ];
-
+const y = 14;
 // content setup
 const titles = [
     {
@@ -373,7 +374,7 @@ const titles = [
                 maxSize: 100,
             },
         },
-        subtitle: "14, 15 & 16 août 2020",
+        subtitle: {fr: "14, 15 & 16 août 2020", en: "14, 15 & 16 august 2020"},
     },
     {
         title: {
@@ -391,7 +392,7 @@ const titles = [
                 size: 50,
                 maxSize: 150,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },
@@ -411,13 +412,13 @@ const titles = [
                 size: 50,
                 maxSize: 150,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },
     {
         title: {
-            text: "Sésame",
+            text: {fr: "Sésame", en: "Sesame"},
             landscape: {
                 vertical: true,
                 anchor: 0.5,
@@ -430,13 +431,13 @@ const titles = [
                 anchor: {x: 0, y: 0},
                 size: 50,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },
     {
         title: {
-            text: "Souvenirs",
+            text: {fr: "Souvenirs", en: "Memories"},
             landscape: {
                 anchor: 0.5,
                 rsize: 0.15,
@@ -449,7 +450,7 @@ const titles = [
                 anchor: {x: 0, y: 0},
                 size: 50,
                 rx: 0.04,
-                ry: 0,
+                y,
             },
         },
     },
@@ -481,7 +482,7 @@ rgbKineticSlider = new rgbKineticSlider({
 
     textsDisplay: true, // show title
     textsTiltEffect: true, // enable text tilt
-    fonts: ['trash:700'], // select google font to use
+    fonts: ['trash:600'], // select google font to use
     buttonMode: false, // enable button mode for title
     textsRgbEffect: true, // enable text rgb effect
     textsRgbIntensity: 0.03, // set text rgb intensity
