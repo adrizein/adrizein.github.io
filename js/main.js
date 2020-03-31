@@ -83,6 +83,12 @@ function toggleMenu() {
     document.documentElement.classList.toggle("menu-opened");
 }
 
+function addWeezevent(){
+    var script = document.createElement("script");  // create a script DOM node
+    script.src = "https://widget.weezevent.com/weez.js";  // set its src to the provided URL
+    document.head.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+}
+
 function init() {
     var defaultLanguage = navigator.language.split('-')[0];
     languages = document.querySelectorAll('.language .button');
@@ -148,6 +154,8 @@ function init() {
         const answers = Array.from(step.querySelectorAll('.answer'));
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
+
+    addWeezevent();
 
     switchSectionOnMouseWheel();
     switchSectionOnSwipe();
