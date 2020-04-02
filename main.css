@@ -588,7 +588,7 @@ svg:hover .appearing {
     transition: opacity 500ms ease-in-out;
 }
 
-#music .audioButton:hover + span{
+#music .audioButton:hover ~ span{
     margin-left: 10px;
     opacity: 1;
 }
