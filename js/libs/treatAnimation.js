@@ -39,7 +39,7 @@ function createTreat() /* create a treat */ {
   
   elWrapper.appendChild(el);
 
-  const rect = el.getBoundingClientRect();
+  const rect = document.body //el.getBoundingClientRect();
 
   const lifetime = getRandomArbitrary(2000, 3000);
 
@@ -47,7 +47,7 @@ function createTreat() /* create a treat */ {
 
   const treat = {
     el,
-    absolutePosition: { x: rect.left, y: rect.top },
+    absolutePosition: { x: rect.left, y: rect.top-10 },
     position: { x: rect.left, y: rect.top },
     velocity: { x: vx, y: vy },
     mass: 0.1, //kg
@@ -164,6 +164,9 @@ function addTreats() {
     treats.push(createTreat());
   }
 }
+
+elButton.addEventListener("click", addTreats);
+elButton.click();
 
 window.addEventListener("resize", () => {
   width = window.innerWidth;

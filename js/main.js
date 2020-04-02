@@ -181,6 +181,7 @@ function stepAnswerHandler(step) {
 }
 
 function switchPayment() {
+    addTreats('oneAndThree');
     document.documentElement.classList.toggle("three-times-payment-active");
 }
 
@@ -599,7 +600,8 @@ const frameRate = 1 / 60;
 
 function createTreat(elWrapper) /* create a treat */ {
   const vx = getRandomArbitrary(-10, 10); // x velocity
-  const vy = getRandomArbitrary(-10, 1);  // y velocity
+    const vy = getRandomArbitrary(-10, 1);  // y velocity
+  
   
   const el = document.createElement("div");
   el.className = "treat";
@@ -623,7 +625,7 @@ function createTreat(elWrapper) /* create a treat */ {
     position: { x: rect.left, y: rect.top },
     velocity: { x: vx, y: vy },
     mass: 0.1, //kg
-    radius: el.offsetWidth, // 1px = 1cm
+    radius: 0,//el.offsetWidth, // 1px = 1cm
     restitution: -.7,
     
     lifetime,
@@ -737,9 +739,6 @@ function addTreats(wrapperId) {
     treats.push(createTreat(elWrapper));
   }
 }
-
-elButton.addEventListener("click", addTreats);
-elButton.click();
 
 window.addEventListener("resize", () => {
   width = window.innerWidth;
