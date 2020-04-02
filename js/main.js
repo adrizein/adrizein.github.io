@@ -182,6 +182,23 @@ function setThreeTimesPayment() {
     document.documentElement.classList.add("three-times-payment-active");
 }
 
+function toggleAudio() {
+    const x = document.getElementById("samples");
+    const audioButtons = Array.from(document.getElementsByClassName('audioButton'));
+    audioButtons.forEach((audioButton) => {
+        audioButton.classList.toggle("paused");
+        if(audioButton.classList.contains("paused")) {
+            x.play();
+        } else {
+            x.pause();
+        }
+    });
+}
+
+function playSample(){
+    x.play();
+}
+
 /**
  *
  * @param {HTMLElement} step

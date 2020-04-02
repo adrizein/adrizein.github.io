@@ -185,15 +185,22 @@ body.page-loaded.image-loaded #main {
 }
 
 header, footer {
-    padding: 0 2em;
+    padding: 0 1.5em;
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: flex-end;
     z-index: 20;
     cursor: default;
     height: 3em;
     font-size: 0.9em;
+}
+
+header {
+    justify-content: space-between;
+}
+
+footer {
+    justify-content: flex-end;
 }
 
 footer .language {
@@ -569,6 +576,43 @@ svg:hover .appearing {
     cursor: pointer;
     fill: #E6E0D5;
 }
+
+#music {
+    display: flex;
+    align-items: center;
+}
+
+#music span{
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+#music .audioButton:hover + span{
+    margin-left: 10px;
+    opacity: 1;
+}
+
+.audioButton {
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+    width: 0;
+    height: 18px;
+    border-color: transparent transparent transparent #FFFFFF;
+    transition: 100ms all ease;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 11px 0 11px 18px;
+    padding: 0;
+  }
+.audioButton.paused {
+    border-style: double;
+    border-width: 0px 0 0px 18px;
+  }
+.audioButton:hover {
+    border-color: transparent transparent transparent #FFFFFF;
+  }
 
 @media (max-height: 500px) {
     #selavy {
