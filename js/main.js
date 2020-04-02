@@ -155,6 +155,7 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
 
+    addAudioPlayer();
     addWeezevent();
 
     switchSectionOnMouseWheel();
@@ -181,6 +182,55 @@ function switchPayment() {
 function setThreeTimesPayment() {
     document.documentElement.classList.add("three-times-payment-active");
 }
+
+var currentSample = 0;
+
+function addAudioPlayer() {
+    var audioList = [
+        "Message en tchèque - Je pense que c_est du russe.mp3",
+        "DATA035 - Le philosophe et ses pouces de lentilles.mp3",
+        "DATA056 - la première histoire de Coucool.mp3",
+        "DATA058 - 2 galaxies.mp3",
+        "DATA059 - Je travaille pour Leave No Trace.mp3",
+        "DATA060 - La Coucool qui roucoule.mp3",
+        "DATA065 - Vendredi j_ai rencontré quelqu_un.mp3",
+        "DATA067 - C_est un peu la merde mais c_est quand même beau.mp3",
+        "DATA073 - Babi _ Baba.mp3",
+        "DATA074 - C_est beau les babos.mp3",
+        "DATA087 - Attention il y a de l_amour dans l_air.mp3",
+        "DATA088 - Je t_aime petit chat.mp3",
+        "DATA094 - Je crois juste que c_est une personne merveilleuse.mp3",
+        "DATA096 - Un jour je suis tombé fou amoureux d_une meuf.mp3",
+        "DATA099 - Je rencontre des gens par milliers.mp3",
+        "DATA100 - En galère totale avec sa tente.mp3",
+        "DATA102 - Si personne joue le jeu c_est pas drôle.mp3",
+        "DATA104 - Une rencontre, des rencontres.mp3",
+        "DATA107 - L_image d_une grande fête.mp3",
+        "DATA108 - Une idylle avec quelqu_un de mon entourage.mp3",
+        "DATA109 - Une rencontre dans une montagne.mp3",
+        "DATA110 - Elle m_a totalement séduite quand elle m_a accompagné faire caca.mp3",
+        "DATA113 - La rencontre de ma soeur.mp3",
+        "DATA117 - Le bruit des pas de la personne.mp3",
+        "DATA118 - Ne fais rien, juste kiff.mp3",
+        "DATA120 - C_est un kétosaure.mp3",
+        "DATA126 - Rejoins moi avec un maillot de bain.mp3",
+        "DATA127 - Un jour on se retrouvera dans une partouze.mp3",
+        "DATA132 - Je me suis rencontrée moi-même.mp3",
+        "DATA138 - Est-ce que on m_entend.mp3",
+        "DATA139 - On va l_appeler J.mp3"
+    ];
+    audioList.sort(function(a, b) {return 0.5 - Math.random()});
+    const samples = document.getElementById("samples");
+    samples.src = "./media/" + audioList[currentSample]
+    samples.addEventListener("ended", function() {
+        currentSample++;
+        if (currentSample == audioList.length - 1) {currentSample = 0}
+        samples.src = "./media/" + audioList[currentSample];
+        samples.play();
+    });
+    console.log("Shuffled sources");
+}
+
 
 function toggleAudio() {
     const x = document.getElementById("samples");
