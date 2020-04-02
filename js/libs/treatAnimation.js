@@ -165,9 +165,6 @@ function addTreats() {
   }
 }
 
-elButton.addEventListener("click", addTreats);
-elButton.click();
-
 window.addEventListener("resize", () => {
   width = window.innerWidth;
   height = window.innerHeight;
