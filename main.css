@@ -614,6 +614,77 @@ svg:hover .appearing {
     border-color: transparent transparent transparent #FFFFFF;
   }
 
+
+.treat-button:active {
+-webkit-transform: scale(0.8) translateY(10%);
+        transform: scale(0.8) translateY(10%);
+-webkit-transition-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+        transition-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.treat {
+--scale-x: 0;
+--scale-y: 0;
+pointer-events: none;
+display: block;
+position: absolute;
+top: 0;
+left: calc(50% - .5rem);
+border-radius: 50%;
+width: 1em;
+height: 1em;
+display: -webkit-box;
+display: flex;
+-webkit-box-pack: center;
+        justify-content: center;
+-webkit-box-align: center;
+        align-items: center;
+font-size: 5vmin;
+-webkit-transform: translate(calc( var(--x) * 1px ), calc( var(--y) * 1px )) translate(-50%, -50%);
+        transform: translate(calc( var(--x) * 1px ), calc( var(--y) * 1px )) translate(-50%, -50%);
+pointer-events: none;
+-webkit-animation: treat-enter 0.1s ease-in backwards, treat-exit 300ms linear calc( (var(--lifetime, 3000) * 1ms) - 300ms) forwards;
+        animation: treat-enter 0.1s ease-in backwards, treat-exit 300ms linear calc( (var(--lifetime, 3000) * 1ms) - 300ms) forwards;
+}
+@-webkit-keyframes treat-enter {
+from {
+    opacity: 0;
+}
+}
+@keyframes treat-enter {
+from {
+    opacity: 0;
+}
+}
+@-webkit-keyframes treat-exit {
+to {
+    opacity: 0;
+}
+}
+@keyframes treat-exit {
+to {
+    opacity: 0;
+}
+}
+.treat .inner {
+-webkit-animation: inner-rotate .6s linear infinite;
+        animation: inner-rotate .6s linear infinite;
+-webkit-transform: rotate(calc(-1turn * var(--direction) ));
+        transform: rotate(calc(-1turn * var(--direction) ));
+}
+@-webkit-keyframes inner-rotate {
+to {
+    -webkit-transform: none;
+            transform: none;
+}
+}
+@keyframes inner-rotate {
+to {
+    -webkit-transform: none;
+            transform: none;
+}
+}
+
 @media (max-height: 500px) {
     #selavy {
         display: none;

@@ -169,6 +169,11 @@ function stepAnswerHandler(step) {
         if (answer === 'next') {
             goToNextStep(step);
         }
+        else if (answer === 'nextWithDelay') {
+            setTimeout(function() {
+                goToNextStep(step)
+            }, 2000);
+        }
         else if (answer) {
             goToSection(answer);
         }
