@@ -88,7 +88,13 @@ function toggleMenu() {
 function addWeezevent() {
     var script = document.createElement("script");  // create a script DOM node
     script.src = "https://widget.weezevent.com/weez.js";  // set its src to the provided URL
-    document.body.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+    script.type = 'text/javascript';
+    document.body.appendChild(script);  // add it to the end of the body of the page
+
+    const script2 = document.createElement('script');
+    script2.src = 'https://www.weezevent.com/js/widget/min/widget.min.js';
+    script2.type = 'text/javascript';
+    document.body.appendChild(script2);
 }
 
 function init() {
