@@ -386,10 +386,6 @@ section.visible {
     display: block;
 }
 
-iframe {
-    width: 100%;
-}
-
 #souvenirs {
     margin: 0 25%;
     justify-content: center;
