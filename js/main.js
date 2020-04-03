@@ -237,7 +237,6 @@ function addAudioPlayer() {
         samples.src = "./media/" + audioList[currentSample];
         samples.play();
     });
-    console.log("Shuffled sources");
 }
 
 
@@ -609,7 +608,6 @@ function createTreat(elWrapper) /* create a treat */ {
   document.body.appendChild(el);//elWrapper.appendChild(el);
 
   const rect = elWrapper.getBoundingClientRect();
-console.log(rect)
   const lifetime = getRandomArbitrary(2000, 3000);
 
   el.style.setProperty("--lifetime", lifetime);
