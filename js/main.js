@@ -606,21 +606,21 @@ function createTreat(elWrapper) /* create a treat */ {
   inner.innerText = treatmojis[getRandomInt(0, treatmojis.length - 1)];
   el.appendChild(inner);
   
-  elWrapper.appendChild(el);
+  document.body.appendChild(el);//elWrapper.appendChild(el);
 
-  const rect = el.getBoundingClientRect();
-
+  const rect = elWrapper.getBoundingClientRect();
+console.log(rect)
   const lifetime = getRandomArbitrary(2000, 3000);
 
   el.style.setProperty("--lifetime", lifetime);
 
   const treat = {
     el,
-    absolutePosition: { x: rect.left, y: rect.top },
-    position: { x: rect.left, y: rect.top },
+    absolutePosition: { x: 0, y: 0 },//{ x: rect.left, y: rect.top },
+    position: { x: 0, y: rect.top },
     velocity: { x: vx, y: vy },
     mass: 0.1, //kg
-    radius: 0,//el.offsetWidth, // 1px = 1cm
+    radius: el.offsetWidth/2, // 1px = 1cm
     restitution: -.7,
     
     lifetime,
@@ -678,14 +678,14 @@ function createTreat(elWrapper) /* create a treat */ {
         treat.velocity.y *= treat.restitution;
         treat.position.y = height - treat.radius;
       }
-      if (treat.position.x > width - treat.radius) {
+      if (treat.position.x > width/2 - treat.radius) {
         treat.velocity.x *= treat.restitution;
-        treat.position.x = width - treat.radius;
+        treat.position.x = width/2 - treat.radius;
         treat.direction = -1;
       }
-      if (treat.position.x < treat.radius) {
+      if (treat.position.x < -width/2 + treat.radius) {
         treat.velocity.x *= treat.restitution;
-        treat.position.x = treat.radius;
+        treat.position.x = -width/2 + treat.radius;
         treat.direction = 1;
       }
 
@@ -727,7 +727,7 @@ animationLoop();
 function addTreats(wrapperId) {
     var elWrapper = document.querySelector("#"+wrapperId);
   //cancelAnimationFrame(frame);
-  if (treats.length > 40) {
+  if (treats.length > 60) {
     return;
   }
   for (let i = 0; i < 10; i++) {

@@ -627,7 +627,7 @@ svg:hover .appearing {
     z-index: 100;
     pointer-events: none;
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: calc(50% - .5rem);
     border-radius: 50%;
