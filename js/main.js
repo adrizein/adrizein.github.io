@@ -291,7 +291,16 @@ function processSectionTarget() {
             if (sectionId === 'orga') {
                 sectionId = 'contributions';
                 steps.forEach((step) => step.classList.add('orga'));
+            } else {
+                steps.forEach((step) => step.classList.remove('orga'));
             }
+
+            if (sectionId === 'contributions') {
+                content.classList.add('contributions');
+            } else {
+                content.classList.remove('contributions');
+            }
+
             const currentSection = sections.find((section) => section.classList.contains('active'));
             const currentButton = navigation.find((nav) => nav.classList.contains('active'));
             const targetSection = sections.find((section) => section.id === sectionId);
