@@ -363,15 +363,14 @@ section.visible {
 }
 
 .weezevent-container > div {
-    height: 100%;
     position: relative;
 }
 
-.weezevent-container > div {
+.weezevent-container div {
     height: 100%;
 }
 
-.weezevent-container > div > iframe {
+.weezevent-container iframe {
     height: 100%;
 }
 
