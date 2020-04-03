@@ -70,7 +70,9 @@ function switchSectionOnMouseWheel() {
         }
         deltaY += event.deltaY;
         if (Math.abs(deltaY) > deltaThreshold) {
-            switchSection(deltaY > 0);
+            if (location.hash === '#orga' || location.hash === '#contributions') {
+                switchSection(deltaY > 0);
+            }
             deltaY = 0;
         }
         else {
@@ -252,7 +254,7 @@ function toggleAudio() {
     });
 }
 
-function playSample(){
+function playSample() {
     x.play();
 }
 
@@ -281,24 +283,12 @@ function processSectionTarget() {
     let sectionId = targetSections.current;
     return Promise.resolve()
         .then(() => {
-            if (false && targetSections.next !== null) {
-                targetSections.current = targetSections.next;
-                targetSections.next = null;
-                return processSectionTarget();
-            }
-
             window.location.hash = `#${sectionId}`;
             if (sectionId === 'orga') {
                 sectionId = 'contributions';
                 steps.forEach((step) => step.classList.add('orga'));
             } else {
                 steps.forEach((step) => step.classList.remove('orga'));
-            }
-
-            if (sectionId === 'contributions') {
-                content.classList.add('contributions');
-            } else {
-                content.classList.remove('contributions');
             }
 
             const currentSection = sections.find((section) => section.classList.contains('active'));
@@ -312,11 +302,6 @@ function processSectionTarget() {
 
             return Promise.resolve()
                 .then(() => {
-                    if (false && targetSections.next !== null) {
-                        targetSections.current = targetSections.next;
-                        targetSections.next = null;
-                        return processSectionTarget();
-                    }
                     if (currentSection) {
                         return when('transitionend', currentSection);
                     }

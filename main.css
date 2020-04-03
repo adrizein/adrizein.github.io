@@ -277,10 +277,6 @@ footer #credits a {
     scrollbar-width: none;
 }
 
-#content.contributions {
-    overflow-y: visible;
-}
-
 #content::-webkit-scrollbar {
     display: none;
 }
