@@ -14,7 +14,7 @@ function updateLanguage(lang) {
     if (window.resizeCanvas) window.resizeCanvas();
 }
 
-var sections, languages, navigation, steps, transitioning = false, loaded = false, content;
+var sections, languages, navigation, steps, transitioning = false, loaded = false, content, scrolling = true;
 const targetSections = {
     current: null,
     next: null,
@@ -70,7 +70,7 @@ function switchSectionOnMouseWheel() {
         }
         deltaY += event.deltaY;
         if (Math.abs(deltaY) > deltaThreshold) {
-            if (!(location.hash === '#orga' || location.hash === '#contributions')) {
+            if (scrolling) {
                 switchSection(deltaY > 0);
             }
             deltaY = 0;
@@ -276,6 +276,7 @@ function goToNextStep(step) {
         return wait(10);
     }).then(() => {
         nextStep.classList.add('visible');
+        scrolling = !nextStep.classList.contains('weezevent');
     });
 }
 
