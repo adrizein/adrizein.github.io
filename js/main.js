@@ -70,7 +70,7 @@ function switchSectionOnMouseWheel() {
         }
         deltaY += event.deltaY;
         if (Math.abs(deltaY) > deltaThreshold) {
-            if (location.hash === '#orga' || location.hash === '#contributions') {
+            if (!(location.hash === '#orga' || location.hash === '#contributions')) {
                 switchSection(deltaY > 0);
             }
             deltaY = 0;
