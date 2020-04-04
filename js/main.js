@@ -603,7 +603,7 @@ const A = Math.PI * radius * radius / 10000; // m^2
 const ag = 9.81; // m / s^2
 const frameRate = 1 / 60;
 
-function createTreat() /* create a treat */ {
+function createTreat(elWrapper) /* create a treat */ {
     const vx = getRandomArbitrary(-10, 10); // x velocity
     const vy = getRandomArbitrary(-10, 1);  // y velocity
 
@@ -620,7 +620,7 @@ function createTreat() /* create a treat */ {
     const lifetime = getRandomArbitrary(2000, 3000);
 
     el.style.setProperty("--lifetime", lifetime);
-
+    const rect = elWrapper.getBoundingClientRect();
     const treat = {
         el,
         absolutePosition: {x: 0, y: 0},//{ x: rect.left, y: rect.top },
@@ -732,11 +732,13 @@ function animationLoop() {
 animationLoop();
 
 function addTreats(wrapperId) {
+    var elWrapper = document.querySelector("#"+wrapperId);
+
     if (treats.length > 60) {
         return;
     }
     for (let i = 0; i < 10; i++) {
-        treats.push(createTreat());
+        treats.push(createTreat(elWrapper));
     }
 }
 
