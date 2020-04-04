@@ -85,17 +85,10 @@ function toggleMenu() {
 }
 
 function addWeezevent() {
-    if (location.hash === '#orga') {
-        const script = document.createElement('script');
-        script.src = 'https://www.weezevent.com/js/widget/min/widget.min.js';
-        script.type = 'text/javascript';
-        document.body.appendChild(script);
-    } else {
-        const script = document.createElement("script");  // create a script DOM node
-        script.src = "https://widget.weezevent.com/weez.js";  // set its src to the provided URL
-        script.type = 'text/javascript';
-        document.body.appendChild(script);  // add it to the end of the body of the page
-    }
+    const script = document.createElement('script');
+    script.src = 'https://www.weezevent.com/js/widget/min/widget.min.js';
+    script.type = 'text/javascript';
+    document.body.appendChild(script);
 }
 
 function init() {
