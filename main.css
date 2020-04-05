@@ -346,7 +346,7 @@ section.visible {
 }
 
 #contributions .weezevent-container {
-    overflow-y: scroll;
+    height: 100%;
 }
 
 #contributions h4 {
@@ -362,6 +362,18 @@ section.visible {
     display: none;
 }
 
+.weezevent-container > div {
+    position: relative;
+}
+
+.weezevent-container div {
+    height: 100%;
+}
+
+.weezevent-container iframe {
+    height: 100%;
+}
+
 .step.weezevent.orga .three-times-payment {
     display: none;
 }
@@ -372,10 +384,6 @@ section.visible {
 
 .step.weezevent.orga .weezevent-container .orga {
     display: block;
-}
-
-iframe {
-    width: 100%;
 }
 
 #souvenirs {

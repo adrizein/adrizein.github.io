@@ -42,14 +42,14 @@ function switchSection(isScrollingDown, bypass) {
 
 function switchSectionOnSwipe() {
     const gestureZone = document.getElementById('content');
-    
+
     let touchstartX, touchendX, touchstart, touchend;
-    gestureZone.addEventListener('touchstart', function(event) {
+    gestureZone.addEventListener('touchstart', function (event) {
         touchstartX = event.changedTouches[0].screenX;
         touchstart = event.timeStamp;
     }, false);
 
-    gestureZone.addEventListener('touchend', function(event) {
+    gestureZone.addEventListener('touchend', function (event) {
         touchendX = event.changedTouches[0].screenX;
         touchend = event.timeStamp;
         const velocity = Math.abs(touchendX - touchstartX) / (touchend - touchstart);
@@ -58,7 +58,7 @@ function switchSectionOnSwipe() {
             touchstartX = 0;
             touchendX = 0;
         }
-    }, false); 
+    }, false);
 }
 
 function switchSectionOnMouseWheel() {
@@ -74,8 +74,7 @@ function switchSectionOnMouseWheel() {
                 switchSection(deltaY > 0);
             }
             deltaY = 0;
-        }
-        else {
+        } else {
             setTimeout(() => deltaY = 0, 200);
         }
     }, false);
@@ -86,9 +85,10 @@ function toggleMenu() {
 }
 
 function addWeezevent() {
-    var script = document.createElement("script");  // create a script DOM node
-    script.src = "https://widget.weezevent.com/weez.js";  // set its src to the provided URL
-    document.body.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+    const script = document.createElement('script');
+    script.src = 'https://www.weezevent.com/js/widget/min/widget.min.js';
+    script.type = 'text/javascript';
+    document.body.appendChild(script);
 }
 
 function init() {
@@ -144,8 +144,7 @@ function init() {
             for (const otherNode of accordions) {
                 if (otherNode.classList.contains('active')) {
                     otherNode.classList.remove('active');
-                }
-                else if (otherNode === node) {
+                } else if (otherNode === node) {
                     node.classList.add('active');
                 }
             }
@@ -170,13 +169,11 @@ function stepAnswerHandler(step) {
         const answer = this.getAttribute('data-answer');
         if (answer === 'next') {
             goToNextStep(step);
-        }
-        else if (answer === 'nextWithDelay') {
-            setTimeout(function() {
+        } else if (answer === 'nextWithDelay') {
+            setTimeout(function () {
                 goToNextStep(step)
             }, 2000);
-        }
-        else if (answer) {
+        } else if (answer) {
             goToSection(answer);
         }
     }
@@ -228,12 +225,16 @@ function addAudioPlayer() {
         "DATA138 - Est-ce que on m_entend.mp3",
         "DATA139 - On va l_appeler J.mp3"
     ];
-    audioList.sort(function(a, b) {return 0.5 - Math.random()});
+    audioList.sort(function (a, b) {
+        return 0.5 - Math.random()
+    });
     const samples = document.getElementById("samples");
     samples.src = "./media/" + audioList[currentSample]
-    samples.addEventListener("ended", function() {
+    samples.addEventListener("ended", function () {
         currentSample++;
-        if (currentSample == audioList.length - 1) {currentSample = 0}
+        if (currentSample == audioList.length - 1) {
+            currentSample = 0
+        }
         samples.src = "./media/" + audioList[currentSample];
         samples.play();
     });
@@ -245,7 +246,7 @@ function toggleAudio() {
     const audioButtons = Array.from(document.getElementsByClassName('audioButton'));
     audioButtons.forEach((audioButton) => {
         audioButton.classList.toggle("paused");
-        if(audioButton.classList.contains("paused")) {
+        if (audioButton.classList.contains("paused")) {
             x.play();
         } else {
             x.pause();
@@ -324,7 +325,7 @@ function processSectionTarget() {
                         when('touchstart', document),
                     ]);
                 })
-               .then(() => {
+                .then(() => {
                     if (targetSection.querySelector('.spacer:first-child')) {
                         content.scrollTop = window.innerHeight * 0.25;
                     }
@@ -338,19 +339,18 @@ function processSectionTarget() {
 }
 
 function goToSection(sectionId) {
-        if (!transitioning) {
-            transitioning = true;
-            targetSections.current = sectionId;
-            processSectionTarget();
-        }
-        else {
-            targetSections.next = sectionId;
-        }
+    if (!transitioning) {
+        transitioning = true;
+        targetSections.current = sectionId;
+        processSectionTarget();
+    } else {
+        targetSections.next = sectionId;
+    }
 }
 
 function closeAndGoToSection(sectionId) {
     toggleMenu();
-    setTimeout(() => {  
+    setTimeout(() => {
         goToSection(sectionId);
     }, 1000);
 }
@@ -362,6 +362,7 @@ function when(eventName, target) {
                 resolve();
                 target.removeEventListener(eventName, eventListener);
             }
+
             target.addEventListener(eventName, eventListener);
         });
     } else {
@@ -391,6 +392,7 @@ function blur(duration, target) {
                 return resolve();
             }
         }
+
         requestAnimationFrame(blurProgress);
     })
 }
@@ -417,6 +419,7 @@ function unblur(duration) {
                 return resolve();
             }
         }
+
         requestAnimationFrame(unblurProgress);
     })
 }
@@ -430,7 +433,7 @@ const images = [
     "assets/4-contributions.jpg",
     "assets/5-souvenirs.jpg",
 ];
-const y = 14;
+const y = 9;
 // content setup
 const titles = [
     {
@@ -575,11 +578,11 @@ let height = window.innerHeight;
 const body = document.body;
 
 function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
+    return Math.random() * (max - min) + min;
 }
 
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const treatmojis = ["🍬", "🍫", "🍭", "🍡", "🍩", "🍪", "🍒"];
@@ -593,147 +596,149 @@ const ag = 9.81; // m / s^2
 const frameRate = 1 / 60;
 
 function createTreat(elWrapper) /* create a treat */ {
-  const vx = getRandomArbitrary(-10, 10); // x velocity
+    const vx = getRandomArbitrary(-10, 10); // x velocity
     const vy = getRandomArbitrary(-10, 1);  // y velocity
-  
-  
-  const el = document.createElement("div");
-  el.className = "treat";
 
-  const inner = document.createElement("span");
-  inner.className = "inner";
-  inner.innerText = treatmojis[getRandomInt(0, treatmojis.length - 1)];
-  el.appendChild(inner);
-  
-  document.body.appendChild(el);//elWrapper.appendChild(el);
+    const el = document.createElement("div");
+    el.className = "treat";
 
-  const rect = elWrapper.getBoundingClientRect();
-  const lifetime = getRandomArbitrary(2000, 3000);
+    const inner = document.createElement("span");
+    inner.className = "inner";
+    inner.innerText = treatmojis[getRandomInt(0, treatmojis.length - 1)];
+    el.appendChild(inner);
 
-  el.style.setProperty("--lifetime", lifetime);
+    document.body.appendChild(el);
+    const lifetime = getRandomArbitrary(2000, 3000);
 
-  const treat = {
-    el,
-    absolutePosition: { x: 0, y: 0 },//{ x: rect.left, y: rect.top },
-    position: { x: 0, y: rect.top },
-    velocity: { x: vx, y: vy },
-    mass: 0.1, //kg
-    radius: el.offsetWidth/2, // 1px = 1cm
-    restitution: -.7,
-    
-    lifetime,
-    direction: vx > 0 ? 1 : -1,
+    el.style.setProperty("--lifetime", lifetime);
+    const rect = elWrapper.getBoundingClientRect();
+    const treat = {
+        el,
+        absolutePosition: {x: 0, y: 0},//{ x: rect.left, y: rect.top },
+        position: {x: 0, y: rect.top},
+        velocity: {x: vx, y: vy},
+        mass: 0.1, //kg
+        radius: el.offsetWidth / 2, // 1px = 1cm
+        restitution: -.7,
 
-    animating: true,
+        lifetime,
+        direction: vx > 0 ? 1 : -1,
 
-    remove() {
-      this.animating = false;
-      this.el.parentNode.removeChild(this.el);
-    },
+        animating: true,
 
-    animate() {
-      const treat = this;
-      let Fx =
-        -0.5 *
-        Cd *
-        A *
-        rho *
-        treat.velocity.x *
-        treat.velocity.x *
-        treat.velocity.x /
-        Math.abs(treat.velocity.x);
-      let Fy =
-        -0.5 *
-        Cd *
-        A *
-        rho *
-        treat.velocity.y *
-        treat.velocity.y *
-        treat.velocity.y /
-        Math.abs(treat.velocity.y);
+        remove() {
+            this.animating = false;
+            this.el.parentNode.removeChild(this.el);
+        },
 
-      Fx = isNaN(Fx) ? 0 : Fx;
-      Fy = isNaN(Fy) ? 0 : Fy;
+        animate() {
+            const treat = this;
+            let Fx =
+                -0.5 *
+                Cd *
+                A *
+                rho *
+                treat.velocity.x *
+                treat.velocity.x *
+                treat.velocity.x /
+                Math.abs(treat.velocity.x);
+            let Fy =
+                -0.5 *
+                Cd *
+                A *
+                rho *
+                treat.velocity.y *
+                treat.velocity.y *
+                treat.velocity.y /
+                Math.abs(treat.velocity.y);
 
-      // Calculate acceleration ( F = ma )
-      var ax = Fx / treat.mass;
-      var ay = ag + Fy / treat.mass;
-      // Integrate to get velocity
-      treat.velocity.x += ax * frameRate;
-      treat.velocity.y += ay * frameRate;
+            Fx = isNaN(Fx) ? 0 : Fx;
+            Fy = isNaN(Fy) ? 0 : Fy;
 
-      // Integrate to get position
-      treat.position.x += treat.velocity.x * frameRate * 100;
-      treat.position.y += treat.velocity.y * frameRate * 100;
-      
-      treat.checkBounds();
-      treat.update();
-    },
-    
-    checkBounds() {
+            // Calculate acceleration ( F = ma )
+            var ax = Fx / treat.mass;
+            var ay = ag + Fy / treat.mass;
+            // Integrate to get velocity
+            treat.velocity.x += ax * frameRate;
+            treat.velocity.y += ay * frameRate;
 
-      if (treat.position.y > height - treat.radius) {
-        treat.velocity.y *= treat.restitution;
-        treat.position.y = height - treat.radius;
-      }
-      if (treat.position.x > width/2 - treat.radius) {
-        treat.velocity.x *= treat.restitution;
-        treat.position.x = width/2 - treat.radius;
-        treat.direction = -1;
-      }
-      if (treat.position.x < -width/2 + treat.radius) {
-        treat.velocity.x *= treat.restitution;
-        treat.position.x = -width/2 + treat.radius;
-        treat.direction = 1;
-      }
+            // Integrate to get position
+            treat.position.x += treat.velocity.x * frameRate * 100;
+            treat.position.y += treat.velocity.y * frameRate * 100;
 
-    },
+            treat.checkBounds();
+            treat.update();
+        },
 
-    update() {
-      const relX = this.position.x - this.absolutePosition.x;
-      const relY = this.position.y - this.absolutePosition.y;
+        checkBounds() {
 
-      this.el.style.setProperty("--x", relX);
-      this.el.style.setProperty("--y", relY);
-      this.el.style.setProperty("--direction", this.direction);
-    }
-  };
+            if (treat.position.y > height - treat.radius) {
+                treat.velocity.y *= treat.restitution;
+                treat.position.y = height - treat.radius;
+            }
+            if (treat.position.x > width / 2 - treat.radius) {
+                treat.velocity.x *= treat.restitution;
+                treat.position.x = width / 2 - treat.radius;
+                treat.direction = -1;
+            }
+            if (treat.position.x < -width / 2 + treat.radius) {
+                treat.velocity.x *= treat.restitution;
+                treat.position.x = -width / 2 + treat.radius;
+                treat.direction = 1;
+            }
 
-  setTimeout(() => {
-    treat.remove();
-  }, lifetime);
+        },
 
-  return treat;
+        update() {
+            const relX = this.position.x - this.absolutePosition.x;
+            const relY = this.position.y - this.absolutePosition.y;
+
+            this.el.style.setProperty("--x", relX);
+            this.el.style.setProperty("--y", relY);
+            this.el.style.setProperty("--direction", this.direction);
+        }
+    };
+
+    setTimeout(() => {
+        treat.remove();
+    }, lifetime);
+
+    return treat;
 }
 
 
 function animationLoop() {
-  var i = treats.length;
-  while (i--) {
-    treats[i].animate();
+    var i = treats.length;
+    while (i--) {
+        treats[i].animate();
 
-    if (!treats[i].animating) {
-      treats.splice(i, 1);
+        if (!treats[i].animating) {
+            treats.splice(i, 1);
+        }
     }
-  }
 
-  requestAnimationFrame(animationLoop);
+    requestAnimationFrame(animationLoop);
 }
 
 animationLoop();
 
 function addTreats(wrapperId) {
     var elWrapper = document.querySelector("#"+wrapperId);
-  //cancelAnimationFrame(frame);
-  if (treats.length > 60) {
-    return;
-  }
-  for (let i = 0; i < 10; i++) {
-    treats.push(createTreat(elWrapper));
-  }
+
+    if (treats.length > 60) {
+        return;
+    }
+    for (let i = 0; i < 10; i++) {
+        treats.push(createTreat(elWrapper));
+    }
 }
 
-window.addEventListener("resize", () => {
-  width = window.innerWidth;
-  height = window.innerHeight;
+window.addEventListener('resize', () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    requestAnimationFrame(() => {
+        wait(1).then(() => {
+            if (window.resizeCanvas) resizeCanvas();
+        });
+    });
 });

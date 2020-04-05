@@ -340,7 +340,6 @@
             dateSubtitle.x = title.x;
             dateSubtitle.y = title.getBounds().bottom;
             dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
-            dateSubtitle.updateText(false);
         }
 
         function resizeText(textTitle, item, orientation, language) {
@@ -380,11 +379,9 @@
             const fontStyle = getFontStyle(item, orientation);
             textTitle.style.fontSize = fontStyle.fontSize;
             textTitle.style.strokeThickness = fontStyle.strokeThickness;
-            textTitle.updateText(false);
         }
 
         function resizeTexts() {
-            
             const orientation = getOrientation();
             const language = getLanguage();
             slideTexts.forEach((item) => resizeText(item.child, item, orientation, language));
@@ -686,7 +683,7 @@
         ///////////////////////////////
 
         function resize() {
-            
+            console.log('resizeCanvas');
             renderer.resize(window.innerWidth * devicePixelRatio, window.innerHeight * devicePixelRatio);
             renderer.view.style.transform = `scale(${1 / devicePixelRatio})`;
             const size = Math.max(window.innerHeight, window.innerWidth);
@@ -709,13 +706,10 @@
 
             function onLoad() {
                 buildTexts();
-
                 // interactivity
                 cursorInteractive();
                 slideTransition(currentIndex);
-
                 // Listen for window resize events
-                window.addEventListener('resize', resize);
                 window.resizeCanvas = resize;
             }
 
