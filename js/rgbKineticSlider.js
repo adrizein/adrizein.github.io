@@ -679,8 +679,8 @@
                     for (let i = 0; i < dateContainer.children.length; i++) {
                         const child = dateContainer.getChildAt(i);
                         TweenMax.to(child, 2, {
-                            x: position.rx * renderer.width - kineX * 0.25,
-                            y: dateY - kineY * 0.2 + child.getBounds().height * i,
+                            x: position.rx * renderer.width - kineX * 0.25 * (1 + i * 0.5),
+                            y: dateY - kineY * 0.2 * (1 + i * 0.5) + child.getBounds().height * i,
                             ease: Expo.easeOut,
                         });
                     }
