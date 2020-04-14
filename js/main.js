@@ -232,7 +232,7 @@ function addAudioPlayer() {
     samples.src = "./media/" + audioList[currentSample]
     samples.addEventListener("ended", function () {
         currentSample++;
-        if (currentSample == audioList.length - 1) {
+        if (currentSample === audioList.length - 1) {
             currentSample = 0
         }
         samples.src = "./media/" + audioList[currentSample];
@@ -454,7 +454,7 @@ const titles = [
                 maxSize: 100,
             },
         },
-        subtitle: {fr: "14, 15 & 16 août 2020", en: "14, 15 & 16 august 2020"},
+        subtitle: {fr: ["14, 15 & 16 août 2020", "Complet"], en: ["14, 15 & 16 august 2020", "Sold Out"]},
     },
     {
         title: {

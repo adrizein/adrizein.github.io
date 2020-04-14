@@ -98,7 +98,7 @@
 
         let slideImages;
         let slideTexts;
-        let subtitle;
+        let subtitles;
 
         // slide index
         let currentIndex = 0;
@@ -287,14 +287,19 @@
                         strokeThickness: fontStyle.strokeThickness,
                     });
 
-                    if (maybeSubtitle && !subtitle) {
-                        subtitle = maybeSubtitle;
-                        dateContainer.addChild(new PIXI.Text(subtitle[language], {
-                            fontFamily: 'walsheim',
-                            fontSize: fontStyle.fontSize * 0.2,
-                            fontWeight: 400,
-                            fill: options.textTitleColor,
-                        }));
+                    if (maybeSubtitle && !subtitles) {
+                        subtitles = maybeSubtitle;
+                        for (let i = 0; i < subtitles[language].length; i++) {
+                            dateContainer.addChild(new PIXI.Text(
+                                subtitles[language][i],
+                                {
+                                    fontFamily: 'walsheim',
+                                    fontSize: fontStyle.fontSize * 0.2,
+                                    fontWeight: 400,
+                                    fill: options.textTitleColor,
+                                }
+                            ));
+                        }
                     }
 
                     textTitle.pivot.set(0.5, 0.5);
@@ -333,13 +338,21 @@
 
         function resizeDate(orientation, language) {
             const title = textsContainer.children[0];
-            const dateSubtitle = dateContainer.children[0];
-            const text = subtitle[language];
-            dateSubtitle.text = text;
-            dateSubtitle.anchor.set(0.5, 0.1);
-            dateSubtitle.x = title.x;
-            dateSubtitle.y = title.getBounds().bottom;
-            dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
+            const texts = subtitles[language];
+            for (let i = 0; i < texts.length; i++) {
+                let previousContainer;
+                if (i === 0) {
+                    previousContainer = textsContainer.children[0];
+                } else {
+                    previousContainer = dateContainer.children[i - 1];
+                }
+                const dateSubtitle = dateContainer.children[i];
+                dateSubtitle.text = texts[i];
+                dateSubtitle.style.fontSize = title.style.fontSize * 0.25;
+                dateSubtitle.anchor.set(0.5, i === 0 ? 0.1 : 0);
+                dateSubtitle.x = title.x;
+                dateSubtitle.y = previousContainer.getBounds().bottom;
+            }
         }
 
         function resizeText(textTitle, item, orientation, language) {
@@ -581,7 +594,6 @@
                 posx = vx = window.innerWidth * devicePixelRatio / 2;
                 posy = vy = window.innerHeight * devicePixelRatio / 2;
                 kineX = kineY = newkineX = newkineY = 0;
-
             } else {
                 is_moving = true;
             }
@@ -620,7 +632,6 @@
 
             // if user is swipping 
             if (is_swipping) {
-
                 // update slide displacement sprite positions
                 dispSprite.x = vx;
                 dispSprite.y = vy;
@@ -665,11 +676,14 @@
 
                 if (currentIndex === 0) {
                     const dateY = currentText.child.getBounds().bottom;
-                    TweenMax.to(dateContainer.getChildAt(0), 2, {
-                        x: position.rx * renderer.width - kineX * 0.25,
-                        y: dateY - kineY * 0.2,
-                        ease: Expo.easeOut
-                    })
+                    for (let i = 0; i < dateContainer.children.length; i++) {
+                        const child = dateContainer.getChildAt(i);
+                        TweenMax.to(child, 2, {
+                            x: position.rx * renderer.width - kineX * 0.25,
+                            y: dateY - kineY * 0.2 + child.getBounds().height * i,
+                            ease: Expo.easeOut,
+                        });
+                    }
                 }
 
             }
