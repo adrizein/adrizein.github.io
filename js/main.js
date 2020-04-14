@@ -238,7 +238,6 @@ function addAudioPlayer() {
         samples.src = "./media/" + audioList[currentSample];
         samples.play();
     });
-    console.log("Shuffled sources");
 }
 
 
@@ -599,7 +598,6 @@ const frameRate = 1 / 60;
 function createTreat(elWrapper) /* create a treat */ {
     const vx = getRandomArbitrary(-10, 10); // x velocity
     const vy = getRandomArbitrary(-10, 1);  // y velocity
-
 
     const el = document.createElement("div");
     el.className = "treat";
