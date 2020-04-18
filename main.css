@@ -160,8 +160,9 @@ body.page-loaded.image-loaded #main {
     top: 0;
     bottom: 0;
     transition: 1000ms ease-in-out;
-    right: -20em;
+    right: -320px;
     background-color: black;
+    background: url("assets/menu-mobile.jpg") no-repeat fixed center;
     display: flex;
     font-size: 3em;
     /*justify-content: space-around;*/
@@ -545,6 +546,11 @@ html:lang(en) .fr {
     font-size: 1em;
     font-family: walsheim, sans-serif;
     line-height: 1.5em;
+}
+
+.accordion li:before {
+    content: "\21C0";
+    margin-right: 12px;
 }
 
 text {
