@@ -162,7 +162,7 @@ body.page-loaded.image-loaded #main {
     transition: 1000ms ease-in-out;
     right: -320px;
     background-color: black;
-    background: url("assets/menu-mobile.jpg") no-repeat fixed center;
+    background: url("assets/menu-mobile.jpg") no-repeat fixed left;
     display: flex;
     font-size: 3em;
     /*justify-content: space-around;*/
@@ -385,11 +385,6 @@ section.visible {
 
 .step.weezevent.orga .weezevent-container .orga {
     display: block;
-}
-
-#souvenirs {
-    margin: 0 25%;
-    justify-content: center;
 }
 
 .answers {
@@ -661,6 +656,40 @@ svg:hover .appearing {
     animation: treat-enter 0.1s ease-in backwards, treat-exit 300ms linear calc((var(--lifetime, 3000) * 1ms) - 300ms) forwards;
 }
 
+#souvenirs {
+    margin: 0 10% 0 25%;
+    justify-content: center;
+    font-size: 2em;
+}
+
+#souvenirs .container .row {
+    display: flex;
+    margin: 1em 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#souvenirs .row div {
+    padding: 0.5em 0;
+}
+
+#souvenirs .row .link {
+    font-size: 0.9em;
+    text-align: center;
+    padding: 0.5em 1.5em;
+    border: 1px solid #E6E0D5;
+    cursor: pointer;
+}
+
+#souvenirs .link:hover {
+    background-color: #FFFFFF77;
+    color: #000000AA;
+}
+
+#souvenirs .edition {
+    font-weight: 600;
+}
+
 @-webkit-keyframes treat-enter {
     from {
         opacity: 0;
@@ -713,6 +742,10 @@ svg:hover .appearing {
 }
 
 @media (max-aspect-ratio: 5/4) {
+
+    #souvenirs .row div.site, #souvenirs .row div.bilan {
+        padding: 0.5em;
+    }
 
     .menu-opened #menu-links {
         right: 0;
@@ -787,6 +820,10 @@ svg:hover .appearing {
 @media (max-width: 760px) {
     .svg-text {
         transform: scale(0.9);
+    }
+
+    #souvenirs {
+        font-size: 1.8em;
     }
 
     #contributions {

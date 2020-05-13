@@ -156,6 +156,22 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
 
+    const isMobileDevice = /Mobi/i.test(window.navigator.userAgent)
+    if (isMobileDevice) {
+        const facebook = document.getElementById('facebook').getElementsByTagName('a')[0];
+        const instagram = document.getElementById('instagram').getElementsByTagName('a')[0];
+        function tryOpenApp(event) {
+            const appUrl = event.path[1].getAttribute('data-app');
+            if (!window.open(appUrl)) {
+            } else {
+                event.preventDefault();
+            }
+        }
+
+        facebook.addEventListener('click', tryOpenApp);
+        instagram.addEventListener('click', tryOpenApp);
+    }
+
     addAudioPlayer();
     addWeezevent();
 
@@ -319,7 +335,7 @@ function processSectionTarget() {
                 .then(() => {
                     if (sectionId === 'home') return;
                     return Promise.race([
-                        wait(2500),
+                        wait(2000),
                         when('click', document),
                         when('wheel', document),
                         when('touchstart', document),
