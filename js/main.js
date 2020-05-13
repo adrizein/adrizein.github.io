@@ -156,7 +156,7 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
 
-    const isMobileDevice = /Mobi|Android/i.test(window.navigator.userAgent)
+    const isMobileDevice = /Mobi|Android|iPhone|iPad|iOS/i.test(window.navigator.userAgent);
     const facebook = document.getElementById('facebook').getElementsByTagName('a')[0];
     const instagram = document.getElementById('instagram').getElementsByTagName('a')[0];
 
