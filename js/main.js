@@ -156,20 +156,20 @@ function init() {
         answers.forEach((answer) => answer.addEventListener('click', stepAnswerHandler(step)));
     });
 
-    const isMobileDevice = /Mobi/i.test(window.navigator.userAgent)
-    if (isMobileDevice) {
-        const facebook = document.getElementById('facebook').getElementsByTagName('a')[0];
-        const instagram = document.getElementById('instagram').getElementsByTagName('a')[0];
-        function tryOpenApp(event) {
-            const appUrl = event.path[1].getAttribute('data-app');
-            if (!window.open(appUrl)) {
-            } else {
-                event.preventDefault();
-            }
-        }
+    const isMobileDevice = /Mobi|Android/i.test(window.navigator.userAgent)
+    const facebook = document.getElementById('facebook').getElementsByTagName('a')[0];
+    const instagram = document.getElementById('instagram').getElementsByTagName('a')[0];
 
-        facebook.addEventListener('click', tryOpenApp);
-        instagram.addEventListener('click', tryOpenApp);
+    function useAppUrl(link) {
+        const appUrl = link.getAttribute('data-app');
+        if (appUrl) {
+            link.setAttribute('href', appUrl);
+        }
+    }
+
+    if (isMobileDevice) {
+        useAppUrl(facebook);
+        useAppUrl(instagram);
     }
 
     addAudioPlayer();
@@ -469,7 +469,7 @@ const titles = [
                 maxSize: 100,
             },
         },
-        subtitle: {fr: ["14, 15 & 16 août 2020", "Complet"], en: ["14, 15 & 16 august 2020", "Sold Out"]},
+        subtitle: { fr: ["14, 15 & 16 août 2020", "Complet"], en: ["14, 15 & 16 august 2020", "Sold Out"] },
     },
     {
         title: {
@@ -483,7 +483,7 @@ const titles = [
                 ry: 0.5,
             },
             portrait: {
-                anchor: {x: 0, y: 0},
+                anchor: { x: 0, y: 0 },
                 size: 50,
                 maxSize: 150,
                 rx: 0.04,
@@ -503,7 +503,7 @@ const titles = [
                 ry: 0.5,
             },
             portrait: {
-                anchor: {x: 0, y: 0},
+                anchor: { x: 0, y: 0 },
                 size: 50,
                 maxSize: 150,
                 rx: 0.04,
@@ -513,7 +513,7 @@ const titles = [
     },
     {
         title: {
-            text: {fr: "Sésame", en: "Sesame"},
+            text: { fr: "Sésame", en: "Sesame" },
             landscape: {
                 vertical: true,
                 anchor: 0.5,
@@ -523,7 +523,7 @@ const titles = [
                 ry: 0.5,
             },
             portrait: {
-                anchor: {x: 0, y: 0},
+                anchor: { x: 0, y: 0 },
                 size: 50,
                 rx: 0.04,
                 y,
@@ -532,7 +532,7 @@ const titles = [
     },
     {
         title: {
-            text: {fr: "Souvenirs", en: "Memories"},
+            text: { fr: "Souvenirs", en: "Memories" },
             landscape: {
                 anchor: 0.5,
                 rsize: 0.15,
@@ -542,7 +542,7 @@ const titles = [
                 vertical: true,
             },
             portrait: {
-                anchor: {x: 0, y: 0},
+                anchor: { x: 0, y: 0 },
                 size: 50,
                 rx: 0.04,
                 y,
@@ -630,9 +630,9 @@ function createTreat(elWrapper) /* create a treat */ {
     const rect = elWrapper.getBoundingClientRect();
     const treat = {
         el,
-        absolutePosition: {x: 0, y: 0},//{ x: rect.left, y: rect.top },
-        position: {x: 0, y: rect.top},
-        velocity: {x: vx, y: vy},
+        absolutePosition: { x: 0, y: 0 },//{ x: rect.left, y: rect.top },
+        position: { x: 0, y: rect.top },
+        velocity: { x: vx, y: vy },
         mass: 0.1, //kg
         radius: el.offsetWidth / 2, // 1px = 1cm
         restitution: -.7,
@@ -739,7 +739,7 @@ function animationLoop() {
 animationLoop();
 
 function addTreats(wrapperId) {
-    var elWrapper = document.querySelector("#"+wrapperId);
+    var elWrapper = document.querySelector("#" + wrapperId);
 
     if (treats.length > 60) {
         return;
