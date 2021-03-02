@@ -7,6 +7,19 @@
           content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3.0, user-scalable=yes">
 
     <title>Coucool 2020</title>
+    <!--
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-76695112-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+     -->
 
     <meta name="description" content="Coucool est un rassemblement artistique et bienveillant, mis en fête par Éros Sélavy /
     Coucool is an artistic and benevolent celebration, hosted by Éros Sélavy
@@ -69,7 +82,18 @@
 </div>
 <div id="main">
     <header>
-        <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en" class="button">En</span></div>
+        <div id="music">
+            <audio id="samples"
+                   src="./media/DATA126 - Rejoins moi avec un maillot de bain.mp3">
+                Your browser does not support the
+                <code>audio</code> element.
+            </audio>
+            <div class='audioButton' onclick="toggleAudio()"></div>
+            <span class="fr">Enregistrés à Coucool en juillet 2019 par Noémie Gmür & Arthur Baude</span>
+            <span class="en">Recorded at Coucool in July 2019 by Noémie Gmür & Arthur Baude</span>
+        </div>
+        <div class="language"><span class="button" data-lang="fr">Fr</span> - <span data-lang="en"
+                                                                                    class="button">En</span></div>
     </header>
     <div id="main-row">
         <div id="content">
